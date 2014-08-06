@@ -6,5 +6,6 @@ avatar generator web service
 Contributors
 =============
 
-* santiaago
+* [Santiago](https://github.com/santiaago)
+* [Remy](https://github.com/rjourde)
 
