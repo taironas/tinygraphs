@@ -1,1 +1,1 @@
-web: gree-albatros
+web: green-albatros
