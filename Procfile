@@ -1,0 +1,1 @@
+web: gree-albatros
