@@ -1,4 +1,4 @@
-green-albatros
+greentros
 ==============
 
 avatar generator web service
