@@ -36,12 +36,12 @@ Run App
 
 Build
 ======
-    >`cd $GOPATH/src/github.com/greentros`
-    >`go get`
+    >cd $GOPATH/src/github.com/greentros
+    >go get
 
 Deploy
 =======
-    santiagos-MacBook-Pro:greentros santiaago$ git push heroku master
+    > git push heroku master
     Fetching repository, done.
     Counting objects: 5, done.
     Delta compression using up to 8 threads.
