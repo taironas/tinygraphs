@@ -9,6 +9,10 @@ Contributors
 * [Santiago](https://github.com/santiaago)
 * [Remy](https://github.com/rjourde)
 
+Organization
+=====
+
+Lets start with a milestone each 2 weeks for now.
 
 Stack
 ======
