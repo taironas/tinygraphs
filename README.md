@@ -41,6 +41,15 @@ Build
 
 Deploy
 =======
+Before you start be sure to have the proper rsa key. [See Managing Your SSH Keys](https://devcenter.heroku.com/articles/keys) for more details and that. Also be sure to be logged in with heroku.
+
+    > heroku login
+    Enter your Heroku credentials.
+    Email: ga@greentros.com
+    Password: 
+    
+After that you can deploy as follows:
+    
     > git push heroku master
     Fetching repository, done.
     Counting objects: 5, done.
