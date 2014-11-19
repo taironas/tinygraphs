@@ -20,9 +20,9 @@ Stack
 Installation
 
 *   `go get github.com/taironas/greentros`
-*   `cd $GOPATH/src/github.com/greentros
+*   `cd $GOPATH/src/github.com/greentros`
 *   `go get`
-*   `export PORT=8080
+*   `export PORT=8080`
 
 Run App
 
