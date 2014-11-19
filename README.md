@@ -20,6 +20,7 @@ Stack
 Installation
 ======
 
+*   `cd $GOPATH/src`
 *   `go get github.com/taironas/greentros`
 *   `cd $GOPATH/src/github.com/greentros`
 *   `go get`
