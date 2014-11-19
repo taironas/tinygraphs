@@ -18,6 +18,7 @@ Stack
 * heroku
 
 Installation
+======
 
 *   `go get github.com/taironas/greentros`
 *   `cd $GOPATH/src/github.com/greentros`
@@ -25,6 +26,7 @@ Installation
 *   `export PORT=8080`
 
 Run App
+=======
 
     > pwd
     $GOPATH/src/github.com/taironas/greentros
