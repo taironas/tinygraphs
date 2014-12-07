@@ -27,7 +27,7 @@ Installation
 *   `cd $GOPATH/src`
 *   `go get github.com/taironas/greentros`
 *   `cd $GOPATH/src/github.com/greentros`
-*   `go get`
+*   `go get ./app-backend`
 *   `export PORT=8080`
 
 Run App
@@ -35,13 +35,28 @@ Run App
 
     > pwd
     $GOPATH/src/github.com/taironas/greentros
-    > greentros
+    > app-backend
     2014/11/19 22:23:57 Listening on 8080
 
 Build
 ======
     >cd $GOPATH/src/github.com/greentros
-    >go get
+    >go get ./app-backend
+
+Test locally
+=============
+option 1:
+
+    > app-backend
+    2014/12/07 00:35:02 Listening on 8080
+
+option 2:
+
+If you have heroku install you should be able to run 
+
+    > foreman start
+    00:37:38 web.1  | started with pid 5762
+    00:37:38 web.1  | 2014/12/07 00:37:38 Listening on 8080
 
 Deploy
 =======
