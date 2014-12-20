@@ -13,6 +13,7 @@ func main() {
 	http.HandleFunc("/black/", blackHandler)
 	http.HandleFunc("/green/", greenHandler)
 	http.HandleFunc("/blue/", blueHandler)
+	http.HandleFunc("/red/", redHandler)
 	http.Handle("/", http.FileServer(http.Dir(*root)))
 	log.Println("Listening on " + os.Getenv("PORT"))
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
