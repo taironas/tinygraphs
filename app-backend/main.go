@@ -28,49 +28,43 @@ func main() {
 }
 
 func blackHandler(w http.ResponseWriter, r *http.Request) {
-	// prepare
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
-	blue := color.RGBA{0, 0, 0, 255}
-	draw.Draw(m, m.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
+	black := color.RGBA{0, 0, 0, 255}
+	draw.Draw(m, m.Bounds(), &image.Uniform{black}, image.ZP, draw.Src)
 
-	// encode
-	buf := new(bytes.Buffer)
-	_ = jpeg.Encode(buf, m, nil)
-
-	// write
-	w.Header().Set("Content-Type", "image/jpeg")
-	w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
-	w.Write(buf.Bytes())
+	var img image.Image = m
+	writeImage(w, &img)
 }
 
 func greenHandler(w http.ResponseWriter, r *http.Request) {
 	// prepare
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
-	blue := color.RGBA{0, 128, 0, 255}
-	draw.Draw(m, m.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
+	green := color.RGBA{0, 128, 0, 255}
+	draw.Draw(m, m.Bounds(), &image.Uniform{green}, image.ZP, draw.Src)
 
-	// encode
-	buf := new(bytes.Buffer)
-	_ = jpeg.Encode(buf, m, nil)
-
-	// write
-	w.Header().Set("Content-Type", "image/jpeg")
-	w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
-	w.Write(buf.Bytes())
+	var img image.Image = m
+	writeImage(w, &img)
 }
 
 func blueHandler(w http.ResponseWriter, r *http.Request) {
-	// prepare
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
 	blue := color.RGBA{0, 0, 255, 255}
 	draw.Draw(m, m.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
 
-	// encode
-	buf := new(bytes.Buffer)
-	_ = jpeg.Encode(buf, m, nil)
+	var img image.Image = m
+	writeImage(w, &img)
+}
 
-	// write
+func writeImage(w http.ResponseWriter, img *image.Image) {
+
+	buffer := new(bytes.Buffer)
+	if err := jpeg.Encode(buffer, *img, nil); err != nil {
+		log.Fatalln("unable to encode image")
+	}
+
 	w.Header().Set("Content-Type", "image/jpeg")
-	w.Header().Set("Content-Length", strconv.Itoa(len(buf.Bytes())))
-	w.Write(buf.Bytes())
+	w.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
+	if _, err := w.Write(buffer.Bytes()); err != nil {
+		log.Fatalln("unable to write image")
+	}
 }
