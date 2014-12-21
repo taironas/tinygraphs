@@ -55,9 +55,6 @@
     <!--[if lt IE 7]>
 	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
-    <!-- NG VIEW
-	 ================================================== -->
-    <div ng-view></div>
     <!-- Carousel
 	 ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -114,7 +111,29 @@
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
     <div class="container marketing">
+      <!-- NG VIEW
+	   ================================================== -->
+      <div class="row">
+	<div class="col-md-12">
+	  <div ng-view></div>
+	</div> <!-- /.col-md-12 -->
+      </div> <!-- /.row -->
+      
+      <hr class="featurette-divider">
+      
+      <div class="row">
+	<div class="col-md-12">
+	  <h2 class="text-center">WHAT IS IT</h2>
+	  <p class="lead text-center">Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+	</div> <!-- /.col-md-12 -->
+	</div> <!-- /.row -->
+      <hr class="featurette-divider">
 
+
+      <div class="row">
+	<div class="col-md-12">
+	  <h2 class="text-center">SPECS</h2>
+	</div> <!-- /.row -->
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
@@ -136,8 +155,16 @@
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
+      <hr class="featurette-divider">
 
-
+      <div class="row">
+	<div class="col-md-12">
+	  <h2 class="text-center">EXAMPLE</h2>
+          <img class="featurette-image img-responsive" data-src="holder.js/1200x400/auto" alt="Generic placeholder image">
+	  <p class="text-center"><br> <a class="btn btn-lg btn-primary" href="#" role="button">Go somewhere</a> </p>  
+	</div> <!-- /.col-md-12 -->
+	</div> <!-- /.row -->
+      
       <!-- START THE FEATURETTES -->
 
       <hr class="featurette-divider">
