@@ -59,16 +59,16 @@ func writeImageWithTemplate(w http.ResponseWriter, img *image.Image) {
 
 	buffer := new(bytes.Buffer)
 	if err := jpeg.Encode(buffer, *img, nil); err != nil {
-		log.Fatalln("unable to encode image.")
+		log.Println("unable to encode image.")
 	}
 
 	str := base64.StdEncoding.EncodeToString(buffer.Bytes())
 	if tmpl, err := template.New("image").Parse(ImageTemplate); err != nil {
-		log.Fatalln("unable to parse image template.")
+		log.Println("unable to parse image template.")
 	} else {
 		data := map[string]interface{}{"Image": str}
 		if err = tmpl.Execute(w, data); err != nil {
-			log.Fatalln("unable to execute template.")
+			log.Println("unable to execute template.")
 		}
 	}
 }
@@ -84,6 +84,6 @@ func writeImage(w http.ResponseWriter, img *image.Image) {
 	w.Header().Set("Content-Type", "image/jpeg")
 	w.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
 	if _, err := w.Write(buffer.Bytes()); err != nil {
-		log.Fatalln("unable to write image.")
+		log.Println("unable to write image.")
 	}
 }
