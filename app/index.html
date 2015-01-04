@@ -1,4 +1,4 @@
-><!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
@@ -21,42 +21,14 @@
     <link href="assets/css/carousel.css" rel="stylesheet">
   </head>
   <body>
-    <!-- NAVBAR
-	 ================================================== -->
+    <div class="greentros-browsehappy" ng-include="'partials/browsehappy.html'"></div>
+
     <div class="navbar-wrapper">
       <div class="container">
-
-        <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#">greentros</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="##whatisit">What is greentros</a></li>
-                <li><a href="##specs">Specs</a></li>
-                <li><a href="##examples">Examples</a></li>
-                <li><a href="#getstarted">Get started</a></li>
-                <li><a href="#about">About us</a></li>
-                <li><a href="#/view1">View2</a></li>
-                <li><a href="#/view2">View1</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
+	    <div class="greentros-navbar" ng-include="'partials/navbar.html'"></div>
       </div>
     </div>
 
-    <!--[if lt IE 7]>
-	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]-->
     <!-- Carousel
 	 ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
