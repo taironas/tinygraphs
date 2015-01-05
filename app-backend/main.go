@@ -19,6 +19,7 @@ func main() {
 	r.HandleFunc("/red/?", redHandler)
 	r.HandleFunc("/grid/?", grid6X6Handler)
 	r.HandleFunc("/gradient/?", gradientHandler)
+	r.HandleFunc("/[1-8]/?", colorGridHandler)
 	r.AddStaticResource(root)
 
 	log.Println("Listening on " + os.Getenv("PORT"))
