@@ -18,7 +18,8 @@ func main() {
 	r.HandleFunc("/green/?", greenHandler)
 	r.HandleFunc("/blue/?", blueHandler)
 	r.HandleFunc("/red/?", redHandler)
-
+	r.HandleFunc("/grid/?", grid6X6Handler)
+	r.HandleFunc("/gradient/?", gradientHandler)
 	r.AddStaticRoute(root)
 
 	log.Println("Listening on " + os.Getenv("PORT"))
