@@ -21,6 +21,8 @@ func main() {
 	r.HandleFunc("/grid/?", grid6X6Handler)
 	r.HandleFunc("/gradient/?", gradientHandler)
 	r.HandleFunc("/[1-8]/?", colorGridHandler)
+	r.HandleFunc("/random/[1-8]/?", randomColorGridHandler)
+
 	r.AddStaticResource(root)
 
 	log.Println("Listening on " + os.Getenv("PORT"))
