@@ -127,6 +127,7 @@ func randomColorGridHandler(w http.ResponseWriter, r *http.Request) {
 		writeImage(w, &img)
 	}
 }
+
 func grid6X6Handler(w http.ResponseWriter, r *http.Request) {
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
 	color1 := color.RGBA{uint8(255), uint8(255), 255, 255}
@@ -147,10 +148,11 @@ func drawGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
 	for x := 0; x < size.X; x++ {
-		val := ((x / quad) % quad) % 2
+		val := (x / quad) % 2
 		for y := 0; y < size.Y; y++ {
-			val2 := ((y / quad) % quad) % 2
-			if val+val2 == 1 {
+			val2 := (y / quad) % 2
+			q := (val + val2) % 2
+			if q == 0 {
 				m.Set(x, y, color1)
 			} else {
 				m.Set(x, y, color2)
@@ -159,12 +161,20 @@ func drawGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
+//
+// In total there are 36 squares.
+// each square has a random color (color1 or color2)
+// a square is range or x from x0 to x1 and from y0 to y1
+
 func drawRandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	for x := 0; x < size.X; x++ {
+
+		val := (x / quad) % 2
 		for y := 0; y < size.Y; y++ {
-			r := rand.Intn(2)
-			if r == 0 {
+			val2 := (y / quad) % 2
+			//r := rand.Intn(2)
+			if val+val2 == 1 {
 				m.Set(x, y, color1)
 			} else {
 				m.Set(x, y, color2)
