@@ -18,9 +18,10 @@ func main() {
 	r.HandleFunc("/blue/?", blueHandler)
 	r.HandleFunc("/red/?", redHandler)
 	r.HandleFunc("/grid/?", grid6X6Handler)
+	r.HandleFunc("/grid/random/?", gridRandomHandler)
+	r.HandleFunc("/grid/[0-8]?", gridColorHandler)
+	r.HandleFunc("/grid/random/[0-8]/?", gridRandomColorHandler)
 	r.HandleFunc("/gradient/?", gradientHandler)
-	r.HandleFunc("/[1-8]/?", colorGridHandler)
-	r.HandleFunc("/random/[1-8]/?", randomColorGridHandler)
 
 	r.AddStaticResource(root)
 

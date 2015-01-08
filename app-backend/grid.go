@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-func colorGridHandler(w http.ResponseWriter, r *http.Request) {
-	intID, err := PermalinkID(r, 1)
+func gridColorHandler(w http.ResponseWriter, r *http.Request) {
+	intID, err := PermalinkID(r, 2)
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
