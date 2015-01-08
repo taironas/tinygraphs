@@ -3,13 +3,13 @@ package main
 import (
 	"image"
 	"image/color"
-	//	"image/draw"
 	"log"
+	"math/rand"
 	"net/http"
 )
 
-func colorGridHandler(w http.ResponseWriter, r *http.Request) {
-	intID, err := PermalinkID(r, 1)
+func randomColorGridHandler(w http.ResponseWriter, r *http.Request) {
+	intID, err := PermalinkID(r, 2)
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
@@ -48,55 +48,37 @@ func colorGridHandler(w http.ResponseWriter, r *http.Request) {
 			c2 = color.RGBA{uint8(176), uint8(209), 194, 255}
 		}
 
-		drawGrid6X6(m, c1, c2)
+		drawRandomGrid6X6(m, c1, c2)
 		var img image.Image = m
 		writeImage(w, &img)
 	}
 }
 
-func grid6X6Handler(w http.ResponseWriter, r *http.Request) {
-	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
-	color1 := color.RGBA{uint8(255), uint8(255), 255, 255}
-	color2 := color.RGBA{uint8(0), uint8(0), 0, 255}
-	drawGrid6X6(m, color1, color2)
-	var img image.Image = m
-	writeImage(w, &img)
-}
-
-func gradientHandler(w http.ResponseWriter, r *http.Request) {
-	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
-	drawGradient(m)
-	var img image.Image = m
-	writeImage(w, &img)
-}
-
-func drawGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
+func drawRandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
+	colorMap := make(map[int]color.RGBA)
+	var currentQuadrand = 0
 	for x := 0; x < size.X; x++ {
-		val := (x / quad) % 2
+		if x/quad != currentQuadrand {
+			// quadrant changed, clear map
+			colorMap = make(map[int]color.RGBA)
+			currentQuadrand = x / quad
+		}
 		for y := 0; y < size.Y; y++ {
-			val2 := (y / quad) % 2
-			q := (val + val2) % 2
-			if q == 0 {
-				m.Set(x, y, color1)
-			} else {
-				m.Set(x, y, color2)
+			yQuadrant := y / quad
+			if _, ok := colorMap[yQuadrant]; !ok {
+				colorMap[yQuadrant] = getRandomColor(color1, color2)
 			}
+			m.Set(x, y, colorMap[yQuadrant])
 		}
 	}
 }
 
-func drawGradient(m *image.RGBA) {
-	size := m.Bounds().Size()
-	for x := 0; x < size.X; x++ {
-		for y := 0; y < size.Y; y++ {
-			color := color.RGBA{
-				uint8(255 * x / size.X),
-				uint8(255 * y / size.Y),
-				55,
-				255}
-			m.Set(x, y, color)
-		}
+func getRandomColor(c1, c2 color.RGBA) color.RGBA {
+	r := rand.Intn(2)
+	if r == 1 {
+		return c1
 	}
+	return c2
 }
