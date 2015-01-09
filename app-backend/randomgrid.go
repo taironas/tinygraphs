@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+// handler for /gird/random.
+// generates a black and white grid random image.
 func gridRandomHandler(w http.ResponseWriter, r *http.Request) {
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
 	colorMap := MapOfColorPatterns()
@@ -16,6 +18,8 @@ func gridRandomHandler(w http.ResponseWriter, r *http.Request) {
 	writeImage(w, &img)
 }
 
+// handler for /grid/random/[0-9]
+// generates a grid random image with a specific color based on the colorMap
 func gridRandomColorHandler(w http.ResponseWriter, r *http.Request) {
 	intID, err := PermalinkID(r, 3)
 	if err != nil {
@@ -29,6 +33,7 @@ func gridRandomColorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// drawRandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
 func drawRandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
@@ -50,6 +55,7 @@ func drawRandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
+// getRandomColor returns a random color between c1 and c2
 func getRandomColor(c1, c2 color.RGBA) color.RGBA {
 	r := rand.Intn(2)
 	if r == 1 {
