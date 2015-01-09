@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+// gridColorHandler is the handler for /grid/[0-8]
+// build a 6x6 grid with alternate colors based on the number passed in the url
 func gridColorHandler(w http.ResponseWriter, r *http.Request) {
 	intID, err := PermalinkID(r, 2)
 	if err != nil {
@@ -20,6 +22,8 @@ func gridColorHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// grid6X6Handler is the handler for /grid/
+// build a 6x6 grid with alternate black and white colors.
 func grid6X6Handler(w http.ResponseWriter, r *http.Request) {
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
 	color1 := color.RGBA{uint8(255), uint8(255), 255, 255}
@@ -29,6 +33,7 @@ func grid6X6Handler(w http.ResponseWriter, r *http.Request) {
 	writeImage(w, &img)
 }
 
+// gradientHandler is the handler for /gradient/
 func gradientHandler(w http.ResponseWriter, r *http.Request) {
 	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
 	drawGradient(m)
@@ -36,6 +41,7 @@ func gradientHandler(w http.ResponseWriter, r *http.Request) {
 	writeImage(w, &img)
 }
 
+//drawGrid6X6 builds an image with 6X6 quadrants of alternate colors.
 func drawGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
@@ -53,6 +59,7 @@ func drawGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
+// drawGradient builds an image with gradient colors.
 func drawGradient(m *image.RGBA) {
 	size := m.Bounds().Size()
 	for x := 0; x < size.X; x++ {
