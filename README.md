@@ -1,4 +1,4 @@
-greentros
+tinygraphs
 ==============
 
 avatar generator web service
