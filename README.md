@@ -25,8 +25,8 @@ Installation
 ======
 
 *   `cd $GOPATH/src`
-*   `go get github.com/taironas/greentros`
-*   `cd $GOPATH/src/github.com/greentros`
+*   `go get github.com/taironas/tinygraphs`
+*   `cd $GOPATH/src/github.com/tinygraphs`
 *   `go get ./app-backend`
 *   `export PORT=8080`
 
@@ -34,13 +34,13 @@ Run App
 =======
 
     > pwd
-    $GOPATH/src/github.com/taironas/greentros
+    $GOPATH/src/github.com/taironas/tinygraphs
     > app-backend
     2014/11/19 22:23:57 Listening on 8080
 
 Build
 ======
-    >cd $GOPATH/src/github.com/greentros
+    >cd $GOPATH/src/github.com/tinygraphs
     >go get ./app-backend
 
 Test locally
@@ -64,7 +64,7 @@ Before you start be sure to have the proper rsa key. [See Managing Your SSH Keys
 
     > heroku login
     Enter your Heroku credentials.
-    Email: ga@greentros.com
+    Email: ga@tinygraphs.com
     Password: 
     
 After that you can deploy as follows:
@@ -86,9 +86,9 @@ After that you can deploy as follows:
     
     -----> Compressing... done, 1.5MB
     -----> Launching... done, v6
-           https://greentros.herokuapp.com/ deployed to Heroku
+           https://tinygraphs.herokuapp.com/ deployed to Heroku
     
-    To git@heroku.com:greentros.git
+    To git@heroku.com:tinygraphs.git
        56a3000..5572085  master -> master
 
 
