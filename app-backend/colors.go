@@ -4,6 +4,7 @@ import (
 	"image/color"
 )
 
+// MapOfColorPatterns is used to build random images with colors that combine together.
 func MapOfColorPatterns() map[int][]color.RGBA {
 	return map[int][]color.RGBA{
 		0: []color.RGBA{

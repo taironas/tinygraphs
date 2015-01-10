@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// parse permalink id from URL  and return it
+// PermalinkID parses an URL and extracts the id from URL and returns it.
 func PermalinkID(r *http.Request, level int64) (int64, error) {
 	url := strings.Replace(r.URL.String(), "http://", "", 1)
 	path := strings.Split(url, "/")
