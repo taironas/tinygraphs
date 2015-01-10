@@ -28,16 +28,31 @@ func gridRandomSymetricYHandler(w http.ResponseWriter, r *http.Request) {
 	writeImage(w, &img)
 }
 
-// handler for "/grid/random/symetric[0-9]"
+// handler for "/grid/random/symetric/y/[0-9]"
 // generates a grid random image with a specific color based on the colorMap
-func gridRandomSymetricColorHandler(w http.ResponseWriter, r *http.Request) {
-	intID, err := PermalinkID(r, 3)
+func gridRandomSymetricYColorHandler(w http.ResponseWriter, r *http.Request) {
+	intID, err := PermalinkID(r, 5)
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
 		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
 		colorMap := MapOfColorPatterns()
-		drawRandomGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
+		drawRandomSymetricInYGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
+		var img image.Image = m
+		writeImage(w, &img)
+	}
+}
+
+// handler for "/grid/random/symetric/x/[0-9]"
+// generates a grid random image with a specific color based on the colorMap
+func gridRandomSymetricXColorHandler(w http.ResponseWriter, r *http.Request) {
+	intID, err := PermalinkID(r, 5)
+	if err != nil {
+		log.Printf("error when extracting permalink id: %v", err)
+	} else {
+		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+		colorMap := MapOfColorPatterns()
+		drawRandomSymetricInXGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m
 		writeImage(w, &img)
 	}
