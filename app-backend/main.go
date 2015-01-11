@@ -24,12 +24,11 @@ func main() {
 	r.HandleFunc("/grid/random/?", gridRandomHandler)
 	r.HandleFunc("/grid/random/[0-8]/?", gridRandomColorHandler)
 
+	r.HandleFunc("/grid/random/symetric/?", gridRandomSymetricXHandler)
 	r.HandleFunc("/grid/random/symetric/x/?", gridRandomSymetricXHandler)
 	r.HandleFunc("/grid/random/symetric/x/[0-8]?", gridRandomSymetricXColorHandler)
 	r.HandleFunc("/grid/random/symetric/y/?", gridRandomSymetricYHandler)
 	r.HandleFunc("/grid/random/symetric/y/[0-8]?", gridRandomSymetricYColorHandler)
-
-	r.HandleFunc("/grid/random/symetric/?", gridRandomSymetricXHandler)
 
 	r.HandleFunc("/gradient/?", gradientHandler)
 

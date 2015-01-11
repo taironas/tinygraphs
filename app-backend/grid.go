@@ -40,36 +40,3 @@ func gradientHandler(w http.ResponseWriter, r *http.Request) {
 	var img image.Image = m
 	writeImage(w, &img)
 }
-
-//drawGrid6X6 builds an image with 6X6 quadrants of alternate colors.
-func drawGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
-	size := m.Bounds().Size()
-	quad := size.X / 6
-	for x := 0; x < size.X; x++ {
-		val := (x / quad) % 2
-		for y := 0; y < size.Y; y++ {
-			val2 := (y / quad) % 2
-			q := (val + val2) % 2
-			if q == 0 {
-				m.Set(x, y, color1)
-			} else {
-				m.Set(x, y, color2)
-			}
-		}
-	}
-}
-
-// drawGradient builds an image with gradient colors.
-func drawGradient(m *image.RGBA) {
-	size := m.Bounds().Size()
-	for x := 0; x < size.X; x++ {
-		for y := 0; y < size.Y; y++ {
-			color := color.RGBA{
-				uint8(255 * x / size.X),
-				uint8(255 * y / size.Y),
-				55,
-				255}
-			m.Set(x, y, color)
-		}
-	}
-}
