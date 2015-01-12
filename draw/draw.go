@@ -1,10 +1,13 @@
 package draw
 
 import (
+	"encoding/hex"
 	"image"
 	"image/color"
+	"log"
 	"math"
 	"math/rand"
+	"strconv"
 )
 
 //drawGrid6X6 builds an image with 6X6 quadrants of alternate colors.
@@ -125,4 +128,45 @@ func RandomSymetricInXGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 			m.Set(x, y, colorMap[xQuadrant])
 		}
 	}
+}
+
+func Square(m *image.RGBA, key string, color1, color2 color.RGBA) {
+	size := m.Bounds().Size()
+	squares := 6
+	quad := size.X / squares
+	middle := math.Ceil(float64(squares) / float64(2))
+	colorMap := make(map[int]color.RGBA)
+	var currentYQuadrand = 0
+	for y := 0; y < size.Y; y++ {
+		yQuadrant := y / quad
+		if yQuadrant != currentYQuadrand {
+			// when y quadrant changes, clear map
+			colorMap = make(map[int]color.RGBA)
+			currentYQuadrand = yQuadrant
+		}
+		for x := 0; x < size.X; x++ {
+			xQuadrant := x / quad
+			if _, ok := colorMap[xQuadrant]; !ok {
+				if float64(xQuadrant) < middle {
+					colorMap[xQuadrant] = colorFromKey(key, color1, color2, xQuadrant+3*yQuadrant)
+				} else {
+					colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
+				}
+			}
+			m.Set(x, y, colorMap[xQuadrant])
+		}
+	}
+}
+
+func colorFromKey(key string, color1, color2 color.RGBA, index int) color.RGBA {
+	s := hex.EncodeToString([]byte{key[index]})
+	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
+		if r%2 == 0 {
+			return color1
+		}
+		return color2
+	} else {
+		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
+	}
+	return color1
 }
