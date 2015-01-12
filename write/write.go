@@ -1,4 +1,4 @@
-package main
+package write
 
 import (
 	"bytes"
@@ -16,7 +16,7 @@ var ImageTemplate string = `<!DOCTYPE html>
 <body><img src="data:image/jpg;base64,{{.Image}}"></body>`
 
 // writeImageWithTemplate encodes an image 'img' in jpeg format and writes it into ResponseWriter using a template.
-func writeImageWithTemplate(w http.ResponseWriter, img *image.Image) {
+func ImageWithTemplate(w http.ResponseWriter, img *image.Image) {
 
 	buffer := new(bytes.Buffer)
 	if err := jpeg.Encode(buffer, *img, nil); err != nil {
@@ -35,7 +35,7 @@ func writeImageWithTemplate(w http.ResponseWriter, img *image.Image) {
 }
 
 // writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
-func writeImage(w http.ResponseWriter, img *image.Image) {
+func Image(w http.ResponseWriter, img *image.Image) {
 
 	buffer := new(bytes.Buffer)
 	if err := jpeg.Encode(buffer, *img, nil); err != nil {

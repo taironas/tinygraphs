@@ -3,6 +3,9 @@ package main
 import (
 	"flag"
 	"github.com/taironas/route"
+	"github.com/taironas/tinygraphs/controllers/colors"
+	"github.com/taironas/tinygraphs/controllers/gradient"
+	"github.com/taironas/tinygraphs/controllers/grid"
 	"log"
 	"net/http"
 	"os"
@@ -13,24 +16,24 @@ var root = flag.String("root", "app", "file system path")
 func main() {
 	r := new(route.Router)
 
-	r.HandleFunc("/black/?", blackHandler)
-	r.HandleFunc("/green/?", greenHandler)
-	r.HandleFunc("/blue/?", blueHandler)
-	r.HandleFunc("/red/?", redHandler)
+	r.HandleFunc("/black/?", colors.Black)
+	r.HandleFunc("/green/?", colors.Green)
+	r.HandleFunc("/blue/?", colors.Blue)
+	r.HandleFunc("/red/?", colors.Red)
 
-	r.HandleFunc("/grid/?", grid6X6Handler)
-	r.HandleFunc("/grid/[0-8]?", gridColorHandler)
+	r.HandleFunc("/grid/?", grid.H6X6)
+	r.HandleFunc("/grid/[0-8]?", grid.Color)
 
-	r.HandleFunc("/grid/random/?", gridRandomHandler)
-	r.HandleFunc("/grid/random/[0-8]/?", gridRandomColorHandler)
+	r.HandleFunc("/grid/random/?", grid.Random)
+	r.HandleFunc("/grid/random/[0-8]/?", grid.RandomColor)
 
-	r.HandleFunc("/grid/random/symetric/?", gridRandomSymetricXHandler)
-	r.HandleFunc("/grid/random/symetric/x/?", gridRandomSymetricXHandler)
-	r.HandleFunc("/grid/random/symetric/x/[0-8]?", gridRandomSymetricXColorHandler)
-	r.HandleFunc("/grid/random/symetric/y/?", gridRandomSymetricYHandler)
-	r.HandleFunc("/grid/random/symetric/y/[0-8]?", gridRandomSymetricYColorHandler)
+	r.HandleFunc("/grid/random/symetric/?", grid.RandomSymetricX)
+	r.HandleFunc("/grid/random/symetric/x/?", grid.RandomSymetricX)
+	r.HandleFunc("/grid/random/symetric/x/[0-8]?", grid.RandomSymetricXColor)
+	r.HandleFunc("/grid/random/symetric/y/?", grid.RandomSymetricY)
+	r.HandleFunc("/grid/random/symetric/y/[0-8]?", grid.RandomSymetricYColor)
 
-	r.HandleFunc("/gradient/?", gradientHandler)
+	r.HandleFunc("/gradient/?", gradient.Gradient)
 
 	r.AddStaticResource(root)
 
