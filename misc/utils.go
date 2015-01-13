@@ -7,6 +7,20 @@ import (
 	"strings"
 )
 
+// PermalinkString parses an URL and extracts the id from URL and returns it.
+func PermalinkString(r *http.Request, level int64) (string, error) {
+	url := strings.Replace(r.URL.String(), "http://", "", 1)
+	path := strings.Split(url, "/")
+	var strID string
+	if strings.Contains(r.URL.String(), "?") {
+		strPath := path[level]
+		strID = strPath[0:strings.Index(strPath, "?")]
+	} else {
+		strID = path[level]
+	}
+	return strID, nil
+}
+
 // PermalinkID parses an URL and extracts the id from URL and returns it.
 func PermalinkID(r *http.Request, level int64) (int64, error) {
 	url := strings.Replace(r.URL.String(), "http://", "", 1)
