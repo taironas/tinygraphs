@@ -11,6 +11,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 // gridColorHandler is the handler for /grid/square/[0-9]+/?
@@ -20,7 +21,8 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+		size := size(r)
+		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		colorMap := colors.MapOfColorPatterns()
 		h := md5.New()
 		io.WriteString(h, id)
@@ -39,7 +41,8 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
 		if id, err1 := misc.PermalinkString(r, 4); err1 == nil {
-			m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+			size := size(r)
+			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			colorMap := colors.MapOfColorPatterns()
 			h := md5.New()
 			io.WriteString(h, id)
@@ -51,4 +54,17 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 			log.Printf("error when extracting permalink string: %v", err)
 		}
 	}
+}
+
+func size(r *http.Request) int {
+	strSize := r.FormValue("size")
+	if len(strSize) > 0 {
+		if size, errSize := strconv.ParseInt(strSize, 0, 64); errSize == nil {
+			isize := int(size)
+			if isize > 0 && isize < 1000 {
+				return int(size)
+			}
+		}
+	}
+	return 240
 }

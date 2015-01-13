@@ -14,7 +14,8 @@ import (
 // handler for "/gird/random/symetric/x"
 // generates a black and white grid random image.
 func RandomSymetricX(w http.ResponseWriter, r *http.Request) {
-	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+	size := size(r)
+	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	colorMap := colors.MapOfColorPatterns()
 	draw.RandomSymetricInXGrid6X6(m, colorMap[0][0], colorMap[0][1])
 	var img image.Image = m
@@ -24,7 +25,8 @@ func RandomSymetricX(w http.ResponseWriter, r *http.Request) {
 // handler for "/gird/random/symetric/y"
 // generates a black and white grid random image.
 func RandomSymetricY(w http.ResponseWriter, r *http.Request) {
-	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+	size := size(r)
+	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	colorMap := colors.MapOfColorPatterns()
 	draw.RandomSymetricInYGrid6X6(m, colorMap[0][0], colorMap[0][1])
 	var img image.Image = m
@@ -38,7 +40,8 @@ func RandomSymetricYColor(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+		size := size(r)
+		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		colorMap := colors.MapOfColorPatterns()
 		draw.RandomSymetricInYGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m
@@ -53,7 +56,8 @@ func RandomSymetricXColor(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+		size := size(r)
+		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		colorMap := colors.MapOfColorPatterns()
 		draw.RandomSymetricInXGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m

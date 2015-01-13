@@ -18,7 +18,8 @@ func Color(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+		size := size(r)
+		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		colorMap := colors.MapOfColorPatterns()
 		draw.Grid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m
@@ -29,7 +30,8 @@ func Color(w http.ResponseWriter, r *http.Request) {
 // grid6X6Handler is the handler for /grid/
 // build a 6x6 grid with alternate black and white colors.
 func H6X6(w http.ResponseWriter, r *http.Request) {
-	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+	size := size(r)
+	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	color1 := color.RGBA{uint8(255), uint8(255), 255, 255}
 	color2 := color.RGBA{uint8(0), uint8(0), 0, 255}
 	draw.Grid6X6(m, color1, color2)

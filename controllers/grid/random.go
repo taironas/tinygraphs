@@ -13,7 +13,8 @@ import (
 // handler for "/gird/random"
 // generates a black and white grid random image.
 func Random(w http.ResponseWriter, r *http.Request) {
-	m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+	size := size(r)
+	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	colorMap := colors.MapOfColorPatterns()
 	draw.RandomGrid6X6(m, colorMap[0][0], colorMap[0][1])
 	var img image.Image = m
@@ -27,7 +28,8 @@ func RandomColor(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		m := image.NewRGBA(image.Rect(0, 0, 240, 240))
+		size := size(r)
+		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		colorMap := colors.MapOfColorPatterns()
 		draw.RandomGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m
