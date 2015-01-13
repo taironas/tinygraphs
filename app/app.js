@@ -1,13 +1,13 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', [
+angular.module('tinygraphs', [
     'ngRoute',
-    'myApp.view1',
-    'myApp.view2',
-    'myApp.about',
-    'myApp.version',
-    'myApp.holder'
+    'tinygraphs.view1',
+    'tinygraphs.view2',
+    'tinygraphs.about',
+    'tinygraphs.version',
+    'tinygraphs.holder'
 ]).
     config(['$routeProvider', function($routeProvider) {
 	$routeProvider.otherwise({redirectTo: '/view1'});

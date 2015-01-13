@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('myApp.version', [
-  'myApp.version.interpolate-filter',
-  'myApp.version.version-directive'
+angular.module('tinygraphs.version', [
+  'tinygraphs.version.interpolate-filter',
+  'tinygraphs.version.version-directive'
 ])
 
 .value('version', '0.0.1');

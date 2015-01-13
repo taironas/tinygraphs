@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.holder.holder-directive', [])
+angular.module('tinygraphs.holder.holder-directive', [])
 
 .directive('holderFix', ['version', function() {
   return {
