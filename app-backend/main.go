@@ -23,6 +23,7 @@ func main() {
 
 	r.HandleFunc("/grid/?", grid.H6X6)
 	r.HandleFunc("/grid/[0-8]/?", grid.Color)
+	r.HandleFunc("/grid/square/[0-8]/[a-zA-Z0-9]+/?", grid.SquareColor)
 	r.HandleFunc("/grid/square/[a-zA-Z0-9]+/?", grid.Square)
 
 	r.HandleFunc("/grid/random/?", grid.Random)
