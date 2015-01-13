@@ -24,7 +24,6 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		colorMap := colors.MapOfColorPatterns()
 		h := md5.New()
 		io.WriteString(h, id)
-		log.Printf("md5: %x", h.Sum(nil))
 		key := fmt.Sprintf("%x", h.Sum(nil)[:])
 		draw.Square(m, key, colorMap[0][0], colorMap[0][1])
 		var img image.Image = m
@@ -44,7 +43,6 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 			colorMap := colors.MapOfColorPatterns()
 			h := md5.New()
 			io.WriteString(h, id)
-			log.Printf("md5: %x", h.Sum(nil))
 			key := fmt.Sprintf("%x", h.Sum(nil)[:])
 			draw.Square(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
 			var img image.Image = m
