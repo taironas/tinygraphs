@@ -52,7 +52,7 @@ option 1:
 
 option 2:
 
-If you have heroku install you should be able to run 
+If you have heroku install you should be able to run
 
     > foreman start
     00:37:38 web.1  | started with pid 5762
@@ -60,15 +60,18 @@ If you have heroku install you should be able to run
 
 Deploy
 =======
+
+**Note:** heroku is now configured to build and deploy any `git push`to `master`. If you still want to manual deploy the app follow the steps below.
+
 Before you start be sure to have the proper rsa key. [See Managing Your SSH Keys](https://devcenter.heroku.com/articles/keys) for more details and that. Also be sure to be logged in with heroku.
 
     > heroku login
     Enter your Heroku credentials.
     Email: ga@tinygraphs.com
-    Password: 
-    
+    Password:
+
 After that you can deploy as follows:
-    
+
     > git push heroku master
     Fetching repository, done.
     Counting objects: 5, done.
@@ -76,19 +79,17 @@ After that you can deploy as follows:
     Compressing objects: 100% (3/3), done.
     Writing objects: 100% (3/3), 287 bytes | 0 bytes/s, done.
     Total 3 (delta 2), reused 0 (delta 0)
-    
+
     -----> Fetching custom git buildpack... done
     -----> Go app detected
     -----> Using go1.3
     -----> Running: go get -tags heroku ./...
     -----> Discovering process types
            Procfile declares types -> web
-    
+
     -----> Compressing... done, 1.5MB
     -----> Launching... done, v6
            https://tinygraphs.herokuapp.com/ deployed to Heroku
-    
+
     To git@heroku.com:tinygraphs.git
        56a3000..5572085  master -> master
-
-
