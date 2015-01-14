@@ -13,15 +13,32 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
-// gridColorHandler is the handler for /grid/square/[0-9]+/?
+// Square is the handler for /grid/square/[A-Za-z0-9]+/?
 // build a 6x6 grid with alternate colors based on the number passed in the url
 func Square(w http.ResponseWriter, r *http.Request) {
-	id, err := misc.PermalinkString(r, 3)
-	if err != nil {
+
+	if id, err := misc.PermalinkString(r, 3); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
+
+		h := md5.New()
+		io.WriteString(h, id)
+		key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+		e := `"` + key + `"`
+		w.Header().Set("Etag", e)
+		w.Header().Set("Cache-Control", "max-age=2592000") // 30 days
+
+		if match := r.Header.Get("If-None-Match"); match != "" {
+			if strings.Contains(match, e) {
+				w.WriteHeader(http.StatusNotModified)
+				return
+			}
+		}
+
 		colorMap := tgColors.MapOfColorPatterns()
 		bg, err1 := background(r)
 		if err1 != nil {
@@ -32,10 +49,8 @@ func Square(w http.ResponseWriter, r *http.Request) {
 			fg = colorMap[0][1]
 		}
 		size := size(r)
+
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		h := md5.New()
-		io.WriteString(h, id)
-		key := fmt.Sprintf("%x", h.Sum(nil)[:])
 		draw.Square(m, key, bg, fg)
 		var img image.Image = m
 		write.Image(w, &img)
@@ -50,12 +65,27 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
 		if id, err1 := misc.PermalinkString(r, 4); err1 == nil {
-			size := size(r)
-			m := image.NewRGBA(image.Rect(0, 0, size, size))
-			colorMap := tgColors.MapOfColorPatterns()
+
 			h := md5.New()
 			io.WriteString(h, id)
 			key := fmt.Sprintf("%x", h.Sum(nil)[:])
+			strId := strconv.FormatInt(colorId, 10)
+
+			e := `"` + key + `-` + strId + `"`
+			w.Header().Set("Etag", e)
+			w.Header().Set("Cache-Control", "max-age=2592000") // 30 days
+
+			if match := r.Header.Get("If-None-Match"); match != "" {
+				if strings.Contains(match, e) {
+					w.WriteHeader(http.StatusNotModified)
+					return
+				}
+			}
+
+			size := size(r)
+			m := image.NewRGBA(image.Rect(0, 0, size, size))
+			colorMap := tgColors.MapOfColorPatterns()
+
 			draw.Square(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
 			var img image.Image = m
 			write.Image(w, &img)
