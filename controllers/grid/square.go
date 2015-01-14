@@ -3,11 +3,12 @@ package grid
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/taironas/tinygraphs/colors"
+	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/misc"
 	"github.com/taironas/tinygraphs/write"
 	"image"
+	"image/color"
 	"io"
 	"log"
 	"net/http"
@@ -21,13 +22,21 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
+		colorMap := tgColors.MapOfColorPatterns()
+		bg, err1 := background(r)
+		if err1 != nil {
+			bg = colorMap[0][0]
+		}
+		fg, err2 := foreground(r)
+		if err2 != nil {
+			fg = colorMap[0][1]
+		}
 		size := size(r)
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		colorMap := colors.MapOfColorPatterns()
 		h := md5.New()
 		io.WriteString(h, id)
 		key := fmt.Sprintf("%x", h.Sum(nil)[:])
-		draw.Square(m, key, colorMap[0][0], colorMap[0][1])
+		draw.Square(m, key, bg, fg)
 		var img image.Image = m
 		write.Image(w, &img)
 	}
@@ -43,7 +52,7 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 		if id, err1 := misc.PermalinkString(r, 4); err1 == nil {
 			size := size(r)
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
-			colorMap := colors.MapOfColorPatterns()
+			colorMap := tgColors.MapOfColorPatterns()
 			h := md5.New()
 			io.WriteString(h, id)
 			key := fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -54,6 +63,42 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 			log.Printf("error when extracting permalink string: %v", err)
 		}
 	}
+}
+
+func background(req *http.Request) (color.RGBA, error) {
+	bg := req.FormValue("bg")
+	if len(bg) == 0 {
+		return color.RGBA{}, fmt.Errorf("background: wrong input")
+	}
+	r, g, b, err := hexToRGB(bg)
+	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
+}
+
+func foreground(req *http.Request) (color.RGBA, error) {
+	fg := req.FormValue("fg")
+	if len(fg) == 0 {
+		return color.RGBA{}, fmt.Errorf("background: wrong input")
+	}
+	r, g, b, err := hexToRGB(fg)
+	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
+}
+
+// HexToRGB converts an Hex string to a RGB triple.
+func hexToRGB(h string) (uint8, uint8, uint8, error) {
+	if len(h) > 0 && h[0] == '#' {
+		h = h[1:]
+	}
+	if len(h) == 3 {
+		h = h[:1] + h[:1] + h[1:2] + h[1:2] + h[2:] + h[2:]
+	}
+	if len(h) == 6 {
+		if rgb, err := strconv.ParseUint(string(h), 16, 32); err == nil {
+			return uint8(rgb >> 16), uint8((rgb >> 8) & 0xFF), uint8(rgb & 0xFF), nil
+		} else {
+			return 0, 0, 0, err
+		}
+	}
+	return 0, 0, 0, nil
 }
 
 func size(r *http.Request) int {

@@ -15,9 +15,17 @@ import (
 // generates a black and white grid random image.
 func RandomSymetricX(w http.ResponseWriter, r *http.Request) {
 	size := size(r)
-	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	colorMap := colors.MapOfColorPatterns()
-	draw.RandomSymetricInXGrid6X6(m, colorMap[0][0], colorMap[0][1])
+	bg, err1 := background(r)
+	if err1 != nil {
+		bg = colorMap[0][0]
+	}
+	fg, err2 := foreground(r)
+	if err2 != nil {
+		fg = colorMap[0][1]
+	}
+	m := image.NewRGBA(image.Rect(0, 0, size, size))
+	draw.RandomSymetricInXGrid6X6(m, bg, fg)
 	var img image.Image = m
 	write.Image(w, &img)
 }
@@ -26,9 +34,17 @@ func RandomSymetricX(w http.ResponseWriter, r *http.Request) {
 // generates a black and white grid random image.
 func RandomSymetricY(w http.ResponseWriter, r *http.Request) {
 	size := size(r)
-	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	colorMap := colors.MapOfColorPatterns()
-	draw.RandomSymetricInYGrid6X6(m, colorMap[0][0], colorMap[0][1])
+	bg, err1 := background(r)
+	if err1 != nil {
+		bg = colorMap[0][0]
+	}
+	fg, err2 := foreground(r)
+	if err2 != nil {
+		fg = colorMap[0][1]
+	}
+	m := image.NewRGBA(image.Rect(0, 0, size, size))
+	draw.RandomSymetricInYGrid6X6(m, bg, fg)
 	var img image.Image = m
 	write.Image(w, &img)
 }
