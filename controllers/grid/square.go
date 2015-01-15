@@ -16,11 +16,11 @@ import (
 	"strings"
 )
 
-// Square is the handler for /grid/square/[A-Za-z0-9]+/?
+// Square is the handler for /square/[A-Za-z0-9]+/?
 // build a 6x6 grid with alternate colors based on the number passed in the url
 func Square(w http.ResponseWriter, r *http.Request) {
 
-	if id, err := misc.PermalinkString(r, 3); err != nil {
+	if id, err := misc.PermalinkString(r, 2); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
 
@@ -57,14 +57,14 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// gridColorHandler is the handler for /grid/square/[0-8]/[a-zA-Z0-9]+/?
+// gridColorHandler is the handler for /square/[0-8]/[a-zA-Z0-9]+/?
 // build a 6x6 grid with alternate colors based on the number passed in the url
 func SquareColor(w http.ResponseWriter, r *http.Request) {
 
-	if colorId, err := misc.PermalinkID(r, 3); err != nil {
+	if colorId, err := misc.PermalinkID(r, 2); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		if id, err1 := misc.PermalinkString(r, 4); err1 == nil {
+		if id, err1 := misc.PermalinkString(r, 3); err1 == nil {
 
 			h := md5.New()
 			io.WriteString(h, id)
