@@ -1,4 +1,4 @@
-package grid
+package squares
 
 import (
 	"crypto/md5"
@@ -16,7 +16,7 @@ import (
 	"strings"
 )
 
-// Square is the handler for /square/[A-Za-z0-9]+/?
+// Square is the handler for /squares/[A-Za-z0-9]+/?
 // build a 6x6 grid with alternate colors based on the number passed in the url
 func Square(w http.ResponseWriter, r *http.Request) {
 
@@ -57,9 +57,9 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// gridColorHandler is the handler for /square/[0-8]/[a-zA-Z0-9]+/?
+// Color is the handler for /square/[0-8]/[a-zA-Z0-9]+/?
 // build a 6x6 grid with alternate colors based on the number passed in the url
-func SquareColor(w http.ResponseWriter, r *http.Request) {
+func Color(w http.ResponseWriter, r *http.Request) {
 
 	if colorId, err := misc.PermalinkID(r, 2); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
@@ -95,6 +95,7 @@ func SquareColor(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// extract hexadecimal code background from HTTP request and return color.RGBA
 func background(req *http.Request) (color.RGBA, error) {
 	bg := req.FormValue("bg")
 	if len(bg) == 0 {
@@ -104,6 +105,7 @@ func background(req *http.Request) (color.RGBA, error) {
 	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
 }
 
+// extract hexadecimal code foreground from HTTP request and return color.RGBA
 func foreground(req *http.Request) (color.RGBA, error) {
 	fg := req.FormValue("fg")
 	if len(fg) == 0 {
@@ -131,6 +133,7 @@ func hexToRGB(h string) (uint8, uint8, uint8, error) {
 	return 0, 0, 0, nil
 }
 
+// extract size from HTTP request and return it.
 func size(r *http.Request) int {
 	strSize := r.FormValue("size")
 	if len(strSize) > 0 {

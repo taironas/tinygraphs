@@ -1,4 +1,4 @@
-package grid
+package checkerboard
 
 import (
 	"github.com/taironas/tinygraphs/colors"
@@ -9,10 +9,11 @@ import (
 	"image/color"
 	"log"
 	"net/http"
+	"strconv"
 )
 
-// gridColorHandler is the handler for /grid/[0-8]
-// build a 6x6 grid with alternate colors based on the number passed in the url
+// Color is the handler for /checkerboard/[0-8]
+// build a 6x6 checkerboard with alternate colors based on the number passed in the url
 func Color(w http.ResponseWriter, r *http.Request) {
 	intID, err := misc.PermalinkID(r, 2)
 	if err != nil {
@@ -27,9 +28,9 @@ func Color(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// grid6X6Handler is the handler for /grid/
-// build a 6x6 grid with alternate black and white colors.
-func H6X6(w http.ResponseWriter, r *http.Request) {
+// Checkerboard is the handler for /checkerboard/
+// build a 6x6 checkerboard with alternate black and white colors.
+func Checkerboard(w http.ResponseWriter, r *http.Request) {
 	size := size(r)
 	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	color1 := color.RGBA{uint8(255), uint8(255), 255, 255}
@@ -37,4 +38,18 @@ func H6X6(w http.ResponseWriter, r *http.Request) {
 	draw.Grid6X6(m, color1, color2)
 	var img image.Image = m
 	write.Image(w, &img)
+}
+
+// extract size from HTTP request and return it.
+func size(r *http.Request) int {
+	strSize := r.FormValue("size")
+	if len(strSize) > 0 {
+		if size, errSize := strconv.ParseInt(strSize, 0, 64); errSize == nil {
+			isize := int(size)
+			if isize > 0 && isize < 1000 {
+				return int(size)
+			}
+		}
+	}
+	return 240
 }

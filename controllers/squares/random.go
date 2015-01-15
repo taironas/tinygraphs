@@ -1,4 +1,4 @@
-package grid
+package squares
 
 import (
 	"github.com/taironas/tinygraphs/colors"
