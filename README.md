@@ -1,13 +1,33 @@
 tinygraphs
 ==============
 
-avatar generator web service
+**tinygraphs** is an avatar generator web service.
 
 Contributors
 =============
 
 * [Santiago](https://github.com/santiaago)
 * [Remy](https://github.com/rjourde)
+
+How to use:
+======
+
+You can set the HTML source of the image to point directly to **tinygraphs.com**
+
+        <img src="http://tinygraphs.com/checkerboard">
+
+### Supported routes:
+
+* `http://tinygraphs.com/checkerboard`
+
+![checkerboard](http://tinygraphs.com/checkerboard?size=50)
+* `http://tinygraphs.com/squares/anything`
+
+![squares](http://tinygraphs.com/squares/anything?size=50)
+* `http://tinygraphs.com/squares/random`
+
+![random](http://tinygraphs.com/squares/random?size=50)
+
 
 Organization
 =====
