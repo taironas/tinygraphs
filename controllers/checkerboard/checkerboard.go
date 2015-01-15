@@ -51,5 +51,5 @@ func size(r *http.Request) int {
 			}
 		}
 	}
-	return 240
+	return 210
 }
