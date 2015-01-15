@@ -18,15 +18,17 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 ### Supported routes:
 
-* `http://tinygraphs.com/checkerboard`
+`http://tinygraphs.com/checkerboard`
 
-![checkerboard](http://tinygraphs.com/checkerboard?size=50)
-* `http://tinygraphs.com/squares/anything`
+![checkerboard](http://tinygraphs.com/checkerboard?size=120)
 
-![squares](http://tinygraphs.com/squares/anything?size=50)
-* `http://tinygraphs.com/squares/random`
+`http://tinygraphs.com/squares/anything`
 
-![random](http://tinygraphs.com/squares/random?size=50)
+![squares](http://tinygraphs.com/squares/anything?size=120)
+
+`http://tinygraphs.com/squares/random`
+
+![random](http://tinygraphs.com/squares/random?size=120)
 
 
 Organization
