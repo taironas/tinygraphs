@@ -149,8 +149,10 @@ func Square(m *image.RGBA, key string, color1, color2 color.RGBA) {
 			if _, ok := colorMap[xQuadrant]; !ok {
 				if float64(xQuadrant) < middle {
 					colorMap[xQuadrant] = colorFromKey(key, color1, color2, xQuadrant+3*yQuadrant)
-				} else {
+				} else if xQuadrant < squares {
 					colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
+				} else {
+					colorMap[xQuadrant] = colorMap[0]
 				}
 			}
 			m.Set(x, y, colorMap[xQuadrant])
