@@ -3,12 +3,12 @@ package squares
 import (
 	"crypto/md5"
 	"fmt"
+	"github.com/ajstarks/svgo"
 	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/misc"
 	"github.com/taironas/tinygraphs/write"
 	"image"
-	"image/color"
 	"io"
 	"log"
 	"net/http"
@@ -49,11 +49,17 @@ func Square(w http.ResponseWriter, r *http.Request) {
 			fg = colorMap[0][1]
 		}
 		size := size(r)
-
-		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.Square(m, key, bg, fg)
-		var img image.Image = m
-		write.Image(w, &img)
+		if format := format(r); format == JPEG {
+			m := image.NewRGBA(image.Rect(0, 0, size, size))
+			draw.Square(m, key, bg, fg)
+			var img image.Image = m
+			write.Image(w, &img)
+		} else if format == SVG {
+			canvas := svg.New(w)
+			canvas.Start(size, size)
+			canvas.Rect(0, 0, size, size, "fill:rgb(0,0,255);")
+			canvas.End()
+		}
 	}
 }
 
@@ -95,26 +101,6 @@ func Color(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// extract hexadecimal code background from HTTP request and return color.RGBA
-func background(req *http.Request) (color.RGBA, error) {
-	bg := req.FormValue("bg")
-	if len(bg) == 0 {
-		return color.RGBA{}, fmt.Errorf("background: wrong input")
-	}
-	r, g, b, err := hexToRGB(bg)
-	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
-}
-
-// extract hexadecimal code foreground from HTTP request and return color.RGBA
-func foreground(req *http.Request) (color.RGBA, error) {
-	fg := req.FormValue("fg")
-	if len(fg) == 0 {
-		return color.RGBA{}, fmt.Errorf("background: wrong input")
-	}
-	r, g, b, err := hexToRGB(fg)
-	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
-}
-
 // HexToRGB converts an Hex string to a RGB triple.
 func hexToRGB(h string) (uint8, uint8, uint8, error) {
 	if len(h) > 0 && h[0] == '#' {
@@ -131,18 +117,4 @@ func hexToRGB(h string) (uint8, uint8, uint8, error) {
 		}
 	}
 	return 0, 0, 0, nil
-}
-
-// extract size from HTTP request and return it.
-func size(r *http.Request) int {
-	strSize := r.FormValue("size")
-	if len(strSize) > 0 {
-		if size, errSize := strconv.ParseInt(strSize, 0, 64); errSize == nil {
-			isize := int(size)
-			if isize > 0 && isize < 1000 {
-				return int(size)
-			}
-		}
-	}
-	return 210
 }
