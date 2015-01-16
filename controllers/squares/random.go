@@ -26,7 +26,7 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	m := image.NewRGBA(image.Rect(0, 0, size, size))
 	draw.RandomGrid6X6(m, bg, fg)
 	var img image.Image = m
-	write.Image(w, &img)
+	write.ImageJPEG(w, &img)
 }
 
 // handler for "/grid/random/[0-9]"
@@ -41,6 +41,6 @@ func RandomColor(w http.ResponseWriter, r *http.Request) {
 		colorMap := colors.MapOfColorPatterns()
 		draw.RandomGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m
-		write.Image(w, &img)
+		write.ImageJPEG(w, &img)
 	}
 }

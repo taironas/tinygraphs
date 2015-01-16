@@ -24,7 +24,7 @@ func Color(w http.ResponseWriter, r *http.Request) {
 		colorMap := colors.MapOfColorPatterns()
 		draw.Grid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 		var img image.Image = m
-		write.Image(w, &img)
+		write.ImageJPEG(w, &img)
 	}
 }
 
@@ -37,7 +37,7 @@ func Checkerboard(w http.ResponseWriter, r *http.Request) {
 	color2 := color.RGBA{uint8(0), uint8(0), 0, 255}
 	draw.Grid6X6(m, color1, color2)
 	var img image.Image = m
-	write.Image(w, &img)
+	write.ImageJPEG(w, &img)
 }
 
 // extract size from HTTP request and return it.

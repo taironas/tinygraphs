@@ -3,6 +3,7 @@ package write
 import (
 	"bytes"
 	"encoding/base64"
+	"github.com/ajstarks/svgo"
 	"html/template"
 	"image"
 	"image/jpeg"
@@ -35,7 +36,7 @@ func ImageWithTemplate(w http.ResponseWriter, img *image.Image) {
 }
 
 // writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
-func Image(w http.ResponseWriter, img *image.Image) {
+func ImageJPEG(w http.ResponseWriter, img *image.Image) {
 
 	buffer := new(bytes.Buffer)
 	if err := jpeg.Encode(buffer, *img, nil); err != nil {
@@ -47,4 +48,11 @@ func Image(w http.ResponseWriter, img *image.Image) {
 	if _, err := w.Write(buffer.Bytes()); err != nil {
 		log.Println("unable to write image.")
 	}
+}
+
+// writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
+func ImageSVG(w http.ResponseWriter, img *svg.SVG) {
+
+	w.Header().Set("Content-Type", "image/svg+xml")
+	img.End()
 }

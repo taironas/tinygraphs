@@ -53,12 +53,11 @@ func Square(w http.ResponseWriter, r *http.Request) {
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			draw.Squares(m, key, bg, fg)
 			var img image.Image = m
-			write.Image(w, &img)
+			write.ImageJPEG(w, &img)
 		} else if format == SVG {
 			canvas := svg.New(w)
-			canvas.Start(size, size)
-			canvas.Rect(0, 0, size, size, "fill:rgb(0,0,255);")
-			canvas.End()
+			draw.SquaresSVG(canvas, key, bg, fg, size)
+			write.ImageSVG(w, canvas)
 		}
 	}
 }
@@ -94,7 +93,7 @@ func Color(w http.ResponseWriter, r *http.Request) {
 
 			draw.Squares(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
 			var img image.Image = m
-			write.Image(w, &img)
+			write.ImageJPEG(w, &img)
 		} else {
 			log.Printf("error when extracting permalink string: %v", err)
 		}
