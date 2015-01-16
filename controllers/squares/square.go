@@ -51,7 +51,7 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		size := size(r)
 		if format := format(r); format == JPEG {
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
-			draw.Square(m, key, bg, fg)
+			draw.Squares(m, key, bg, fg)
 			var img image.Image = m
 			write.Image(w, &img)
 		} else if format == SVG {
@@ -92,7 +92,7 @@ func Color(w http.ResponseWriter, r *http.Request) {
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			colorMap := tgColors.MapOfColorPatterns()
 
-			draw.Square(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
+			draw.Squares(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
 			var img image.Image = m
 			write.Image(w, &img)
 		} else {

@@ -130,7 +130,7 @@ func RandomSymetricInXGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
-func Square(m *image.RGBA, key string, color1, color2 color.RGBA) {
+func Squares(m *image.RGBA, key string, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	squares := 6
 	quad := size.X / squares
