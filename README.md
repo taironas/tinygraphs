@@ -22,9 +22,6 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 `tinygraphs.com/squares/hello?size=60`
 
-
-![size parameter](http://tinygraphs.com/squares/hello?size=60)
-
 ###format:
 default format is jpeg. You can specify the format by using the `fmt`parameter.
 Supported formats are:
@@ -33,15 +30,10 @@ Supported formats are:
 
 `tinygraphs.com/squares/hello?fmt=svg`
 
-![fmt parameter](http://tinygraphs.com/squares/hello?fmt=svg)
-
 ### background and foreground:
 You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
 
 `tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2`
-
-![bg and fg parameters](http://tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2&size=120&fmt=svg)
-
 
 ## Supported routes:
 
@@ -94,12 +86,12 @@ Build
 
 Test locally
 =============
-option 1:
+**option 1:**
 
     > app-backend
     2014/12/07 00:35:02 Listening on 8080
 
-option 2:
+**option 2:**
 
 If you have heroku install you should be able to run
 
