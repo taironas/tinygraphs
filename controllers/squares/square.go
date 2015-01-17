@@ -7,6 +7,7 @@ import (
 	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
+	"github.com/taironas/tinygraphs/format"
 	"github.com/taironas/tinygraphs/misc"
 	"github.com/taironas/tinygraphs/write"
 	"image"
@@ -50,12 +51,12 @@ func Square(w http.ResponseWriter, r *http.Request) {
 			fg = colorMap[0][1]
 		}
 		size := extract.Size(r)
-		if format := extract.Format(r); format == extract.JPEG {
+		if f := extract.Format(r); f == format.JPEG {
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			draw.Squares(m, key, bg, fg)
 			var img image.Image = m
 			write.ImageJPEG(w, &img)
-		} else if format == extract.SVG {
+		} else if f == format.SVG {
 			canvas := svg.New(w)
 			draw.SquaresSVG(canvas, key, bg, fg, size)
 			write.ImageSVG(w, canvas)
@@ -90,12 +91,12 @@ func Color(w http.ResponseWriter, r *http.Request) {
 
 			size := extract.Size(r)
 			colorMap := tgColors.MapOfColorPatterns()
-			if format := extract.Format(r); format == extract.JPEG {
+			if f := extract.Format(r); f == format.JPEG {
 				m := image.NewRGBA(image.Rect(0, 0, size, size))
 				draw.Squares(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
 				var img image.Image = m
 				write.ImageJPEG(w, &img)
-			} else if format == extract.SVG {
+			} else if f == format.SVG {
 				canvas := svg.New(w)
 				draw.SquaresSVG(canvas, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1], size)
 				write.ImageSVG(w, canvas)

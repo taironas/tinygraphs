@@ -5,6 +5,7 @@ import (
 	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
+	"github.com/taironas/tinygraphs/format"
 	"github.com/taironas/tinygraphs/misc"
 	"github.com/taironas/tinygraphs/write"
 	"image"
@@ -25,12 +26,12 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		fg = colorMap[0][1]
 	}
-	if format := extract.Format(r); format == extract.JPEG {
+	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		draw.RandomGrid6X6(m, bg, fg)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
-	} else if format == extract.SVG {
+	} else if f == format.SVG {
 		canvas := svg.New(w)
 		draw.RandomGrid6X6SVG(canvas, bg, fg, size)
 		write.ImageSVG(w, canvas)
@@ -46,12 +47,12 @@ func RandomColor(w http.ResponseWriter, r *http.Request) {
 	} else {
 		size := extract.Size(r)
 		colorMap := colors.MapOfColorPatterns()
-		if format := extract.Format(r); format == extract.JPEG {
+		if f := extract.Format(r); f == format.JPEG {
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			draw.RandomGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
 			var img image.Image = m
 			write.ImageJPEG(w, &img)
-		} else if format == extract.SVG {
+		} else if f == format.SVG {
 			canvas := svg.New(w)
 			draw.RandomGrid6X6SVG(canvas, colorMap[int(intID)][0], colorMap[int(intID)][1], size)
 			write.ImageSVG(w, canvas)

@@ -3,6 +3,7 @@ package extract
 
 import (
 	"fmt"
+	"github.com/taironas/tinygraphs/format"
 	"image/color"
 	"net/http"
 	"strconv"
@@ -43,23 +44,16 @@ func Size(r *http.Request) int {
 	return 210
 }
 
-type ImgFormat int
-
-const (
-	JPEG ImgFormat = iota
-	SVG
-)
-
-func Format(r *http.Request) ImgFormat {
+func Format(r *http.Request) format.Format {
 	strFmt := strings.ToLower(r.FormValue("fmt"))
 	if len(strFmt) > 0 {
 		if strFmt == "svg" {
-			return SVG
+			return format.SVG
 		} else if strFmt == "jpeg" || strFmt == "jpg" {
-			return JPEG
+			return format.JPEG
 		}
 	}
-	return JPEG
+	return format.JPEG
 }
 
 // HexToRGB converts an Hex string to a RGB triple.
