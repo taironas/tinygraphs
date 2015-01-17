@@ -44,10 +44,16 @@ func RandomColor(w http.ResponseWriter, r *http.Request) {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
 		size := size(r)
-		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		colorMap := colors.MapOfColorPatterns()
-		draw.RandomGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
-		var img image.Image = m
-		write.ImageJPEG(w, &img)
+		if format := format(r); format == JPEG {
+			m := image.NewRGBA(image.Rect(0, 0, size, size))
+			draw.RandomGrid6X6(m, colorMap[int(intID)][0], colorMap[int(intID)][1])
+			var img image.Image = m
+			write.ImageJPEG(w, &img)
+		} else if format == SVG {
+			canvas := svg.New(w)
+			draw.RandomGrid6X6SVG(canvas, colorMap[int(intID)][0], colorMap[int(intID)][1], size)
+			write.ImageSVG(w, canvas)
+		}
 	}
 }
