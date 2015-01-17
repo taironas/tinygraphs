@@ -12,11 +12,38 @@ Contributors
 How to use:
 ======
 
-You can set the HTML source of the image to point directly to **tinygraphs.com**
+You can set the HTML source of the image to point directly to **tinygraphs.com** or you can save the image and use it directly on your site (*just remember to give us credit with a link to tinygraphs.com ;)* ).
 
         <img src="http://tinygraphs.com/checkerboard">
 
-### Supported routes:
+## parameters:
+
+###size:
+
+`tinygraphs.com/squares/hello?size=60`
+
+
+![size parameter](http://tinygraphs.com/squares/hello?size=60)
+
+###format:
+default format is jpeg. You can specify the format by using the `fmt`parameter.
+Supported formats are:
+* JPEG
+* SVG
+
+`tinygraphs.com/squares/hello?fmt=svg`
+
+![fmt parameter](http://tinygraphs.com/squares/hello?fmt=svg)
+
+### background and foreground:
+You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
+
+`tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2`
+
+![bg and fg parameters](http://tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2&size=120&fmt=svg)
+
+
+## Supported routes:
 
 `http://tinygraphs.com/checkerboard`
 
