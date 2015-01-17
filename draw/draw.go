@@ -2,6 +2,7 @@ package draw
 
 import (
 	"encoding/hex"
+	"fmt"
 	"github.com/ajstarks/svgo"
 	"image"
 	"image/color"
@@ -148,35 +149,33 @@ func Squares(m *image.RGBA, key string, color1, color2 color.RGBA) {
 
 func SquaresSVG(canvas *svg.SVG, key string, color1, color2 color.RGBA, size int) {
 	canvas.Start(size, size)
-	canvas.Rect(0, 0, size, size, "fill:rgb(0,0,255);")
 
-	// size := m.Bounds().Size()
-	// squares := 6
-	// quad := size.X / squares
-	// middle := math.Ceil(float64(squares) / float64(2))
-	// colorMap := make(map[int]color.RGBA)
-	// var currentYQuadrand = 0
-	// for y := 0; y < size.Y; y++ {
-	// 	yQuadrant := y / quad
-	// 	if yQuadrant != currentYQuadrand {
-	// 		// when y quadrant changes, clear map
-	// 		colorMap = make(map[int]color.RGBA)
-	// 		currentYQuadrand = yQuadrant
-	// 	}
-	// 	for x := 0; x < size.X; x++ {
-	// 		xQuadrant := x / quad
-	// 		if _, ok := colorMap[xQuadrant]; !ok {
-	// 			if float64(xQuadrant) < middle {
-	// 				colorMap[xQuadrant] = colorFromKey(key, color1, color2, xQuadrant+3*yQuadrant)
-	// 			} else if xQuadrant < squares {
-	// 				colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
-	// 			} else {
-	// 				colorMap[xQuadrant] = colorMap[0]
-	// 			}
-	// 		}
-	// 		m.Set(x, y, colorMap[xQuadrant])
-	// 	}
-	// }
+	squares := 6
+	quadrantSize := size / squares
+	middle := math.Ceil(float64(squares) / float64(2))
+	colorMap := make(map[int]color.RGBA)
+	for yQ := 0; yQ < squares; yQ++ {
+		y := yQ * quadrantSize
+		colorMap = make(map[int]color.RGBA)
+
+		for xQ := 0; xQ < squares; xQ++ {
+			x := xQ * quadrantSize
+			if _, ok := colorMap[xQ]; !ok {
+				if float64(xQ) < middle {
+					colorMap[xQ] = colorFromKey(key, color1, color2, xQ+3*yQ)
+				} else if xQ < squares {
+					colorMap[xQ] = colorMap[squares-xQ-1]
+				} else {
+					colorMap[xQ] = colorMap[0]
+				}
+			}
+			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
+		}
+	}
+}
+
+func fillFromRGBA(c color.RGBA) string {
+	return fmt.Sprintf("fill:rgb(%d,%d,%d)", c.R, c.G, c.B)
 }
 
 func colorFromKey(key string, color1, color2 color.RGBA, index int) color.RGBA {
