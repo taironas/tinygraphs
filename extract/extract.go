@@ -1,4 +1,5 @@
-package squares
+// Package extract provides a set of functions to extract parameters from an http:Request.
+package extract
 
 import (
 	"fmt"
@@ -9,7 +10,7 @@ import (
 )
 
 // extract hexadecimal code background from HTTP request and return color.RGBA
-func background(req *http.Request) (color.RGBA, error) {
+func Background(req *http.Request) (color.RGBA, error) {
 	bg := req.FormValue("bg")
 	if len(bg) == 0 {
 		return color.RGBA{}, fmt.Errorf("background: wrong input")
@@ -19,7 +20,7 @@ func background(req *http.Request) (color.RGBA, error) {
 }
 
 // extract hexadecimal code foreground from HTTP request and return color.RGBA
-func foreground(req *http.Request) (color.RGBA, error) {
+func Foreground(req *http.Request) (color.RGBA, error) {
 	fg := req.FormValue("fg")
 	if len(fg) == 0 {
 		return color.RGBA{}, fmt.Errorf("background: wrong input")
@@ -29,7 +30,7 @@ func foreground(req *http.Request) (color.RGBA, error) {
 }
 
 // extract size from HTTP request and return it.
-func size(r *http.Request) int {
+func Size(r *http.Request) int {
 	strSize := r.FormValue("size")
 	if len(strSize) > 0 {
 		if size, errSize := strconv.ParseInt(strSize, 0, 64); errSize == nil {
@@ -42,14 +43,14 @@ func size(r *http.Request) int {
 	return 210
 }
 
-type Format int
+type ImgFormat int
 
 const (
-	JPEG Format = iota
+	JPEG ImgFormat = iota
 	SVG
 )
 
-func format(r *http.Request) Format {
+func Format(r *http.Request) ImgFormat {
 	strFmt := strings.ToLower(r.FormValue("fmt"))
 	if len(strFmt) > 0 {
 		if strFmt == "svg" {
@@ -59,4 +60,22 @@ func format(r *http.Request) Format {
 		}
 	}
 	return JPEG
+}
+
+// HexToRGB converts an Hex string to a RGB triple.
+func hexToRGB(h string) (uint8, uint8, uint8, error) {
+	if len(h) > 0 && h[0] == '#' {
+		h = h[1:]
+	}
+	if len(h) == 3 {
+		h = h[:1] + h[:1] + h[1:2] + h[1:2] + h[2:] + h[2:]
+	}
+	if len(h) == 6 {
+		if rgb, err := strconv.ParseUint(string(h), 16, 32); err == nil {
+			return uint8(rgb >> 16), uint8((rgb >> 8) & 0xFF), uint8(rgb & 0xFF), nil
+		} else {
+			return 0, 0, 0, err
+		}
+	}
+	return 0, 0, 0, nil
 }

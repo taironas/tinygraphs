@@ -6,6 +6,7 @@ import (
 	"github.com/ajstarks/svgo"
 	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/misc"
 	"github.com/taironas/tinygraphs/write"
 	"image"
@@ -40,21 +41,21 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		}
 
 		colorMap := tgColors.MapOfColorPatterns()
-		bg, err1 := background(r)
+		bg, err1 := extract.Background(r)
 		if err1 != nil {
 			bg = colorMap[0][0]
 		}
-		fg, err2 := foreground(r)
+		fg, err2 := extract.Foreground(r)
 		if err2 != nil {
 			fg = colorMap[0][1]
 		}
-		size := size(r)
-		if format := format(r); format == JPEG {
+		size := extract.Size(r)
+		if format := extract.Format(r); format == extract.JPEG {
 			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			draw.Squares(m, key, bg, fg)
 			var img image.Image = m
 			write.ImageJPEG(w, &img)
-		} else if format == SVG {
+		} else if format == extract.SVG {
 			canvas := svg.New(w)
 			draw.SquaresSVG(canvas, key, bg, fg, size)
 			write.ImageSVG(w, canvas)
@@ -87,14 +88,14 @@ func Color(w http.ResponseWriter, r *http.Request) {
 				}
 			}
 
-			size := size(r)
+			size := extract.Size(r)
 			colorMap := tgColors.MapOfColorPatterns()
-			if format := format(r); format == JPEG {
+			if format := extract.Format(r); format == extract.JPEG {
 				m := image.NewRGBA(image.Rect(0, 0, size, size))
 				draw.Squares(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
 				var img image.Image = m
 				write.ImageJPEG(w, &img)
-			} else if format == SVG {
+			} else if format == extract.SVG {
 				canvas := svg.New(w)
 				draw.SquaresSVG(canvas, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1], size)
 				write.ImageSVG(w, canvas)
@@ -103,22 +104,4 @@ func Color(w http.ResponseWriter, r *http.Request) {
 			log.Printf("error when extracting permalink string: %v", err)
 		}
 	}
-}
-
-// HexToRGB converts an Hex string to a RGB triple.
-func hexToRGB(h string) (uint8, uint8, uint8, error) {
-	if len(h) > 0 && h[0] == '#' {
-		h = h[1:]
-	}
-	if len(h) == 3 {
-		h = h[:1] + h[:1] + h[1:2] + h[1:2] + h[2:] + h[2:]
-	}
-	if len(h) == 6 {
-		if rgb, err := strconv.ParseUint(string(h), 16, 32); err == nil {
-			return uint8(rgb >> 16), uint8((rgb >> 8) & 0xFF), uint8(rgb & 0xFF), nil
-		} else {
-			return 0, 0, 0, err
-		}
-	}
-	return 0, 0, 0, nil
 }

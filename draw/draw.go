@@ -30,6 +30,30 @@ func Grid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
+// Grid6X6SVG builds an image with 6X6 quadrants of alternate colors.
+func Grid6X6SVG(canvas *svg.SVG, color1, color2 color.RGBA, size int) {
+	canvas.Start(size, size)
+	squares := 6
+	quadrantSize := size / squares
+	colorMap := make(map[int]color.RGBA)
+	for yQ := 0; yQ < squares; yQ++ {
+		y := yQ * quadrantSize
+		colorMap = make(map[int]color.RGBA)
+
+		for xQ := 0; xQ < squares; xQ++ {
+			x := xQ * quadrantSize
+			if _, ok := colorMap[xQ]; !ok {
+				if (xQ+yQ)%2 == 0 {
+					colorMap[xQ] = color1
+				} else {
+					colorMap[xQ] = color2
+				}
+			}
+			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
+		}
+	}
+}
+
 // RandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
 func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
