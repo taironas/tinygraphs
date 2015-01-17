@@ -88,12 +88,17 @@ func Color(w http.ResponseWriter, r *http.Request) {
 			}
 
 			size := size(r)
-			m := image.NewRGBA(image.Rect(0, 0, size, size))
 			colorMap := tgColors.MapOfColorPatterns()
-
-			draw.Squares(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
-			var img image.Image = m
-			write.ImageJPEG(w, &img)
+			if format := format(r); format == JPEG {
+				m := image.NewRGBA(image.Rect(0, 0, size, size))
+				draw.Squares(m, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1])
+				var img image.Image = m
+				write.ImageJPEG(w, &img)
+			} else if format == SVG {
+				canvas := svg.New(w)
+				draw.SquaresSVG(canvas, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1], size)
+				write.ImageSVG(w, canvas)
+			}
 		} else {
 			log.Printf("error when extracting permalink string: %v", err)
 		}
