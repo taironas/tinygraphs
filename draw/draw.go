@@ -12,7 +12,7 @@ import (
 	"strconv"
 )
 
-//drawGrid6X6 builds an image with 6X6 quadrants of alternate colors.
+//Grid6X6 builds an image with 6X6 quadrants of alternate colors.
 func Grid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
@@ -30,7 +30,7 @@ func Grid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
-// drawRandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
+// RandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
 func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
@@ -52,6 +52,26 @@ func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
+// RandomGrid6X6SVG builds a grid image with with 2 colors selected at random for each quadrant.
+func RandomGrid6X6SVG(canvas *svg.SVG, color1, color2 color.RGBA, size int) {
+	canvas.Start(size, size)
+	squares := 6
+	quadrantSize := size / squares
+	colorMap := make(map[int]color.RGBA)
+	for yQ := 0; yQ < squares; yQ++ {
+		y := yQ * quadrantSize
+		colorMap = make(map[int]color.RGBA)
+
+		for xQ := 0; xQ < squares; xQ++ {
+			x := xQ * quadrantSize
+			if _, ok := colorMap[xQ]; !ok {
+				colorMap[xQ] = randomColor(color1, color2)
+			}
+			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
+		}
+	}
+}
+
 // getRandomColor returns a random color between c1 and c2
 func randomColor(c1, c2 color.RGBA) color.RGBA {
 	r := rand.Intn(2)
@@ -61,7 +81,7 @@ func randomColor(c1, c2 color.RGBA) color.RGBA {
 	return c2
 }
 
-// drawRandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
+// RandomSymetricInYGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
 func RandomSymetricInYGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	squares := 6
@@ -81,7 +101,7 @@ func RandomSymetricInYGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 				if float64(yQuadrant) < middle {
 					colorMap[yQuadrant] = randomColor(color1, color2)
 				} else {
-					colorMap[yQuadrant] = colorMap[squares-yQuadrant-1] //getRandomColor(color1, color2)
+					colorMap[yQuadrant] = colorMap[squares-yQuadrant-1]
 				}
 			}
 			m.Set(x, y, colorMap[yQuadrant])
@@ -89,7 +109,7 @@ func RandomSymetricInYGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
-// drawRandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
+// RandomSymetricInXGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
 func RandomSymetricInXGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	squares := 6

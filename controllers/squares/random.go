@@ -1,6 +1,7 @@
 package squares
 
 import (
+	"github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/misc"
@@ -10,7 +11,7 @@ import (
 	"net/http"
 )
 
-// handler for "/gird/random"
+// handler for "/squares/random"
 // generates a black and white grid random image.
 func Random(w http.ResponseWriter, r *http.Request) {
 	size := size(r)
@@ -23,13 +24,19 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		fg = colorMap[0][1]
 	}
-	m := image.NewRGBA(image.Rect(0, 0, size, size))
-	draw.RandomGrid6X6(m, bg, fg)
-	var img image.Image = m
-	write.ImageJPEG(w, &img)
+	if format := format(r); format == JPEG {
+		m := image.NewRGBA(image.Rect(0, 0, size, size))
+		draw.RandomGrid6X6(m, bg, fg)
+		var img image.Image = m
+		write.ImageJPEG(w, &img)
+	} else if format == SVG {
+		canvas := svg.New(w)
+		draw.RandomGrid6X6SVG(canvas, bg, fg, size)
+		write.ImageSVG(w, canvas)
+	}
 }
 
-// handler for "/grid/random/[0-9]"
+// handler for "/squares/random/[0-9]"
 // generates a grid random image with a specific color based on the colorMap
 func RandomColor(w http.ResponseWriter, r *http.Request) {
 	intID, err := misc.PermalinkID(r, 3)
