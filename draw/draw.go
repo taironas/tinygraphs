@@ -9,6 +9,7 @@ import (
 	"log"
 	"math"
 	"math/rand"
+	"net/http"
 	"strconv"
 )
 
@@ -31,7 +32,8 @@ func Grid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 }
 
 // Grid6X6SVG builds an image with 6X6 quadrants of alternate colors.
-func Grid6X6SVG(canvas *svg.SVG, color1, color2 color.RGBA, size int) {
+func Grid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
+	canvas := svg.New(w)
 	canvas.Start(size, size)
 	squares := 6
 	quadrantSize := size / squares
@@ -52,6 +54,7 @@ func Grid6X6SVG(canvas *svg.SVG, color1, color2 color.RGBA, size int) {
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
 		}
 	}
+	canvas.End()
 }
 
 // RandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
@@ -77,7 +80,8 @@ func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 }
 
 // RandomGrid6X6SVG builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomGrid6X6SVG(canvas *svg.SVG, color1, color2 color.RGBA, size int) {
+func RandomGrid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
+	canvas := svg.New(w)
 	canvas.Start(size, size)
 	squares := 6
 	quadrantSize := size / squares
@@ -94,6 +98,7 @@ func RandomGrid6X6SVG(canvas *svg.SVG, color1, color2 color.RGBA, size int) {
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
 		}
 	}
+	canvas.End()
 }
 
 // getRandomColor returns a random color between c1 and c2
@@ -191,7 +196,8 @@ func Squares(m *image.RGBA, key string, color1, color2 color.RGBA) {
 	}
 }
 
-func SquaresSVG(canvas *svg.SVG, key string, color1, color2 color.RGBA, size int) {
+func SquaresSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+	canvas := svg.New(w)
 	canvas.Start(size, size)
 
 	squares := 6
@@ -216,6 +222,7 @@ func SquaresSVG(canvas *svg.SVG, key string, color1, color2 color.RGBA, size int
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
 		}
 	}
+	canvas.End()
 }
 
 func fillFromRGBA(c color.RGBA) string {

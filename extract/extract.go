@@ -6,6 +6,7 @@ import (
 	"github.com/taironas/tinygraphs/format"
 	"image/color"
 	"net/http"
+	"path"
 	"strconv"
 	"strings"
 )
@@ -45,13 +46,22 @@ func Size(r *http.Request) int {
 }
 
 func Format(r *http.Request) format.Format {
-	strFmt := strings.ToLower(r.FormValue("fmt"))
-	if len(strFmt) > 0 {
-		if strFmt == "svg" {
-			return format.SVG
-		} else if strFmt == "jpeg" || strFmt == "jpg" {
-			return format.JPEG
-		}
+	// strFmt := strings.ToLower(r.FormValue("fmt"))
+	// if len(strFmt) > 0 {
+	// 	if strFmt == "svg" {
+	// 		return format.SVG
+	// 	} else if strFmt == "jpeg" || strFmt == "jpg" {
+	// 		return format.JPEG
+	// 	}
+	// }
+	strFmt := strings.ToLower(path.Ext(r.URL.Path))
+	if strFmt != ".jpeg" && strFmt != ".jpg" && strFmt != ".svg" {
+		strFmt = "jpeg"
+	}
+	if strFmt == ".svg" {
+		return format.SVG
+	} else if strFmt == ".jpeg" || strFmt == ".jpg" {
+		return format.JPEG
 	}
 	return format.JPEG
 }

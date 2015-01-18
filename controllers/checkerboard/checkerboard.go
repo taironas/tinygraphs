@@ -1,7 +1,6 @@
 package checkerboard
 
 import (
-	"github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
@@ -29,9 +28,8 @@ func Color(w http.ResponseWriter, r *http.Request) {
 			var img image.Image = m
 			write.ImageJPEG(w, &img)
 		} else if f == format.SVG {
-			canvas := svg.New(w)
-			draw.Grid6X6SVG(canvas, colorMap[int(intID)][0], colorMap[int(intID)][1], size)
-			write.ImageSVG(w, canvas)
+			write.ImageSVG(w)
+			draw.Grid6X6SVG(w, colorMap[int(intID)][0], colorMap[int(intID)][1], size)
 		}
 	}
 }
@@ -48,8 +46,7 @@ func Checkerboard(w http.ResponseWriter, r *http.Request) {
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
-		canvas := svg.New(w)
-		draw.Grid6X6SVG(canvas, color1, color2, size)
-		write.ImageSVG(w, canvas)
+		write.ImageSVG(w)
+		draw.Grid6X6SVG(w, color1, color2, size)
 	}
 }

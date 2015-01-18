@@ -3,7 +3,6 @@ package write
 import (
 	"bytes"
 	"encoding/base64"
-	"github.com/ajstarks/svgo"
 	"html/template"
 	"image"
 	"image/jpeg"
@@ -51,8 +50,12 @@ func ImageJPEG(w http.ResponseWriter, img *image.Image) {
 }
 
 // writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
-func ImageSVG(w http.ResponseWriter, img *svg.SVG) {
-
+func ImageSVG(w http.ResponseWriter) {
+	// First set the content type in the http.ResponseWriter
+	// only then create and draw the svg object.
+	// the order is important because the svg object is created from the http.ResponseWriter.
+	// If you create first the svg object and then you try to set the content-type to svg it will
+	// not work, the content type will be text/xml and you will get the message:
+	// "Resource interpreted as Image but transferred with MIME type text/xml:"
 	w.Header().Set("Content-Type", "image/svg+xml")
-	img.End()
 }

@@ -21,8 +21,8 @@ func main() {
 	r.HandleFunc("/squares/?", squares.Random)
 	r.HandleFunc("/squares/random/?", squares.Random)
 	r.HandleFunc("/squares/random/[0-8]/?", squares.RandomColor)
-	r.HandleFunc("/squares/[a-zA-Z0-9]+/?", squares.Square)      //cached
-	r.HandleFunc("/squares/[0-8]/[a-zA-Z0-9]+/?", squares.Color) // cached
+	r.HandleFunc("/squares/[a-zA-Z0-9\\.]+/?", squares.Square)      //cached
+	r.HandleFunc("/squares/[0-8]/[a-zA-Z0-9\\.]+/?", squares.Color) // cached
 
 	r.AddStaticResource(root)
 

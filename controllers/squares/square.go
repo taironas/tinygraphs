@@ -3,7 +3,6 @@ package squares
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/ajstarks/svgo"
 	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
@@ -57,9 +56,8 @@ func Square(w http.ResponseWriter, r *http.Request) {
 			var img image.Image = m
 			write.ImageJPEG(w, &img)
 		} else if f == format.SVG {
-			canvas := svg.New(w)
-			draw.SquaresSVG(canvas, key, bg, fg, size)
-			write.ImageSVG(w, canvas)
+			write.ImageSVG(w)
+			draw.SquaresSVG(w, key, bg, fg, size)
 		}
 	}
 }
@@ -97,9 +95,8 @@ func Color(w http.ResponseWriter, r *http.Request) {
 				var img image.Image = m
 				write.ImageJPEG(w, &img)
 			} else if f == format.SVG {
-				canvas := svg.New(w)
-				draw.SquaresSVG(canvas, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1], size)
-				write.ImageSVG(w, canvas)
+				write.ImageSVG(w)
+				draw.SquaresSVG(w, key, colorMap[int(colorId)][0], colorMap[int(colorId)][1], size)
 			}
 		} else {
 			log.Printf("error when extracting permalink string: %v", err)
