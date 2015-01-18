@@ -14,8 +14,9 @@ How to use:
 
 You can set the HTML source of the image to point directly to **tinygraphs.com** or you can save the image and use it directly on your site (*just remember to give us credit with a link to tinygraphs.com ;)* ).
 
-        <img src="http://tinygraphs.com/checkerboard">
-
+~~~html
+<img src="http://tinygraphs.com/checkerboard">
+~~~
 ## parameters:
 
 ### size:

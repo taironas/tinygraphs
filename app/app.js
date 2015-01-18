@@ -5,7 +5,6 @@ angular.module('tinygraphs', [
     'ngRoute',
     'tinygraphs.view1',
     'tinygraphs.view2',
-    'tinygraphs.about',
     'tinygraphs.version',
     'tinygraphs.holder'
 ]).
