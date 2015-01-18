@@ -16,19 +16,20 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
         <img src="http://tinygraphs.com/checkerboard">
 
+## formats
+The default format is `JPEG`. You can specify the format by using the extension `.jpeg` or `.svg`
+
+Supported formats are:
+* JPEG
+* SVG
+
+`tinygraphs.com/squares/hello.svg`
+
 ## parameters:
 
 ###size:
 
 `tinygraphs.com/squares/hello?size=60`
-
-###format:
-default format is jpeg. You can specify the format by using the `fmt`parameter.
-Supported formats are:
-* JPEG
-* SVG
-
-`tinygraphs.com/squares/hello?fmt=svg`
 
 ### background and foreground:
 You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
