@@ -33,9 +33,6 @@ html {
   position: relative;
   min-height: 100%;
 }
-body {
-  margin-bottom: 200px;
-}
 
 .push {
     height: 55px;
@@ -45,7 +42,7 @@ body {
   position: relative;
   bottom: 0;
   width: 100%;
-  height: 200px;
+  height: 250px;
   min-height: 50px;
   margin-bottom: 0px;
   border: 1px solid transparent;
