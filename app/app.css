@@ -28,3 +28,26 @@
   content: "";
   padding: 0;
 }
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 200px;
+}
+
+.push {
+    height: 55px;
+}
+
+.tg-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  min-height: 50px;
+  margin-bottom: 0px;
+  border: 1px solid transparent;
+  padding: 20px;
+}
