@@ -17,8 +17,8 @@ import (
 	"strings"
 )
 
-// Square is the handler for /squares/[A-Za-z0-9]+/?
-// build a 6x6 grid with alternate colors based on the number passed in the url
+// Square is the handler for /squares/[A-Za-z0-9]+/?.
+// builds a 6x6 grid with alternate colors based on the number passed in the url.
 func Square(w http.ResponseWriter, r *http.Request) {
 
 	if id, err := misc.PermalinkString(r, 2); err != nil {

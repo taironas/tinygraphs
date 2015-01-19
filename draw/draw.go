@@ -1,16 +1,11 @@
 package draw
 
 import (
-	"encoding/hex"
-	"fmt"
 	"github.com/ajstarks/svgo"
 	"image"
 	"image/color"
-	"log"
 	"math"
-	"math/rand"
 	"net/http"
-	"strconv"
 )
 
 //Grid6X6 builds an image with 6X6 quadrants of alternate colors.
@@ -99,15 +94,6 @@ func RandomGrid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int
 		}
 	}
 	canvas.End()
-}
-
-// getRandomColor returns a random color between c1 and c2
-func randomColor(c1, c2 color.RGBA) color.RGBA {
-	r := rand.Intn(2)
-	if r == 1 {
-		return c1
-	}
-	return c2
 }
 
 // RandomSymetricInYGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
@@ -223,21 +209,4 @@ func SquaresSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, si
 		}
 	}
 	canvas.End()
-}
-
-func fillFromRGBA(c color.RGBA) string {
-	return fmt.Sprintf("fill:rgb(%d,%d,%d)", c.R, c.G, c.B)
-}
-
-func colorFromKey(key string, color1, color2 color.RGBA, index int) color.RGBA {
-	s := hex.EncodeToString([]byte{key[index]})
-	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
-		if r%2 == 0 {
-			return color1
-		}
-		return color2
-	} else {
-		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
-	}
-	return color1
 }
