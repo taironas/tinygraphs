@@ -45,21 +45,29 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 // Isogrids is the handler for /isogrids/[a-zA-Z0-9]+/?.
 // builds a 10x10 grid with alternate colors based on the string passed in the url.
 func Color(w http.ResponseWriter, r *http.Request) {
-	if id, err := misc.PermalinkID(r, 2); err != nil {
+	if colorId, err := misc.PermalinkID(r, 2); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
-		colorMap := tgColors.MapOfColorPatterns()
-		bg, err1 := extract.Background(r)
-		if err1 != nil {
-			bg = colorMap[int(id)][0]
+		if id, err1 := misc.PermalinkString(r, 3); err1 == nil {
+			h := md5.New()
+			io.WriteString(h, id)
+			key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+			colorMap := tgColors.MapOfColorPatterns()
+			bg, err1 := extract.Background(r)
+			if err1 != nil {
+				bg = colorMap[int(colorId)][0]
+			}
+			fg, err2 := extract.Foreground(r)
+			if err2 != nil {
+				fg = colorMap[int(colorId)][1]
+			}
+			size := extract.Size(r)
+			write.ImageSVG(w)
+			draw.Isogrids(w, key, bg, fg, size)
+		} else {
+			log.Printf("error when extracting permalink string: %v", err)
 		}
-		fg, err2 := extract.Foreground(r)
-		if err2 != nil {
-			fg = colorMap[int(id)][1]
-		}
-		size := extract.Size(r)
-		write.ImageSVG(w)
-		draw.IsogridsSkeleton(w, "", bg, fg, size)
 	}
 }
 
