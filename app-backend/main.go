@@ -26,10 +26,12 @@ func main() {
 	r.HandleFunc("/squares/[a-zA-Z0-9\\.]+/?", squares.Square)      //cached
 	r.HandleFunc("/squares/[0-8]/[a-zA-Z0-9\\.]+/?", squares.Color) // cached
 
+	r.HandleFunc("/isogrids/grid/[a-zA-Z0-9]+/?", isogrids.Isogrids)
 	r.HandleFunc("/isogrids/skeleton/[a-zA-Z0-9]+/?", isogrids.Skeleton)
 	r.HandleFunc("/isogrids/diagonals/[a-zA-Z0-9]+/?", isogrids.Diagonals)
 	r.HandleFunc("/isogrids/halfdiagonals/[a-zA-Z0-9]+/?", isogrids.HalfDiagonals)
-	r.HandleFunc("/isogrids/color/[a-zA-Z0-9]+/?", isogrids.Color)
+	r.HandleFunc("/isogrids/gridbw/[a-zA-Z0-9]+/?", isogrids.GridBW)
+	r.HandleFunc("/isogrids/grid2colors/[a-zA-Z0-9]+/?", isogrids.Grid2Colors)
 	r.HandleFunc("/isogrids/[a-zA-Z0-9]+/?", isogrids.Isogrids)
 
 	r.AddStaticResource(root)

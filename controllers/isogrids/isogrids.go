@@ -114,7 +114,7 @@ func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Color(w http.ResponseWriter, r *http.Request) {
+func GridBW(w http.ResponseWriter, r *http.Request) {
 
 	if id, err := misc.PermalinkString(r, 3); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
@@ -134,6 +134,30 @@ func Color(w http.ResponseWriter, r *http.Request) {
 		}
 		size := extract.Size(r)
 		write.ImageSVG(w)
-		draw.IsogridsColor(w, key, bg, fg, size)
+		draw.IsogridsBW(w, key, bg, fg, size)
+	}
+}
+
+func Grid2Colors(w http.ResponseWriter, r *http.Request) {
+
+	if id, err := misc.PermalinkString(r, 3); err != nil {
+		log.Printf("error when extracting permalink id: %v", err)
+	} else {
+		h := md5.New()
+		io.WriteString(h, id)
+		key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+		colorMap := tgColors.MapOfColorPatterns()
+		bg, err1 := extract.Background(r)
+		if err1 != nil {
+			bg = colorMap[0][0]
+		}
+		fg, err2 := extract.Foreground(r)
+		if err2 != nil {
+			fg = colorMap[0][1]
+		}
+		size := extract.Size(r)
+		write.ImageSVG(w)
+		draw.Isogrids2Colors(w, key, bg, fg, size)
 	}
 }
