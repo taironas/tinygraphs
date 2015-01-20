@@ -32,6 +32,7 @@ func main() {
 	r.HandleFunc("/isogrids/halfdiagonals/[a-zA-Z0-9]+/?", isogrids.HalfDiagonals)
 	r.HandleFunc("/isogrids/gridbw/[a-zA-Z0-9]+/?", isogrids.GridBW)
 	r.HandleFunc("/isogrids/grid2colors/[a-zA-Z0-9]+/?", isogrids.Grid2Colors)
+	r.HandleFunc("/isogrids/grid2colorsrandom/[a-zA-Z0-9]+/?", isogrids.Grid2ColorsRandom)
 	r.HandleFunc("/isogrids/[a-zA-Z0-9]+/?", isogrids.Isogrids)
 
 	r.AddStaticResource(root)
