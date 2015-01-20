@@ -4,17 +4,16 @@ import (
 	"crypto/md5"
 	"fmt"
 
-	tgColors "github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
-	"github.com/taironas/tinygraphs/extract"
-	// "github.com/taironas/tinygraphs/format"
 	"io"
 	"log"
 	"net/http"
 
+	tgColors "github.com/taironas/tinygraphs/colors"
+	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/extract"
+
 	"github.com/taironas/tinygraphs/misc"
 	"github.com/taironas/tinygraphs/write"
-	//	"strings"
 )
 
 // Isogrids is the handler for /isogrids/[a-zA-Z0-9]+/?.
@@ -28,16 +27,29 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(h, id)
 		key := fmt.Sprintf("%x", h.Sum(nil)[:])
 
-		// e := `"` + key + `"`
-		// w.Header().Set("Etag", e)
-		// w.Header().Set("Cache-Control", "max-age=2592000") // 30 days
+		colorMap := tgColors.MapOfColorPatterns()
+		bg, err1 := extract.Background(r)
+		if err1 != nil {
+			bg = colorMap[0][0]
+		}
+		fg, err2 := extract.Foreground(r)
+		if err2 != nil {
+			fg = colorMap[0][1]
+		}
+		size := extract.Size(r)
+		write.ImageSVG(w)
+		draw.IsogridsSkeleton(w, key, bg, fg, size)
+	}
+}
 
-		// if match := r.Header.Get("If-None-Match"); match != "" {
-		// 	if strings.Contains(match, e) {
-		// 		w.WriteHeader(http.StatusNotModified)
-		// 		return
-		// 	}
-		// }
+func Skeleton(w http.ResponseWriter, r *http.Request) {
+
+	if id, err := misc.PermalinkString(r, 3); err != nil {
+		log.Printf("error when extracting permalink id: %v", err)
+	} else {
+		h := md5.New()
+		io.WriteString(h, id)
+		key := fmt.Sprintf("%x", h.Sum(nil)[:])
 
 		colorMap := tgColors.MapOfColorPatterns()
 		bg, err1 := extract.Background(r)
@@ -49,11 +61,55 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 			fg = colorMap[0][1]
 		}
 		size := extract.Size(r)
-		// if f := extract.Format(r); f == format.SVG {
 		write.ImageSVG(w)
-		// draw.Isogrids1(w, key, bg, fg, size)
-		draw.HalfDiagonals(w, key, bg, fg, size)
+		draw.IsogridsSkeleton(w, key, bg, fg, size)
+	}
+}
 
-		// }
+func Diagonals(w http.ResponseWriter, r *http.Request) {
+
+	if id, err := misc.PermalinkString(r, 3); err != nil {
+		log.Printf("error when extracting permalink id: %v", err)
+	} else {
+		h := md5.New()
+		io.WriteString(h, id)
+		key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+		colorMap := tgColors.MapOfColorPatterns()
+		bg, err1 := extract.Background(r)
+		if err1 != nil {
+			bg = colorMap[0][0]
+		}
+		fg, err2 := extract.Foreground(r)
+		if err2 != nil {
+			fg = colorMap[0][1]
+		}
+		size := extract.Size(r)
+		write.ImageSVG(w)
+		draw.Diagonals(w, key, bg, fg, size)
+	}
+}
+
+func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
+
+	if id, err := misc.PermalinkString(r, 3); err != nil {
+		log.Printf("error when extracting permalink id: %v", err)
+	} else {
+		h := md5.New()
+		io.WriteString(h, id)
+		key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+		colorMap := tgColors.MapOfColorPatterns()
+		bg, err1 := extract.Background(r)
+		if err1 != nil {
+			bg = colorMap[0][0]
+		}
+		fg, err2 := extract.Foreground(r)
+		if err2 != nil {
+			fg = colorMap[0][1]
+		}
+		size := extract.Size(r)
+		write.ImageSVG(w)
+		draw.HalfDiagonals(w, key, bg, fg, size)
 	}
 }
