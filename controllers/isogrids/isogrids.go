@@ -3,15 +3,17 @@ package isogrids
 import (
 	"crypto/md5"
 	"fmt"
+
 	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
 	// "github.com/taironas/tinygraphs/format"
-	"github.com/taironas/tinygraphs/misc"
-	"github.com/taironas/tinygraphs/write"
 	"io"
 	"log"
 	"net/http"
+
+	"github.com/taironas/tinygraphs/misc"
+	"github.com/taironas/tinygraphs/write"
 	//	"strings"
 )
 
@@ -49,7 +51,9 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 		size := extract.Size(r)
 		// if f := extract.Format(r); f == format.SVG {
 		write.ImageSVG(w)
-		draw.IsogridsSVG(w, key, bg, fg, size)
+		// draw.Isogrids1(w, key, bg, fg, size)
+		draw.HalfDiagonals(w, key, bg, fg, size)
+
 		// }
 	}
 }
