@@ -21,7 +21,7 @@ func IsogridsSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, s
 
 	// log.Printf(style)
 
-	// horizontal lines
+	// vertical lines
 	for xL := 0; xL < lines; xL++ {
 		x := xL * fringeSize
 		lastY := (lines - 1) * fringeSize
@@ -36,6 +36,14 @@ func IsogridsSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, s
 			yNext := fringeSize / 2
 			canvas.Line(x, yNext, x, lastY, style)
 		}
+	}
+
+	// horizontal lines
+	for yL := 0; yL < lines; yL++ {
+		y := yL * fringeSize
+		lastX := (lines - 1) * fringeSize
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		canvas.Line(0, y, lastX, y, style)
 	}
 
 	// diagonal lines, x --> y left down
@@ -65,40 +73,40 @@ func IsogridsSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, s
 		}
 	}
 
-	// diagonal lines, x --> y left up
-	for xL := 0; xL < lines; xL++ {
-		x := xL * fringeSize
-		style := fmt.Sprintf("stroke:red;stroke-width:2; %s", fillFromRGBA(color2))
-		if (xL % 2) != 0 {
-			xLast := x
-			yLast := (lines - 1) * fringeSize
-			yPrev := ((lines - 1 - xL) + xL/2) * fringeSize
-			if yPrev < (lines)*fringeSize {
-				canvas.Line(xLast, yLast, 0, yPrev, style)
-			}
-		}
-	}
+	// // diagonal lines, x --> y left up
+	// for xL := 0; xL < lines; xL++ {
+	// 	x := xL * fringeSize
+	// 	style := fmt.Sprintf("stroke:red;stroke-width:2; %s", fillFromRGBA(color2))
+	// 	if (xL % 2) != 0 {
+	// 		xLast := x
+	// 		yLast := (lines - 1) * fringeSize
+	// 		yPrev := ((lines - 1 - xL) + xL/2) * fringeSize
+	// 		if yPrev < (lines)*fringeSize {
+	// 			canvas.Line(xLast, yLast, 0, yPrev, style)
+	// 		}
+	// 	}
+	// }
 
 	// diagonal lines, y --> x down
 	xLast := (lines - 1) * fringeSize
 	for yL := 0; yL < lines; yL++ {
-		style := fmt.Sprintf("stroke:red;stroke-width:2; %s", fillFromRGBA(color2))
-		y := yL * fringeSize
-		yDiag := y + (5 * fringeSize)
-		if yDiag < ((lines - 1) * fringeSize) {
-			canvas.Line(0, y, xLast, yDiag, style)
-		}
-	}
-
-	// diagonal lines, y --> x up
-	for yL := 0; yL < lines; yL++ {
 		style := fmt.Sprintf("stroke:blue;stroke-width:2; %s", fillFromRGBA(color2))
 		y := yL * fringeSize
-		yDiag := y - (5 * fringeSize)
-		if yDiag > 0 {
-			canvas.Line(0, y, xLast, yDiag, style)
-		}
+		yDiag := y + (5 * fringeSize)
+		// if yDiag < ((lines - 1) * fringeSize) {
+		canvas.Line(0, y, xLast, yDiag, style)
+		//}
 	}
+
+	// // diagonal lines, y --> x up
+	// for yL := 0; yL < lines; yL++ {
+	// 	style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+	// 	y := yL * fringeSize
+	// 	yDiag := y - (5 * fringeSize)
+	// 	if yDiag > 0 {
+	// 		canvas.Line(0, y, xLast, yDiag, style)
+	// 	}
+	// }
 
 	// diagonal lines, x --> y left
 	for yL := 0; yL < lines; yL++ {
