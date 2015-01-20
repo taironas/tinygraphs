@@ -299,7 +299,7 @@ func Isogrids2Colors(w http.ResponseWriter, key string, color1, color2 color.RGB
 }
 
 // Isogrids builds an image with 10x10 grids of half diagonals
-func IsogridsRandom2Colors(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func IsogridsRandom(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	size = 400
 	canvas.Start(size, size)

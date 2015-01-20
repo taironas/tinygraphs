@@ -162,7 +162,7 @@ func Grid2Colors(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Grid2ColorsRandom(w http.ResponseWriter, r *http.Request) {
+func Random(w http.ResponseWriter, r *http.Request) {
 
 	if id, err := misc.PermalinkString(r, 3); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
@@ -182,6 +182,25 @@ func Grid2ColorsRandom(w http.ResponseWriter, r *http.Request) {
 		}
 		size := extract.Size(r)
 		write.ImageSVG(w)
-		draw.IsogridsRandom2Colors(w, key, bg, fg, size)
+		draw.IsogridsRandom(w, key, bg, fg, size)
+	}
+}
+
+func RandomColor(w http.ResponseWriter, r *http.Request) {
+	if id, err := misc.PermalinkID(r, 3); err != nil {
+		log.Printf("error when extracting permalink id: %v", err)
+	} else {
+		colorMap := tgColors.MapOfColorPatterns()
+		bg, err1 := extract.Background(r)
+		if err1 != nil {
+			bg = colorMap[int(id)][0]
+		}
+		fg, err2 := extract.Foreground(r)
+		if err2 != nil {
+			fg = colorMap[int(id)][1]
+		}
+		size := extract.Size(r)
+		write.ImageSVG(w)
+		draw.IsogridsRandom(w, "", bg, fg, size)
 	}
 }
