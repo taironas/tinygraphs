@@ -3,11 +3,12 @@ package extract
 
 import (
 	"fmt"
-	"github.com/taironas/tinygraphs/format"
 	"image/color"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/taironas/tinygraphs/format"
 )
 
 // extract hexadecimal code background from HTTP request and return color.RGBA
@@ -72,4 +73,12 @@ func hexToRGB(h string) (uint8, uint8, uint8, error) {
 		}
 	}
 	return 0, 0, 0, nil
+}
+
+func Theme(r *http.Request) string {
+	strTheme := strings.ToLower(r.FormValue("theme"))
+	if len(strTheme) > 0 {
+		return strTheme
+	}
+	return "base"
 }

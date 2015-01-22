@@ -49,15 +49,24 @@ func Color(w http.ResponseWriter, r *http.Request) {
 // build a 6x6 checkerboard with alternate black and white colors.
 func Checkerboard(w http.ResponseWriter, r *http.Request) {
 	size := extract.Size(r)
-	color1 := color.RGBA{uint8(255), uint8(255), 255, 255}
-	color2 := color.RGBA{uint8(0), uint8(0), 0, 255}
+	theme := extract.Theme(r)
+	colorMap := colors.MapOfColorThemes()
+
+	var c1, c2 color.RGBA
+	if val, ok := colorMap[theme]; ok {
+		c1 = val[0]
+		c2 = val[1]
+	} else {
+		c1 = colorMap["base"][0]
+		c2 = colorMap["base"][1]
+	}
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.Grid6X6(m, color1, color2)
+		draw.Grid6X6(m, c1, c2)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		draw.Grid6X6SVG(w, color1, color2, size)
+		draw.Grid6X6SVG(w, c1, c2, size)
 	}
 }
