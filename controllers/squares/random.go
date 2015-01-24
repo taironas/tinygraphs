@@ -42,7 +42,7 @@ func Random(w http.ResponseWriter, r *http.Request) {
 // handler for "/squares/random/:colorId"
 // generates a grid random image with a specific color based on the colorMap
 func RandomColor(w http.ResponseWriter, r *http.Request) {
-	id := route.Context.Get(r, "colorId")
+	id, _ := route.Context.Get(r, "colorId")
 	if colorId, err := strconv.ParseInt(id, 0, 64); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {

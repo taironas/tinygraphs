@@ -20,7 +20,7 @@ import (
 // Square is the handler for /squares/:key
 // builds a 6x6 grid with alternate colors based on the number passed in the url.
 func Square(w http.ResponseWriter, r *http.Request) {
-	key := route.Context.Get(r, "key")
+	key, _ := route.Context.Get(r, "key")
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -61,13 +61,13 @@ func Square(w http.ResponseWriter, r *http.Request) {
 // build a 6x6 grid with alternate colors based on the number passed in the url
 func Color(w http.ResponseWriter, r *http.Request) {
 
-	id := route.Context.Get(r, "colorId")
+	id, _ := route.Context.Get(r, "colorId")
 	colorId, err := strconv.ParseInt(id, 0, 64)
 	if err != nil {
 		colorId = 0
 	}
 
-	key := route.Context.Get(r, "key")
+	key, _ := route.Context.Get(r, "key")
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])

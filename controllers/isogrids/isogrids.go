@@ -19,7 +19,7 @@ import (
 // Isogrids is the handler for /isogrids/:key
 // builds a 10x10 grid with alternate colors based on the string passed in the url.
 func Isogrids(w http.ResponseWriter, r *http.Request) {
-	key := route.Context.Get(r, "key")
+	key, _ := route.Context.Get(r, "key")
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -41,14 +41,14 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 // Color is the handler for /isogrids/:colorId/:key
 // builds a 10x10 grid with alternate colors based on the string passed in the url.
 func Color(w http.ResponseWriter, r *http.Request) {
-	id := route.Context.Get(r, "colorId")
+	id, _ := route.Context.Get(r, "colorId")
 
 	colorId, err := strconv.ParseInt(id, 0, 64)
 	if err != nil {
 		colorId = 0
 	}
 
-	key := route.Context.Get(r, "key")
+	key, _ := route.Context.Get(r, "key")
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -164,7 +164,7 @@ func Random(w http.ResponseWriter, r *http.Request) {
 }
 
 func RandomColor(w http.ResponseWriter, r *http.Request) {
-	id := route.Context.Get(r, "colorId")
+	id, _ := route.Context.Get(r, "colorId")
 	colorId, err := strconv.ParseInt(id, 0, 64)
 	if err != nil {
 		colorId = 0
@@ -199,7 +199,7 @@ func RandomMirror(w http.ResponseWriter, r *http.Request) {
 }
 
 func RandomMirrorColor(w http.ResponseWriter, r *http.Request) {
-	id := route.Context.Get(r, "colorId")
+	id, _ := route.Context.Get(r, "colorId")
 	colorId, err := strconv.ParseInt(id, 0, 64)
 	if err != nil {
 		colorId = 0

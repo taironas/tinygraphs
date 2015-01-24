@@ -18,7 +18,7 @@ import (
 // Color is the handler for /checkerboard/:colorId
 // build a 6x6 checkerboard with alternate colors based on the number passed in the url
 func Color(w http.ResponseWriter, r *http.Request) {
-	id := route.Context.Get(r, "colorId")
+	id, _ := route.Context.Get(r, "colorId")
 	if colorId, err := strconv.ParseInt(id, 0, 64); err != nil {
 		log.Printf("error when extracting permalink id: %v", err)
 	} else {
