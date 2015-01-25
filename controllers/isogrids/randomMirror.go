@@ -10,12 +10,11 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-func Random(w http.ResponseWriter, r *http.Request) {
+func RandomMirror(w http.ResponseWriter, r *http.Request) {
 
+	theme := extract.Theme(r)
 	colorMap := colors.MapOfColorThemes()
 	var err error
-	theme := extract.Theme(r)
-
 	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap["base"][0]
@@ -31,5 +30,5 @@ func Random(w http.ResponseWriter, r *http.Request) {
 
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	draw.IsogridsRandom(w, "", bg, fg, size)
+	draw.IsogridsRandomMirror(w, "", bg, fg, size)
 }
