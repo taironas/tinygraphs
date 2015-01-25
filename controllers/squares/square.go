@@ -27,6 +27,7 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		log.Println("Unable to get 'key' value: ", err)
 		key = ""
 	}
+
 	theme := extract.Theme(r)
 
 	h := md5.New()
@@ -44,9 +45,10 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	numColors := extract.NumColors(r)
 	colorMap := colors.MapOfColorThemes()
-	var bg, fg color.RGBA
 
+	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap["base"][0]
 	}
@@ -54,19 +56,25 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		fg = colorMap["base"][1]
 	}
 
-	if val, ok := colorMap[theme]; ok {
-		bg = val[0]
-		fg = val[1]
+	var colors []color.RGBA
+	if theme != "base" {
+		if _, ok := colorMap[theme]; ok {
+			colors = append(colors, colorMap[theme][0:numColors]...)
+		} else {
+			colors = append(colors, colorMap["base"]...)
+		}
+	} else {
+		colors = append(colors, bg, fg)
 	}
 
 	size := extract.Size(r)
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.Squares(m, key, bg, fg)
+		draw.Squares(m, key, colors)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		draw.SquaresSVG(w, key, bg, fg, size)
+		draw.SquaresSVG(w, key, colors, size)
 	}
 }

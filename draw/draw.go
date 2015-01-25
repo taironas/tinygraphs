@@ -1,11 +1,12 @@
 package draw
 
 import (
-	"github.com/ajstarks/svgo"
 	"image"
 	"image/color"
 	"math"
 	"net/http"
+
+	"github.com/ajstarks/svgo"
 )
 
 //Grid6X6 builds an image with 6X6 quadrants of alternate colors.
@@ -152,7 +153,7 @@ func RandomSymetricInXGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
-func Squares(m *image.RGBA, key string, color1, color2 color.RGBA) {
+func Squares(m *image.RGBA, key string, colors []color.RGBA) {
 	size := m.Bounds().Size()
 	squares := 6
 	quad := size.X / squares
@@ -170,7 +171,7 @@ func Squares(m *image.RGBA, key string, color1, color2 color.RGBA) {
 			xQuadrant := x / quad
 			if _, ok := colorMap[xQuadrant]; !ok {
 				if float64(xQuadrant) < middle {
-					colorMap[xQuadrant] = colorFromKey(key, color1, color2, xQuadrant+3*yQuadrant)
+					colorMap[xQuadrant] = colorFromKeyAndArray(key, colors, xQuadrant+3*yQuadrant)
 				} else if xQuadrant < squares {
 					colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
 				} else {
@@ -182,7 +183,7 @@ func Squares(m *image.RGBA, key string, color1, color2 color.RGBA) {
 	}
 }
 
-func SquaresSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func SquaresSVG(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -198,7 +199,7 @@ func SquaresSVG(w http.ResponseWriter, key string, color1, color2 color.RGBA, si
 			x := xQ * quadrantSize
 			if _, ok := colorMap[xQ]; !ok {
 				if float64(xQ) < middle {
-					colorMap[xQ] = colorFromKey(key, color1, color2, xQ+3*yQ)
+					colorMap[xQ] = colorFromKeyAndArray(key, colors, xQ+3*yQ)
 				} else if xQ < squares {
 					colorMap[xQ] = colorMap[squares-xQ-1]
 				} else {

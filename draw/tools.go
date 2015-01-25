@@ -34,3 +34,18 @@ func colorFromKey(key string, color1, color2 color.RGBA, index int) color.RGBA {
 	}
 	return color1
 }
+
+func colorFromKeyAndArray(key string, colors []color.RGBA, index int) color.RGBA {
+	n := len(colors)
+	s := hex.EncodeToString([]byte{key[index]})
+	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
+		for i := 0; i < n; i++ {
+			if int(r)%n == i {
+				return colors[i]
+			}
+		}
+	} else {
+		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
+	}
+	return colors[0]
+}

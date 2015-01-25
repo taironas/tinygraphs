@@ -82,3 +82,17 @@ func Theme(r *http.Request) string {
 	}
 	return "base"
 }
+
+// NumColors returns the number of colors in http request.
+// Right now we support numbers between 2 and 4.
+func NumColors(r *http.Request) int64 {
+	s := strings.ToLower(r.FormValue("numcolors"))
+	if len(s) > 0 {
+		if n, err := strconv.ParseInt(s, 0, 64); err == nil {
+			if n >= 2 && n <= 4 {
+				return n
+			}
+		}
+	}
+	return 2
+}
