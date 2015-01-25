@@ -16,10 +16,6 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-func init() {
-	log.SetFlags(log.Lshortfile)
-}
-
 // Isogrids is the handler for /isogrids/:key
 // builds a 10x10 grid with alternate colors based on the string passed in the url.
 func Isogrids(w http.ResponseWriter, r *http.Request) {

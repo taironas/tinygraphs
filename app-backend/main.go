@@ -14,6 +14,10 @@ import (
 
 var root = flag.String("root", "app", "file system path")
 
+func init() {
+	log.SetFlags(log.Ltime | log.Ldate | log.Lshortfile)
+}
+
 func main() {
 	r := new(route.Router)
 
@@ -26,10 +30,12 @@ func main() {
 	r.HandleFunc("/isogrids/skeleton", isogrids.Skeleton)
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
 	r.HandleFunc("/isogrids/:colorId/:key", isogrids.Color)
+
 	r.HandleFunc("/isogrids/diagonals", isogrids.Diagonals)
 	r.HandleFunc("/isogrids/halfdiagonals", isogrids.HalfDiagonals)
 	r.HandleFunc("/isogrids/gridbw", isogrids.GridBW)
 	r.HandleFunc("/isogrids/grid2colors", isogrids.Grid2Colors)
+
 	r.HandleFunc("/isogrids/random/:colorId", isogrids.RandomColor)
 	r.HandleFunc("/isogrids/random", isogrids.Random)
 	r.HandleFunc("/isogrids/random-mirror/:colorId", isogrids.RandomMirrorColor)
