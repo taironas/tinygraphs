@@ -19,11 +19,9 @@ func main() {
 
 	r.HandleFunc("/checkerboard", checkerboard.Checkerboard)
 
-	r.HandleFunc("/squares/?", squares.Random)
-	r.HandleFunc("/squares/random/?", squares.Random)
-	r.HandleFunc("/squares/random/:colorId", squares.RandomColor)
-	r.HandleFunc("/squares/:key", squares.Square)         //cached
-	r.HandleFunc("/squares/:colorId/:key", squares.Color) // cached
+	r.HandleFunc("/squares", squares.Random)
+	r.HandleFunc("/squares/random", squares.Random)
+	r.HandleFunc("/squares/:key", squares.Square) //cached
 
 	r.HandleFunc("/isogrids/skeleton", isogrids.Skeleton)
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
