@@ -18,7 +18,6 @@ func main() {
 	r := new(route.Router)
 
 	r.HandleFunc("/checkerboard", checkerboard.Checkerboard)
-	r.HandleFunc("/checkerboard/:colorId", checkerboard.Color)
 
 	r.HandleFunc("/squares/?", squares.Random)
 	r.HandleFunc("/squares/random/?", squares.Random)
