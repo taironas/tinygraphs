@@ -4,7 +4,9 @@ import (
 	"crypto/md5"
 	"fmt"
 	"image"
+	"image/color"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -17,10 +19,20 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
+func init() {
+	log.SetFlags(log.Lshortfile)
+}
+
 // Square is the handler for /squares/:key
 // builds a 6x6 grid with alternate colors based on the number passed in the url.
 func Square(w http.ResponseWriter, r *http.Request) {
-	key, _ := route.Context.Get(r, "key")
+	var err error
+	var key string
+	if key, err = route.Context.Get(r, "key"); err != nil {
+		log.Println("Unable to get 'key' value: ", err)
+		key = ""
+	}
+
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -37,14 +49,15 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	}
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
+
 	size := extract.Size(r)
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
@@ -61,13 +74,24 @@ func Square(w http.ResponseWriter, r *http.Request) {
 // build a 6x6 grid with alternate colors based on the number passed in the url
 func Color(w http.ResponseWriter, r *http.Request) {
 
-	id, _ := route.Context.Get(r, "colorId")
-	colorId, err := strconv.ParseInt(id, 0, 64)
-	if err != nil {
+	var err error
+	var id string
+	if id, err = route.Context.Get(r, "colorId"); err != nil {
+		log.Println("Unable to get 'colorId' value: ", err)
+		id = "0"
+	}
+
+	var colorId int64
+	if colorId, err = strconv.ParseInt(id, 0, 64); err != nil {
 		colorId = 0
 	}
 
-	key, _ := route.Context.Get(r, "key")
+	var key string
+	if key, err = route.Context.Get(r, "key"); err != nil {
+		log.Println("Unable to get 'key' value: ", err)
+		key = ""
+	}
+
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])

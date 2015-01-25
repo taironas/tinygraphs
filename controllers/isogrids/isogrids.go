@@ -3,34 +3,43 @@ package isogrids
 import (
 	"crypto/md5"
 	"fmt"
-	"strconv"
-
+	"image/color"
 	"io"
+	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/taironas/route"
 	tgColors "github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
-
 	"github.com/taironas/tinygraphs/write"
 )
+
+func init() {
+	log.SetFlags(log.Lshortfile)
+}
 
 // Isogrids is the handler for /isogrids/:key
 // builds a 10x10 grid with alternate colors based on the string passed in the url.
 func Isogrids(w http.ResponseWriter, r *http.Request) {
-	key, _ := route.Context.Get(r, "key")
+	var err error
+	var key string
+	if key, err = route.Context.Get(r, "key"); err != nil {
+		log.Println("Unable to get 'key' value: ", err)
+		key = ""
+	}
+
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -41,27 +50,37 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 // Color is the handler for /isogrids/:colorId/:key
 // builds a 10x10 grid with alternate colors based on the string passed in the url.
 func Color(w http.ResponseWriter, r *http.Request) {
-	id, _ := route.Context.Get(r, "colorId")
+	var err error
+	var id string
+	if id, err = route.Context.Get(r, "colorId"); err != nil {
+		log.Println("Unable to get 'colorId' value: ", err)
+		id = "0"
+	}
 
-	colorId, err := strconv.ParseInt(id, 0, 64)
-	if err != nil {
+	var colorId int64
+	if colorId, err = strconv.ParseInt(id, 0, 64); err != nil {
 		colorId = 0
 	}
 
-	key, _ := route.Context.Get(r, "key")
+	var key string
+	if key, err = route.Context.Get(r, "key"); err != nil {
+		log.Println("Unable to get 'key' value: ", err)
+		key = ""
+	}
+
 	h := md5.New()
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[int(colorId)][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[int(colorId)][1]
 	}
+
 	size := extract.Size(r)
 	write.ImageSVG(w)
 	draw.Isogrids(w, key, bg, fg, size)
@@ -70,12 +89,12 @@ func Color(w http.ResponseWriter, r *http.Request) {
 func Skeleton(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -86,12 +105,12 @@ func Skeleton(w http.ResponseWriter, r *http.Request) {
 func Diagonals(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -102,12 +121,12 @@ func Diagonals(w http.ResponseWriter, r *http.Request) {
 func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -118,12 +137,12 @@ func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 func GridBW(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -134,12 +153,12 @@ func GridBW(w http.ResponseWriter, r *http.Request) {
 func Grid2Colors(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -150,12 +169,12 @@ func Grid2Colors(w http.ResponseWriter, r *http.Request) {
 func Random(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[0][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[0][1]
 	}
 	size := extract.Size(r)
@@ -164,11 +183,18 @@ func Random(w http.ResponseWriter, r *http.Request) {
 }
 
 func RandomColor(w http.ResponseWriter, r *http.Request) {
-	id, _ := route.Context.Get(r, "colorId")
-	colorId, err := strconv.ParseInt(id, 0, 64)
-	if err != nil {
+	var err error
+	var id string
+	if id, err = route.Context.Get(r, "colorId"); err != nil {
+		log.Println("Unable to get 'colorId' value: ", err)
+		id = "0"
+	}
+
+	var colorId int64
+	if colorId, err = strconv.ParseInt(id, 0, 64); err != nil {
 		colorId = 0
 	}
+
 	colorMap := tgColors.MapOfColorPatterns()
 	bg, err1 := extract.Background(r)
 	if err1 != nil {
@@ -199,18 +225,23 @@ func RandomMirror(w http.ResponseWriter, r *http.Request) {
 }
 
 func RandomMirrorColor(w http.ResponseWriter, r *http.Request) {
-	id, _ := route.Context.Get(r, "colorId")
-	colorId, err := strconv.ParseInt(id, 0, 64)
-	if err != nil {
+	var err error
+	var id string
+	if id, err = route.Context.Get(r, "colorId"); err != nil {
+		log.Println("Unable to get 'colorId' value: ", err)
+		id = "0"
+	}
+
+	var colorId int64
+	if colorId, err = strconv.ParseInt(id, 0, 64); err != nil {
 		colorId = 0
 	}
 	colorMap := tgColors.MapOfColorPatterns()
-	bg, err1 := extract.Background(r)
-	if err1 != nil {
+	var bg, fg color.RGBA
+	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap[int(colorId)][0]
 	}
-	fg, err2 := extract.Foreground(r)
-	if err2 != nil {
+	if fg, err = extract.Foreground(r); err != nil {
 		fg = colorMap[int(colorId)][1]
 	}
 	size := extract.Size(r)
