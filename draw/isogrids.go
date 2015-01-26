@@ -129,7 +129,7 @@ func IsogridsRandomMirror(w http.ResponseWriter, key string, colors []color.RGBA
 }
 
 // Isogrids builds an image with 10x10 grids of half diagonals
-func Isogrids(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -157,7 +157,7 @@ func Isogrids(w http.ResponseWriter, key string, color1, color2 color.RGBA, size
 			}
 			xs := []int{x1, x2, x3}
 			ys := []int{y1, y2, y3}
-			fill1 := fillFromRGBA(colorFromKey(key, color1, color2, (xL+3*yL+lines)%15))
+			fill1 := fillFromRGBA(colorFromKeyAndArray(key, colors, (xL+3*yL+lines)%15))
 			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2; %s", fill1))
 			var x11, x12, x13, y11, y12, y13 int
 			if (xL % 2) == 0 {
@@ -177,7 +177,7 @@ func Isogrids(w http.ResponseWriter, key string, color1, color2 color.RGBA, size
 			}
 			xs1 := []int{x11, x12, x13}
 			ys1 := []int{y11, y12, y13}
-			fill2 := fillFromRGBA(colorFromKey(key, color1, color2, (xL+3*yL+1+lines)%15))
+			fill2 := fillFromRGBA(colorFromKeyAndArray(key, colors, (xL+3*yL+1+lines)%15))
 			canvas.Polygon(xs1, ys1, fmt.Sprintf("stroke:black;stroke-width:2; %s", fill2))
 			// apply mirror:
 			xs[0] = (lines * fringeSize) - xs[0]

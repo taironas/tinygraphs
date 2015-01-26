@@ -42,6 +42,7 @@ func RandomMirror(w http.ResponseWriter, r *http.Request) {
 	} else {
 		colors = append(colors, bg, fg)
 	}
+
 	write.ImageSVG(w)
 	draw.IsogridsRandomMirror(w, "", colors, size)
 }
