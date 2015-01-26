@@ -8,6 +8,7 @@ Contributors
 
 * [Santiago](https://github.com/santiaago)
 * [Remy](https://github.com/rjourde)
+* [Carmmen](https://plus.google.com/+CarmenRebolledo)
 
 How to use:
 ======
@@ -17,26 +18,6 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 ~~~html
 <img src="http://tinygraphs.com/checkerboard">
 ~~~
-## parameters:
-
-### size:
-
-`tinygraphs.com/squares/hello?size=60`
-
-### formats
-The default format is `JPEG`.
-
-Supported formats are:
-* JPEG
-* SVG
-
-`tinygraphs.com/squares/hello?fmt=svg`
-
-
-### background and foreground:
-You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
-
-`tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2`
 
 ## Supported routes:
 
@@ -52,6 +33,41 @@ You can specify the color of the background or foreground by using parameters `b
 
 ![random](http://tinygraphs.com/squares/random?size=120)
 
+`http://tinygraphs.com/isogrids/anything`
+
+![squares](http://tinygraphs.com/isogrids/anything?size=120)
+
+`http://tinygraphs.com/isogrids/random`
+
+![random](http://tinygraphs.com/isogrids/random?size=120)
+
+## Parameters:
+
+* **size**: `tinygraphs.com/squares/hello?size=60`
+* **formats**: `tinygraphs.com/squares/hello?fmt=svg`
+
+    The default format is `JPEG`.
+
+    Supported formats are:
+    * JPEG
+    * SVG
+
+* **background and foreground**: `tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2`
+
+    You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
+
+* **theme**: `tinygraphs.com/squares/random?theme=summerwarmth`
+
+    You can specify the theme you want to take into account in the image.
+
+    ![theme](http://tinygraphs.com/squares/random?theme=frogideas&size=120&fmt=svg)
+
+* **numcolors**: `tinygraphs.com/squares/random?theme=summerwarmth&numcolors=4`
+
+    You can specify the number of colors that you want to render the image.
+    Default value is **2** and can be extended to **4**.
+
+    ![theme](http://tinygraphs.com/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
 
 Organization
 =====
