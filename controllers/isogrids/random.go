@@ -10,11 +10,16 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
+// Random handler for /isogrids/random.
+// Generates a random isogrid image.
 func Random(w http.ResponseWriter, r *http.Request) {
 
-	colorMap := colors.MapOfColorThemes()
 	var err error
+
+	colorMap := colors.MapOfColorThemes()
+	size := extract.Size(r)
 	theme := extract.Theme(r)
+	numColors := extract.NumColors(r)
 
 	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
@@ -29,7 +34,17 @@ func Random(w http.ResponseWriter, r *http.Request) {
 		fg = val[1]
 	}
 
-	size := extract.Size(r)
+	var colors []color.RGBA
+	if theme != "base" {
+		if _, ok := colorMap[theme]; ok {
+			colors = append(colors, colorMap[theme][0:numColors]...)
+		} else {
+			colors = append(colors, colorMap["base"]...)
+		}
+	} else {
+		colors = append(colors, bg, fg)
+	}
+
 	write.ImageSVG(w)
-	draw.IsogridsRandom(w, "", bg, fg, size)
+	draw.IsogridsRandom(w, "", colors, size)
 }

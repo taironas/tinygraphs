@@ -27,6 +27,9 @@ func main() {
 	r.HandleFunc("/squares/random", squares.Random)
 	r.HandleFunc("/squares/:key", squares.Square) //cached
 
+	r.HandleFunc("/isogrids/random", isogrids.Random)
+	r.HandleFunc("/isogrids/random-mirror", isogrids.RandomMirror)
+
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
 
 	r.HandleFunc("/isogrids/labs/skeleton", isogrids.Skeleton)
@@ -34,9 +37,6 @@ func main() {
 	r.HandleFunc("/isogrids/labs/halfdiagonals", isogrids.HalfDiagonals)
 	r.HandleFunc("/isogrids/labs/gridbw", isogrids.GridBW)
 	r.HandleFunc("/isogrids/labs/grid2colors", isogrids.Grid2Colors)
-
-	r.HandleFunc("/isogrids/random", isogrids.Random)
-	r.HandleFunc("/isogrids/random-mirror", isogrids.RandomMirror)
 
 	r.AddStaticResource(root)
 

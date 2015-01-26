@@ -8,8 +8,8 @@ import (
 	"github.com/ajstarks/svgo"
 )
 
-// Isogrids builds an image with 10x10 grids of half diagonals
-func IsogridsRandom(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+// IsogridsRandom creates an isogrids image with half diagonals.
+func IsogridsRandom(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -37,7 +37,7 @@ func IsogridsRandom(w http.ResponseWriter, key string, color1, color2 color.RGBA
 			}
 			xs := []int{x1, x2, x3}
 			ys := []int{y1, y2, y3}
-			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(randomColor(color1, color2))))
+			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(randomColorFromArray(colors))))
 
 			var x11, x12, x13, y11, y12, y13 int
 			if (xL % 2) == 0 {
@@ -57,7 +57,7 @@ func IsogridsRandom(w http.ResponseWriter, key string, color1, color2 color.RGBA
 			}
 			xs1 := []int{x11, x12, x13}
 			ys1 := []int{y11, y12, y13}
-			canvas.Polygon(xs1, ys1, fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(randomColor(color1, color2))))
+			canvas.Polygon(xs1, ys1, fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(randomColorFromArray(colors))))
 		}
 	}
 	canvas.End()
