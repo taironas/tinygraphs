@@ -8,7 +8,7 @@ Contributors
 
 * [Santiago](https://github.com/santiaago)
 * [Remy](https://github.com/rjourde)
-* [Carmmen](https://plus.google.com/+CarmenRebolledo)
+* [Carmen](https://plus.google.com/+CarmenRebolledo)
 
 How to use:
 ======
