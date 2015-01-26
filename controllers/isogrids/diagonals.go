@@ -10,6 +10,8 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
+// Diagonals is the handler for /isogrids/labs/diagonals
+// builds a 10x10 full diagonal grid.
 func Diagonals(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
@@ -26,6 +28,8 @@ func Diagonals(w http.ResponseWriter, r *http.Request) {
 	draw.Diagonals(w, "", bg, fg, size)
 }
 
+// Diagonals is the handler for /isogrids/labs/diagonals
+// builds a 10x10 half diagonal (each diagonal goes to the middle of the square) grid.
 func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()

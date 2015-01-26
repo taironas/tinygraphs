@@ -162,7 +162,7 @@ func IsogridsBW(w http.ResponseWriter, key string, color1, color2 color.RGBA, si
 }
 
 // Isogrids builds an image with 10x10 grids of half diagonals
-func Isogrids2Colors(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func Isogrids2Colors(w http.ResponseWriter, key string, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -189,7 +189,7 @@ func Isogrids2Colors(w http.ResponseWriter, key string, color1, color2 color.RGB
 			}
 			xs := []int{x1, x2, x3}
 			ys := []int{y1, y2, y3}
-			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2)))
+			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2;  fill: rgb(61, 171, 76);"))
 
 			var x11, x12, x13, y11, y12, y13 int
 			if (xL % 2) == 0 {
