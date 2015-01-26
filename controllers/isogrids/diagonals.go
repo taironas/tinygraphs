@@ -12,14 +12,14 @@ import (
 
 func Diagonals(w http.ResponseWriter, r *http.Request) {
 
-	colorMap := colors.MapOfColorPatterns()
+	colorMap := colors.MapOfColorThemes()
 	var err error
 	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
-		bg = colorMap[0][0]
+		bg = colorMap["base"][0]
 	}
 	if fg, err = extract.Foreground(r); err != nil {
-		fg = colorMap[0][1]
+		fg = colorMap["base"][1]
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
@@ -28,14 +28,14 @@ func Diagonals(w http.ResponseWriter, r *http.Request) {
 
 func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 
-	colorMap := colors.MapOfColorPatterns()
+	colorMap := colors.MapOfColorThemes()
 	var err error
 	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
-		bg = colorMap[0][0]
+		bg = colorMap["base"][0]
 	}
 	if fg, err = extract.Foreground(r); err != nil {
-		fg = colorMap[0][1]
+		fg = colorMap["base"][1]
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
