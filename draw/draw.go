@@ -54,7 +54,7 @@ func Grid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
 }
 
 // RandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
+func RandomGrid6X6(m *image.RGBA, colors []color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
 	colorMap := make(map[int]color.RGBA)
@@ -68,7 +68,7 @@ func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 		for y := 0; y < size.Y; y++ {
 			yQuadrant := y / quad
 			if _, ok := colorMap[yQuadrant]; !ok {
-				colorMap[yQuadrant] = randomColor(color1, color2)
+				colorMap[yQuadrant] = randomColorFromArray(colors)
 			}
 			m.Set(x, y, colorMap[yQuadrant])
 		}
@@ -76,7 +76,7 @@ func RandomGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 }
 
 // RandomGrid6X6SVG builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomGrid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
+func RandomGrid6X6SVG(w http.ResponseWriter, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	squares := 6
@@ -89,7 +89,7 @@ func RandomGrid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int
 		for xQ := 0; xQ < squares; xQ++ {
 			x := xQ * quadrantSize
 			if _, ok := colorMap[xQ]; !ok {
-				colorMap[xQ] = randomColor(color1, color2)
+				colorMap[xQ] = randomColorFromArray(colors)
 			}
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
 		}

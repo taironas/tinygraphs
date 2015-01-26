@@ -18,8 +18,8 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Square is the handler for /squares/:key
-// builds a 6x6 grid with alternate colors based on the number passed in the url.
+// Square handler for /squares/:key
+// builds a 6 by 6 grid with alternate colors based the key passed in the url.
 func Square(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var key string

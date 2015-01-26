@@ -12,35 +12,43 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-// handler for "/squares/random"
-// generates a black and white grid random image.
+// Random handler for "/squares/random"
+// generates a random 6 by 6 grid image.
 func Random(w http.ResponseWriter, r *http.Request) {
 	size := extract.Size(r)
 	theme := extract.Theme(r)
+	numColors := extract.NumColors(r)
+
 	colorMap := colors.MapOfColorThemes()
 
 	var bg, fg color.RGBA
 	var err error
 
-	if val, ok := colorMap[theme]; ok {
-		bg = val[0]
-		fg = val[1]
+	if bg, err = extract.Background(r); err != nil {
+		bg = colorMap["base"][0]
+	}
+	if fg, err = extract.Foreground(r); err != nil {
+		fg = colorMap["base"][1]
+	}
+
+	var colors []color.RGBA
+	if theme != "base" {
+		if _, ok := colorMap[theme]; ok {
+			colors = append(colors, colorMap[theme][0:numColors]...)
+		} else {
+			colors = append(colors, colorMap["base"]...)
+		}
 	} else {
-		if bg, err = extract.Background(r); err != nil {
-			bg = colorMap["base"][0]
-		}
-		if fg, err = extract.Foreground(r); err != nil {
-			fg = colorMap["base"][1]
-		}
+		colors = append(colors, bg, fg)
 	}
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.RandomGrid6X6(m, bg, fg)
+		draw.RandomGrid6X6(m, colors)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		draw.RandomGrid6X6SVG(w, bg, fg, size)
+		draw.RandomGrid6X6SVG(w, colors, size)
 	}
 }
