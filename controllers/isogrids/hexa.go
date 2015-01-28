@@ -31,7 +31,7 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 
 	theme := extract.Theme(r)
 	numColors := extract.NumColors(r)
-
+	lines := int(extract.Hexalines(r))
 	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
 		bg = colorMap["base"][0]
@@ -56,5 +56,5 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 	write.ImageSVG(w)
-	draw.IsogridsHexa(w, key, colors, size)
+	draw.IsogridsHexa(w, key, colors, size, lines)
 }

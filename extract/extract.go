@@ -96,3 +96,15 @@ func NumColors(r *http.Request) int64 {
 	}
 	return 2
 }
+
+func Hexalines(r *http.Request) int64 {
+	s := strings.ToLower(r.FormValue("hexalines"))
+	if len(s) > 0 {
+		if n, err := strconv.ParseInt(s, 0, 64); err == nil {
+			if n%6 == 0 || n%4 == 0 {
+				return n
+			}
+		}
+	}
+	return 6
+}
