@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"image/color"
 	"io"
-	"log"
 	"net/http"
 
 	"github.com/taironas/route"
@@ -23,8 +22,7 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 	size := extract.Size(r)
 
 	var key string
-	if key, err = route.Context.Get(r, "key"); err != nil {
-		log.Println("Unable to get 'key' value: ", err)
+	if key, _ = route.Context.Get(r, "key"); err != nil {
 		key = ""
 	}
 	h := md5.New()
