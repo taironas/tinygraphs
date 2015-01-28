@@ -5,27 +5,34 @@ import (
 	"fmt"
 	"image/color"
 	"io"
+	"log"
 	"net/http"
 
+	"github.com/taironas/route"
 	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Hexa is the handler for /isogrids/hexa
+// Hexa is the handler for /isogrids/hexa/:key
 // builds an hexagon from a 10x10 grid with alternate colors.
 func Hexa(w http.ResponseWriter, r *http.Request) {
 	var err error
 	colorMap := colors.MapOfColorThemes()
 	size := extract.Size(r)
 
+	var key string
+	if key, err = route.Context.Get(r, "key"); err != nil {
+		log.Println("Unable to get 'key' value: ", err)
+		key = ""
+	}
 	h := md5.New()
-	io.WriteString(h, "hello")
-	key := fmt.Sprintf("%x", h.Sum(nil)[:])
+	io.WriteString(h, key)
+	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
-	theme := "frogideas" //extract.Theme(r)
-	numColors := 4       //extract.NumColors(r)
+	theme := extract.Theme(r)
+	numColors := extract.NumColors(r)
 
 	var bg, fg color.RGBA
 	if bg, err = extract.Background(r); err != nil {
