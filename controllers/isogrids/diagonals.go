@@ -5,13 +5,13 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
 
 // Diagonals is the handler for /isogrids/labs/diagonals
-// builds a 10x10 full diagonal grid.
+// builds a full diagonal grid.
 func Diagonals(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
@@ -25,11 +25,11 @@ func Diagonals(w http.ResponseWriter, r *http.Request) {
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	draw.Diagonals(w, "", bg, fg, size)
+	isogrids.Diagonals(w, "", bg, fg, size)
 }
 
 // Diagonals is the handler for /isogrids/labs/diagonals
-// builds a 10x10 half diagonal (each diagonal goes to the middle of the square) grid.
+// builds a half diagonal (each diagonal goes to the middle of the square) grid.
 func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
@@ -43,5 +43,5 @@ func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	draw.HalfDiagonals(w, "", bg, fg, size)
+	isogrids.HalfDiagonals(w, "", bg, fg, size)
 }

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
@@ -44,5 +44,5 @@ func RandomMirror(w http.ResponseWriter, r *http.Request) {
 	}
 
 	write.ImageSVG(w)
-	draw.IsogridsRandomMirror(w, "", colors, size)
+	isogrids.IsogridsRandomMirror(w, "", colors, size)
 }

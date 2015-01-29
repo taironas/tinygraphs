@@ -1,4 +1,4 @@
-package draw
+package squares
 
 import (
 	"image"
@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/ajstarks/svgo"
+	"github.com/taironas/tinygraphs/draw"
 )
 
 //Grid6X6 builds an image with 6X6 quadrants of alternate colors.
@@ -47,7 +48,7 @@ func Grid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
 					colorMap[xQ] = color2
 				}
 			}
-			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
+			canvas.Rect(x, y, quadrantSize, quadrantSize, draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
 	canvas.End()
@@ -68,7 +69,7 @@ func RandomGrid6X6(m *image.RGBA, colors []color.RGBA) {
 		for y := 0; y < size.Y; y++ {
 			yQuadrant := y / quad
 			if _, ok := colorMap[yQuadrant]; !ok {
-				colorMap[yQuadrant] = randomColorFromArray(colors)
+				colorMap[yQuadrant] = draw.RandomColorFromArray(colors)
 			}
 			m.Set(x, y, colorMap[yQuadrant])
 		}
@@ -89,9 +90,9 @@ func RandomGrid6X6SVG(w http.ResponseWriter, colors []color.RGBA, size int) {
 		for xQ := 0; xQ < squares; xQ++ {
 			x := xQ * quadrantSize
 			if _, ok := colorMap[xQ]; !ok {
-				colorMap[xQ] = randomColorFromArray(colors)
+				colorMap[xQ] = draw.RandomColorFromArray(colors)
 			}
-			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
+			canvas.Rect(x, y, quadrantSize, quadrantSize, draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
 	canvas.End()
@@ -115,7 +116,7 @@ func Squares(m *image.RGBA, key string, colors []color.RGBA) {
 			xQuadrant := x / quad
 			if _, ok := colorMap[xQuadrant]; !ok {
 				if float64(xQuadrant) < middle {
-					colorMap[xQuadrant] = pickColor(key, colors, xQuadrant+3*yQuadrant)
+					colorMap[xQuadrant] = draw.PickColor(key, colors, xQuadrant+3*yQuadrant)
 				} else if xQuadrant < squares {
 					colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
 				} else {
@@ -143,14 +144,14 @@ func SquaresSVG(w http.ResponseWriter, key string, colors []color.RGBA, size int
 			x := xQ * quadrantSize
 			if _, ok := colorMap[xQ]; !ok {
 				if float64(xQ) < middle {
-					colorMap[xQ] = pickColor(key, colors, xQ+3*yQ)
+					colorMap[xQ] = draw.PickColor(key, colors, xQ+3*yQ)
 				} else if xQ < squares {
 					colorMap[xQ] = colorMap[squares-xQ-1]
 				} else {
 					colorMap[xQ] = colorMap[0]
 				}
 			}
-			canvas.Rect(x, y, quadrantSize, quadrantSize, fillFromRGBA(colorMap[xQ]))
+			canvas.Rect(x, y, quadrantSize, quadrantSize, draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
 	canvas.End()

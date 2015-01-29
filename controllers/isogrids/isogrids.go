@@ -10,7 +10,7 @@ import (
 
 	"github.com/taironas/route"
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
@@ -59,5 +59,5 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 	}
 
 	write.ImageSVG(w)
-	draw.Isogrids(w, key, colors, size)
+	isogrids.Isogrids(w, key, colors, size)
 }

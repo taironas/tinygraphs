@@ -9,23 +9,23 @@ import (
 	"strconv"
 )
 
-// randomColorFromArray returns a random color from the given array.
-func randomColorFromArray(colors []color.RGBA) color.RGBA {
+// RandomColorFromArray returns a random color from the given array.
+func RandomColorFromArray(colors []color.RGBA) color.RGBA {
 	r := rand.Intn(len(colors))
 	return colors[r]
 }
 
-// return a fill SVG style from color.RGBA
-func fillFromRGBA(c color.RGBA) string {
+// FillFromRGBA return a "fill" SVG style from a color.RGBA
+func FillFromRGBA(c color.RGBA) string {
 	return fmt.Sprintf("fill:rgb(%d,%d,%d)", c.R, c.G, c.B)
 }
 
-// pickColor returns a color given a key string, an array of colors and an index.
+// PickColor returns a color given a key string, an array of colors and an index.
 // key: should be a md5 hash string.
 // index: is an index from the key string. Should be in interval [0, 16]
-// Algorithm: pickColor converts the key[index] value to a decimal value.
+// Algorithm: PickColor converts the key[index] value to a decimal value.
 // We pick the ith colors that respects the equality value%numberOfColors == i.
-func pickColor(key string, colors []color.RGBA, index int) color.RGBA {
+func PickColor(key string, colors []color.RGBA, index int) color.RGBA {
 	n := len(colors)
 	s := hex.EncodeToString([]byte{key[index]})
 	if r, err := strconv.ParseInt(s, 16, 0); err == nil {

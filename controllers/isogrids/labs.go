@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
@@ -25,7 +25,7 @@ func GridBW(w http.ResponseWriter, r *http.Request) {
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	draw.IsogridsBW(w, "", bg, fg, size)
+	isogrids.IsogridsBW(w, "", bg, fg, size)
 }
 
 // Grid2Colors is the handler for /isogrids/labs/grid2colors
@@ -34,5 +34,5 @@ func Grid2Colors(w http.ResponseWriter, r *http.Request) {
 
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	draw.Isogrids2Colors(w, "", size)
+	isogrids.Isogrids2Colors(w, "", size)
 }

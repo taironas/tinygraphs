@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/squares"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/format"
 	"github.com/taironas/tinygraphs/write"
@@ -44,11 +44,11 @@ func Random(w http.ResponseWriter, r *http.Request) {
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.RandomGrid6X6(m, colors)
+		squares.RandomGrid6X6(m, colors)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		draw.RandomGrid6X6SVG(w, colors, size)
+		squares.RandomGrid6X6SVG(w, colors, size)
 	}
 }

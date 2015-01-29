@@ -12,7 +12,7 @@ import (
 
 	"github.com/taironas/route"
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/squares"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/format"
 	"github.com/taironas/tinygraphs/write"
@@ -70,11 +70,11 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	size := extract.Size(r)
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.Squares(m, key, colors)
+		squares.Squares(m, key, colors)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		draw.SquaresSVG(w, key, colors, size)
+		squares.SquaresSVG(w, key, colors, size)
 	}
 }

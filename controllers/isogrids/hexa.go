@@ -9,13 +9,13 @@ import (
 
 	"github.com/taironas/route"
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
 
 // Hexa is the handler for /isogrids/hexa/:key
-// builds an hexagon from a 10x10 grid with alternate colors.
+// builds an hexagon with alternate colors.
 func Hexa(w http.ResponseWriter, r *http.Request) {
 	var err error
 	colorMap := colors.MapOfColorThemes()
@@ -56,5 +56,5 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 	write.ImageSVG(w)
-	draw.IsogridsHexa(w, key, colors, size, lines)
+	isogrids.IsogridsHexa(w, key, colors, size, lines)
 }

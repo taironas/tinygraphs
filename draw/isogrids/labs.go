@@ -1,4 +1,4 @@
-package draw
+package isogrids
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ajstarks/svgo"
+	"github.com/taironas/tinygraphs/draw"
 )
 
 func Diagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
@@ -18,13 +19,13 @@ func Diagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, siz
 	for xL := 0; xL <= lines; xL++ {
 		x := xL * fringeSize
 		lastY := (lines) * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		canvas.Line(x, 0, x, lastY, style)
 	}
 
 	for xL := 0; xL <= 2*lines; xL++ {
 		x := xL * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		xPrev := 0
 		yPrev := (xL) * fringeSize
 		if yPrev > 0 {
@@ -34,7 +35,7 @@ func Diagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, siz
 
 	for xL := -2 * lines; xL <= 2*lines; xL++ {
 		x := xL * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		xPrev := lines * fringeSize
 		yPrev := (lines - xL) * fringeSize
 		if yPrev > 0 {
@@ -56,13 +57,13 @@ func HalfDiagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA,
 	for xL := 0; xL <= lines; xL++ {
 		x := xL * fringeSize
 		lastY := (lines) * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		canvas.Line(x, 0, x, lastY, style)
 	}
 
 	for xL := 0; xL <= 2*lines; xL++ {
 		x := xL * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		xPrev := 0
 		yPrev := (xL) * fringeSize
 		if yPrev > 0 {
@@ -72,7 +73,7 @@ func HalfDiagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA,
 
 	for xL := -2 * lines; xL <= 2*lines; xL++ {
 		x := xL * fringeSize * 2
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		xPrev := lines * fringeSize
 		yPrev := (lines - xL*2) * fringeSize
 		if yPrev > 0 {
@@ -95,7 +96,7 @@ func IsogridsSkeleton(w http.ResponseWriter, key string, color1, color2 color.RG
 		x := xL * fringeSize
 		firstY := 0
 		lastY := (lines) * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		if (xL % 2) != 0 {
 			lastY = lastY - fringeSize/2
 			firstY = fringeSize / 2
@@ -105,7 +106,7 @@ func IsogridsSkeleton(w http.ResponseWriter, key string, color1, color2 color.RG
 
 	for xL := 0; xL <= 2*lines; xL++ {
 		x := xL * fringeSize
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		xPrev := 0
 		yPrev := (xL) * fringeSize
 		if yPrev > 0 {
@@ -115,7 +116,7 @@ func IsogridsSkeleton(w http.ResponseWriter, key string, color1, color2 color.RG
 
 	for xL := -2 * lines; xL <= 2*lines; xL++ {
 		x := xL * fringeSize * 2
-		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2))
+		style := fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2))
 		xPrev := lines * fringeSize
 		yPrev := (lines - xL*2) * fringeSize
 		if yPrev > 0 {
@@ -154,7 +155,7 @@ func IsogridsBW(w http.ResponseWriter, key string, color1, color2 color.RGBA, si
 			}
 			xs := []int{x1, x2, x3}
 			ys := []int{y1, y2, y3}
-			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2; %s", fillFromRGBA(color2)))
+			canvas.Polygon(xs, ys, fmt.Sprintf("stroke:black;stroke-width:2; %s", draw.FillFromRGBA(color2)))
 		}
 	}
 

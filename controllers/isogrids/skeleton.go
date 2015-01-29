@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	tgColors "github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
@@ -23,5 +23,5 @@ func Skeleton(w http.ResponseWriter, r *http.Request) {
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	draw.IsogridsSkeleton(w, "", bg, fg, size)
+	isogrids.IsogridsSkeleton(w, "", bg, fg, size)
 }

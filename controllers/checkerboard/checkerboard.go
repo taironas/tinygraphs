@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw"
+	"github.com/taironas/tinygraphs/draw/squares"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/format"
 	"github.com/taironas/tinygraphs/write"
@@ -34,11 +34,11 @@ func Checkerboard(w http.ResponseWriter, r *http.Request) {
 	}
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		draw.Grid6X6(m, c1, c2)
+		squares.Grid6X6(m, c1, c2)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		draw.Grid6X6SVG(w, c1, c2, size)
+		squares.Grid6X6SVG(w, c1, c2, size)
 	}
 }
