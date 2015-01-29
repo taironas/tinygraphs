@@ -16,22 +16,14 @@ import (
 // generates a random 6 by 6 grid image.
 func Random(w http.ResponseWriter, r *http.Request) {
 	size := extract.Size(r)
-	theme := extract.Theme(r)
 	numColors := extract.NumColors(r)
 
 	colorMap := colors.MapOfColorThemes()
 
-	var bg, fg color.RGBA
-	var err error
-
-	if bg, err = extract.Background(r); err != nil {
-		bg = colorMap["base"][0]
-	}
-	if fg, err = extract.Foreground(r); err != nil {
-		fg = colorMap["base"][1]
-	}
+	bg, fg := extract.ExtraColors(r, colorMap)
 
 	var colors []color.RGBA
+	theme := extract.Theme(r)
 	if theme != "base" {
 		if _, ok := colorMap[theme]; ok {
 			colors = append(colors, colorMap[theme][0:numColors]...)

@@ -29,17 +29,11 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
-	theme := extract.Theme(r)
 	numColors := extract.NumColors(r)
 	lines := int(extract.Hexalines(r))
-	var bg, fg color.RGBA
-	if bg, err = extract.Background(r); err != nil {
-		bg = colorMap["base"][0]
-	}
-	if fg, err = extract.Foreground(r); err != nil {
-		fg = colorMap["base"][1]
-	}
+	bg, fg := extract.ExtraColors(r, colorMap)
 
+	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {
 		bg = val[0]
 		fg = val[1]

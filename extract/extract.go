@@ -11,7 +11,7 @@ import (
 	"github.com/taironas/tinygraphs/format"
 )
 
-// extract hexadecimal code background from HTTP request and return color.RGBA
+// Background extract hexadecimal code background from HTTP request and return color.RGBA
 func Background(req *http.Request) (color.RGBA, error) {
 	bg := req.FormValue("bg")
 	if len(bg) == 0 {
@@ -21,7 +21,7 @@ func Background(req *http.Request) (color.RGBA, error) {
 	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
 }
 
-// extract hexadecimal code foreground from HTTP request and return color.RGBA
+// Foreground extract hexadecimal code foreground from HTTP request and return color.RGBA
 func Foreground(req *http.Request) (color.RGBA, error) {
 	fg := req.FormValue("fg")
 	if len(fg) == 0 {
@@ -31,7 +31,21 @@ func Foreground(req *http.Request) (color.RGBA, error) {
 	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
 }
 
-// extract size from HTTP request and return it.
+// ExtraColors returns a background and foreground color.RGBA is specified, else black and white.
+func ExtraColors(req *http.Request, m map[string][]color.RGBA) (color.RGBA, color.RGBA) {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = Background(req); err != nil {
+		bg = m["base"][0]
+	}
+	if fg, err = Foreground(req); err != nil {
+		fg = m["base"][1]
+	}
+	return bg, fg
+}
+
+// Size returns the value of size param from HTTP request.
+// Default value: 240
 func Size(r *http.Request) int {
 	strSize := r.FormValue("size")
 	if len(strSize) > 0 {
@@ -45,6 +59,9 @@ func Size(r *http.Request) int {
 	return 240
 }
 
+// Format returns the specified format parameter defined in the http.Request.
+// possible values: svg or jpeg
+// default value JPEG
 func Format(r *http.Request) format.Format {
 	strFmt := strings.ToLower(r.FormValue("fmt"))
 	if len(strFmt) > 0 {
@@ -75,6 +92,8 @@ func hexToRGB(h string) (uint8, uint8, uint8, error) {
 	return 0, 0, 0, nil
 }
 
+// Theme returns the theme param if defined in the http request.
+// Default value base.
 func Theme(r *http.Request) string {
 	strTheme := strings.ToLower(r.FormValue("theme"))
 	if len(strTheme) > 0 {
@@ -85,6 +104,7 @@ func Theme(r *http.Request) string {
 
 // NumColors returns the number of colors in http request.
 // Right now we support numbers between 2 and 4.
+// Default value 2.
 func NumColors(r *http.Request) int64 {
 	s := strings.ToLower(r.FormValue("numcolors"))
 	if len(s) > 0 {
@@ -97,6 +117,8 @@ func NumColors(r *http.Request) int64 {
 	return 2
 }
 
+// Hexalines return the value of the hexalines parameter in the http.Request.
+// possible values: 6 or 8. Default value : 6
 func Hexalines(r *http.Request) int64 {
 	s := strings.ToLower(r.FormValue("hexalines"))
 	if len(s) > 0 {
