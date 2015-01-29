@@ -9,6 +9,7 @@ import (
 	"github.com/taironas/route"
 	"github.com/taironas/tinygraphs/controllers/checkerboard"
 	"github.com/taironas/tinygraphs/controllers/isogrids"
+	"github.com/taironas/tinygraphs/controllers/spaceinvaders"
 	"github.com/taironas/tinygraphs/controllers/squares"
 )
 
@@ -39,6 +40,8 @@ func main() {
 	r.HandleFunc("/isogrids/labs/halfdiagonals", isogrids.HalfDiagonals)
 	r.HandleFunc("/isogrids/labs/gridbw", isogrids.GridBW)
 	r.HandleFunc("/isogrids/labs/grid2colors", isogrids.Grid2Colors)
+
+	r.HandleFunc("/spaceinvaders/:key", spaceinvaders.SpaceInvaders)
 
 	r.AddStaticResource(root)
 
