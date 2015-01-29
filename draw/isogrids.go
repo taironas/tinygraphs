@@ -157,7 +157,7 @@ func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size int) 
 			}
 			xs := []int{x1, x2, x3}
 			ys := []int{y1, y2, y3}
-			fill1 := fillFromRGBA(colorFromKeyAndArray(key, colors, (xL+3*yL+lines)%15))
+			fill1 := fillFromRGBA(pickColor(key, colors, (xL+3*yL+lines)%15))
 			canvas.Polygon(xs, ys, fill1)
 			var x11, x12, x13, y11, y12, y13 int
 			if (xL % 2) == 0 {
@@ -177,7 +177,7 @@ func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size int) 
 			}
 			xs1 := []int{x11, x12, x13}
 			ys1 := []int{y11, y12, y13}
-			fill2 := fillFromRGBA(colorFromKeyAndArray(key, colors, (xL+3*yL+1+lines)%15))
+			fill2 := fillFromRGBA(pickColor(key, colors, (xL+3*yL+1+lines)%15))
 			canvas.Polygon(xs1, ys1, fill2)
 			// apply mirror:
 			xs[0] = (lines * fringeSize) - xs[0]
@@ -207,10 +207,10 @@ func IsogridsHexa(w http.ResponseWriter, key string, colors []color.RGBA, size, 
 			fill1 := fillWhite()
 			fill2 := fillWhite()
 			if isFill1InHexagon(xL, yL, lines) {
-				fill1 = fillFromRGBA(colorFromKeyAndArray(key, colors, (xL+3*yL+lines)%15))
+				fill1 = fillFromRGBA(pickColor(key, colors, (xL+3*yL+lines)%15))
 			}
 			if isFill2InHexagon(xL, yL, lines) {
-				fill2 = fillFromRGBA(colorFromKeyAndArray(key, colors, (xL+3*yL+1+lines)%15))
+				fill2 = fillFromRGBA(pickColor(key, colors, (xL+3*yL+1+lines)%15))
 			}
 
 			if !isFill1InHexagon(xL, yL, lines) && !isFill2InHexagon(xL, yL, lines) {

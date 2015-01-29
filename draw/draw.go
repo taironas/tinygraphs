@@ -97,62 +97,6 @@ func RandomGrid6X6SVG(w http.ResponseWriter, colors []color.RGBA, size int) {
 	canvas.End()
 }
 
-// RandomSymetricInYGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomSymetricInYGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
-	size := m.Bounds().Size()
-	squares := 6
-	quad := size.X / squares
-	middle := math.Ceil(float64(squares) / float64(2))
-	colorMap := make(map[int]color.RGBA)
-	var currentQuadrand = 0
-	for x := 0; x < size.X; x++ {
-		if x/quad != currentQuadrand {
-			// when x quadrant changes, clear map
-			colorMap = make(map[int]color.RGBA)
-			currentQuadrand = x / quad
-		}
-		for y := 0; y < size.Y; y++ {
-			yQuadrant := y / quad
-			if _, ok := colorMap[yQuadrant]; !ok {
-				if float64(yQuadrant) < middle {
-					colorMap[yQuadrant] = randomColor(color1, color2)
-				} else {
-					colorMap[yQuadrant] = colorMap[squares-yQuadrant-1]
-				}
-			}
-			m.Set(x, y, colorMap[yQuadrant])
-		}
-	}
-}
-
-// RandomSymetricInXGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomSymetricInXGrid6X6(m *image.RGBA, color1, color2 color.RGBA) {
-	size := m.Bounds().Size()
-	squares := 6
-	quad := size.X / squares
-	middle := math.Ceil(float64(squares) / float64(2))
-	colorMap := make(map[int]color.RGBA)
-	var currentQuadrand = 0
-	for y := 0; y < size.Y; y++ {
-		if y/quad != currentQuadrand {
-			// when y quadrant changes, clear map
-			colorMap = make(map[int]color.RGBA)
-			currentQuadrand = y / quad
-		}
-		for x := 0; x < size.X; x++ {
-			xQuadrant := x / quad
-			if _, ok := colorMap[xQuadrant]; !ok {
-				if float64(xQuadrant) < middle {
-					colorMap[xQuadrant] = randomColor(color1, color2)
-				} else {
-					colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
-				}
-			}
-			m.Set(x, y, colorMap[xQuadrant])
-		}
-	}
-}
-
 func Squares(m *image.RGBA, key string, colors []color.RGBA) {
 	size := m.Bounds().Size()
 	squares := 6
@@ -171,7 +115,7 @@ func Squares(m *image.RGBA, key string, colors []color.RGBA) {
 			xQuadrant := x / quad
 			if _, ok := colorMap[xQuadrant]; !ok {
 				if float64(xQuadrant) < middle {
-					colorMap[xQuadrant] = colorFromKeyAndArray(key, colors, xQuadrant+3*yQuadrant)
+					colorMap[xQuadrant] = pickColor(key, colors, xQuadrant+3*yQuadrant)
 				} else if xQuadrant < squares {
 					colorMap[xQuadrant] = colorMap[squares-xQuadrant-1]
 				} else {
@@ -199,7 +143,7 @@ func SquaresSVG(w http.ResponseWriter, key string, colors []color.RGBA, size int
 			x := xQ * quadrantSize
 			if _, ok := colorMap[xQ]; !ok {
 				if float64(xQ) < middle {
-					colorMap[xQ] = colorFromKeyAndArray(key, colors, xQ+3*yQ)
+					colorMap[xQ] = pickColor(key, colors, xQ+3*yQ)
 				} else if xQ < squares {
 					colorMap[xQ] = colorMap[squares-xQ-1]
 				} else {

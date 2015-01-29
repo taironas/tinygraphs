@@ -9,39 +9,23 @@ import (
 	"strconv"
 )
 
-// randomColor returns a random color between c1 and c2
-func randomColor(c1, c2 color.RGBA) color.RGBA {
-	r := rand.Intn(2)
-	if r == 1 {
-		return c1
-	}
-	return c2
-}
-
-// getRandomColor returns a random color between c1 and c2
+// randomColorFromArray returns a random color from the given array.
 func randomColorFromArray(colors []color.RGBA) color.RGBA {
 	r := rand.Intn(len(colors))
 	return colors[r]
 }
 
+// return a fill SVG style from color.RGBA
 func fillFromRGBA(c color.RGBA) string {
 	return fmt.Sprintf("fill:rgb(%d,%d,%d)", c.R, c.G, c.B)
 }
 
-func colorFromKey(key string, color1, color2 color.RGBA, index int) color.RGBA {
-	s := hex.EncodeToString([]byte{key[index]})
-	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
-		if r%2 == 0 {
-			return color1
-		}
-		return color2
-	} else {
-		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
-	}
-	return color1
-}
-
-func colorFromKeyAndArray(key string, colors []color.RGBA, index int) color.RGBA {
+// pickColor returns a color given a key string, an array of colors and an index.
+// key: should be a md5 hash string.
+// index: is an index from the key string. Should be in interval [0, 16]
+// Algorithm: pickColor converts the key[index] value to a decimal value.
+// We pick the ith colors that respects the equality value%numberOfColors == i.
+func pickColor(key string, colors []color.RGBA, index int) color.RGBA {
 	n := len(colors)
 	s := hex.EncodeToString([]byte{key[index]})
 	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
