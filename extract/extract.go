@@ -42,7 +42,7 @@ func Size(r *http.Request) int {
 			}
 		}
 	}
-	return 210
+	return 240
 }
 
 func Format(r *http.Request) format.Format {
