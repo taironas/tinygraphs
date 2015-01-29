@@ -34,11 +34,11 @@ func Checkerboard(w http.ResponseWriter, r *http.Request) {
 	}
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		squares.Grid6X6(m, c1, c2)
+		squares.Grid(m, c1, c2)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.Grid6X6SVG(w, c1, c2, size)
+		squares.GridSVG(w, c1, c2, size)
 	}
 }

@@ -10,8 +10,8 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-//Grid6X6 builds an image with 6X6 quadrants of alternate colors.
-func Grid6X6(m *image.RGBA, color1, color2 color.RGBA) {
+//Grid builds an image with 6X6 quadrants of alternate colors.
+func Grid(m *image.RGBA, color1, color2 color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
 	for x := 0; x < size.X; x++ {
@@ -28,8 +28,8 @@ func Grid6X6(m *image.RGBA, color1, color2 color.RGBA) {
 	}
 }
 
-// Grid6X6SVG builds an image with 6X6 quadrants of alternate colors.
-func Grid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
+// GridSVG builds an image with 6 by 6 quadrants of alternate colors.
+func GridSVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	squares := 6
@@ -54,8 +54,8 @@ func Grid6X6SVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
 	canvas.End()
 }
 
-// RandomGrid6X6 builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomGrid6X6(m *image.RGBA, colors []color.RGBA) {
+// RandomGrid builds a 6 by 6 grid image with with 2 colors selected at random for each quadrant.
+func RandomGrid(m *image.RGBA, colors []color.RGBA) {
 	size := m.Bounds().Size()
 	quad := size.X / 6
 	colorMap := make(map[int]color.RGBA)
@@ -77,7 +77,7 @@ func RandomGrid6X6(m *image.RGBA, colors []color.RGBA) {
 }
 
 // RandomGrid6X6SVG builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomGrid6X6SVG(w http.ResponseWriter, colors []color.RGBA, size int) {
+func RandomGridSVG(w http.ResponseWriter, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	squares := 6
