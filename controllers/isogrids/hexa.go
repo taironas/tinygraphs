@@ -56,5 +56,5 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 	write.ImageSVG(w)
-	isogrids.IsogridsHexa(w, key, colors, size, lines)
+	isogrids.Hexa(w, key, colors, size, lines)
 }

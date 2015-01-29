@@ -25,7 +25,7 @@ func GridBW(w http.ResponseWriter, r *http.Request) {
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	isogrids.IsogridsBW(w, "", bg, fg, size)
+	isogrids.BlackWhite(w, "", bg, fg, size)
 }
 
 // Grid2Colors is the handler for /isogrids/labs/grid2colors
@@ -34,5 +34,5 @@ func Grid2Colors(w http.ResponseWriter, r *http.Request) {
 
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	isogrids.Isogrids2Colors(w, "", size)
+	isogrids.TwoColors(w, "", size)
 }

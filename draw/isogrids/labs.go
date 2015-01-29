@@ -84,8 +84,8 @@ func HalfDiagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA,
 	canvas.End()
 }
 
-// Isogrids builds an image with 10x10 grids of half diagonals
-func IsogridsSkeleton(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+// Skeleton builds an image with 10x10 grids of half diagonals
+func Skeleton(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -127,8 +127,8 @@ func IsogridsSkeleton(w http.ResponseWriter, key string, color1, color2 color.RG
 	canvas.End()
 }
 
-// Isogrids builds an image with 10x10 grids of half diagonals
-func IsogridsBW(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+// BlackWhite builds an image with 10x10 grids of half diagonals.
+func BlackWhite(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -162,8 +162,8 @@ func IsogridsBW(w http.ResponseWriter, key string, color1, color2 color.RGBA, si
 	canvas.End()
 }
 
-// Isogrids builds an image with 10x10 grids of half diagonals
-func Isogrids2Colors(w http.ResponseWriter, key string, size int) {
+// TwoColors builds an image with 10x10 grids of half diagonals
+func TwoColors(w http.ResponseWriter, key string, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

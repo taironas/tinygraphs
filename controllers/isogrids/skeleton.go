@@ -23,5 +23,5 @@ func Skeleton(w http.ResponseWriter, r *http.Request) {
 	}
 	size := extract.Size(r)
 	write.ImageSVG(w)
-	isogrids.IsogridsSkeleton(w, "", bg, fg, size)
+	isogrids.Skeleton(w, "", bg, fg, size)
 }

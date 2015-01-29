@@ -46,5 +46,5 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	}
 
 	write.ImageSVG(w)
-	isogrids.IsogridsRandom(w, "", colors, size)
+	isogrids.Random(w, "", colors, size)
 }
