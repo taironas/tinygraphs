@@ -67,6 +67,13 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
+			if yQ == 6 { // lenght of body
+				leftOver := squares - invader.lenght
+				if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
+					fill = fillBlack()
+				}
+			}
+
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fill) //draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
@@ -112,9 +119,15 @@ func newInvader(key string) invader {
 
 	s = hex.EncodeToString([]byte{key[4]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.lenght = int(val%5) + 2
+		invader.lenght = int(val%6) + 3
+		if invader.lenght <= 3 {
+			invader.lenght *= 2
+		}
+		if invader.lenght%2 == 0 {
+			invader.lenght += 1
+		}
 	} else {
-		invader.lenght = 5
+		invader.lenght = 6
 	}
 
 	s = hex.EncodeToString([]byte{key[4]})
