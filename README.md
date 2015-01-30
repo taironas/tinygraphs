@@ -56,11 +56,23 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
     You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
 
-* **theme**: `tinygraphs.com/squares/random?theme=summerwarmth`
+* **theme**: `tinygraphs.com/squares/random?theme=frogideas`
 
     You can specify the theme you want to take into account in the image.
 
     ![theme](http://tinygraphs.com/squares/random?theme=frogideas&size=120&fmt=svg)
+
+    Here is the list of existing themes:
+    * base
+    * sugarsweets
+    * heatwave
+    * daisygarden
+    * seascape
+    * summerwarmth
+    * bythepool
+    * duskfalling
+    * frogideas
+    * berrypie
 
 * **numcolors**: `tinygraphs.com/squares/random?theme=summerwarmth&numcolors=4`
 
