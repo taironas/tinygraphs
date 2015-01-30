@@ -2,6 +2,7 @@ package spaceinvaders
 
 import (
 	"encoding/hex"
+	"fmt"
 	"image/color"
 	"log"
 	"math"
@@ -25,7 +26,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	invader := newInvader(key)
-	log.Println(invader)
+	log.Println(fmt.Sprintf("%+v\n", invader))
 	squares := 11
 	quadrantSize := size / squares
 	middle := math.Ceil(float64(squares) / float64(2))
@@ -47,21 +48,70 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 			// todo(santiago): needs refactor.
-			if yQ == 5 {
+
+			if yQ == 3 { // pre frontal lobe :p
 				if invader.eyes == 1 {
-					if xQ == 5 {
+					if xQ >= 5 && xQ <= 5 {
 						fill = fillBlack()
 					}
 				} else if invader.eyes == 2 {
+					if xQ >= 4 && xQ <= 6 {
+						fill = fillBlack()
+					}
+				} else if invader.eyes == 3 {
+					if xQ >= 3 && xQ <= 7 {
+						fill = fillBlack()
+					}
+				} else if invader.eyes == 4 {
+					if xQ >= 3 && xQ <= 8 {
+						fill = fillBlack()
+					}
+				}
+			}
+			if yQ == 4 { // frontal lobe
+				if invader.eyes == 1 {
+					if xQ >= 4 && xQ <= 6 {
+						fill = fillBlack()
+					}
+				} else if invader.eyes == 2 {
+					if xQ >= 3 && xQ <= 7 {
+						fill = fillBlack()
+					}
+				} else if invader.eyes == 3 {
+					if xQ >= 2 && xQ <= 8 {
+						fill = fillBlack()
+					}
+				} else if invader.eyes == 4 {
+					if xQ >= 2 && xQ <= 9 {
+						fill = fillBlack()
+					}
+				}
+			}
+
+			if yQ == 5 { // eyes
+				if invader.eyes == 1 {
+					if xQ == 5 {
+						fill = fillWhite()
+					} else if xQ == 4 || xQ == 6 {
+						fill = fillBlack()
+
+					}
+				} else if invader.eyes == 2 {
 					if xQ == 4 || xQ == 6 {
+						fill = fillWhite()
+					} else if xQ == 3 || xQ == 5 || xQ == 7 {
 						fill = fillBlack()
 					}
 				} else if invader.eyes == 3 {
 					if xQ == 5 || xQ == 3 || xQ == 7 {
+						fill = fillWhite()
+					} else if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
 						fill = fillBlack()
 					}
 				} else if invader.eyes == 4 {
 					if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+						fill = fillWhite()
+					} else if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
 						fill = fillBlack()
 					}
 				}
@@ -74,6 +124,33 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
+			if yQ == 7 || yQ == 8 { // legs
+				if invader.legs%2 == 0 {
+					if invader.legs == 2 {
+						if xQ == 4 || xQ == 6 {
+							fill = fillBlack()
+						}
+					} else if invader.legs == 4 {
+						if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+							fill = fillBlack()
+						}
+					}
+				} else {
+					if invader.legs == 1 {
+						if xQ == 5 {
+							fill = fillBlack()
+						}
+					} else if invader.legs == 3 {
+						if xQ == 3 || xQ == 5 || xQ == 7 {
+							fill = fillBlack()
+						}
+					} else if invader.legs == 5 {
+						if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
+							fill = fillBlack()
+						}
+					}
+				}
+			}
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fill) //draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
@@ -150,5 +227,4 @@ func fillWhite() string {
 
 func fillBlack() string {
 	return "stroke:black;stroke-width:2;fill:rgb(0,0,0)"
-
 }
