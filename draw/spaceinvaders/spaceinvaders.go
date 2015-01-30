@@ -144,6 +144,23 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
+			if yQ == 5 && invader.armsUp {
+				leftOver := squares - invader.lenght
+				if invader.arms > 0 {
+					if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+						fill = fillBlack()
+					}
+				}
+			}
+
+			if yQ == 7 && !invader.armsUp {
+				leftOver := squares - invader.lenght
+				if invader.arms > 0 {
+					if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+						fill = fillBlack()
+					}
+				}
+			}
 
 			if yQ == 7 || yQ == 8 { // legs
 				if invader.legs%2 == 0 {
