@@ -15,7 +15,9 @@ import (
 
 type invader struct {
 	legs     int
+	foot     bool
 	arms     int
+	armsUp   bool
 	anthenas int
 	height   int
 	lenght   int
@@ -48,6 +50,21 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 			// todo(santiago): needs refactor.
+			if yQ == 2 {
+				if invader.anthenas == 1 {
+					if xQ == 5 {
+						fill = fillBlack()
+					}
+				} else if invader.anthenas == 2 {
+					if xQ == 4 || xQ == 6 {
+						fill = fillBlack()
+					}
+				} else if invader.anthenas == 3 {
+					if xQ == 3 || xQ == 5 || xQ == 7 {
+						fill = fillBlack()
+					}
+				}
+			}
 
 			if yQ == 3 { // pre frontal lobe :p
 				if invader.eyes == 1 {
@@ -117,10 +134,14 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 6 { // lenght of body
+			if yQ == 6 { // lenght of body and arms
 				leftOver := squares - invader.lenght
 				if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
 					fill = fillBlack()
+				} else if invader.arms > 0 {
+					if xQ == (leftOver/2) || xQ == (leftOver/2)-1 || xQ == squares-1-leftOver/2 || xQ == squares-leftOver/2 {
+						fill = fillBlack()
+					}
 				}
 			}
 
@@ -151,6 +172,33 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
+			if yQ == 8 && invader.foot {
+				if invader.legs%2 == 0 {
+					if invader.legs == 2 {
+						if xQ == 3 || xQ == 7 {
+							fill = fillBlack()
+						}
+					} else if invader.legs == 4 {
+						if xQ == 1 || xQ == 9 {
+							fill = fillBlack()
+						}
+					}
+				} else {
+					if invader.legs == 1 {
+						if xQ == 4 || xQ == 6 {
+							fill = fillBlack()
+						}
+					} else if invader.legs == 3 {
+						if xQ == 2 || xQ == 8 {
+							fill = fillBlack()
+						}
+					} else if invader.legs == 5 {
+						if xQ == 0 || xQ == 10 {
+							fill = fillBlack()
+						}
+					}
+				}
+			}
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fill) //draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
@@ -171,14 +219,17 @@ func newInvader(key string) invader {
 
 	s = hex.EncodeToString([]byte{key[1]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.arms = int(val%3) + 2
+		invader.arms = int(val % 3)
+		if invader.arms%2 != 0 {
+			invader.arms++
+		}
 	} else {
 		invader.arms = 2
 	}
 
 	s = hex.EncodeToString([]byte{key[2]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.anthenas = int(val%2) + 1
+		invader.anthenas = int(val % 4)
 	} else {
 		invader.anthenas = 2
 	}
@@ -196,7 +247,7 @@ func newInvader(key string) invader {
 
 	s = hex.EncodeToString([]byte{key[4]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.lenght = int(val%6) + 3
+		invader.lenght = int(val%4) + 2
 		if invader.lenght <= 3 {
 			invader.lenght *= 2
 		}
@@ -207,7 +258,7 @@ func newInvader(key string) invader {
 		invader.lenght = 6
 	}
 
-	s = hex.EncodeToString([]byte{key[4]})
+	s = hex.EncodeToString([]byte{key[5]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
 		if val > 5 && val < 1 {
 			invader.eyes = 2
@@ -216,6 +267,28 @@ func newInvader(key string) invader {
 		}
 	} else {
 		invader.eyes = 2
+	}
+
+	s = hex.EncodeToString([]byte{key[6]})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		if val%2 == 0 {
+			invader.foot = true
+		} else {
+			invader.foot = false
+		}
+	} else {
+		invader.foot = true
+	}
+
+	s = hex.EncodeToString([]byte{key[7]})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		if val%2 == 0 {
+			invader.armsUp = true
+		} else {
+			invader.armsUp = false
+		}
+	} else {
+		invader.foot = true
 	}
 
 	return invader
