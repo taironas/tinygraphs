@@ -5,6 +5,8 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/taironas/route"
 )
 
 var GoodParams []string
@@ -28,19 +30,19 @@ func init() {
 	}
 }
 
-type HandlerFunc func(method, params string) *httptest.ResponseRecorder
+type HandlerFunc func(url, method, params string, r *route.Router) *httptest.ResponseRecorder
 
 func GenerateHandlerFunc(t *testing.T, handler func(http.ResponseWriter, *http.Request)) HandlerFunc {
 
-	return func(method, params string) *httptest.ResponseRecorder {
+	return func(url, method, params string, r *route.Router) *httptest.ResponseRecorder {
 
-		if r, err := http.NewRequest(method, "", strings.NewReader(params)); err != nil {
+		if req, err := http.NewRequest(method, url, strings.NewReader(params)); err != nil {
 			t.Errorf("%v", err)
 		} else {
-			r.Header.Set("Content-Type", "application/json")
-			r.Body.Close()
+			req.Header.Set("Content-Type", "application/json")
+			req.Body.Close()
 			recorder := httptest.NewRecorder()
-			handler(recorder, r)
+			r.ServeHTTP(recorder, req)
 			return recorder
 		}
 		return nil
