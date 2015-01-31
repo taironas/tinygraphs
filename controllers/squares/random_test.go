@@ -17,14 +17,14 @@ func TestRandom(t *testing.T) {
 	for _, p := range tgTesting.GoodParams {
 		recorder := test("/squares/random", "GET", p, r)
 		if recorder.Code != http.StatusOK {
-			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusBadRequest)
+			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
 		}
 	}
 
 	for _, p := range tgTesting.BadParams {
 		recorder := test("/squares/random", "GET", p, r)
 		if recorder.Code != http.StatusOK {
-			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusBadRequest)
+			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
 		}
 	}
 }

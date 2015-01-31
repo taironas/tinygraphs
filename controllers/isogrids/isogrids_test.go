@@ -1,4 +1,4 @@
-package checkerboard
+package isogrids
 
 import (
 	"net/http"
@@ -8,24 +8,23 @@ import (
 	tgTesting "github.com/taironas/tinygraphs/testing"
 )
 
-func TestCheckerboard(t *testing.T) {
+func TestIsogrids(t *testing.T) {
 
 	r := new(route.Router)
-	r.HandleFunc("/checkerboard", Checkerboard)
+	r.HandleFunc("/isogrids/:key", Isogrids)
 
-	test := tgTesting.GenerateHandlerFunc(t, Checkerboard)
+	test := tgTesting.GenerateHandlerFunc(t, Isogrids)
 	for _, p := range tgTesting.GoodParams {
-		recorder := test("/checkerboard", "GET", p, r)
+		recorder := test("/isogrids/test", "GET", p, r)
 		if recorder.Code != http.StatusOK {
 			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
 		}
 	}
 
 	for _, p := range tgTesting.BadParams {
-		recorder := test("/checkerboard", "GET", p, r)
+		recorder := test("/isogrids/test", "GET", p, r)
 		if recorder.Code != http.StatusOK {
 			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
 		}
 	}
-
 }
