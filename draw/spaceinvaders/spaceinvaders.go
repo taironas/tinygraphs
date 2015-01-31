@@ -22,6 +22,7 @@ type invader struct {
 	height   int
 	length   int
 	eyes     int
+	armSize  int
 }
 
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
@@ -182,6 +183,21 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 				lowBodyIndex++
 			}
+			if yQ == 4 && invader.armsUp && invader.armSize == 3 {
+				leftOver := squares - invader.length
+				if invader.arms > 0 {
+					if (squares - (leftOver / 2) - (leftOver / 2)) >= invader.length {
+						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
+							fill = fillBlack()
+						}
+					} else {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+
+					}
+				}
+			}
 			if yQ == 5 && invader.armsUp {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
@@ -199,6 +215,21 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == lowBodyIndex && !invader.armsUp {
+				leftOver := squares - invader.length
+				if invader.arms > 0 {
+					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
+						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
+							fill = fillBlack()
+						}
+					} else {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+					}
+				}
+			}
+
+			if yQ == lowBodyIndex+1 && !invader.armsUp && invader.armSize == 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
 					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
@@ -301,7 +332,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 	canvas.End()
 }
 
-// key is a 16 md5 hash
+// newInvader returns a invader type built from key which is a 16 md5 hash.
 func newInvader(key string) invader {
 	invader := invader{}
 	var s string
@@ -381,6 +412,17 @@ func newInvader(key string) invader {
 			invader.armsUp = true
 		} else {
 			invader.armsUp = false
+		}
+	} else {
+		invader.foot = true
+	}
+
+	s = hex.EncodeToString([]byte{key[8]})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		if val%2 == 0 {
+			invader.armSize = 2
+		} else {
+			invader.armSize = 3
 		}
 	} else {
 		invader.foot = true
