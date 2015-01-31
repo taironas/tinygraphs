@@ -14,15 +14,16 @@ import (
 )
 
 type invader struct {
-	legs     int
-	foot     bool
-	arms     int
-	armsUp   bool
-	anthenas int
-	height   int
-	length   int
-	eyes     int
-	armSize  int
+	legs        int
+	foot        bool
+	arms        int
+	armsUp      bool
+	anthenas    int
+	height      int
+	length      int
+	eyes        int
+	armSize     int
+	anthenaSize int
 }
 
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
@@ -71,6 +72,23 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 						highBodyIndex--
 					}
 				}
+			}
+
+			if yQ == highBodyIndex-1 && invader.anthenaSize == 2 {
+				if invader.anthenas == 1 {
+					if xQ == 5 {
+						fill = fillBlack()
+					}
+				} else if invader.anthenas == 2 {
+					if xQ == 3 || xQ == 7 {
+						fill = fillBlack()
+					}
+				} else if invader.anthenas == 3 {
+					if xQ == 2 || xQ == 5 || xQ == 8 {
+						fill = fillBlack()
+					}
+				}
+
 			}
 
 			if yQ == highBodyIndex {
@@ -423,6 +441,17 @@ func newInvader(key string) invader {
 			invader.armSize = 2
 		} else {
 			invader.armSize = 3
+		}
+	} else {
+		invader.foot = true
+	}
+
+	s = hex.EncodeToString([]byte{key[9]})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		if val%2 == 0 {
+			invader.anthenaSize = 1
+		} else {
+			invader.anthenaSize = 2
 		}
 	} else {
 		invader.foot = true
