@@ -14,13 +14,14 @@ import (
 )
 
 var root = flag.String("root", "app", "file system path")
+var r route.Router
 
 func init() {
 	log.SetFlags(log.Ltime | log.Ldate | log.Lshortfile)
+	r = new(route.Router)
 }
 
 func main() {
-	r := new(route.Router)
 
 	r.HandleFunc("/checkerboard", checkerboard.Checkerboard)
 
