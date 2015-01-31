@@ -20,7 +20,7 @@ type invader struct {
 	armsUp   bool
 	anthenas int
 	height   int
-	lenght   int
+	length   int
 	eyes     int
 }
 
@@ -49,8 +49,30 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					colorMap[xQ] = colorMap[0]
 				}
 			}
-			// todo(santiago): needs refactor.
-			if yQ == 2 {
+
+			highBodyIndex := 2
+			if invader.height > 7 {
+				if yQ == highBodyIndex {
+					if invader.eyes == 2 {
+						if xQ > 4 && xQ < 6 {
+							fill = fillBlack()
+						}
+					} else if invader.eyes == 3 {
+						if xQ > 3 && xQ < 7 {
+							fill = fillBlack()
+						}
+					} else if invader.eyes == 4 {
+						if xQ > 3 && xQ < 8 {
+							fill = fillBlack()
+						}
+					}
+					if invader.eyes > 1 {
+						highBodyIndex--
+					}
+				}
+			}
+
+			if yQ == highBodyIndex {
 				if invader.anthenas == 1 {
 					if xQ == 5 {
 						fill = fillBlack()
@@ -85,6 +107,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
+
 			if yQ == 4 { // frontal lobe
 				if invader.eyes == 1 {
 					if xQ >= 4 && xQ <= 6 {
@@ -111,7 +134,6 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 						fill = fillWhite()
 					} else if xQ == 4 || xQ == 6 {
 						fill = fillBlack()
-
 					}
 				} else if invader.eyes == 2 {
 					if xQ == 4 || xQ == 6 {
@@ -134,8 +156,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 6 { // lenght of body and arms
-				leftOver := squares - invader.lenght
+			if yQ == 6 { // length of body and arms
+				leftOver := squares - invader.length
 				if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
 					fill = fillBlack()
 				} else if invader.arms > 0 {
@@ -144,33 +166,75 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
+			lowBodyIndex := 7
+			if invader.height > 6 {
+				// add more body is height > 6
+				if yQ == lowBodyIndex {
+					leftOver := squares - invader.length
+					if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
+						fill = fillBlack()
+					} else if invader.arms > 0 {
+						if xQ == (leftOver/2) || xQ == (leftOver/2)-1 || xQ == squares-1-leftOver/2 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+					}
+
+				}
+				lowBodyIndex++
+			}
 			if yQ == 5 && invader.armsUp {
-				leftOver := squares - invader.lenght
+				leftOver := squares - invader.length
 				if invader.arms > 0 {
-					if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
-						fill = fillBlack()
+					if (squares - (leftOver / 2) - (leftOver / 2)) >= invader.length {
+						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
+							fill = fillBlack()
+						}
+					} else {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+
 					}
 				}
 			}
 
-			if yQ == 7 && !invader.armsUp {
-				leftOver := squares - invader.lenght
+			if yQ == lowBodyIndex && !invader.armsUp {
+				leftOver := squares - invader.length
 				if invader.arms > 0 {
-					if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
-						fill = fillBlack()
+					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
+						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
+							fill = fillBlack()
+						}
+					} else {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
 					}
 				}
 			}
 
-			if yQ == 7 || yQ == 8 { // legs
+			if yQ == lowBodyIndex || yQ == lowBodyIndex+1 { // legs
 				if invader.legs%2 == 0 {
 					if invader.legs == 2 {
 						if xQ == 4 || xQ == 6 {
 							fill = fillBlack()
 						}
 					} else if invader.legs == 4 {
-						if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-							fill = fillBlack()
+						if invader.length >= 6 {
+							if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+								fill = fillBlack()
+							}
+						} else {
+							if yQ == lowBodyIndex {
+								if xQ == 3 || xQ == 5 || xQ == 5 || xQ == 7 {
+									fill = fillBlack()
+								}
+
+							} else {
+								if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+									fill = fillBlack()
+								}
+							}
 						}
 					}
 				} else {
@@ -179,8 +243,20 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 							fill = fillBlack()
 						}
 					} else if invader.legs == 3 {
-						if xQ == 3 || xQ == 5 || xQ == 7 {
-							fill = fillBlack()
+						if invader.length >= 5 {
+							if xQ == 3 || xQ == 5 || xQ == 7 {
+								fill = fillBlack()
+							}
+						} else {
+							if yQ == lowBodyIndex {
+								if xQ == 3 || xQ == 5 || xQ == 7 {
+									fill = fillBlack()
+								}
+							} else {
+								if xQ == 2 || xQ == 5 || xQ == 8 {
+									fill = fillBlack()
+								}
+							}
 						}
 					} else if invader.legs == 5 {
 						if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
@@ -189,7 +265,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
-			if yQ == 8 && invader.foot {
+
+			if yQ == lowBodyIndex+1 && invader.foot {
 				if invader.legs%2 == 0 {
 					if invader.legs == 2 {
 						if xQ == 3 || xQ == 7 {
@@ -215,7 +292,9 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 						}
 					}
 				}
+
 			}
+
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fill) //draw.FillFromRGBA(colorMap[xQ]))
 		}
 	}
@@ -253,26 +332,25 @@ func newInvader(key string) invader {
 
 	s = hex.EncodeToString([]byte{key[3]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		if val < 7 {
-			invader.height = 8
-		} else {
-			invader.height = 8
+		invader.length = int(val % 8)
+		if val < 4 {
+			invader.length = 5
+		}
+		if invader.length%2 == 0 {
+			invader.length++
 		}
 	} else {
-		invader.height = 8
+		invader.length = 7
 	}
 
 	s = hex.EncodeToString([]byte{key[4]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.lenght = int(val%4) + 2
-		if invader.lenght <= 3 {
-			invader.lenght *= 2
-		}
-		if invader.lenght%2 == 0 {
-			invader.lenght += 1
+		invader.height = int(val % 10)
+		if invader.height < 6 {
+			invader.height = 6
 		}
 	} else {
-		invader.lenght = 6
+		invader.height = 6
 	}
 
 	s = hex.EncodeToString([]byte{key[5]})
