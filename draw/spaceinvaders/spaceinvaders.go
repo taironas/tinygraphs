@@ -323,7 +323,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 						}
 					} else if invader.legs == 4 {
 						if invader.length >= 6 {
-							if invader.height > 7 {
+							if invader.height >= 7 {
 								if yQ == lowBodyIndex {
 									if xQ == 3 || xQ == 4 || xQ == 6 || xQ == 7 {
 										fill = fillBlack()
