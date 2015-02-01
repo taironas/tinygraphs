@@ -185,22 +185,20 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
+
 			lowBodyIndex := 7
 			if invader.height > 6 {
 				// add more body is height > 6
 				if yQ == lowBodyIndex {
 					leftOver := squares - invader.length
-					if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
+					if xQ > (leftOver/2)-1 && xQ < (squares-leftOver/2) {
 						fill = fillBlack()
-					} else if invader.arms > 0 {
-						if xQ == (leftOver/2) || xQ == (leftOver/2)-1 || xQ == squares-1-leftOver/2 || xQ == squares-leftOver/2 {
-							fill = fillBlack()
-						}
 					}
 
 				}
 				lowBodyIndex++
 			}
+
 			if yQ == 4 && invader.armsUp && invader.armSize == 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
@@ -216,6 +214,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
+
 			if yQ == 5 && invader.armsUp {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
@@ -466,4 +465,8 @@ func fillWhite() string {
 
 func fillBlack() string {
 	return "stroke:black;stroke-width:2;fill:rgb(0,0,0)"
+}
+
+func fillGrey() string {
+	return "stroke:black;stroke-width:2;fill:rgb(160,160,160)"
 }
