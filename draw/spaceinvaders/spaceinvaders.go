@@ -88,7 +88,6 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 						fill = fillBlack()
 					}
 				}
-
 			}
 
 			if yQ == highBodyIndex {
@@ -147,6 +146,30 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
+			if yQ == 5 {
+				leftOver := squares - invader.length
+				if invader.arms > 0 {
+					if xQ == (leftOver/2) || xQ == squares-1-leftOver/2 || xQ == (leftOver/2)-1 || xQ == (squares-leftOver/2) {
+						fill = fillBlack()
+					}
+				}
+			}
+			if yQ == 4 || yQ == 6 { // arm extension
+				leftOver := squares - invader.length
+				if invader.arms > 0 {
+					if yQ == 4 && invader.armsUp && invader.armSize == 3 {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+					}
+					if yQ == 6 && !invader.armsUp && invader.armSize == 3 {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+					}
+				}
+			}
+
 			if yQ == 5 { // eyes
 				if invader.eyes == 1 {
 					if xQ == 5 {
@@ -175,14 +198,10 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 6 { // length of body and arms
+			if yQ == 6 { // length of body
 				leftOver := squares - invader.length
 				if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
 					fill = fillBlack()
-				} else if invader.arms > 0 {
-					if xQ == (leftOver/2) || xQ == (leftOver/2)-1 || xQ == squares-1-leftOver/2 || xQ == squares-leftOver/2 {
-						fill = fillBlack()
-					}
 				}
 			}
 
@@ -191,7 +210,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				// add more body is height > 6
 				if yQ == lowBodyIndex {
 					leftOver := squares - invader.length
-					if xQ > (leftOver/2)-1 && xQ < (squares-leftOver/2) {
+					if xQ > (leftOver/2) && xQ < (squares-1-leftOver/2) {
 						fill = fillBlack()
 					}
 
@@ -202,7 +221,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			if yQ == 4 && invader.armsUp && invader.armSize == 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
-					if (squares - (leftOver / 2) - (leftOver / 2)) >= invader.length {
+					if (squares - (leftOver / 2) - (leftOver / 2) - 1) >= invader.length {
 						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
 							fill = fillBlack()
 						}
@@ -215,23 +234,55 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 5 && invader.armsUp {
+			// arm up extension.
+			if yQ == 4 && invader.armsUp {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
-					if (squares - (leftOver / 2) - (leftOver / 2)) >= invader.length {
-						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
-							fill = fillBlack()
-						}
-					} else {
+					if (squares - (leftOver / 2) - (leftOver / 2) - 1) >= invader.length {
 						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
 							fill = fillBlack()
 						}
-
+					} else {
+						if xQ == (leftOver/2)-2 || xQ == squares+1-leftOver/2 {
+							fill = fillBlack()
+						}
 					}
 				}
 			}
 
-			if yQ == lowBodyIndex && !invader.armsUp {
+			if yQ == lowBodyIndex-2 && !invader.armsUp && invader.armSize < 3 {
+				leftOver := squares - invader.length
+				if invader.arms > 0 {
+					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+					} else {
+						if xQ == (leftOver/2)-2 || xQ == squares+1-leftOver/2 {
+							fill = fillBlack()
+						}
+					}
+				}
+			}
+
+			// arm down extension.
+			if yQ == lowBodyIndex-1 && !invader.armsUp && invader.armSize == 3 {
+				leftOver := squares - invader.length
+				if invader.arms > 0 {
+					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
+						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+							fill = fillBlack()
+						}
+					} else {
+						if xQ == (leftOver/2)-2 || xQ == squares+1-leftOver/2 {
+							fill = fillBlack()
+						}
+					}
+				}
+			}
+
+			// big arm extension
+			if yQ == lowBodyIndex && !invader.armsUp && invader.armSize == 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
 					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
@@ -239,22 +290,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 							fill = fillBlack()
 						}
 					} else {
-						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
-							fill = fillBlack()
-						}
-					}
-				}
-			}
-
-			if yQ == lowBodyIndex+1 && !invader.armsUp && invader.armSize == 3 {
-				leftOver := squares - invader.length
-				if invader.arms > 0 {
-					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
-						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
-							fill = fillBlack()
-						}
-					} else {
-						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
+						if xQ == (leftOver/2)-2 || xQ == squares+1-leftOver/2 {
 							fill = fillBlack()
 						}
 					}
@@ -381,7 +417,7 @@ func newInvader(key string) invader {
 	s = hex.EncodeToString([]byte{key[3]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
 		invader.length = int(val % 8)
-		if val < 4 {
+		if invader.length < 4 {
 			invader.length = 5
 		}
 		if invader.length%2 == 0 {
@@ -469,4 +505,16 @@ func fillBlack() string {
 
 func fillGrey() string {
 	return "stroke:black;stroke-width:2;fill:rgb(160,160,160)"
+}
+
+func fillGreen() string {
+	return "stroke:black;stroke-width:2;fill:rgb(0,255,0)"
+}
+
+func fillRed() string {
+	return "stroke:black;stroke-width:2;fill:rgb(255,0,0)"
+}
+
+func fillBlue() string {
+	return "stroke:black;stroke-width:2;fill:rgb(0,0,255)"
 }
