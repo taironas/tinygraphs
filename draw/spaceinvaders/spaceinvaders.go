@@ -206,11 +206,23 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			lowBodyIndex := 7
-			if invader.height > 6 {
-				// add more body is height > 6
+			if invader.height > 5 {
+				// add more body if height > 6
 				if yQ == lowBodyIndex {
 					leftOver := squares - invader.length
 					if xQ > (leftOver/2) && xQ < (squares-1-leftOver/2) {
+						fill = fillBlack()
+					}
+
+				}
+				lowBodyIndex++
+			}
+
+			if invader.height > 6 {
+				// add more body if height > 6
+				if yQ == lowBodyIndex {
+					leftOver := squares - invader.length
+					if xQ > (leftOver/2)+1 && xQ < (squares-2-leftOver/2) {
 						fill = fillBlack()
 					}
 
@@ -250,7 +262,13 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == lowBodyIndex-2 && !invader.armsUp && invader.armSize < 3 {
+			armIndex := 0
+			if invader.height > 6 {
+				armIndex = lowBodyIndex - 3
+			} else {
+				armIndex = lowBodyIndex - 2
+			}
+			if yQ == armIndex && !invader.armsUp && invader.armSize < 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
 					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
@@ -266,7 +284,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			// arm down extension.
-			if yQ == lowBodyIndex-1 && !invader.armsUp && invader.armSize == 3 {
+			if yQ == armIndex && !invader.armsUp && invader.armSize == 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
 					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
@@ -282,7 +300,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			// big arm extension
-			if yQ == lowBodyIndex && !invader.armsUp && invader.armSize == 3 {
+			if yQ == armIndex+1 && !invader.armsUp && invader.armSize == 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
 					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
@@ -305,8 +323,20 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 						}
 					} else if invader.legs == 4 {
 						if invader.length >= 6 {
-							if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-								fill = fillBlack()
+							if invader.height > 7 {
+								if yQ == lowBodyIndex {
+									if xQ == 3 || xQ == 4 || xQ == 6 || xQ == 7 {
+										fill = fillBlack()
+									}
+								} else {
+									if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+										fill = fillBlack()
+									}
+								}
+							} else {
+								if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+									fill = fillBlack()
+								}
 							}
 						} else {
 							if yQ == lowBodyIndex {
@@ -327,17 +357,17 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 							fill = fillBlack()
 						}
 					} else if invader.legs == 3 {
-						if invader.length >= 5 {
+						if invader.length > 5 {
 							if xQ == 3 || xQ == 5 || xQ == 7 {
 								fill = fillBlack()
 							}
 						} else {
 							if yQ == lowBodyIndex {
-								if xQ == 3 || xQ == 5 || xQ == 7 {
+								if xQ == 4 || xQ == 5 || xQ == 6 {
 									fill = fillBlack()
 								}
 							} else {
-								if xQ == 2 || xQ == 5 || xQ == 8 {
+								if xQ == 3 || xQ == 5 || xQ == 7 {
 									fill = fillBlack()
 								}
 							}
@@ -367,9 +397,16 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 							fill = fillBlack()
 						}
 					} else if invader.legs == 3 {
-						if xQ == 2 || xQ == 8 {
-							fill = fillBlack()
+						if invader.length > 5 {
+							if xQ == 2 || xQ == 8 {
+								fill = fillBlack()
+							}
+						} else {
+							if xQ == 3 || xQ == 7 {
+								fill = fillBlack()
+							}
 						}
+
 					} else if invader.legs == 5 {
 						if xQ == 0 || xQ == 10 {
 							fill = fillBlack()
@@ -419,9 +456,6 @@ func newInvader(key string) invader {
 		invader.length = int(val % 8)
 		if invader.length < 4 {
 			invader.length = 5
-		}
-		if invader.length%2 == 0 {
-			invader.length++
 		}
 	} else {
 		invader.length = 7
