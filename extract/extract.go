@@ -137,7 +137,7 @@ func Lines(r *http.Request) int {
 	s := strings.ToLower(r.FormValue("lines"))
 	if len(s) > 0 {
 		if n, err := strconv.ParseInt(s, 0, 64); err == nil {
-			if n > 0 {
+			if n >= 4 {
 				return int(n)
 			}
 		}
