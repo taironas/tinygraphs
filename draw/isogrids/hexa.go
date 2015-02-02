@@ -20,8 +20,8 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 	// OC = SQRT(AC^2 - AO^2)
 	distance := int(math.Ceil(math.Sqrt((float64(fringeSize) * float64(fringeSize)) - (float64(fringeSize)/float64(2))*(float64(fringeSize)/float64(2)))))
 	fringeSize = distance
-	for xL := -1; xL < lines/2; xL++ {
-		for yL := -1; yL <= lines; yL++ {
+	for xL := 0; xL < lines/2; xL++ {
+		for yL := 0; yL < lines; yL++ {
 
 			fill1 := fillWhite()
 			fill2 := fillWhite()
