@@ -10,11 +10,10 @@ import (
 )
 
 // Random creates an isogrids svg image with half diagonals.
-func Random(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+func Random(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
-	lines := 10
 	fringeSize := size / lines
 
 	// triangle grid here:

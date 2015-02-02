@@ -15,11 +15,7 @@ import (
 func Random(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
-	size := extract.Size(r)
-	numColors := extract.NumColors(r)
-
 	bg, fg := extract.ExtraColors(r, colorMap)
-
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {
 		bg = val[0]
@@ -29,6 +25,7 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	var colors []color.RGBA
 	if theme != "base" {
 		if _, ok := colorMap[theme]; ok {
+			numColors := extract.NumColors(r)
 			colors = append(colors, colorMap[theme][0:numColors]...)
 		} else {
 			colors = append(colors, colorMap["base"]...)
@@ -37,6 +34,8 @@ func Random(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 
+	size := extract.Size(r)
+	lines := extract.Lines(r)
 	write.ImageSVG(w)
-	isogrids.Random(w, "", colors, size)
+	isogrids.Random(w, "", colors, size, lines)
 }
