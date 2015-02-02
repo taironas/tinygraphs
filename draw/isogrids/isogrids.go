@@ -130,11 +130,10 @@ func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size i
 }
 
 // Isogrids builds an image with 10x10 grids of half diagonals
-func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
-	lines := 10
 	fringeSize := size / lines
 
 	// triangle grid here:

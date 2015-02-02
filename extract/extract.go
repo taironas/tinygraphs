@@ -130,3 +130,17 @@ func Hexalines(r *http.Request) int64 {
 	}
 	return 6
 }
+
+// Lines return the value of the lines parameter in the http.Request.
+// Default value is 6
+func Lines(r *http.Request) int {
+	s := strings.ToLower(r.FormValue("lines"))
+	if len(s) > 0 {
+		if n, err := strconv.ParseInt(s, 0, 64); err == nil {
+			if n > 0 {
+				return int(n)
+			}
+		}
+	}
+	return 6
+}

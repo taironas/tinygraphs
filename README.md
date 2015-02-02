@@ -81,6 +81,13 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
     ![theme](http://tinygraphs.com/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
 
+* **lines**
+You can specify the number of lines that an isogrid can have using the `lines`parameter. **Default** parameter is **6**
+
+`tinygraphs.com/isogrids/hello?lines=4`
+
+![number of lines in isogrid image.](http://tinygraphs.com/isogrids/hello?lines=4&size=120&fmt=svg)
+
 Organization
 =====
 
