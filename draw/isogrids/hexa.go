@@ -2,6 +2,7 @@ package isogrids
 
 import (
 	"image/color"
+	"math"
 	"net/http"
 
 	"github.com/ajstarks/svgo"
@@ -14,7 +15,11 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 	canvas.Start(size, size)
 
 	fringeSize := size / lines
-
+	// distance of center of vector to third point of equilateral triangles
+	// ABC triangle, O is the center of AB vector
+	// OC = SQRT(AC^2 - AO^2)
+	distance := int(math.Ceil(math.Sqrt((float64(fringeSize) * float64(fringeSize)) - (float64(fringeSize)/float64(2))*(float64(fringeSize)/float64(2)))))
+	fringeSize = distance
 	for xL := -1; xL < lines/2; xL++ {
 		for yL := -1; yL <= lines; yL++ {
 
@@ -33,19 +38,19 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 
 			var x1, x2, x3, y1, y2, y3 int
 			if (xL % 2) == 0 {
-				x1 = (xL) * fringeSize
-				x2 = (xL + 1) * fringeSize
+				x1 = xL * fringeSize
+				x2 = xL*fringeSize + distance
 				x3 = x1
 				y1 = yL * fringeSize
 				y2 = y1 + fringeSize/2
-				y3 = (yL + 1) * fringeSize
+				y3 = yL*fringeSize + distance
 			} else {
-				x1 = (xL + 1) * fringeSize
+				x1 = xL*fringeSize + distance
 				x2 = xL * fringeSize
 				x3 = x1
 				y1 = yL * fringeSize
 				y2 = y1 + fringeSize/2
-				y3 = (yL + 1) * fringeSize
+				y3 = yL*fringeSize + distance
 			}
 			xs := []int{x1, x2, x3}
 			ys := []int{y1, y2, y3}
@@ -65,19 +70,19 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 
 			var x11, x12, x13, y11, y12, y13 int
 			if (xL % 2) == 0 {
-				x11 = (xL + 1) * fringeSize
+				x11 = xL*fringeSize + distance
 				x12 = (xL) * fringeSize
 				x13 = x11
 				y11 = yL*fringeSize + fringeSize/2
 				y12 = y11 + fringeSize/2
-				y13 = (yL+1)*fringeSize + fringeSize/2
+				y13 = yL*fringeSize + (fringeSize / 2) + distance
 			} else {
-				x11 = (xL) * fringeSize
-				x12 = (xL + 1) * fringeSize
+				x11 = xL * fringeSize
+				x12 = xL*fringeSize + distance
 				x13 = x11
 				y11 = yL*fringeSize + fringeSize/2
 				y12 = y1 + fringeSize
-				y13 = (yL+1)*fringeSize + fringeSize/2
+				y13 = yL*fringeSize + (fringeSize / 2) + distance
 			}
 			xs1 := []int{x11, x12, x13}
 			ys1 := []int{y11, y12, y13}
