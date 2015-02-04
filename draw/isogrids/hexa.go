@@ -57,19 +57,19 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 				y2 = y1 + fringeSize/2
 				y3 = yL*fringeSize + distance
 			}
-			xs := []int{x1, x2, x3}
-			ys := []int{y1, y2, y3}
+			xs := []int{x1 + offset/2, x2 + offset/2, x3 + offset/2}
+			ys := []int{y1 + offset/2, y2 + offset/2, y3 + offset/2}
 			if lines%4 != 0 {
-				xs[0] = x2
-				xs[1] = x1
-				xs[2] = x2
+				xs[0] = x2 + offset/2
+				xs[1] = x1 + offset/2
+				xs[2] = x2 + offset/2
 			}
 			canvas.Polygon(xs, ys, fill1)
 
 			xsMirror := []int{0, 0, 0}
-			xsMirror[0] = (lines * fringeSize) - xs[0]
-			xsMirror[1] = (lines * fringeSize) - xs[1]
-			xsMirror[2] = (lines * fringeSize) - xs[2]
+			xsMirror[0] = (lines * fringeSize) - xs[0] + offset
+			xsMirror[1] = (lines * fringeSize) - xs[1] + offset
+			xsMirror[2] = (lines * fringeSize) - xs[2] + offset
 
 			canvas.Polygon(xsMirror, ys, fill1)
 
@@ -89,18 +89,18 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 				y12 = y1 + fringeSize
 				y13 = yL*fringeSize + fringeSize/2 + distance
 			}
-			xs1 := []int{x11, x12, x13}
-			ys1 := []int{y11, y12, y13}
+			xs1 := []int{x11 + offset/2, x12 + offset/2, x13 + offset/2}
+			ys1 := []int{y11 + offset/2, y12 + offset/2, y13 + offset/2}
 			if lines%4 != 0 {
-				xs1[0] = x12
-				xs1[1] = x11
-				xs1[2] = x12
+				xs1[0] = x12 + offset/2
+				xs1[1] = x11 + offset/2
+				xs1[2] = x12 + offset/2
 			}
 
 			canvas.Polygon(xs1, ys1, fill2)
-			xs1[0] = (lines * fringeSize) - xs1[0]
-			xs1[1] = (lines * fringeSize) - xs1[1]
-			xs1[2] = (lines * fringeSize) - xs1[2]
+			xs1[0] = (lines * fringeSize) - xs1[0] + offset
+			xs1[1] = (lines * fringeSize) - xs1[1] + offset
+			xs1[2] = (lines * fringeSize) - xs1[2] + offset
 
 			canvas.Polygon(xs1, ys1, fill2)
 		}
