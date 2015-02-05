@@ -59,11 +59,7 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 
 			canvas.Polygon(xs, ys, fill1)
 
-			xsMirror := []int{0, 0, 0}
-			xsMirror[0] = (lines * fringeSize) - xs[0] + offset
-			xsMirror[1] = (lines * fringeSize) - xs[1] + offset
-			xsMirror[2] = (lines * fringeSize) - xs[2] + offset
-
+			xsMirror := mirrorCoordinates(xs, lines, fringeSize, offset)
 			canvas.Polygon(xsMirror, ys, fill1)
 
 			var x11, x12, x13, y11, y12, y13 int
@@ -93,10 +89,8 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 			}
 
 			canvas.Polygon(xs1, ys1, fill2)
-			xs1[0] = (lines * fringeSize) - xs1[0] + offset
-			xs1[1] = (lines * fringeSize) - xs1[1] + offset
-			xs1[2] = (lines * fringeSize) - xs1[2] + offset
 
+			xs1 = mirrorCoordinates(xs1, lines, fringeSize, offset)
 			canvas.Polygon(xs1, ys1, fill2)
 		}
 	}
@@ -177,6 +171,15 @@ func isFill2InHexagon(xL, yL, lines int) bool {
 		}
 	}
 	return false
+}
+
+func mirrorCoordinates(xs []int, lines, fringeSize, offset int) (xsMirror []int) {
+
+	xsMirror = make([]int, len(xs))
+	for i, _ := range xs {
+		xsMirror[i] = (lines * fringeSize) - xs[i] + offset
+	}
+	return
 }
 
 // rightTriangle computes a right oriented triangle '>'
