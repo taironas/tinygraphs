@@ -41,52 +41,38 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 				continue
 			}
 
-			var x1, x2, x3, y1, y2, y3 int
+			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
-				x1, y1, x2, y2, x3, y3 = rightTriangle(xL, yL, fringeSize, distance)
+				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
 			} else {
-				x1, y1, x2, y2, x3, y3 = leftTriangle(xL, yL, fringeSize, distance)
+				x1, y1, x2, y2, _, y3 = left1stTriangle(xL, yL, fringeSize, distance)
 			}
 
-			xs := []int{x1 + offset/2, x2 + offset/2, x3 + offset/2}
+			xs := []int{x2 + offset/2, x1 + offset/2, x2 + offset/2}
 			ys := []int{y1 + offset/2, y2 + offset/2, y3 + offset/2}
-
-			if lines%4 != 0 {
-				xs[0] = x2 + offset/2
-				xs[1] = x1 + offset/2
-				xs[2] = x2 + offset/2
-			}
 
 			canvas.Polygon(xs, ys, fill1)
 
 			xsMirror := mirrorCoordinates(xs, lines, fringeSize, offset)
 			canvas.Polygon(xsMirror, ys, fill1)
 
-			var x11, x12, x13, y11, y12, y13 int
+			var x11, x12, y11, y12, y13 int
 			if (xL % 2) == 0 {
-				x11 = xL*fringeSize + distance
-				x12 = xL * fringeSize
-				x13 = x11
-				y11 = yL*fringeSize + fringeSize/2
-				// to have a perfect hexagon,
-				// we make sure that previous triangle and this one touch each other in this point.
+				x11, y11, x12, y12, _, y13 = left2ndTriangle(xL, yL, fringeSize, distance)
+
+				// in order to have a perfect hexagon,
+				// we make sure that the previous triangle and this one touch each other in this point.
 				y12 = y3
-				y13 = yL*fringeSize + fringeSize/2 + distance
 			} else {
-				x11 = xL * fringeSize
-				x12 = xL*fringeSize + distance
-				x13 = x11
-				y11 = yL*fringeSize + fringeSize/2
+				x11, y11, x12, y12, _, y13 = right2ndTriangle(xL, yL, fringeSize, distance)
+
+				// in order to have a perfect hexagon,
+				// we make sure that the previous triangle and this one touch each other in this point.
 				y12 = y1 + fringeSize
-				y13 = yL*fringeSize + fringeSize/2 + distance
 			}
-			xs1 := []int{x11 + offset/2, x12 + offset/2, x13 + offset/2}
+
+			xs1 := []int{x12 + offset/2, x11 + offset/2, x12 + offset/2}
 			ys1 := []int{y11 + offset/2, y12 + offset/2, y13 + offset/2}
-			if lines%4 != 0 {
-				xs1[0] = x12 + offset/2
-				xs1[1] = x11 + offset/2
-				xs1[2] = x12 + offset/2
-			}
 
 			canvas.Polygon(xs1, ys1, fill2)
 
@@ -182,8 +168,8 @@ func mirrorCoordinates(xs []int, lines, fringeSize, offset int) (xsMirror []int)
 	return
 }
 
-// rightTriangle computes a right oriented triangle '>'
-func rightTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
+// rightUpTriangle computes a right oriented triangle '>'
+func right1stTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
 	x1 = xL * fringeSize
 	x2 = xL*fringeSize + distance
 	x3 = x1
@@ -193,8 +179,8 @@ func rightTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int
 	return
 }
 
-// leftTriangle computes the coordinates of a left oriented triangle '<'
-func leftTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
+// leftUpTriangle computes the coordinates of a left oriented triangle '<'
+func left1stTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
 	x1 = xL*fringeSize + distance
 	x2 = xL * fringeSize
 	x3 = x1
@@ -204,6 +190,27 @@ func leftTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int)
 	return
 }
 
+// leftDownTriangle computes the coordinates of a left oriented triangle '<'
+func left2ndTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
+	x1 = xL*fringeSize + distance
+	x2 = xL * fringeSize
+	x3 = x1
+	y1 = yL*fringeSize + fringeSize/2
+	y2 = y1 + fringeSize/2
+	y3 = yL*fringeSize + distance + fringeSize/2
+	return
+}
+
+// rightDownTriangle computes the coordinates of a right oriented triangle '>'
+func right2ndTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
+	x1 = xL * fringeSize
+	x2 = xL*fringeSize + distance
+	x3 = x1
+	y1 = yL*fringeSize + fringeSize/2
+	y2 = yL + fringeSize
+	y3 = yL*fringeSize + fringeSize/2 + distance
+	return
+}
 func fillWhite() string {
 	return "fill:rgb(255,255,255)"
 
