@@ -63,6 +63,61 @@ func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, heigh
 	canvas.End()
 }
 
+// Random creates an isogrids svg image with half diagonals.
+func RandomGradient(w http.ResponseWriter, key string, colors []color.RGBA, width, height, lines int) {
+	canvas := svg.New(w)
+	canvas.Start(width, height)
+
+	fringeSize := width / lines
+
+	// triangle grid here:
+	for xL := -1; xL <= lines; xL++ {
+		percentage := int(float64(xL) / float64(lines) * 100)
+		for yL := -1; yL <= lines; yL++ {
+			var x1, x2, x3, y1, y2, y3 int
+			if (xL % 2) == 0 {
+				x1 = (xL) * fringeSize
+				x2 = (xL + 1) * fringeSize
+				x3 = x1
+				y1 = yL * fringeSize
+				y2 = y1 + fringeSize/2
+				y3 = (yL + 1) * fringeSize
+			} else {
+				x1 = (xL + 1) * fringeSize
+				x2 = xL * fringeSize
+				x3 = x1
+				y1 = yL * fringeSize
+				y2 = y1 + fringeSize/2
+				y3 = (yL + 1) * fringeSize
+			}
+			xs := []int{x1, x2, x3}
+			ys := []int{y1, y2, y3}
+			canvas.Polygon(xs, ys, draw.FillFromRGBA(draw.ColorByPercentage(colors, percentage))) //draw.RandomColorFromArray(colors)))
+
+			var x11, x12, x13, y11, y12, y13 int
+			if (xL % 2) == 0 {
+				x11 = (xL + 1) * fringeSize
+				x12 = (xL) * fringeSize
+				x13 = x11
+				y11 = yL*fringeSize + fringeSize/2
+				y12 = y11 + fringeSize/2
+				y13 = (yL+1)*fringeSize + fringeSize/2
+			} else {
+				x11 = (xL) * fringeSize
+				x12 = (xL + 1) * fringeSize
+				x13 = x11
+				y11 = yL*fringeSize + fringeSize/2
+				y12 = y1 + fringeSize
+				y13 = (yL+1)*fringeSize + fringeSize/2
+			}
+			xs1 := []int{x11, x12, x13}
+			ys1 := []int{y11, y12, y13}
+			canvas.Polygon(xs1, ys1, draw.FillFromRGBA(draw.ColorByPercentage(colors, percentage))) //draw.RandomColorFromArray(colors)))
+		}
+	}
+	canvas.End()
+}
+
 // RandomMirror builds an image with 10x10 grids of half diagonals
 func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)

@@ -40,3 +40,34 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	write.ImageSVG(w)
 	isogrids.Random(w, "", colors, width, height, xt)
 }
+
+// BannerRandomGradinet handler for /isogrids/banner/random/gradient.
+// Generates a random gradient banner isogrid image.
+func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
+	width := extract.Width(r)
+	height := extract.Height(r)
+
+	colorMap := colors.MapOfColorThemes()
+	bg, fg := extract.ExtraColors(r, colorMap)
+	theme := extract.Theme(r)
+	if val, ok := colorMap[theme]; ok {
+		bg = val[0]
+		fg = val[1]
+	}
+
+	var colors []color.RGBA
+	if theme != "base" {
+		if _, ok := colorMap[theme]; ok {
+			numColors := extract.NumColors(r)
+			colors = append(colors, colorMap[theme][0:numColors]...)
+		} else {
+			colors = append(colors, colorMap["base"]...)
+		}
+	} else {
+		colors = append(colors, bg, fg)
+	}
+
+	xt := extract.XTriangles(r)
+	write.ImageSVG(w)
+	isogrids.RandomGradient(w, "", colors, width, height, xt)
+}
