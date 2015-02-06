@@ -21,6 +21,7 @@ func init() {
 		`{"theme":"frogideas"}`,
 		`{"w":"500", "h":"100"}`,
 		`{"xs":"500"}`,
+		`{"xt":"500"}`,
 	}
 
 	BadParams = []string{
@@ -31,6 +32,7 @@ func init() {
 		`{"theme":"wrongTheme"}`,
 		`{"w":"wrongW", "h":"wrongH"}`,
 		`{"xs":"wrongXS"}`,
+		`{"xt":"wrongXT"}`,
 	}
 }
 
