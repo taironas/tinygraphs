@@ -8,10 +8,9 @@ import (
 func MapOfColorThemes() map[string][]color.RGBA {
 	return map[string][]color.RGBA{
 		"base": []color.RGBA{
-			color.RGBA{uint8(255), uint8(255), uint8(255), uint8(255)},
-			color.RGBA{uint8(0), uint8(0), uint8(0), uint8(255)},
+			color.RGBA{uint8(0), uint8(0), uint8(0), uint8(255)},       // white
+			color.RGBA{uint8(255), uint8(255), uint8(255), uint8(255)}, // back
 		},
-
 		"sugarsweets": []color.RGBA{
 			color.RGBA{232, 70, 134, 255},  // main
 			color.RGBA{255, 245, 249, 255}, //background
@@ -53,14 +52,12 @@ func MapOfColorThemes() map[string][]color.RGBA {
 			color.RGBA{244, 234, 252, 255}, //background
 			color.RGBA{70, 86, 212, 255},   // 2dary
 			color.RGBA{201, 64, 206, 255},  // 2dary
-
 		},
 		"frogideas": []color.RGBA{
 			color.RGBA{93, 214, 75, 255},   // main
 			color.RGBA{226, 255, 222, 255}, //background
 			color.RGBA{67, 191, 134, 255},  // 2dary
 			color.RGBA{148, 232, 56, 255},  // 2dary
-
 		},
 		"berrypie": []color.RGBA{
 			color.RGBA{248, 0, 6, 255},     // main
