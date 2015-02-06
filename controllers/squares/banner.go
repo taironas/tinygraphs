@@ -17,6 +17,7 @@ import (
 func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)
 	height := extract.Height(r)
+	xsquares := extract.XSquares(r)
 
 	numColors := extract.NumColors(r)
 
@@ -38,12 +39,12 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, width, height))
-		squares.RandomGrid(m, colors, 50)
+		squares.RandomGrid(m, colors, xsquares)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.RandomGridSVG(w, colors, width, height, 50)
+		squares.RandomGridSVG(w, colors, width, height, xsquares)
 	}
 }
 
@@ -52,6 +53,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)
 	height := extract.Height(r)
+	xsquares := extract.XSquares(r)
 
 	numColors := extract.NumColors(r)
 
@@ -73,11 +75,11 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, width, height))
-		squares.RandomGradientGrid(m, colors, 50)
+		squares.RandomGradientGrid(m, colors, xsquares)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.RandomGradientGridSVG(w, colors, width, height, 50)
+		squares.RandomGradientGridSVG(w, colors, width, height, xsquares)
 	}
 }

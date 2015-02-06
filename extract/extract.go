@@ -171,5 +171,19 @@ func Height(r *http.Request) int {
 		}
 	}
 	return 300
+}
 
+// XSquares returns the value of the 'xs' parameter in the http.Request.
+// Used to defined the number of squares that are wanted in the x axis of an image
+func XSquares(r *http.Request) int {
+	strXS := r.FormValue("xs")
+	if len(strXS) > 0 {
+		if xs, errXS := strconv.ParseInt(strXS, 0, 64); errXS == nil {
+			ixs := int(xs)
+			if ixs > 0 {
+				return ixs
+			}
+		}
+	}
+	return 50
 }
