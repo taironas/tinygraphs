@@ -16,12 +16,12 @@ How to use:
 You can set the HTML source of the image to point directly to **tinygraphs.com** or you can save the image and use it directly on your site (*just remember to give us credit with a link to tinygraphs.com ;)* ).
 
 ~~~html
-<img src="http://tinygraphs.com/checkerboard">
+<img src="http://tinygraphs.com/labs/checkerboard">
 ~~~
 
 ## Supported routes:
 
-`http://tinygraphs.com/checkerboard`
+`http://tinygraphs.com/labs/checkerboard`
 
 ![checkerboard](http://tinygraphs.com/labs/checkerboard?size=120)
 
