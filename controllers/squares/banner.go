@@ -12,10 +12,12 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Random handler for "/squares/random"
-// generates a random 6 by 6 grid image.
-func Random(w http.ResponseWriter, r *http.Request) {
-	size := extract.Size(r)
+// BannerRandom handler for "/squares/banner/random"
+// generates a random banner grid image.
+func BannerRandom(w http.ResponseWriter, r *http.Request) {
+	width := extract.Width(r)
+	height := extract.Height(r)
+
 	numColors := extract.NumColors(r)
 
 	colorMap := colors.MapOfColorThemes()
@@ -35,12 +37,12 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if f := extract.Format(r); f == format.JPEG {
-		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		squares.RandomGrid(m, colors, 6)
+		m := image.NewRGBA(image.Rect(0, 0, width, height))
+		squares.RandomGrid(m, colors, 50)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.RandomGridSVG(w, colors, size, size, 6)
+		squares.RandomGridSVG(w, colors, width, height, 50)
 	}
 }

@@ -55,9 +55,9 @@ func GridSVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
 }
 
 // RandomGrid builds a 6 by 6 grid image with with 2 colors selected at random for each quadrant.
-func RandomGrid(m *image.RGBA, colors []color.RGBA) {
+func RandomGrid(m *image.RGBA, colors []color.RGBA, xSquares int) {
 	size := m.Bounds().Size()
-	quad := size.X / 6
+	quad := size.X / xSquares
 	colorMap := make(map[int]color.RGBA)
 	var currentQuadrand = 0
 	for x := 0; x < size.X; x++ {
@@ -77,11 +77,11 @@ func RandomGrid(m *image.RGBA, colors []color.RGBA) {
 }
 
 // RandomGrid6X6SVG builds a grid image with with 2 colors selected at random for each quadrant.
-func RandomGridSVG(w http.ResponseWriter, colors []color.RGBA, size int) {
+func RandomGridSVG(w http.ResponseWriter, colors []color.RGBA, width, height, xSquares int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
-	squares := 6
-	quadrantSize := size / squares
+	canvas.Start(width, height)
+	squares := xSquares
+	quadrantSize := width / squares
 	colorMap := make(map[int]color.RGBA)
 	for yQ := 0; yQ < squares; yQ++ {
 		y := yQ * quadrantSize

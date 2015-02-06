@@ -23,6 +23,7 @@ func main() {
 	r := new(route.Router)
 
 	r.HandleFunc("/squares", squares.Random)
+	r.HandleFunc("/squares/banner/random", squares.BannerRandom)
 	r.HandleFunc("/squares/:key", squares.Square) //cached
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
 	r.HandleFunc("/spaceinvaders/:key", spaceinvaders.SpaceInvaders)

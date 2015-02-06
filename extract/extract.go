@@ -52,7 +52,7 @@ func Size(r *http.Request) int {
 		if size, errSize := strconv.ParseInt(strSize, 0, 64); errSize == nil {
 			isize := int(size)
 			if isize > 0 && isize < 1000 {
-				return int(size)
+				return isize
 			}
 		}
 	}
@@ -143,4 +143,33 @@ func Lines(r *http.Request) int {
 		}
 	}
 	return 6
+}
+
+// Width returns the value of the 'w' parameter in the http.Request.
+func Width(r *http.Request) int {
+	strW := r.FormValue("w")
+	if len(strW) > 0 {
+		if w, errW := strconv.ParseInt(strW, 0, 64); errW == nil {
+			iw := int(w)
+			if iw > 0 {
+				return iw
+			}
+		}
+	}
+	return 720
+}
+
+// Height returns the value of the 'h' parameter in the http.Request.
+func Height(r *http.Request) int {
+	strH := r.FormValue("h")
+	if len(strH) > 0 {
+		if h, errH := strconv.ParseInt(strH, 0, 64); errH == nil {
+			ih := int(h)
+			if ih > 0 {
+				return ih
+			}
+		}
+	}
+	return 300
+
 }
