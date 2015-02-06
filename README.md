@@ -47,7 +47,7 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 `http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool`
 
-![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme:bythepool)
+![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool)
 
 
 ## Parameters:
