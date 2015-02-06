@@ -39,7 +39,6 @@ func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size, line
 			if (xL % 2) == 0 {
 				x11, y11, x12, y12, _, y13 = left2ndTriangle(xL, yL, fringeSize, distance)
 
-				// in order to have a perfect hexagon,
 				// we make sure that the previous triangle and this one touch each other in this point.
 				y12 = y3
 			} else {
