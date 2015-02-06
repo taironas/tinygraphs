@@ -41,6 +41,15 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 ![random](http://tinygraphs.com/labs/isogrids/random?size=120)
 
+`http://tinygraphs.com/squares/banner/random`
+
+![square random banner](http://tinygraphs.com/squares/banner/random)
+
+`http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool`
+
+![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme:bythepool)
+
+
 ## Parameters:
 
 * **size**: `tinygraphs.com/squares/hello?size=60`
