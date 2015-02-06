@@ -10,26 +10,30 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-// Hexa builds an image with 10x10 grids of half diagonals
+// Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
 func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
 	fringeSize := size / lines
 	log.Println(fringeSize)
+
 	// distance of center of vector to third point of equilateral triangles
 	// ABC triangle, O is the center of AB vector
 	// OC = SQRT(AC^2 - AO^2)
 	distance := int(math.Ceil(math.Sqrt((float64(fringeSize) * float64(fringeSize)) - (float64(fringeSize)/float64(2))*(float64(fringeSize)/float64(2)))))
+
 	fringeSize = distance
 	lines = size / fringeSize
 	offset := size - fringeSize*lines
 	log.Println(offset)
+
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
 
 			fill1 := fillWhite()
 			fill2 := fillWhite()
+
 			if isFill1InHexagon(xL, yL, lines) {
 				fill1 = draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+lines)%15))
 			}
@@ -159,6 +163,7 @@ func isFill2InHexagon(xL, yL, lines int) bool {
 	return false
 }
 
+// mirrorCoordinates returns an array of coordinates mirrored with respect to x.
 func mirrorCoordinates(xs []int, lines, fringeSize, offset int) (xsMirror []int) {
 
 	xsMirror = make([]int, len(xs))
@@ -168,7 +173,7 @@ func mirrorCoordinates(xs []int, lines, fringeSize, offset int) (xsMirror []int)
 	return
 }
 
-// rightUpTriangle computes a right oriented triangle '>'
+// right1stTriangle computes a right oriented triangle '>'
 func right1stTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
 	x1 = xL * fringeSize
 	x2 = xL*fringeSize + distance
@@ -179,7 +184,7 @@ func right1stTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 
 	return
 }
 
-// leftUpTriangle computes the coordinates of a left oriented triangle '<'
+// left1stTriangle computes the coordinates of a left oriented triangle '<'
 func left1stTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
 	x1 = xL*fringeSize + distance
 	x2 = xL * fringeSize
@@ -190,7 +195,7 @@ func left1stTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 i
 	return
 }
 
-// leftDownTriangle computes the coordinates of a left oriented triangle '<'
+// left2ndTriangle computes the coordinates of a left oriented triangle '<'
 func left2ndTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
 	x1 = xL*fringeSize + distance
 	x2 = xL * fringeSize
@@ -201,7 +206,7 @@ func left2ndTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 i
 	return
 }
 
-// rightDownTriangle computes the coordinates of a right oriented triangle '>'
+// right2ndTriangle computes the coordinates of a right oriented triangle '>'
 func right2ndTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 int) {
 	x1 = xL * fringeSize
 	x2 = xL*fringeSize + distance
@@ -211,6 +216,8 @@ func right2ndTriangle(xL, yL, fringeSize, distance int) (x1, y1, x2, y2, x3, y3 
 	y3 = yL*fringeSize + fringeSize/2 + distance
 	return
 }
+
+// fillWhite returns the svg style to paint an object white.
 func fillWhite() string {
 	return "fill:rgb(255,255,255)"
 
