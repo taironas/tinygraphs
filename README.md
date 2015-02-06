@@ -23,23 +23,23 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 `http://tinygraphs.com/checkerboard`
 
-![checkerboard](http://tinygraphs.com/checkerboard?size=120)
+![checkerboard](http://tinygraphs.com/labs/checkerboard?size=120)
 
 `http://tinygraphs.com/squares/anything`
 
 ![squares](http://tinygraphs.com/squares/anything?size=120)
 
-`http://tinygraphs.com/squares/random`
+`http://tinygraphs.com/labs/squares/random`
 
-![random](http://tinygraphs.com/squares/random?size=120)
+![random](http://tinygraphs.com/labs/squares/random?size=120)
 
 `http://tinygraphs.com/isogrids/anything`
 
 ![squares](http://tinygraphs.com/isogrids/anything?size=120)
 
-`http://tinygraphs.com/isogrids/random`
+`http://tinygraphs.com/labs/isogrids/random`
 
-![random](http://tinygraphs.com/isogrids/random?size=120)
+![random](http://tinygraphs.com/labs/isogrids/random?size=120)
 
 ## Parameters:
 
@@ -56,11 +56,11 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
     You can specify the color of the background or foreground by using parameters `bg` and `fg` and passing an hexadecimal value of the color:
 
-* **theme**: `tinygraphs.com/squares/random?theme=frogideas`
+* **theme**: `tinygraphs.com/labs/squares/random?theme=frogideas`
 
     You can specify the theme you want to take into account in the image.
 
-    ![theme](http://tinygraphs.com/squares/random?theme=frogideas&size=120&fmt=svg)
+    ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg)
 
     Here is the list of existing themes:
     * base
@@ -74,12 +74,12 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     * frogideas
     * berrypie
 
-* **numcolors**: `tinygraphs.com/squares/random?theme=summerwarmth&numcolors=4`
+* **numcolors**: `tinygraphs.com/labs/squares/random?theme=summerwarmth&numcolors=4`
 
     You can specify the number of colors that you want to render the image.
     Default value is **2** and can be extended to **4**.
 
-    ![theme](http://tinygraphs.com/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
+    ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
 
 * **lines**
 You can specify the number of lines that an isogrid can have using the `lines`parameter. **Default** parameter is **6**. Value has to be greater or equal to 4.

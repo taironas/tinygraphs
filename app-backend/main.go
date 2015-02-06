@@ -22,26 +22,22 @@ func init() {
 func main() {
 	r := new(route.Router)
 
-	r.HandleFunc("/checkerboard", checkerboard.Checkerboard)
-
 	r.HandleFunc("/squares", squares.Random)
-	r.HandleFunc("/squares/random", squares.Random)
 	r.HandleFunc("/squares/:key", squares.Square) //cached
-
-	r.HandleFunc("/isogrids/random", isogrids.Random)
-	r.HandleFunc("/isogrids/random-mirror", isogrids.RandomMirror)
-
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
-
-	r.HandleFunc("/isogrids/labs/hexa", isogrids.Hexa)
-	r.HandleFunc("/isogrids/labs/hexa/:key", isogrids.Hexa)
-	r.HandleFunc("/isogrids/labs/skeleton", isogrids.Skeleton)
-	r.HandleFunc("/isogrids/labs/diagonals", isogrids.Diagonals)
-	r.HandleFunc("/isogrids/labs/halfdiagonals", isogrids.HalfDiagonals)
-	r.HandleFunc("/isogrids/labs/gridbw", isogrids.GridBW)
-	r.HandleFunc("/isogrids/labs/grid2colors", isogrids.Grid2Colors)
-
 	r.HandleFunc("/spaceinvaders/:key", spaceinvaders.SpaceInvaders)
+
+	r.HandleFunc("/labs/checkerboard", checkerboard.Checkerboard)
+	r.HandleFunc("/labs/squares/random", squares.Random)
+	r.HandleFunc("/labs/isogrids/hexa", isogrids.Hexa)
+	r.HandleFunc("/labs/isogrids/hexa/:key", isogrids.Hexa)
+	r.HandleFunc("/labs/isogrids/skeleton", isogrids.Skeleton)
+	r.HandleFunc("/labs/isogrids/diagonals", isogrids.Diagonals)
+	r.HandleFunc("/labs/isogrids/halfdiagonals", isogrids.HalfDiagonals)
+	r.HandleFunc("/labs/isogrids/gridbw", isogrids.GridBW)
+	r.HandleFunc("/labs/isogrids/labs/grid2colors", isogrids.Grid2Colors)
+	r.HandleFunc("/labs/isogrids/random", isogrids.Random)
+	r.HandleFunc("/labs/isogrids/random-mirror", isogrids.RandomMirror)
 
 	r.AddStaticResource(root)
 
