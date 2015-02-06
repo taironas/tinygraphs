@@ -19,6 +19,8 @@ func init() {
 		`{"size":"200"}`,
 		`{"bg":"ff4008","fg":"04d6f2"}`,
 		`{"theme":"frogideas"}`,
+		`{"w":"500", "h":"100"}`,
+		`{"xs":"500"}`,
 	}
 
 	BadParams = []string{
@@ -27,6 +29,8 @@ func init() {
 		`{"size":"wrongType"}`,
 		`{"bg":"wrongType","fg":"wrongType"}`,
 		`{"theme":"wrongTheme"}`,
+		`{"w":"wrongW", "h":"wrongH"}`,
+		`{"xs":"wrongXS"}`,
 	}
 }
 

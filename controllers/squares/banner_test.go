@@ -28,3 +28,24 @@ func TestBannerRandom(t *testing.T) {
 		}
 	}
 }
+
+func TestBannerRandomGradient(t *testing.T) {
+
+	r := new(route.Router)
+	r.HandleFunc("/squares/banner/random", BannerRandomGradient)
+
+	test := tgTesting.GenerateHandlerFunc(t, BannerRandomGradient)
+	for _, p := range tgTesting.GoodParams {
+		recorder := test("/squares/banner/random", "GET", p, r)
+		if recorder.Code != http.StatusOK {
+			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
+		}
+	}
+
+	for _, p := range tgTesting.BadParams {
+		recorder := test("/squares/banner/random", "GET", p, r)
+		if recorder.Code != http.StatusOK {
+			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
+		}
+	}
+}
