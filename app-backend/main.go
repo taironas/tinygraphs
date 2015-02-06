@@ -26,6 +26,8 @@ func main() {
 	r.HandleFunc("/squares/banner/random", squares.BannerRandom)
 	r.HandleFunc("/squares/banner/random/gradient", squares.BannerRandomGradient)
 	r.HandleFunc("/squares/:key", squares.Square) //cached
+
+	r.HandleFunc("/isogrids/banner/random", isogrids.BannerRandom)
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
 	r.HandleFunc("/spaceinvaders/:key", spaceinvaders.SpaceInvaders)
 

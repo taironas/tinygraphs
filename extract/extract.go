@@ -187,3 +187,18 @@ func XSquares(r *http.Request) int {
 	}
 	return 50
 }
+
+// XTriangles returns the value of the 'xt' parameter in the http.Request.
+// Used to defined the number of triangles that are wanted in the x axis of an image
+func XTriangles(r *http.Request) int {
+	strXT := r.FormValue("xt")
+	if len(strXT) > 0 {
+		if xt, errXT := strconv.ParseInt(strXT, 0, 64); errXT == nil {
+			ixt := int(xt)
+			if ixt > 0 {
+				return ixt
+			}
+		}
+	}
+	return 50
+}
