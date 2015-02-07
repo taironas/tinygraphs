@@ -19,8 +19,6 @@ func TestLabs(t *testing.T) {
 
 	labs := [...]Labs{
 		{"/isogrids/labs/skeleton", Skeleton},
-		{"/isogrids/labs/gridbw", GridBW},
-		{"/isogrids/labs/gird2colors", Grid2Colors},
 	}
 	for _, lab := range labs {
 		r.HandleFunc(lab.url, lab.handler)

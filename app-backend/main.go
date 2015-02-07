@@ -40,7 +40,6 @@ func main() {
 	r.HandleFunc("/labs/isogrids/skeleton", isogrids.Skeleton)
 	r.HandleFunc("/labs/isogrids/diagonals", isogrids.Diagonals)
 	r.HandleFunc("/labs/isogrids/halfdiagonals", isogrids.HalfDiagonals)
-	r.HandleFunc("/labs/isogrids/gridbw", isogrids.GridBW)
 	r.HandleFunc("/labs/isogrids/random", isogrids.Random)
 	r.HandleFunc("/labs/isogrids/random-mirror", isogrids.RandomMirror)
 
