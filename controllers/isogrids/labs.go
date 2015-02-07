@@ -18,12 +18,3 @@ func GridBW(w http.ResponseWriter, r *http.Request) {
 	write.ImageSVG(w)
 	isogrids.BlackWhite(w, "", bg, fg, size)
 }
-
-// Grid2Colors is the handler for /isogrids/labs/grid2colors
-// builds a 10x10 grid that alternate black and white colors.
-func Grid2Colors(w http.ResponseWriter, r *http.Request) {
-
-	size := extract.Size(r)
-	write.ImageSVG(w)
-	isogrids.TwoColors(w, "", size)
-}
