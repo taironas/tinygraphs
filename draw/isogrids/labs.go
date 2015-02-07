@@ -9,6 +9,7 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
+// Diagonals builds an image with 10x10 grids of half diagonals
 func Diagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
