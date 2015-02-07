@@ -37,7 +37,6 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	e := `"` + theme + key + `"`
 	w.Header().Set("Etag", e)
 	w.Header().Set("Cache-Control", "max-age=2592000") // 30 days
-
 	if match := r.Header.Get("If-None-Match"); match != "" {
 		if strings.Contains(match, e) {
 			w.WriteHeader(http.StatusNotModified)
