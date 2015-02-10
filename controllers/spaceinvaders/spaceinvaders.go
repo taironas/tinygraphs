@@ -41,7 +41,7 @@ func SpaceInvaders(w http.ResponseWriter, r *http.Request) {
 			colors = append(colors, colorMap["base"]...)
 		}
 	} else {
-		colors = append(colors, bg, fg)
+		colors = append(colors, fg, bg)
 	}
 
 	size := extract.Size(r)
