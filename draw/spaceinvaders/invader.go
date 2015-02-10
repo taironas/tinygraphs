@@ -21,7 +21,6 @@ type invader struct {
 // newInvader returns a invader type built from key which is a 16 md5 hash.
 func newInvader(key string) invader {
 	invader := invader{}
-
 	invader.legs = LegsFromKey(key[0])
 	invader.arms = ArmsFromKey(key[1])
 	invader.anthenas = AnthenasFromKey(key[2])
@@ -32,7 +31,6 @@ func newInvader(key string) invader {
 	invader.armsUp = HasArmsUpFromKey(key[8])
 	invader.armSize = ArmSizeFromKey(key[9])
 	invader.anthenaSize = AnthenaSizeFromKey(key[10])
-
 	return invader
 }
 

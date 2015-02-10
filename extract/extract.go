@@ -36,10 +36,10 @@ func ExtraColors(req *http.Request, m map[string][]color.RGBA) (color.RGBA, colo
 	var err error
 	var bg, fg color.RGBA
 	if bg, err = Background(req); err != nil {
-		bg = m["base"][0]
+		bg = m["base"][1]
 	}
 	if fg, err = Foreground(req); err != nil {
-		fg = m["base"][1]
+		fg = m["base"][0]
 	}
 	return bg, fg
 }
