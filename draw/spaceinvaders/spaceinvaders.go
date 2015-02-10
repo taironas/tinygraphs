@@ -427,12 +427,7 @@ func newInvader(key string) invader {
 	invader := invader{}
 	var s string
 
-	s = hex.EncodeToString([]byte{key[0]})
-	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.legs = int(val%3) + 2
-	} else {
-		invader.legs = 3
-	}
+	invader.legs = LegsFromKey(key[0])
 
 	s = hex.EncodeToString([]byte{key[1]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -527,6 +522,14 @@ func newInvader(key string) invader {
 	}
 
 	return invader
+}
+
+func LegsFromKey(c uint8) int {
+	s := hex.EncodeToString([]byte{c})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		return int(val%3) + 2
+	}
+	return 3
 }
 
 func fillWhite() string {
