@@ -158,7 +158,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			if yQ == 5 { // eyes
 				if invader.eyes == 1 {
 					if xQ == 5 {
-						fill = fillWhite()
+						fill = draw.FillFromRGBA(colors[0])
 					} else if xQ == 4 || xQ == 6 {
 						fill = draw.FillFromRGBA(colors[1])
 					}
@@ -170,13 +170,13 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				} else if invader.eyes == 3 {
 					if xQ == 5 || xQ == 3 || xQ == 7 {
-						fill = fillWhite()
+						fill = draw.FillFromRGBA(colors[0])
 					} else if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
 						fill = draw.FillFromRGBA(colors[1])
 					}
 				} else if invader.eyes == 4 {
 					if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-						fill = fillWhite()
+						fill = draw.FillFromRGBA(colors[0])
 					} else if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
 						fill = draw.FillFromRGBA(colors[1])
 					}
