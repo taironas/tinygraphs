@@ -431,16 +431,7 @@ func newInvader(key string) invader {
 	invader.arms = ArmsFromKey(key[1])
 	invader.anthenas = AnthenasFromKey(key[2])
 	invader.length = LengthFromKey(key[3])
-
-	s = hex.EncodeToString([]byte{key[4]})
-	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		invader.height = int(val % 10)
-		if invader.height < 6 {
-			invader.height = 6
-		}
-	} else {
-		invader.height = 6
-	}
+	invader.height = HeightFromKey(key[5])
 
 	s = hex.EncodeToString([]byte{key[5]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -538,6 +529,18 @@ func LengthFromKey(c uint8) int {
 		return v
 	}
 	return 7
+}
+
+func HeightFromKey(c uint8) int {
+	s := hex.EncodeToString([]byte{c})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		v := int(val % 10)
+		if v < 6 {
+			v = 6
+		}
+		return v
+	}
+	return 6
 }
 
 func fillWhite() string {
