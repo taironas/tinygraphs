@@ -434,17 +434,7 @@ func newInvader(key string) invader {
 	invader.height = HeightFromKey(key[5])
 	invader.eyes = EyesFromKey(key[6])
 	invader.foot = HasFootFromKey(key[7])
-
-	s = hex.EncodeToString([]byte{key[7]})
-	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
-		if val%2 == 0 {
-			invader.armsUp = true
-		} else {
-			invader.armsUp = false
-		}
-	} else {
-		invader.foot = true
-	}
+	invader.armsUp = HasArmsUpFromKey(key[8])
 
 	s = hex.EncodeToString([]byte{key[8]})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -538,6 +528,14 @@ func EyesFromKey(c uint8) int {
 }
 
 func HasFootFromKey(c uint8) bool {
+	s := hex.EncodeToString([]byte{c})
+	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
+		return val%2 == 0
+	}
+	return true
+}
+
+func HasArmsUpFromKey(c uint8) bool {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
 		return val%2 == 0
