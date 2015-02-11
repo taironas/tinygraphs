@@ -61,7 +61,7 @@ func RandomGradient(w http.ResponseWriter, key string, colors []color.RGBA, widt
 
 	for xL := 0; xL < lines; xL++ {
 		percentage := int(float64(xL) / float64(lines) * 100)
-		for yL := 0; yL < lines; yL++ {
+		for yL := -1; yL < lines; yL++ {
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
@@ -105,7 +105,7 @@ func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size i
 	lines = size / fringeSize
 
 	for xL := 0; xL <= lines/2; xL++ {
-		for yL := 0; yL < lines; yL++ {
+		for yL := -1; yL < lines; yL++ {
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
