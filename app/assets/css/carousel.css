@@ -17,6 +17,7 @@ body {
   right: 0;
   left: 0;
   z-index: 20;
+  margin-top: 0px;
 }
 
 /* Flip around the padding for proper display in narrow viewports */
@@ -30,6 +31,8 @@ body {
 }
 .navbar-wrapper .navbar .container {
   width: auto;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 
@@ -99,7 +102,7 @@ body {
 @media (min-width: 768px) {
   /* Navbar positioning foo */
   .navbar-wrapper {
-    margin-top: 20px;
+    margin-top: 0px;
   }
   .navbar-wrapper .container {
     padding-right: 15px;
