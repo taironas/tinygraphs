@@ -41,19 +41,21 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 ![random](http://tinygraphs.com/labs/isogrids/random?size=120)
 
-`http://tinygraphs.com/squares/banner/random`
+`http://tinygraphs.com/squares/banner/random?h=50&xs=100`
 
-![square random banner](http://tinygraphs.com/squares/banner/random)
+![square random banner](http://tinygraphs.com/squares/banner/random?h=50&xs=100)
 
-`http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool`
+`http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool&xs=200`
 
-![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool)
+![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool&h=50&xs=200)
 
-![isogrids random banner](http://tinygraphs.com/isogrids/banner/random)
+`http://tinygraphs.com/isogrids/banner/random?h=50&xt=100`
 
-`http://tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool`
+![isogrids random banner](http://tinygraphs.com/isogrids/banner/random?h=50&xt=100)
 
-![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool)
+`http://tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&h=50&xt=100`
+
+![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&h=50&xt=100)
 
 
 ## Parameters:
@@ -102,6 +104,19 @@ You can specify the number of lines that an isogrid can have using the `lines`pa
 `tinygraphs.com/isogrids/hello?lines=4`
 
 ![number of lines in isogrid image.](http://tinygraphs.com/isogrids/hello?lines=4&size=120&fmt=svg)
+
+* **banner parameters:**
+    * `h`: height parameter.
+    * `w`: width parameter.
+    * `xt`: number of triangles in `isogrid` banner in x axis.
+    * `xs`: number of squares in `squares` banner in x axis.
+    * `theme`: tinygraphs theme to use in banner.
+    * `numcolors`: number of colors to take into account when rendering banner.
+
+`http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&nulcolors=4`
+
+![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&nulcolors=4)
+
 
 Organization
 =====
