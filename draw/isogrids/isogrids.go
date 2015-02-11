@@ -15,24 +15,23 @@ func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size, line
 
 	fringeSize := size / lines
 	distance := distanceTo3rdPoint(fringeSize)
-	fringeSize = distance
 	lines = size / fringeSize
-
+	offset := ((fringeSize - distance) * lines) / 2
 	// triangle grid here:
-	for xL := 0; xL < lines/2; xL++ {
-		for yL := 0; yL < lines; yL++ {
+	for xL := -1; xL < lines/2; xL++ {
+		for yL := -1; yL <= lines; yL++ {
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
 			} else {
 				x1, y1, x2, y2, _, y3 = left1stTriangle(xL, yL, fringeSize, distance)
 			}
-			xs := []int{x2, x1, x2}
+			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 			fill1 := draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+lines)%15))
 			canvas.Polygon(xs, ys, fill1)
 
-			xsMirror := mirrorCoordinates(xs, lines, fringeSize, 0)
+			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
 			canvas.Polygon(xsMirror, ys, fill1)
 
 			var x11, x12, y11, y12, y13 int
@@ -48,12 +47,12 @@ func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size, line
 				// we make sure that the previous triangle and this one touch each other in this point.
 				y12 = y1 + fringeSize
 			}
-			xs1 := []int{x12, x11, x12}
+			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
 			ys1 := []int{y11, y12, y13}
 			fill2 := draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+1+lines)%15))
 			canvas.Polygon(xs1, ys1, fill2)
 
-			xs1 = mirrorCoordinates(xs1, lines, fringeSize, 0)
+			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
 			canvas.Polygon(xs1, ys1, fill2)
 		}
 	}
