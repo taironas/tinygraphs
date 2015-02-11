@@ -113,9 +113,9 @@ You can specify the number of lines that an isogrid can have using the `lines`pa
     * `theme`: tinygraphs theme to use in banner.
     * `numcolors`: number of colors to take into account when rendering banner.
 
-`http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&nulcolors=4`
+`http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4`
 
-![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&nulcolors=4)
+![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4)
 
 
 Organization
