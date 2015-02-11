@@ -15,13 +15,9 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 	canvas.Start(size, size)
 
 	fringeSize := size / lines
-	log.Println(fringeSize)
-
 	distance := distanceTo3rdPoint(fringeSize)
-
-	fringeSize = distance
 	lines = size / fringeSize
-	offset := size - fringeSize*lines
+	offset := ((fringeSize - distance) * lines) / 2
 	log.Println(offset)
 
 	for xL := 0; xL < lines/2; xL++ {
@@ -48,12 +44,12 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 				x1, y1, x2, y2, _, y3 = left1stTriangle(xL, yL, fringeSize, distance)
 			}
 
-			xs := []int{x2 + offset/2, x1 + offset/2, x2 + offset/2}
-			ys := []int{y1 + offset/2, y2 + offset/2, y3 + offset/2}
+			xs := []int{x2 + offset, x1 + offset, x2 + offset}
+			ys := []int{y1, y2, y3}
 
 			canvas.Polygon(xs, ys, fill1)
 
-			xsMirror := mirrorCoordinates(xs, lines, fringeSize, offset)
+			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
 			canvas.Polygon(xsMirror, ys, fill1)
 
 			var x11, x12, y11, y12, y13 int
@@ -71,12 +67,12 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 				y12 = y1 + fringeSize
 			}
 
-			xs1 := []int{x12 + offset/2, x11 + offset/2, x12 + offset/2}
-			ys1 := []int{y11 + offset/2, y12 + offset/2, y13 + offset/2}
+			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
+			ys1 := []int{y11, y12, y13}
 
 			canvas.Polygon(xs1, ys1, fill2)
 
-			xs1 = mirrorCoordinates(xs1, lines, fringeSize, offset)
+			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
 			canvas.Polygon(xs1, ys1, fill2)
 		}
 	}
