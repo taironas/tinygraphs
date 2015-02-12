@@ -1,0 +1,14 @@
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel-whatis {
+  height: 263px;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-whatis .item {
+  height: 263px;
+}
