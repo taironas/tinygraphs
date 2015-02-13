@@ -4,6 +4,7 @@
 /* Carousel base class */
 .carousel-whatis {
   height: 263px;
+  width: 263px;
   margin-bottom: 0px;
   position: relative;
 }
@@ -11,4 +12,8 @@
 /* Declare heights because of positioning of img element */
 .carousel-whatis .item {
   height: 263px;
+}
+
+.carouselWhatIs-control--opacity{
+    opacity: 0.25;
 }
