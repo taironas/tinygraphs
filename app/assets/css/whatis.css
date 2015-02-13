@@ -22,3 +22,10 @@
   left: 0;
   min-width: 100%;
 }
+
+.carousel-whatIs--background{
+    background: #E0E0E0;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    /* padding-left: 36px; */
+}
