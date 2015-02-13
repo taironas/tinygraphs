@@ -44,12 +44,14 @@ body {
   height: 500px;
   margin-bottom: 60px;
 }
+
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
     z-index: 10;
-    right: 53%;
+    right: 55%;
     top: 125px;
     text-align: left;
+    left: 10%;
 }
 
 /* Declare heights because of positioning of img element */
@@ -134,4 +136,11 @@ body {
   .featurette-heading {
     margin-top: 120px;
   }
+}
+
+@media (max-width: 780px){
+    .carousel-inner > .item > img {
+	min-width: 780px;
+	min-heigth:200px;
+    }
 }
