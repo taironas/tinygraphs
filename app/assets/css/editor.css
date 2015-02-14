@@ -67,3 +67,7 @@
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
 }
+
+.editor-content--White{
+    color: #FFF;
+}

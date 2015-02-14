@@ -30,3 +30,7 @@
     transform: translateY(-50%);
     -webkit-transform: translateY(-0%);
 }
+
+.features-content--White{
+    color: #FFF;
+}
