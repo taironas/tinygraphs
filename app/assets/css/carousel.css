@@ -1,0 +1,20 @@
+/* Main style for all CAROUSEL objects
+-------------------------------------------------- */
+
+.carousel .carousel-control{
+    opacity: 1;
+    background: transparent;
+}
+
+.carousel-control.right {
+  left: auto;
+  right: -60px;
+}
+
+.carousel-control.left {
+  left: -60px;
+  right: auto;
+}
+
+.carousel-caption { bottom:-95px; }
+.carousel-inner { padding-bottom:95px; }
