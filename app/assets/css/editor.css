@@ -1,0 +1,47 @@
+.editor--backgroundGreen{
+    background: #43BF86;
+}
+
+.editor--backgroundGrey{
+    background: #F4F4F4;
+}
+
+.editor--backgroundWhite{
+    background: #FFF;
+}
+
+.editor--square{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    height: 580px;
+}
+
+.editor--square2{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    height: 290px;
+}
+
+.editor-content--position{
+    position: relative;
+    top: 0%;
+    text-align:center;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.editor-content--positionTop{
+    position: relative;
+    top: 10%;
+    text-align:center;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.editor-content--positionCenter{
+    position: relative;
+    top: 50%;
+    text-align:center;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
