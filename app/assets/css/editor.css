@@ -71,3 +71,8 @@
 .editor-content--White{
     color: #FFF;
 }
+
+.editorColorTheme-select--width{
+    width:80%;
+    left:10%;
+}
