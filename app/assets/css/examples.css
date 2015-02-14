@@ -1,0 +1,13 @@
+.examples--background{
+    background: #FFF;
+}
+
+.examples--square{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    height: 200px;
+}
+
+.examples--backgroundGrey{
+    background: #F4F4F4;
+}
