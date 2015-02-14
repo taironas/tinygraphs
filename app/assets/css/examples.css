@@ -5,9 +5,40 @@
 .examples--square{
     padding-bottom: 50px;
     padding-top: 50px;
-    height: 200px;
+    height: 300px;
 }
 
 .examples--backgroundGrey{
     background: #F4F4F4;
+}
+
+/* CUSTOMIZE CAROUSEL
+-------------------------------------------------- */
+
+.carouselExamples {
+  height: 182px;
+  width: 660px;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+.carouselExamples .item {
+  height: 182px;
+  width: 660px;
+}
+
+.carouselExamples-inner > .item > img {
+      height: 142px;
+      width: 142px;
+      display: inline;
+      margin-left: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-right: 10px;
+}
+
+.carouselExamples--background{
+    background: #F4F4F4;
+    padding-bottom: 50px;
+    padding-top: 50px;
 }
