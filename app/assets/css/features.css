@@ -5,7 +5,7 @@
 .features--square{
     padding-bottom: 50px;
     padding-top: 50px;
-    height: 300px;
+    height: 404px;
     border-top: solid 1px #CBCBCB;
     border-bottom: solid 1px #CBCBCB;
     border-left: solid 1px #CBCBCB;
@@ -14,4 +14,19 @@
 
 .features--backgroundGreen{
     background: #43BF86;
+}
+
+.features-content--position{
+    position: relative;
+    top: 33%;
+    text-align:center;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.features-contentText--postion{
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-0%);
 }
