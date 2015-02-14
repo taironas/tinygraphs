@@ -8,11 +8,12 @@
     <div class="editor--square2 editor-innerSquare--borderBottom">
       <div class="editor-content--positionCenter">
 	<h4>TYPE YOUR NAME</h4>
+	<p><input type="text" ng-init="editorName='tinygraphs'" ng-model="editorName"></p>
       </div>
     </div>
     <div class="editor--square2">
       <div class="editor-content--positionCenter">
-	<h4>COLOR kTHEME</h4>
+	<h4>COLOR THEME</h4>
       </div>
     </div>
   </div>
@@ -31,6 +32,8 @@
   <div class="col-md-3 editor--square editor-square--borderRight editor--backgroundWhite">
     <div class="editor-content--positionCenter">
       <h4>IMAGE HERE</h4>
+      <img class="featurette-image img-responsive img-thumbnail" src="/squares/{{editorName}}">
+      <p>name: {{editorName}}</p>
     </div>
   </div>
 </div>
