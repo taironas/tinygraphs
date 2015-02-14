@@ -14,6 +14,17 @@
     padding-bottom: 50px;
     padding-top: 50px;
     height: 580px;
+    border-top: solid 1px #CBCBCB;
+    border-bottom: solid 1px #CBCBCB;
+    border-left: solid 1px #CBCBCB;
+}
+
+.editor-square--borderRight{
+    border-right: solid 1px #CBCBCB;
+}
+
+.editor-innerSquare--borderBottom{
+    border-bottom: solid 1px #CBCBCB;
 }
 
 .editor--square2{
