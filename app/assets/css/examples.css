@@ -12,6 +12,14 @@
     background: #F4F4F4;
 }
 
+.examples-content--position{
+    position: relative;
+    top: 33%;
+    text-align:center;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
 /* CUSTOMIZE CAROUSEL
 -------------------------------------------------- */
 
