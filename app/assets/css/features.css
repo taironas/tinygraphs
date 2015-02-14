@@ -1,0 +1,17 @@
+.features--background{
+    background: #F4F4F4;
+}
+
+.features--square{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    height: 200px;
+    border-top: solid 1px #CBCBCB;
+    border-bottom: solid 1px #CBCBCB;
+    border-left: solid 1px #CBCBCB;
+
+}
+
+.features--backgroundGreen{
+    background: #43BF86;
+}
