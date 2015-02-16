@@ -21,41 +21,70 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 ## Supported routes:
 
+`http://tinygraphs.com/squares/anything`
+
+![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=2) ![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=3) ![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=4)
+
+`http://tinygraphs.com/isogrids/helloworld`
+
+![squares](http://tinygraphs.com/isogrids/helloworld?size=120&theme=heatwave) ![squares](http://tinygraphs.com/isogrids/helloworld?size=120&theme=heatwave&numcolors=3) ![squares](http://tinygraphs.com/isogrids/helloworld?size=120&theme=heatwave&numcolors=4)
+
+`http://tinygraphs.com/spaceinvaders/helloworld`
+
+![squares](http://tinygraphs.com/spaceinvaders/holamundo?size=120&theme=frogideas)
+![squares](http://tinygraphs.com/spaceinvaders/hello?size=120&theme=berrypie) ![squares](http://tinygraphs.com/spaceinvaders/world?size=120&theme=bythepool)
+
+`http://tinygraphs.com/squares/banner/random?h=50&xs=100`
+
+![square random banner](http://tinygraphs.com/squares/banner/random?h=50&xs=100&theme=frogideas&fmt=svg)
+
+![square random banner](http://tinygraphs.com/squares/banner/random?h=50&xs=100&theme=seascape&fmt=svg)
+
+![square random banner](http://tinygraphs.com/squares/banner/random?h=50&xs=100&theme=heatwave&fmt=svg)
+
+`http://tinygraphs.com/squares/banner/random/gradient?theme=frogideas&xs=100`
+
+![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=frogideas&h=50&xs=100)
+
+![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=seascape&h=50&xs=100)
+
+![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=duskfalling&h=50&xs=100)
+
+`http://tinygraphs.com/isogrids/banner/random?h=50&xt=100`
+
+![isogrids random banner](http://tinygraphs.com/isogrids/banner/random?h=50&xt=100&theme=frogideas)
+
+![isogrids random banner](http://tinygraphs.com/isogrids/banner/random?h=50&xt=100&theme=seascape)
+
+![isogrids random banner](http://tinygraphs.com/isogrids/banner/random?h=50&xt=100&theme=heatwave)
+
+`http://tinygraphs.com/isogrids/banner/random/gradient?theme=frogideas&h=50&xt=100`
+
+![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=frogideas&h=50&xt=100)
+
+![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=seascape&h=50&xt=100)
+
+![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=heatwave&h=50&xt=100)
+
+##lab routes:
+
 `http://tinygraphs.com/labs/checkerboard`
 
 ![checkerboard](http://tinygraphs.com/labs/checkerboard?size=120)
 
-`http://tinygraphs.com/squares/anything`
-
-![squares](http://tinygraphs.com/squares/anything?size=120)
-
 `http://tinygraphs.com/labs/squares/random`
 
-![random](http://tinygraphs.com/labs/squares/random?size=120)
-
-`http://tinygraphs.com/isogrids/anything`
-
-![squares](http://tinygraphs.com/isogrids/anything?size=120)
+![random](http://tinygraphs.com/labs/squares/random?size=120&theme=summerwarmth&numcolors=4) ![random](http://tinygraphs.com/labs/squares/random?size=120&theme=daisygarden&numcolors=4)
+![random](http://tinygraphs.com/labs/squares/random?size=120&theme=duskfalling&numcolors=4)
 
 `http://tinygraphs.com/labs/isogrids/random`
 
-![random](http://tinygraphs.com/labs/isogrids/random?size=120)
+![random](http://tinygraphs.com/labs/isogrids/random?size=120&theme=seascape) ![random](http://tinygraphs.com/labs/isogrids/random?size=120&theme=seascape&numcolors=3) ![random](http://tinygraphs.com/labs/isogrids/random?size=120&theme=seascape&numcolors=4)
 
-`http://tinygraphs.com/squares/banner/random?h=50&xs=100`
+`http://tinygraphs.com/labs/isogrids/hexa`
 
-![square random banner](http://tinygraphs.com/squares/banner/random?h=50&xs=100)
+![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=frogideas&numcolors=4) ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=bythepool&numcolors=4) ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=berrypie&numcolors=4)
 
-`http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool&xs=200`
-
-![square random banner](http://tinygraphs.com/squares/banner/random/gradient?theme=bythepool&h=50&xs=200)
-
-`http://tinygraphs.com/isogrids/banner/random?h=50&xt=100`
-
-![isogrids random banner](http://tinygraphs.com/isogrids/banner/random?h=50&xt=100)
-
-`http://tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&h=50&xt=100`
-
-![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&h=50&xt=100)
 
 
 ## Parameters:
@@ -96,7 +125,7 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     You can specify the number of colors that you want to render the image.
     Default value is **2** and can be extended to **4**.
 
-    ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
+    ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=2) ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=3) ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
 
 * **lines**
 You can specify the number of lines that an isogrid can have using the `lines`parameter. **Default** parameter is **6**. Value has to be greater or equal to 4.
