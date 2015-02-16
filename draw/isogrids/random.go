@@ -18,7 +18,7 @@ func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, heigh
 	lines = width / fringeSize
 
 	for xL := 0; xL < lines; xL++ {
-		for yL := 0; yL < lines; yL++ {
+		for yL := -1; yL <= lines; yL++ {
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
