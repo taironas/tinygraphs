@@ -23,8 +23,8 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
 
-			fill1 := fillWhite()
-			fill2 := fillWhite()
+			fill1 := fillTransparent()
+			fill2 := fillTransparent()
 
 			if isFill1InHexagon(xL, yL, lines) {
 				fill1 = draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+lines)%15))
@@ -159,4 +159,8 @@ func isFill2InHexagon(xL, yL, lines int) bool {
 func fillWhite() string {
 	return "fill:rgb(255,255,255)"
 
+}
+
+func fillTransparent() string {
+	return "fill:rgb(255,255,255); fill-opacity:0"
 }
