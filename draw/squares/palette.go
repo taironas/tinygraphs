@@ -3,9 +3,13 @@ package squares
 import (
 	"image"
 	"image/color"
+	"net/http"
+
+	"github.com/ajstarks/svgo"
+	"github.com/taironas/tinygraphs/draw"
 )
 
-// Palette builds an image with all the colors present in the theme array.
+// Palette builds an JPEG image with all the colors present in the theme color array.
 func Palette(m *image.RGBA, theme []color.RGBA) {
 	size := m.Bounds().Size()
 	numColors := len(theme)
@@ -16,4 +20,20 @@ func Palette(m *image.RGBA, theme []color.RGBA) {
 			m.Set(x, y, theme[currentQuadrant])
 		}
 	}
+}
+
+// PaletteSVG builds an SVG image with all the colors present in the theme color array.
+func PaletteSVG(w http.ResponseWriter, theme []color.RGBA, width, height int) {
+	canvas := svg.New(w)
+	canvas.Start(width, height)
+
+	numColors := len(theme)
+	quadrant := width / numColors
+
+	for xQ := 0; xQ < numColors; xQ++ {
+		x := xQ * quadrant
+		currentQuadrant := (x / quadrant) % numColors
+		canvas.Rect(x, 0, quadrant, height, draw.FillFromRGBA(theme[currentQuadrant]))
+	}
+	canvas.End()
 }
