@@ -11,6 +11,7 @@ import (
 	"github.com/taironas/tinygraphs/controllers/isogrids"
 	"github.com/taironas/tinygraphs/controllers/spaceinvaders"
 	"github.com/taironas/tinygraphs/controllers/squares"
+	"github.com/taironas/tinygraphs/controllers/themes"
 )
 
 var root = flag.String("root", "app", "file system path")
@@ -33,6 +34,7 @@ func main() {
 	r.HandleFunc("/isogrids/:key", isogrids.Isogrids)
 	r.HandleFunc("/spaceinvaders/:key", spaceinvaders.SpaceInvaders)
 
+	r.HandleFunc("/themes/:theme", themes.Theme)
 	r.HandleFunc("/labs/checkerboard", checkerboard.Checkerboard)
 	r.HandleFunc("/labs/squares/random", squares.Random)
 	r.HandleFunc("/labs/isogrids/hexa", isogrids.Hexa)
