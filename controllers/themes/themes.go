@@ -1,11 +1,16 @@
 package themes
 
 import (
-	"log"
+	"image"
+	"image/color"
 	"net/http"
 
 	"github.com/taironas/route"
 	"github.com/taironas/tinygraphs/colors"
+	"github.com/taironas/tinygraphs/draw/squares"
+	"github.com/taironas/tinygraphs/extract"
+	"github.com/taironas/tinygraphs/format"
+	"github.com/taironas/tinygraphs/write"
 )
 
 // Theme handler builds an image with the colors of a theme
@@ -14,13 +19,27 @@ import (
 func Theme(w http.ResponseWriter, r *http.Request) {
 
 	var err error
-	var theme string
-	if theme, _ = route.Context.Get(r, "theme"); err != nil {
-		theme = "base"
+	var th string
+	if th, _ = route.Context.Get(r, "theme"); err != nil {
+		th = "base"
 	}
 
 	colorMap := colors.MapOfColorThemes()
-	if val, ok := colorMap[theme]; ok {
-		log.Println(val)
+	var theme []color.RGBA
+	if val, ok := colorMap[th]; ok {
+		theme = val
+	} else {
+		theme = colorMap["base"]
 	}
+
+	if f := extract.Format(r); f == format.JPEG {
+		m := image.NewRGBA(image.Rect(0, 0, 100, 100))
+		squares.Palette(m, theme)
+		var img image.Image = m
+		write.ImageJPEG(w, &img)
+	} // else if f == format.SVG {
+	// 	write.ImageSVG(w)
+	// 	squares.PalleteSVG(w, c1, c2, 100)
+	// }
+
 }
