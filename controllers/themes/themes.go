@@ -33,13 +33,13 @@ func Theme(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if f := extract.Format(r); f == format.JPEG {
-		m := image.NewRGBA(image.Rect(0, 0, 20*len(theme), 20))
+		m := image.NewRGBA(image.Rect(0, 0, 20*len(theme), 34))
 		squares.Palette(m, theme)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.PaletteSVG(w, theme, 20*len(theme), 20)
+		squares.PaletteSVG(w, theme, 20*len(theme), 34)
 	}
 
 }
