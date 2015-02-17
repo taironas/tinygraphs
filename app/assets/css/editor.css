@@ -76,3 +76,7 @@
     width:80%;
     left:10%;
 }
+
+.editor-themePalette--noPadding{
+    padding: 0;
+}
