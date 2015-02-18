@@ -159,6 +159,20 @@ func Width(r *http.Request) int {
 	return 720
 }
 
+// WidthOrDefault returns the value of the 'w' parameter in the http.Request.
+func WidthOrDefault(r *http.Request, v int) int {
+	strW := r.FormValue("w")
+	if len(strW) > 0 {
+		if w, errW := strconv.ParseInt(strW, 0, 64); errW == nil {
+			iw := int(w)
+			if iw > 0 {
+				return iw
+			}
+		}
+	}
+	return v
+}
+
 // Height returns the value of the 'h' parameter in the http.Request.
 func Height(r *http.Request) int {
 	strH := r.FormValue("h")
@@ -171,6 +185,20 @@ func Height(r *http.Request) int {
 		}
 	}
 	return 300
+}
+
+// HeightOrDefault returns the value of the 'h' parameter in the http.Request.
+func HeightOrDefault(r *http.Request, v int) int {
+	strH := r.FormValue("h")
+	if len(strH) > 0 {
+		if h, errH := strconv.ParseInt(strH, 0, 64); errH == nil {
+			ih := int(h)
+			if ih > 0 {
+				return ih
+			}
+		}
+	}
+	return v
 }
 
 // XSquares returns the value of the 'xs' parameter in the http.Request.
