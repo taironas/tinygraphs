@@ -109,16 +109,16 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg)
 
     Here is the list of existing themes:
-    * base
-    * sugarsweets
-    * heatwave
-    * daisygarden
-    * seascape
-    * summerwarmth
-    * bythepool
-    * duskfalling
-    * frogideas
-    * berrypie
+    * ![theme](http://tinygraphs.com/themes/base?fmt=svg&h=20)base
+    * ![theme](http://tinygraphs.com/themes/sugarsweets?fmt=svg&h=20)sugarsweets
+    * ![theme](http://tinygraphs.com/themes/heatwave?fmt=svg&h=20)heatwave
+    * ![theme](http://tinygraphs.com/themes/daisygarden?fmt=svg&h=20)daisygarden
+    * ![theme](http://tinygraphs.com/themes/seascape?fmt=svg&h=20)seascape
+    * ![theme](http://tinygraphs.com/themes/summerwarmth?fmt=svg&h=20)summerwarmth
+    * ![theme](http://tinygraphs.com/themes/bythepool?fmt=svg&h=20)bythepool
+    * ![theme](http://tinygraphs.com/themes/duskfalling?fmt=svg&h=20)duskfalling
+    * ![theme](http://tinygraphs.com/themes/frogideas?fmt=svg&h=20)frogideas
+    * ![theme](http://tinygraphs.com/themes/berrypie?fmt=svg&h=20)berrypie
 
 * **numcolors**: `tinygraphs.com/labs/squares/random?theme=summerwarmth&numcolors=4`
 
