@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"image/color"
 	"log"
+	"math"
 	"math/rand"
 	"strconv"
 )
@@ -16,27 +17,23 @@ func RandomColorFromArray(colors []color.RGBA) color.RGBA {
 }
 
 // ColorByPercentage returns a color based on the given percentage and the
-// number of colors present in the 'colors' array
+// number of colors present in the 'colors' array in a gradient way.
 func ColorByPercentage(colors []color.RGBA, percentage int) color.RGBA {
-	if percentage == 0 {
-		percentage = 1
-	}
 	r := rand.Intn(100)
-	cr := rand.Intn(100)
-
 	colorChange := 100 / len(colors)
-	frontier := (cr / colorChange)
-
-	if frontier == 0 {
-		frontier = 1
-	} else if frontier == len(colors) {
-		frontier = frontier - 1
-	}
+	frontier := 0
+	frontier = int(math.Ceil(float64(r) / float64(colorChange)))
 
 	if r < percentage {
-		return RandomColorFromArray(colors[0:frontier])
+		if frontier == 0 {
+			frontier++
+		}
+		return RandomColorFromArray(colors[:frontier])
 	}
-	return RandomColorFromArray(colors[frontier-1:])
+	if frontier == len(colors) {
+		frontier--
+	}
+	return RandomColorFromArray(colors[frontier:])
 }
 
 // FillFromRGBA return a "fill" SVG style from a color.RGBA
