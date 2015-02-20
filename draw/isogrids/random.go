@@ -60,7 +60,7 @@ func RandomGradient(w http.ResponseWriter, key string, colors []color.RGBA, widt
 	lines = width / fringeSize
 
 	for xL := 0; xL < lines; xL++ {
-		percentage := int(float64(xL) / float64(lines) * 100)
+		percentage := 100 - int(float64(xL)/float64(lines)*100)
 		for yL := -1; yL < lines; yL++ {
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
