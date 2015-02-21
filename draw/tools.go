@@ -60,3 +60,15 @@ func PickColor(key string, colors []color.RGBA, index int) color.RGBA {
 	}
 	return colors[0]
 }
+
+func PickIndex(key string, n int, index int) int {
+	s := hex.EncodeToString([]byte{key[index]})
+	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
+		for i := 0; i < n; i++ {
+			if int(r)%n == i {
+				return i
+			}
+		}
+	}
+	return 0
+}
