@@ -16,6 +16,12 @@ func RandomColorFromArray(colors []color.RGBA) color.RGBA {
 	return colors[r]
 }
 
+// RandomIndexFromArray returns an index from the given array.
+func RandomIndexFromArray(colors []color.RGBA) int {
+	r := rand.Intn(len(colors))
+	return r
+}
+
 // ColorByPercentage returns a color based on the given percentage and the
 // number of colors present in the 'colors' array in a gradient way.
 func ColorByPercentage(colors []color.RGBA, percentage int) color.RGBA {
