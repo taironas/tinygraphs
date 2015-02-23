@@ -15,14 +15,14 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Gradient handler for "/squares/gradient"
+// Gradient handler for "/squares/gradient/:key"
 // generates a color gradient random grid image.
 func Gradient(w http.ResponseWriter, r *http.Request) {
 	var err error
 	var key string
 	if key, err = route.Context.Get(r, "key"); err != nil {
 		log.Println("Unable to get 'key' value: ", err)
-		key = "hello"
+		key = ""
 	}
 
 	theme := extract.Theme(r)
@@ -48,13 +48,6 @@ func Gradient(w http.ResponseWriter, r *http.Request) {
 	}
 
 	size := extract.Size(r)
-	// if f := extract.Format(r); f == format.JPEG {
-	// 	m := image.NewRGBA(image.Rect(0, 0, size, size))
-	// 	squares.Squares(m, key, colors)
-	// 	var img image.Image = m
-	// 	write.ImageJPEG(w, &img)
-	// } else if f == format.SVG {
 	write.ImageSVG(w)
 	squares.GradientSVG(w, key, colors, size)
-	// }
 }

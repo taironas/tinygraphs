@@ -1,6 +1,7 @@
 package squares
 
 import (
+	"fmt"
 	"image/color"
 	"math"
 	"net/http"
@@ -12,17 +13,22 @@ import (
 // GradientSVG builds an image with 6 by 6 quadrants of alternate colors.
 func GradientSVG(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 
-	rainbow := []svg.Offcolor{
-		{10, "#00cc00", 1},
-		{30, "#006600", 1},
-		{70, "#cc0000", 1},
-		{90, "#000099", 1}}
+	var gradientColors []svg.Offcolor
+	gradientColors = make([]svg.Offcolor, len(colors))
+	percentage := uint8(100 / len(colors))
+
+	step := uint8(100 / len(colors))
+	for i, c := range colors {
+		gradientColors[i] = svg.Offcolor{percentage, RGBToHex(c.R, c.G, c.B), 1}
+		percentage += step
+	}
+
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	canvas.Def()
-	canvas.LinearGradient("rainbow", 0, 0, uint8(size), 0, rainbow)
+	canvas.LinearGradient("gradientColors", 0, 0, uint8(size), 0, gradientColors)
 	canvas.DefEnd()
-	canvas.Rect(0, 0, size, size, "fill:url(#rainbow)")
+	canvas.Rect(0, 0, size, size, "fill:url(#gradientColors)")
 
 	squares := 6
 	quadrantSize := size / squares
@@ -49,12 +55,18 @@ func GradientSVG(w http.ResponseWriter, key string, colors []color.RGBA, size in
 				}
 			}
 			if colorIndex[xQ] != 0 {
-				fill = "fill:none; opacity:0.3"
-			} else {
 				fill = draw.FillFromRGBA(colorMap[xQ])
+			} else {
+				fill = "fill:none"
+
 			}
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
 		}
 	}
 	canvas.End()
+}
+
+// RGBToHex converts an RGB triple to an Hex string.
+func RGBToHex(r, g, b uint8) string {
+	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
 }
