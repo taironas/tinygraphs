@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/format"
 )
 
@@ -229,4 +230,72 @@ func XTriangles(r *http.Request) int {
 		}
 	}
 	return 50
+}
+
+// GX1 returns the value of the 'gx1' parameter in the http.Request.
+// Used to defined the x coordinate of first point of the gradient vector.
+func GX1(r *http.Request) uint8 {
+	strX := r.FormValue("gx1")
+	if len(strX) > 0 {
+		if x, errX := strconv.ParseInt(strX, 0, 64); errX == nil {
+			ix := uint8(x)
+			if ix > 0 {
+				return ix
+			}
+		}
+	}
+	return uint8(0)
+}
+
+// GX2 returns the value of the 'gx2' parameter in the http.Request.
+// Used to defined the x coordinate of second point of the gradient vector.
+func GX2(r *http.Request) uint8 {
+	strX := r.FormValue("gx2")
+	if len(strX) > 0 {
+		if x, errX := strconv.ParseInt(strX, 0, 64); errX == nil {
+			ix := uint8(x)
+			if ix > 0 {
+				return ix
+			}
+		}
+	}
+	return uint8(100)
+}
+
+// GY1 returns the value of the 'gy1' parameter in the http.Request.
+// Used to defined the y coordinate of first point of the gradient vector.
+func GY1(r *http.Request) uint8 {
+	strY := r.FormValue("gy1")
+	if len(strY) > 0 {
+		if y, errY := strconv.ParseInt(strY, 0, 64); errY == nil {
+			iy := uint8(y)
+			if iy > 0 {
+				return iy
+			}
+		}
+	}
+	return uint8(0)
+}
+
+// GY2 returns the value of the 'gy2' parameter in the http.Request.
+// Used to defined the y coordinate of the second point of the gradient vector.
+func GY2(r *http.Request) uint8 {
+	strY := r.FormValue("gy2")
+	if len(strY) > 0 {
+		if y, errY := strconv.ParseInt(strY, 0, 64); errY == nil {
+			iy := uint8(y)
+			if iy > 0 {
+				return iy
+			}
+		}
+	}
+	return uint8(0)
+}
+
+func GradientVector(r *http.Request) colors.GradientVector {
+	x1 := GX1(r)
+	y1 := GY1(r)
+	x2 := GX2(r)
+	y2 := GY2(r)
+	return colors.GradientVector{x1, y1, x2, y2}
 }
