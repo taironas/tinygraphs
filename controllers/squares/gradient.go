@@ -79,7 +79,7 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 		gColors = []color.RGBA{bg, fg}
 	}
-
+	gv := extract.GradientVector(r)
 	write.ImageSVG(w)
-	squares.RandomGradientSVG(w, colors, gColors, width, height, xsquares)
+	squares.RandomGradientSVG(w, colors, gColors, gv, width, height, xsquares)
 }

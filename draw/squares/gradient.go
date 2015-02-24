@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/ajstarks/svgo"
+	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 )
 
@@ -67,7 +68,7 @@ func GradientSVG(w http.ResponseWriter, key string, colors []color.RGBA, width, 
 }
 
 // RandomGradientSVG builds an image.
-func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, width, height, xsquares int) {
+func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int) {
 
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
@@ -82,7 +83,7 @@ func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, widt
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 	canvas.Def()
-	canvas.LinearGradient("gradientColors", 0, 0, uint8(width), 0, gradientColors)
+	canvas.LinearGradient("gradientColors", gv.X1, gv.Y1, gv.X2, gv.Y2, gradientColors)
 	canvas.DefEnd()
 	canvas.Rect(0, 0, width, height, "fill:url(#gradientColors)")
 
