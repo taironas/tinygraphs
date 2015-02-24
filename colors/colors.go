@@ -4,6 +4,10 @@ import (
 	"image/color"
 )
 
+type GradientVector struct {
+	X1, Y1, X2, Y2 uint8
+}
+
 // MapOfColorThemes is used to build random images with colors that go together.
 func MapOfColorThemes() map[string][]color.RGBA {
 	return map[string][]color.RGBA{
