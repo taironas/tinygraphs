@@ -55,11 +55,12 @@ func Gradient(w http.ResponseWriter, r *http.Request) {
 // Gradient handler for "labs/squares/banner/gradient"
 // generates a color gradient random grid image.
 func BannerGradient(w http.ResponseWriter, r *http.Request) {
+
 	width := extract.Width(r)
 	height := extract.Height(r)
 	xsquares := extract.XSquares(r)
-
 	numColors := extract.NumColors(r)
+	gv := extract.GradientVector(r, uint8(0), uint8(0), uint8(width), uint8(0))
 
 	colorMap := colors.MapOfColorThemes()
 
@@ -79,7 +80,7 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 		gColors = []color.RGBA{bg, fg}
 	}
-	gv := extract.GradientVector(r)
+
 	write.ImageSVG(w)
 	squares.RandomGradientSVG(w, colors, gColors, gv, width, height, xsquares)
 }

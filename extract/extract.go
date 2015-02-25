@@ -234,7 +234,7 @@ func XTriangles(r *http.Request) int {
 
 // GX1 returns the value of the 'gx1' parameter in the http.Request.
 // Used to defined the x coordinate of first point of the gradient vector.
-func GX1(r *http.Request) uint8 {
+func GX1OrDefault(r *http.Request, d uint8) uint8 {
 	strX := r.FormValue("gx1")
 	if len(strX) > 0 {
 		if x, errX := strconv.ParseInt(strX, 0, 64); errX == nil {
@@ -244,12 +244,12 @@ func GX1(r *http.Request) uint8 {
 			}
 		}
 	}
-	return uint8(0)
+	return d
 }
 
 // GX2 returns the value of the 'gx2' parameter in the http.Request.
 // Used to defined the x coordinate of second point of the gradient vector.
-func GX2(r *http.Request) uint8 {
+func GX2OrDefault(r *http.Request, d uint8) uint8 {
 	strX := r.FormValue("gx2")
 	if len(strX) > 0 {
 		if x, errX := strconv.ParseInt(strX, 0, 64); errX == nil {
@@ -259,12 +259,12 @@ func GX2(r *http.Request) uint8 {
 			}
 		}
 	}
-	return uint8(100)
+	return d
 }
 
 // GY1 returns the value of the 'gy1' parameter in the http.Request.
 // Used to defined the y coordinate of first point of the gradient vector.
-func GY1(r *http.Request) uint8 {
+func GY1OrDefault(r *http.Request, d uint8) uint8 {
 	strY := r.FormValue("gy1")
 	if len(strY) > 0 {
 		if y, errY := strconv.ParseInt(strY, 0, 64); errY == nil {
@@ -274,12 +274,12 @@ func GY1(r *http.Request) uint8 {
 			}
 		}
 	}
-	return uint8(0)
+	return d
 }
 
 // GY2 returns the value of the 'gy2' parameter in the http.Request.
 // Used to defined the y coordinate of the second point of the gradient vector.
-func GY2(r *http.Request) uint8 {
+func GY2OrDefault(r *http.Request, d uint8) uint8 {
 	strY := r.FormValue("gy2")
 	if len(strY) > 0 {
 		if y, errY := strconv.ParseInt(strY, 0, 64); errY == nil {
@@ -289,13 +289,13 @@ func GY2(r *http.Request) uint8 {
 			}
 		}
 	}
-	return uint8(0)
+	return d
 }
 
-func GradientVector(r *http.Request) colors.GradientVector {
-	x1 := GX1(r)
-	y1 := GY1(r)
-	x2 := GX2(r)
-	y2 := GY2(r)
+func GradientVector(r *http.Request, gx1, gy1, gx2, gy2 uint8) colors.GradientVector {
+	x1 := GX1OrDefault(r, gx1)
+	y1 := GY1OrDefault(r, gy1)
+	x2 := GX2OrDefault(r, gx2)
+	y2 := GY2OrDefault(r, gy2)
 	return colors.GradientVector{x1, y1, x2, y2}
 }
