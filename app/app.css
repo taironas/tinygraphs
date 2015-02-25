@@ -1,50 +1,5 @@
 /* app css stylesheet */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-}
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-.push {
+.app-push--height {
     height: 55px;
-}
-
-.tg-footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  height: 250px;
-  min-height: 50px;
-  margin-bottom: 0px;
-  border: 1px solid transparent;
-  padding: 20px;
 }
