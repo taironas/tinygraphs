@@ -2,7 +2,6 @@ package isogrids
 
 import (
 	"image/color"
-	"log"
 	"net/http"
 
 	"github.com/ajstarks/svgo"
@@ -18,7 +17,6 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 	distance := distanceTo3rdPoint(fringeSize)
 	lines = size / fringeSize
 	offset := ((fringeSize - distance) * lines) / 2
-	log.Println(offset)
 
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
