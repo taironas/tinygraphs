@@ -80,3 +80,7 @@
 .editor-themePalette--noPadding{
     padding: 0;
 }
+
+.editor-image--center{
+    display: inline-block;
+}
