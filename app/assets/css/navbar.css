@@ -1,0 +1,7 @@
+.navbar--nomargin{
+    margin:0;
+}
+
+.navbar--noleftpadding{
+    padding-right: 0;
+}
