@@ -39,6 +39,20 @@
     text-shadow: 0 1px 2px rgba(0,0,0,.6);
 }
 
+.banner-image{
+    background: url(/labs/squares/banner/gradient?theme=frogideas&xt=20); 
+    background-size: cover;
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-left: 0px;
+    height: 317px;
+    width: 101%;
+}
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
