@@ -27,3 +27,8 @@
 .navbar--noleftpadding{
     padding-right: 0;
 }
+
+.nav-logo{
+    margin-left: 33%;
+    margin-top: 5%;
+}
