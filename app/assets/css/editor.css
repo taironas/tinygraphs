@@ -90,12 +90,11 @@
 	height: 220px;
     }
 
-    .editor--square{
-	height: 101px;
-    }
+    .editor--square,
     .editor--square2{
 	height: 101px;
     }
+
     .editor-image{
 	height:95px;
     }
