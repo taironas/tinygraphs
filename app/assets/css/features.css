@@ -34,3 +34,21 @@
 .features-content--White{
     color: #FFF;
 }
+
+@media (max-width: 950px){
+    .features--square{
+	padding-bottom: 0px;
+	padding-top: 0px;
+	height: 101px;
+	border-right: solid 1px #CBCBCB;
+
+    }
+
+    .features-content--position{
+	top: 10%;
+    }
+
+    .features-contentText--postion{
+	top: 0%;
+    }
+}
