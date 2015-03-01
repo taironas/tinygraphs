@@ -6,12 +6,14 @@
 }
 
 .banner-title{
-    right: 49%;
-    position: absolute; 
-    top: 25%;
-    left: 25%; 
     color:#FFF;
     text-shadow: 0 1px 2px rgba(0,0,0,.6);
+
+    position: absolute; 
+    left: 15%; 
+    right: 60%;
+
+    margin-top: 4%;
 }
 
 .banner-image{
@@ -25,7 +27,7 @@
     -o-background-size: cover;
     background-size: cover;
     margin-left: 0px;
-    height: 317px;
+    height: 302px;
 }
 /* MARKETING CONTENT
 -------------------------------------------------- */
