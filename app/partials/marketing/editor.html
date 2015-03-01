@@ -8,7 +8,13 @@
     <div class="editor--square2 editor-innerSquare--borderBottom">
       <div class="editor-content--positionCenter">
 	<h4>TYPE YOUR NAME</h4>
-	<p><input type="text" ng-init="editorName='tinygraphs'" ng-model="editorName"></p>
+	<div class="row">
+	  <div class="col-md-2"></div>
+	  <div class="col-md-8">
+	    <input class="form-control" type="text" ng-init="editorName='tinygraphs'" ng-model="editorName">
+	  </div>
+	  <div class="col-md-2"></div>
+	</div>
       </div>
     </div>
     <div class="editor--square2">
@@ -73,11 +79,7 @@
   </div>
   <div class="col-md-3 editor--square editor-square--borderRight editor--backgroundWhite">
     <div class="editor-content--positionCenter">
-      <img class="editor-image--center featurette-image img-responsive img-thumbnail" src="/{{editorShape}}/{{editorName}}?theme={{editorTheme}}&numcolors={{editorColorNumber}}&size=220">
-      <p>name: {{editorName}}</p>
-      <p>theme: {{editorTheme}}</p>
-      <p>color number: {{editorColorNumber}}</p>
-      <p>shape: {{editorShape}}</p>
+      <img class="editor-image--center featurette-image img-responsive img-thumbnail" src="/{{editorShape}}/{{editorName}}?theme={{editorTheme}}&numcolors={{editorColorNumber}}&size=220&fmt=svg">
     </div>
   </div>
 </div>
