@@ -84,3 +84,19 @@
 .editor-image--center{
     display: inline-block;
 }
+
+@media (max-width: 950px){
+    .editor-square--noPadding{
+	height: 220px;
+    }
+
+    .editor--square{
+	height: 101px;
+    }
+    .editor--square2{
+	height: 101px;
+    }
+    .editor-image{
+	height:95px;
+    }
+}
