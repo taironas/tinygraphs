@@ -92,12 +92,18 @@
 
 @media (max-width: 950px){
     .editor-square--noPadding{
-	height: 220px;
+	height: 175px;
     }
 
-    .editor--squareHeader,
+    .editor--squareHeader{
+	height: 50px;	
+	padding-top: 0px;
+	padding-bottom: 0px;
+    }
     .editor--square2{
-	height: 101px;
+	height: 75px;
+	padding-top: 0px;
+	padding-bottom: 0px;
     }
 
     .editor--square{
