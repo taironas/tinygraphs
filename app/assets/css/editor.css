@@ -81,6 +81,10 @@
     padding: 0;
 }
 
+.editor-themePalette--height{
+    height:30px;
+}
+
 .editor-image--center{
     display: inline-block;
 }
