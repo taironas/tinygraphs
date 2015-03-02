@@ -22,16 +22,22 @@
 }
 
 @media (max-width: 950px){
+
+    .examples-content--position{
+	top: 0;
+    }
+
     .examples--squareHeader{
-	padding-bottom: 0px;
+	padding-bottom: 0;
 	padding-top: 1px;
-	height: 101px;
+	height: 50px;
+	border-bottom: solid 1px #CBCBCB;
     }
 
     .examples--square{
 	padding-bottom: 0;
 	padding-top: 0;
-	height: 202px;
+	height: 175px;
     }
 }
 
