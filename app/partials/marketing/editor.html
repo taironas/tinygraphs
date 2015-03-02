@@ -1,5 +1,5 @@
 <div class="row features--background">
-  <div class="col-md-3 editor--square editor--backgroundGreen">
+  <div class="col-md-3 editor--squareHeader editor--backgroundGreen">
     <div class="editor-content--positionTop editor-content--White">
       <h1>TRY IT OUT</h1>
     </div>
@@ -22,7 +22,9 @@
 	<h4>COLOR THEME</h4>
 	<div class="row">
 	  <div class="col-xs-1"></div>
-	  <div class="col-xs-2 editor-themePalette--noPadding"><img class="editor-themePalette--height img-responsive" src="/themes/{{editorTheme}}"></div>
+	  <div class="col-xs-2 editor-themePalette--noPadding">
+	    <img class="editor-themePalette--height img-responsive" src="/themes/{{editorTheme}}">
+	  </div>
 	  <div class="col-xs-7">
 	    <select class="form-control" ng-init="editorTheme='frogideas'" ng-model="editorTheme">
 	      <option>frogideas</option>

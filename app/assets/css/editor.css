@@ -21,7 +21,8 @@
     border-left: solid 1px #CBCBCB;
 }
 
-.editor--square{
+.editor--square,
+.editor--squareHeader{
     padding-bottom: 50px;
     padding-top: 50px;
     height: 580px;
@@ -94,12 +95,16 @@
 	height: 220px;
     }
 
-    .editor--square,
+    .editor--squareHeader,
     .editor--square2{
 	height: 101px;
     }
 
+    .editor--square{
+    	height: 220px;
+    }
+
     .editor-image{
-	height:95px;
+	height:200px;
     }
 }
