@@ -19,7 +19,6 @@
 .banner-image{
     background: url(/labs/squares/banner/gradient?theme=frogideas&xt=20); 
     background-size: cover;
-    /* background-attachment: fixed; */
     background-repeat: no-repeat;
     background-position: center center;
     -webkit-background-size: cover;
