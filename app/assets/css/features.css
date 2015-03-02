@@ -2,6 +2,7 @@
     background: #F4F4F4;
 }
 
+.features--squareHeader,
 .features--square{
     padding-bottom: 50px;
     padding-top: 50px;
@@ -36,6 +37,13 @@
 }
 
 @media (max-width: 950px){
+
+    .features--squareHeader{
+	height: 50px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+    }
+
     .features--square{
 	padding-bottom: 0px;
 	padding-top: 0px;
