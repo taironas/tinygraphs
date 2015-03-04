@@ -40,5 +40,5 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 	}
 
 	write.ImageSVG(w)
-	isogrids.RandomGradientSVG(w, colors, gColors, gv, width, height, xtriangles)
+	isogrids.RandomGradientColor(w, colors, gColors, gv, width, height, xtriangles)
 }
