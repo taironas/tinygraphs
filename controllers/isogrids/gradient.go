@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
+	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
