@@ -19,7 +19,7 @@ func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv c
 
 	step := uint8(100 / len(gColors))
 	for i, c := range gColors {
-		gradientColors[i] = svg.Offcolor{percentage, RGBToHex(c.R, c.G, c.B), 1}
+		gradientColors[i] = svg.Offcolor{percentage, draw.RGBToHex(c.R, c.G, c.B), 1}
 		percentage += step
 	}
 
