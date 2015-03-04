@@ -37,7 +37,6 @@ func main() {
 	r.HandleFunc("/themes/:theme", themes.Theme)
 	r.HandleFunc("/labs/checkerboard", checkerboard.Checkerboard)
 	r.HandleFunc("/labs/squares/random", squares.Random)
-	r.HandleFunc("/labs/squares/gradient/:key", squares.Gradient)
 	r.HandleFunc("/labs/squares/banner/gradient", squares.BannerGradient)
 	r.HandleFunc("/labs/isogrids/hexa", isogrids.Hexa)
 	r.HandleFunc("/labs/isogrids/hexa/:key", isogrids.Hexa)
