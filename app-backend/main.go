@@ -37,7 +37,6 @@ func main() {
 	r.HandleFunc("/themes/:theme", themes.Theme)
 	r.HandleFunc("/labs/checkerboard", checkerboard.Checkerboard)
 	r.HandleFunc("/labs/squares/random", squares.Random)
-	r.HandleFunc("/labs/squares/banner/gradient", squares.BannerGradient)
 	r.HandleFunc("/labs/isogrids/hexa", isogrids.Hexa)
 	r.HandleFunc("/labs/isogrids/hexa/:key", isogrids.Hexa)
 	r.HandleFunc("/labs/isogrids/skeleton", isogrids.Skeleton)
@@ -45,6 +44,9 @@ func main() {
 	r.HandleFunc("/labs/isogrids/halfdiagonals", isogrids.HalfDiagonals)
 	r.HandleFunc("/labs/isogrids/random", isogrids.Random)
 	r.HandleFunc("/labs/isogrids/random-mirror", isogrids.RandomMirror)
+
+	r.HandleFunc("/labs/squares/banner/gradient", squares.BannerGradient)
+	r.HandleFunc("/labs/isogrids/banner/gradient", isogrids.BannerGradient)
 
 	r.AddStaticResource(root)
 
