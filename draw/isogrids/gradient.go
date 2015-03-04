@@ -9,6 +9,8 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
+// RandomGradientColor builds a isogrid image with with x colors selected at random for each quadrant.
+// the background color stays the same the other colors get mixed in a gradient color from the first one to the last one.
 func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, lines int) {
 
 	var gradientColors []svg.Offcolor

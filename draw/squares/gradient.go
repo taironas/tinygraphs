@@ -10,8 +10,9 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-// RandomGradientSVG builds an image.
-func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int) {
+// RandomGradientColorSVG builds a square image with with x colors selected at random for each quadrant.
+// the background color stays the same the other colors get mixed in a gradient color from the first one to the last one.
+func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int) {
 
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
