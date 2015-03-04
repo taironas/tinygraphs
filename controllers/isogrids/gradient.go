@@ -5,18 +5,17 @@ import (
 	"net/http"
 
 	"github.com/taironas/tinygraphs/colors"
-	"github.com/taironas/tinygraphs/draw/squares"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Gradient handler for "labs/squares/banner/gradient"
+// Gradient handler for "labs/isogrids/banner/gradient"
 // generates a color gradient random grid image.
 func BannerGradient(w http.ResponseWriter, r *http.Request) {
 
 	width := extract.Width(r)
 	height := extract.Height(r)
-	xsquares := extract.XSquares(r)
+	xtriangles := extract.XTriangles(r)
 	numColors := extract.NumColors(r)
 	gv := extract.GradientVector(r, uint8(0), uint8(0), uint8(width), uint8(0))
 
@@ -40,5 +39,5 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 	}
 
 	write.ImageSVG(w)
-	squares.RandomGradientSVG(w, colors, gColors, gv, width, height, xsquares)
+	isogrids.RandomGradientSVG(w, colors, gColors, gv, width, height, xtriangles)
 }
