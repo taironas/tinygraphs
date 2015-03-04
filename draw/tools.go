@@ -78,3 +78,8 @@ func PickIndex(key string, n int, index int) int {
 	}
 	return 0
 }
+
+// RGBToHex converts an RGB triple to an Hex string.
+func RGBToHex(r, g, b uint8) string {
+	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
+}

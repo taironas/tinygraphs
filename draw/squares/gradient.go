@@ -1,7 +1,6 @@
 package squares
 
 import (
-	"fmt"
 	"image/color"
 	"math"
 	"net/http"
@@ -20,7 +19,7 @@ func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv c
 
 	step := uint8(100 / len(gColors))
 	for i, c := range gColors {
-		gradientColors[i] = svg.Offcolor{percentage, RGBToHex(c.R, c.G, c.B), 1}
+		gradientColors[i] = svg.Offcolor{percentage, draw.RGBToHex(c.R, c.G, c.B), 1}
 		percentage += step
 	}
 
@@ -65,9 +64,4 @@ func RandomGradientSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv c
 		}
 	}
 	canvas.End()
-}
-
-// RGBToHex converts an RGB triple to an Hex string.
-func RGBToHex(r, g, b uint8) string {
-	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
 }
