@@ -2,7 +2,6 @@ package squares
 
 import (
 	"image/color"
-	"math"
 	"net/http"
 
 	"github.com/ajstarks/svgo"
@@ -33,7 +32,6 @@ func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA,
 
 	squares := xsquares
 	quadrantSize := width / squares
-	middle := math.Ceil(float64(squares) / float64(2))
 	colorMap := make(map[int]color.RGBA)
 	colorIndex := make(map[int]int)
 	for yQ := 0; yQ < squares; yQ++ {
@@ -44,16 +42,8 @@ func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA,
 			x := xQ * quadrantSize
 			fill := ""
 			if _, ok := colorMap[xQ]; !ok {
-				if float64(xQ) < middle {
-					colorIndex[xQ] = draw.RandomIndexFromArray(colors)
-					colorMap[xQ] = colors[colorIndex[xQ]]
-				} else if xQ < squares {
-					colorIndex[xQ] = colorIndex[squares-xQ-1]
-					colorMap[xQ] = colorMap[squares-xQ-1]
-				} else {
-					colorIndex[xQ] = colorIndex[0]
-					colorMap[xQ] = colorMap[0]
-				}
+				colorIndex[xQ] = draw.RandomIndexFromArray(colors)
+				colorMap[xQ] = colors[colorIndex[xQ]]
 			}
 			if colorIndex[xQ] != 0 {
 				fill = "fill:none"
