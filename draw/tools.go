@@ -10,10 +10,24 @@ import (
 	"strconv"
 )
 
+func RandomColorFromArrayWithFreq(colors []color.RGBA, prob float64) color.RGBA {
+	if rf := rand.Float64(); rf < prob {
+		return colors[0]
+	}
+	return RandomColorFromArray(colors[1:])
+}
+
 // RandomColorFromArray returns a random color from the given array.
 func RandomColorFromArray(colors []color.RGBA) color.RGBA {
 	r := rand.Intn(len(colors))
 	return colors[r]
+}
+
+func RandomIndexFromArrayWithFreq(colors []color.RGBA, prob float64) int {
+	if rf := rand.Float64(); rf < prob {
+		return 0
+	}
+	return RandomIndexFromArray(colors[1:]) + 1
 }
 
 // RandomIndexFromArray returns an index from the given array.
