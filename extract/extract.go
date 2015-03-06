@@ -299,3 +299,15 @@ func GradientVector(r *http.Request, gx1, gy1, gx2, gy2 uint8) colors.GradientVe
 	y2 := GY2OrDefault(r, gy2)
 	return colors.GradientVector{x1, y1, x2, y2}
 }
+
+func Probability(r *http.Request, dp float64) float64 {
+	strP := r.FormValue("p")
+	if len(strP) > 0 {
+		if p, errP := strconv.ParseFloat(strP, 64); errP == nil {
+			if p >= 0 && p <= 1 {
+				return p
+			}
+		}
+	}
+	return dp
+}
