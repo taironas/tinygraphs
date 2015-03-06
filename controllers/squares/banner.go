@@ -18,7 +18,6 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)
 	height := extract.Height(r)
 	xsquares := extract.XSquares(r)
-
 	numColors := extract.NumColors(r)
 
 	colorMap := colors.MapOfColorThemes()
@@ -36,15 +35,16 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	} else {
 		colors = append(colors, bg, fg)
 	}
+	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, width, height))
-		squares.RandomGrid(m, colors, xsquares)
+		squares.RandomGrid(m, colors, xsquares, prob)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.RandomGridSVG(w, colors, width, height, xsquares)
+		squares.RandomGridSVG(w, colors, width, height, xsquares, prob)
 	}
 }
 

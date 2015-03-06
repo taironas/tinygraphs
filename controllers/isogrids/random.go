@@ -33,9 +33,10 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	} else {
 		colors = append(colors, bg, fg)
 	}
+	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	size := extract.Size(r)
 	lines := extract.Lines(r)
 	write.ImageSVG(w)
-	isogrids.Random(w, "", colors, size, size, lines)
+	isogrids.Random(w, "", colors, size, size, lines, prob)
 }

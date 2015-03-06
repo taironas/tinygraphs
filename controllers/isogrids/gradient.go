@@ -38,7 +38,8 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 		gColors = []color.RGBA{bg, fg}
 	}
+	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	write.ImageSVG(w)
-	isogrids.RandomGradientColor(w, colors, gColors, gv, width, height, xtriangles)
+	isogrids.RandomGradientColor(w, colors, gColors, gv, width, height, xtriangles, prob)
 }
