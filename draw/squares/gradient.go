@@ -38,7 +38,7 @@ func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA,
 		y := yQ * quadrantSize
 		colorMap = make(map[int]color.RGBA)
 		colorIndex = make(map[int]int)
-		for xQ := 0; xQ < squares; xQ++ {
+		for xQ := 0; xQ <= squares+1; xQ++ {
 			x := xQ * quadrantSize
 			fill := ""
 			if _, ok := colorMap[xQ]; !ok {
