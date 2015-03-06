@@ -11,7 +11,7 @@ import (
 
 // RandomGradientColorSVG builds a square image with with x colors selected at random for each quadrant.
 // the background color stays the same the other colors get mixed in a gradient color from the first one to the last one.
-func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int) {
+func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int, prob float64) {
 
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
@@ -42,7 +42,7 @@ func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA,
 			x := xQ * quadrantSize
 			fill := ""
 			if _, ok := colorMap[xQ]; !ok {
-				colorIndex[xQ] = draw.RandomIndexFromArray(colors)
+				colorIndex[xQ] = draw.RandomIndexFromArrayWithFreq(colors, prob)
 				colorMap[xQ] = colors[colorIndex[xQ]]
 			}
 			if colorIndex[xQ] != 0 {

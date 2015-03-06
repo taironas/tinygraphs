@@ -11,7 +11,7 @@ import (
 
 // RandomGradientColor builds a isogrid image with with x colors selected at random for each quadrant.
 // the background color stays the same the other colors get mixed in a gradient color from the first one to the last one.
-func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, lines int) {
+func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, lines int, prob float64) {
 
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
@@ -52,7 +52,7 @@ func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv
 			xs := []int{x2, x1, x2}
 			ys := []int{y1, y2, y3}
 
-			colorIndex[yL] = draw.RandomIndexFromArray(colors)
+			colorIndex[yL] = draw.RandomIndexFromArrayWithFreq(colors, prob)
 			colorMap[yL] = colors[colorIndex[yL]]
 
 			if colorIndex[yL] != 0 {
@@ -78,7 +78,7 @@ func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv
 			xs1 := []int{x12, x11, x12}
 			ys1 := []int{y11, y12, y13}
 
-			colorIndex[yL] = draw.RandomIndexFromArray(colors)
+			colorIndex[yL] = draw.RandomIndexFromArrayWithFreq(colors, prob)
 			colorMap[yL] = colors[colorIndex[yL]]
 
 			if colorIndex[yL] != 0 {

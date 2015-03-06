@@ -8,7 +8,7 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, height, lines int) {
+func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, height, lines int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 
@@ -27,7 +27,7 @@ func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, heigh
 			}
 			xs := []int{x2, x1, x2}
 			ys := []int{y1, y2, y3}
-			canvas.Polygon(xs, ys, draw.FillFromRGBA(draw.RandomColorFromArray(colors)))
+			canvas.Polygon(xs, ys, draw.FillFromRGBA(draw.RandomColorFromArrayWithFreq(colors, prob)))
 
 			var x11, x12, y11, y12, y13 int
 			if (xL % 2) == 0 {
@@ -43,7 +43,7 @@ func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, heigh
 			}
 			xs1 := []int{x12, x11, x12}
 			ys1 := []int{y11, y12, y13}
-			canvas.Polygon(xs1, ys1, draw.FillFromRGBA(draw.RandomColorFromArray(colors)))
+			canvas.Polygon(xs1, ys1, draw.FillFromRGBA(draw.RandomColorFromArrayWithFreq(colors, prob)))
 		}
 	}
 	canvas.End()
@@ -94,7 +94,7 @@ func RandomGradient(w http.ResponseWriter, key string, colors []color.RGBA, widt
 }
 
 // RandomMirror builds an image with 10x10 grids of half diagonals
-func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -115,7 +115,7 @@ func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size i
 			xs := []int{x2, x1, x2}
 			ys := []int{y1, y2, y3}
 
-			fill1 := draw.FillFromRGBA(draw.RandomColorFromArray(colors))
+			fill1 := draw.FillFromRGBA(draw.RandomColorFromArrayWithFreq(colors, prob))
 			canvas.Polygon(xs, ys, fill1)
 
 			xs = mirrorCoordinates(xs, lines, fringeSize, 0)
@@ -137,7 +137,7 @@ func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size i
 			xs1 := []int{x12, x11, x12}
 			ys1 := []int{y11, y12, y13}
 
-			fill2 := draw.FillFromRGBA(draw.RandomColorFromArray(colors))
+			fill2 := draw.FillFromRGBA(draw.RandomColorFromArrayWithFreq(colors, prob))
 			canvas.Polygon(xs1, ys1, fill2)
 
 			xs1 = mirrorCoordinates(xs1, lines, fringeSize, 0)
