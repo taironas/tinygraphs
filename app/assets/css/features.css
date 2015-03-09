@@ -36,7 +36,7 @@
     color: #FFF;
 }
 
-@media (max-width: 950px){
+@media (max-width: 992px){
 
     .features--squareHeader{
 	height: 50px;

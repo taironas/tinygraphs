@@ -21,7 +21,7 @@
     -webkit-transform: translateY(-50%);
 }
 
-@media (max-width: 950px){
+@media (max-width: 992px){
 
     .examples-content--position{
 	top: 0;
@@ -88,7 +88,13 @@
     padding-top: 50px;
 }
 
-@media (max-width: 950px){
+.carouselExamples-itemText{
+    float: left;
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 992px){
 
     .carouselExamples {
 	width: auto;
@@ -105,6 +111,10 @@
     .carousel-control.left{
 	left:0%;
 	margin-left:0;
+    }
+    .carouselExamples-itemText{
+	float: none;
+	width: 0;
     }
 }
 
