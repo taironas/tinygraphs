@@ -35,6 +35,11 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	} else {
 		colors = append(colors, bg, fg)
 	}
+
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
+	}
+
 	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	if f := extract.Format(r); f == format.JPEG {
@@ -71,6 +76,10 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		colors = append(colors, bg, fg)
+	}
+
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
 	}
 
 	if f := extract.Format(r); f == format.JPEG {

@@ -49,6 +49,10 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
+	}
+
 	size := extract.Size(r)
 	lines := extract.Lines(r)
 

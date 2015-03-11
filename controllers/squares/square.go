@@ -60,6 +60,10 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
+	}
+
 	size := extract.Size(r)
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))

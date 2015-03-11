@@ -73,6 +73,10 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 	}
 
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
+	}
+
 	xt := extract.XTriangles(r)
 	write.ImageSVG(w)
 	isogrids.RandomGradient(w, "", colors, width, height, xt)

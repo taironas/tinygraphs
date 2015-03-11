@@ -38,6 +38,16 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 		colors = append(colors, bg, fg)
 		gColors = []color.RGBA{bg, fg}
 	}
+
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
+		if len(colors) > 2 {
+			gColors = colors[1:3]
+		} else {
+			gColors = colors
+		}
+	}
+
 	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	write.ImageSVG(w)

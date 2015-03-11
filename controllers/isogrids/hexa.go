@@ -49,6 +49,11 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 	} else {
 		colors = append(colors, bg, fg)
 	}
+
+	if newColors, err := extract.Colors(r); err == nil {
+		colors = newColors
+	}
+
 	write.ImageSVG(w)
 	isogrids.Hexa(w, key, colors, size, lines)
 }
