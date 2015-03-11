@@ -158,7 +158,8 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     * `xs`: number of squares in `squares` banner in x axis.
     * `theme`: tinygraphs theme to use in banner.
     * `numcolors`: number of colors to take into account when rendering banner.
- `tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&numcolors=4`
+ 
+   `tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&numcolors=4`
 
  ![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4)
 
