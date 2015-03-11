@@ -145,6 +145,7 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
  ![number of lines in isogrid image.](http://tinygraphs.com/isogrids/hello?lines=4&size=120&fmt=svg)
 
 * **colors**:
+
  `tinygraphs.com/isogrids/hello?lines=4&colors=43e0e8&colors=e84b43`
  You can specify use you own colors by using the `colors` parameter and passing hexa colors.
 
@@ -163,6 +164,7 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 * **random banner parameters:**
     * `p`: probability of the main color in the banner. Default value is `0.5`. Values should be between `0` and `1`
+    
     `tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&p=0.1`
 
     ![isogrid gradient banner.](http://tinygraphs.com/labs/isogrids/banner/gradient?h=75&xt=80&theme=bythepool&numcolors=2&p=0.1)
@@ -176,6 +178,7 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     * `gy2`: second gradient coordinate along y axis.
 
     `tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60`
+    
     ![isogrid color gradient](http://www.tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60)
 Organization
 =====
