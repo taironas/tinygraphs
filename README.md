@@ -85,11 +85,17 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=frogideas&numcolors=4) ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=bythepool&numcolors=4) ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=berrypie&numcolors=4)
 
-`http://tinygraphs.com/labs/squares/banner/`
+`http://tinygraphs.com/labs/squares/banner/gradient`
 
-![gradient colors](http://www.tinygraphs.com/labs/squares/banner/gradient?h=100&xs=50&theme=frogideas&xs=25)
+![gradient colors squares](http://www.tinygraphs.com/labs/squares/banner/gradient?h=100&xs=50&theme=frogideas&xs=25)
 
-![gradient colors](http://www.tinygraphs.com/labs/squares/banner/gradient?h=100&xs=50&theme=frogideas&xs=25&numcolors=2&gx2=40&gx1=0&gy1=50&gy2=100)
+![gradient colors squares](http://www.tinygraphs.com/labs/squares/banner/gradient?h=100&xs=50&theme=frogideas&xs=25&numcolors=2&gx2=40&gx1=0&gy1=50&gy2=100)
+
+`http://tinygraphs.com/labs/isogrids/banner/gradient`
+
+![gradient colors isogrids](http://www.tinygraphs.com/labs/isogrids/banner/gradient?h=100&xs=50&theme=frogideas&xs=25)
+
+![gradient colors isogrids](http://www.tinygraphs.com/labs/isogrids/banner/gradient?h=100&xs=50&theme=frogideas&xs=25&numcolors=2&gx2=40&gx1=0&gy1=50&gy2=100)
 
 ## Parameters:
 
@@ -131,12 +137,18 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
     ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=2) ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=3) ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
 
-* **lines**
-You can specify the number of lines that an isogrid can have using the `lines`parameter. **Default** parameter is **6**. Value has to be greater or equal to 4.
-
+* **lines**:
 `tinygraphs.com/isogrids/hello?lines=4`
 
-![number of lines in isogrid image.](http://tinygraphs.com/isogrids/hello?lines=4&size=120&fmt=svg)
+ You can specify the number of lines that an isogrid can have using the `lines`parameter. **Default** parameter is **6**. Value has to be greater or equal to 4.
+
+ ![number of lines in isogrid image.](http://tinygraphs.com/isogrids/hello?lines=4&size=120&fmt=svg)
+
+* **colors**:
+ `tinygraphs.com/isogrids/hello?lines=4&colors=43e0e8&colors=e84b43`
+ You can specify use you own colors by using the `colors` parameter and passing hexa colors.
+
+    ![isogrid with custom colors](http://tinygraphs.com/isogrids/hello?lines=4&size=120&colors=43e0e8&colors=e84b43)
 
 * **banner parameters:**
     * `h`: height parameter.
@@ -145,12 +157,26 @@ You can specify the number of lines that an isogrid can have using the `lines`pa
     * `xs`: number of squares in `squares` banner in x axis.
     * `theme`: tinygraphs theme to use in banner.
     * `numcolors`: number of colors to take into account when rendering banner.
+ `tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&numcolors=4`
 
-`http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4`
+ ![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4)
 
-![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4)
+* **random banner parameters:**
+    * `p`: probability of the main color in the banner. Default value is `0.5`. Values should be between `0` and `1`
+    `tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&p=0.1`
 
+    ![isogrid gradient banner.](http://tinygraphs.com/labs/isogrids/banner/gradient?h=75&xt=80&theme=bythepool&numcolors=2&p=0.1)
 
+* **isogrid color gradient parameters**
+
+    You can manipulate the gradient vector using the following parameter.
+    * `gx1`: first gradient coordinate along x axis.
+    * `gy1`: first gradient coordinate along y axis.
+    * `gx2`: second gradient coordinate along x axis.
+    * `gy2`: second gradient coordinate along y axis.
+
+    `tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60`
+    ![isogrid color gradient](http://www.tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60)
 Organization
 =====
 
