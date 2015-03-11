@@ -16,7 +16,7 @@ import (
 func Background(req *http.Request) (color.RGBA, error) {
 	bg := req.FormValue("bg")
 	if len(bg) == 0 {
-		return color.RGBA{}, fmt.Errorf("background: wrong input")
+		return color.RGBA{}, fmt.Errorf("background: empty input")
 	}
 	r, g, b, err := hexToRGB(bg)
 	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
@@ -26,10 +26,33 @@ func Background(req *http.Request) (color.RGBA, error) {
 func Foreground(req *http.Request) (color.RGBA, error) {
 	fg := req.FormValue("fg")
 	if len(fg) == 0 {
-		return color.RGBA{}, fmt.Errorf("background: wrong input")
+		return color.RGBA{}, fmt.Errorf("background: empty input")
 	}
 	r, g, b, err := hexToRGB(fg)
 	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
+}
+
+// Colors extract an array of hexadecimal colors and returns an array of color.RGBA
+func Colors(req *http.Request) ([]color.RGBA, error) {
+	if err := req.ParseForm(); err != nil {
+		return []color.RGBA{}, fmt.Errorf("colors: unable to parse form")
+	}
+
+	var colors []color.RGBA
+	strColors := req.Form["colors"]
+	if len(strColors) == 0 {
+		return []color.RGBA{}, fmt.Errorf("colors: empty input")
+	}
+
+	for _, c := range strColors {
+		if r, g, b, err := hexToRGB(c); err != nil {
+			return colors, fmt.Errorf("colors: wrong input")
+		} else {
+			new := color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}
+			colors = append(colors, new)
+		}
+	}
+	return colors, nil
 }
 
 // ExtraColors returns a background and foreground color.RGBA is specified, else black and white.
