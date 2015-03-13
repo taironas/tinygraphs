@@ -6,76 +6,68 @@
   </div>
   <div class="col-md-3 editor-square--noPadding">
     <div class="editor--square2 editor-innerSquare--borderBottom">
-      <div class="editor-content--positionCenter">
-	<h4>TYPE YOUR NAME</h4>
-	<div class="row">
-	  <div class="col-xs-3"></div>
-	  <div class="col-xs-7">
-	    <input class="form-control" type="text" ng-init="editorName='tinygraphs'" ng-model="editorName">
-	  </div>
-	  <div class="col-xs-1"></div>
-	</div>
+      <div class="editor-content--positionCenter container-fluid">
+        <h4>TYPE YOUR NAME</h4>
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2">
+            <input class="form-control" type="text" ng-init="editorName='tinygraphs'" ng-model="editorName">
+          </div>
+        </div>
       </div>
     </div>
     <div class="editor--square2">
-      <div class="editor-content--positionCenter">
-	<h4>COLOR THEME</h4>
-	<div class="row">
-	  <div class="col-xs-1"></div>
-	  <div class="col-xs-2 editor-themePalette--noPadding">
-	    <img class="editor-themePalette--height img-responsive" src="/themes/{{editorTheme}}">
-	  </div>
-	  <div class="col-xs-7">
-	    <select class="form-control" ng-init="editorTheme='frogideas'" ng-model="editorTheme">
-	      <option>frogideas</option>
-	      <option>sugarsweets</option>
-	      <option>heatwave</option>
-	      <option>daisygarden</option>
-	      <option>seascape</option>
-	      <option>summerwarmth</option>
-	      <option>bythepool</option>
-	      <option>duskfalling</option>
-	      <option>berrypie</option>
-	      <option>base</option>
-	    </select>
-	  </div>
-	  <div class="col-xs-1"></div>
-	</div>
+      <div class="editor-content--positionCenter container-fluid">
+        <h4>COLOR THEME</h4>
+        <div class="row">
+          <div class="col-xs-2 col-xs-offset-1 editor-themePalette--noPadding">
+            <img class="editor-themePalette--height img-responsive" src="/themes/{{editorTheme}}">
+          </div>
+          <div class="col-xs-8">
+            <select class="form-control" ng-init="editorTheme='frogideas'" ng-model="editorTheme">
+              <option>frogideas</option>
+              <option>sugarsweets</option>
+              <option>heatwave</option>
+              <option>daisygarden</option>
+              <option>seascape</option>
+              <option>summerwarmth</option>
+              <option>bythepool</option>
+              <option>duskfalling</option>
+              <option>berrypie</option>
+              <option>base</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-md-3 editor-square--noPadding">
     <div class="editor--square2 editor-innerSquare--borderBottom">
-      <div class="editor-content--positionCenter">
-	<h4>SELECT THE SHAPE</h4>
-	<div class="row">
-	  <div class="col-xs-3"></div>
-	  <div class="col-xs-7">
-	    <select class="form-control" ng-init="editorShape='squares'" ng-model="editorShape">
-	      <option>squares</option>
-	      <option>isogrids</option>
-	      <option value="spaceinvaders">space invaders</option>
-	      <option value="labs/isogrids/hexa">hexa isogrids</options>
-	    </select>
-	  </div>
-	  <div class="col-xs-1"></div>
-	</div>	
+      <div class="editor-content--positionCenter container-fluid">
+        <h4>SELECT THE SHAPE</h4>
+        <div class="row">
+          <div class="col-xs-8 col-xs-offset-2">
+            <select class="form-control" ng-init="editorShape='squares'" ng-model="editorShape">
+              <option>squares</option>
+              <option>isogrids</option>
+              <option value="spaceinvaders">space invaders</option>
+              <option value="labs/isogrids/hexa">hexa isogrids</options>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
     <div class="editor--square2">
-      <div class="editor-content--positionCenter">
-	<h4>NUMBER OF COLORS</h4>
-	<div class="row">
-	  <div class="col-xs-3"></div>
-	  <div class="col-xs-7">
-	    <select class="form-control" ng-init="editorColorNumber='4'" ng-model="editorColorNumber">
-	      <option>2</option>
-	      <option>3</option>	      
-	      <option>4</option>
-	    </select>
-	  </div>
-	  <div class="col-xs-1"></div>
-	</div>
+      <div class="editor-content--positionCenter container-fluid">
+      <h4>NUMBER OF COLORS</h4>
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+          <select class="form-control" ng-init="editorColorNumber='4'" ng-model="editorColorNumber">
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+      </div>
       </div>
     </div>
   </div>
