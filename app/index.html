@@ -4,12 +4,15 @@
 <!--[if IE 8]>         <html lang="en" ng-app="tinygraphs" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="tinygraphs" class="no-js"> <!--<![endif]-->
   <head>
+    <title>tinygraphs</title>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>tinygraphs</title>
     <meta name="description" content="an avatar generator web service">
     <meta name="author" content="taironas santiago arias remy jourde carmen rebolledo">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="image" content="http://tinygraphs.com/app/assets/img/apple-touch-icon-114-precomposed.png" />
+
     <link rel="stylesheet" href="app.css">
     <link href="lib/boostrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,6 +29,12 @@
     <link href="assets/css/examples.css" rel="stylesheet">
     <link href="assets/css/editor.css" rel="stylesheet">
     <link href="assets/css/footer.css" rel="stylesheet">
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="assets/img/favicon.png" />
   </head>
   <body>
     <div class="tinygraphs-browsehappy" ng-include="'partials/browsehappy.html'"></div>
@@ -37,10 +46,10 @@
     </div>
     <!-- Banner
 	 ================================================== -->
-    <div class="container">      
+    <div class="container">
       <div class="tinygraphs-banner" ng-include="'partials/banner.html'"></div>
     </div>
-    <div class="container marketing">      
+    <div class="container marketing">
       <div class="tinygraphs-marketing-whatisit" ng-include="'partials/marketing/whatisit.html'"></div>
       <div class="tinygraphs-marketing-features" ng-include="'partials/marketing/features.html'"></div>
       <div class="tinygraphs-examples" ng-include="'partials/marketing/examples.html'"></div>
@@ -48,7 +57,7 @@
       <div class="tinygraphs-get-started" ng-include="'partials/marketing/get-started.html'"></div>
       <div class="tinygraphs-about" ng-include="'partials/about.html'"></div>
       <div class="app-push--height"></div>
-      
+
     </div> <!-- end of container marketing -->
     <div class="tinygraphs-footer" ng-include="'partials/footer.html'"></div>
     <!-- analytics
@@ -58,7 +67,7 @@
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	
+
 	ga('create', 'UA-58541943-1', 'auto');
 	ga('send', 'pageview');
       </script>
