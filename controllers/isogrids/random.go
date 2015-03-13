@@ -15,7 +15,7 @@ import (
 func Random(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {
 		bg = val[0]

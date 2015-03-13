@@ -22,7 +22,7 @@ func BannerGradient(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
 
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 
 	var colors, gColors []color.RGBA
 	theme := extract.Theme(r)

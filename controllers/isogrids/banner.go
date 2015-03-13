@@ -16,8 +16,18 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)
 	height := extract.Height(r)
 
+	colors := GetColors(r)
+	prob := extract.Probability(r, 1/float64(len(colors)))
+
+	xt := extract.XTriangles(r)
+	write.ImageSVG(w)
+	isogrids.Random(w, "", colors, width, height, xt, prob)
+}
+
+func GetColors(r *http.Request) []color.RGBA {
+
 	colorMap := colors.MapOfColorThemes()
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {
 		bg = val[0]
@@ -39,12 +49,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	if newColors, err := extract.Colors(r); err == nil {
 		colors = newColors
 	}
-
-	prob := extract.Probability(r, 1/float64(len(colors)))
-
-	xt := extract.XTriangles(r)
-	write.ImageSVG(w)
-	isogrids.Random(w, "", colors, width, height, xt, prob)
+	return colors
 }
 
 // BannerRandomGradinet handler for /isogrids/banner/random/gradient.
@@ -54,7 +59,7 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 	height := extract.Height(r)
 
 	colorMap := colors.MapOfColorThemes()
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {
 		bg = val[0]

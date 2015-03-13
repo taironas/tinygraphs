@@ -31,7 +31,7 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 
 	numColors := extract.NumColors(r)
 	lines := int(extract.Hexalines(r))
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {

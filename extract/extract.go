@@ -55,15 +55,16 @@ func Colors(req *http.Request) ([]color.RGBA, error) {
 	return colors, nil
 }
 
-// ExtraColors returns a background and foreground color.RGBA is specified, else black and white.
-func ExtraColors(req *http.Request, m map[string][]color.RGBA) (color.RGBA, color.RGBA) {
+// ExtraColors returns a background and foreground color.RGBA is specified.
+// returns black and white otherwise
+func ExtraColors(req *http.Request) (color.RGBA, color.RGBA) {
 	var err error
 	var bg, fg color.RGBA
 	if bg, err = Background(req); err != nil {
-		bg = m["base"][1]
+		bg = colors.Black()
 	}
 	if fg, err = Foreground(req); err != nil {
-		fg = m["base"][0]
+		fg = colors.White()
 	}
 	return bg, fg
 }

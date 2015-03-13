@@ -47,7 +47,7 @@ func Square(w http.ResponseWriter, r *http.Request) {
 	numColors := extract.NumColors(r)
 	colorMap := colors.MapOfColorThemes()
 
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 
 	var colors []color.RGBA
 	if theme != "base" {

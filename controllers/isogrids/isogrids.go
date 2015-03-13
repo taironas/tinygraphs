@@ -30,7 +30,7 @@ func Isogrids(w http.ResponseWriter, r *http.Request) {
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
 	colorMap := colors.MapOfColorThemes()
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {
 		bg = val[0]

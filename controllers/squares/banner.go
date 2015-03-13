@@ -22,7 +22,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
 
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 
 	var colors []color.RGBA
 	theme := extract.Theme(r)
@@ -64,7 +64,7 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 
 	colorMap := colors.MapOfColorThemes()
 
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 
 	var colors []color.RGBA
 	theme := extract.Theme(r)

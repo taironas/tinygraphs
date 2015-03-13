@@ -15,7 +15,7 @@ func RandomMirror(w http.ResponseWriter, r *http.Request) {
 	colorMap := colors.MapOfColorThemes()
 	size := extract.Size(r)
 	numColors := extract.NumColors(r)
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 
 	theme := extract.Theme(r)
 	if val, ok := colorMap[theme]; ok {

@@ -8,12 +8,20 @@ type GradientVector struct {
 	X1, Y1, X2, Y2 uint8
 }
 
+func White() color.RGBA {
+	return color.RGBA{uint8(0), uint8(0), uint8(0), uint8(255)}
+}
+
+func Black() color.RGBA {
+	return color.RGBA{uint8(255), uint8(255), uint8(255), uint8(255)}
+}
+
 // MapOfColorThemes is used to build random images with colors that go together.
 func MapOfColorThemes() map[string][]color.RGBA {
 	return map[string][]color.RGBA{
 		"base": []color.RGBA{
-			color.RGBA{uint8(0), uint8(0), uint8(0), uint8(255)},       // white
-			color.RGBA{uint8(255), uint8(255), uint8(255), uint8(255)}, // back
+			White(),
+			Black(),
 		},
 		"sugarsweets": []color.RGBA{
 			color.RGBA{255, 245, 249, 255}, //background

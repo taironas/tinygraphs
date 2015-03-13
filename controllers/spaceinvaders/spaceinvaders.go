@@ -29,7 +29,7 @@ func SpaceInvaders(w http.ResponseWriter, r *http.Request) {
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
 	colorMap := colors.MapOfColorThemes()
-	bg, fg := extract.ExtraColors(r, colorMap)
+	bg, fg := extract.ExtraColors(r)
 	theme := extract.Theme(r)
 	numColors := extract.NumColors(r)
 
