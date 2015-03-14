@@ -32,6 +32,20 @@ func Foreground(req *http.Request) (color.RGBA, error) {
 	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
 }
 
+// ExtraColors returns a background and foreground color.RGBA is specified.
+// returns black and white otherwise
+func ExtraColors(req *http.Request) (color.RGBA, color.RGBA) {
+	var err error
+	var bg, fg color.RGBA
+	if bg, err = Background(req); err != nil {
+		fg = colors.White()
+	}
+	if fg, err = Foreground(req); err != nil {
+		bg = colors.Black()
+	}
+	return bg, fg
+}
+
 // Colors extract an array of hexadecimal colors and returns an array of color.RGBA
 func Colors(req *http.Request) ([]color.RGBA, error) {
 	if err := req.ParseForm(); err != nil {
@@ -53,20 +67,6 @@ func Colors(req *http.Request) ([]color.RGBA, error) {
 		}
 	}
 	return colors, nil
-}
-
-// ExtraColors returns a background and foreground color.RGBA is specified.
-// returns black and white otherwise
-func ExtraColors(req *http.Request) (color.RGBA, color.RGBA) {
-	var err error
-	var bg, fg color.RGBA
-	if bg, err = Background(req); err != nil {
-		bg = colors.Black()
-	}
-	if fg, err = Foreground(req); err != nil {
-		fg = colors.White()
-	}
-	return bg, fg
 }
 
 // Size returns the value of size param from HTTP request.
