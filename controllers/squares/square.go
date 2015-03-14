@@ -4,14 +4,12 @@ import (
 	"crypto/md5"
 	"fmt"
 	"image"
-	"image/color"
 	"io"
 	"log"
 	"net/http"
 	"strings"
 
 	"github.com/taironas/route"
-	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw/squares"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/format"
@@ -44,27 +42,9 @@ func Square(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	numColors := extract.NumColors(r)
-	colorMap := colors.MapOfColorThemes()
-
-	bg, fg := extract.ExtraColors(r)
-
-	var colors []color.RGBA
-	if theme != "base" {
-		if _, ok := colorMap[theme]; ok {
-			colors = append(colors, colorMap[theme][0:numColors]...)
-		} else {
-			colors = append(colors, colorMap["base"]...)
-		}
-	} else {
-		colors = append(colors, bg, fg)
-	}
-
-	if newColors, err := extract.Colors(r); err == nil {
-		colors = newColors
-	}
-
+	colors := extract.Colors(r)
 	size := extract.Size(r)
+
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
 		squares.Squares(m, key, colors)

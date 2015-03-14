@@ -3,13 +3,11 @@ package spaceinvaders
 import (
 	"crypto/md5"
 	"fmt"
-	"image/color"
 	"io"
 	"log"
 	"net/http"
 
 	"github.com/taironas/route"
-	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw/spaceinvaders"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
@@ -28,26 +26,7 @@ func SpaceInvaders(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
-	colorMap := colors.MapOfColorThemes()
-	bg, fg := extract.ExtraColors(r)
-	theme := extract.Theme(r)
-	numColors := extract.NumColors(r)
-
-	var colors []color.RGBA
-	if theme != "base" {
-		if _, ok := colorMap[theme]; ok {
-			colors = append(colors, colorMap[theme][0:numColors]...)
-		} else {
-			colors = append(colors, colorMap["base"]...)
-		}
-	} else {
-		colors = append(colors, bg, fg)
-	}
-
-	if newColors, err := extract.Colors(r); err == nil {
-		colors = newColors
-	}
-
+	colors := extract.Colors(r)
 	size := extract.Size(r)
 
 	write.ImageSVG(w)

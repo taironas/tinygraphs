@@ -2,10 +2,8 @@ package squares
 
 import (
 	"image"
-	"image/color"
 	"net/http"
 
-	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw/squares"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/format"
@@ -18,28 +16,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)
 	height := extract.Height(r)
 	xsquares := extract.XSquares(r)
-	numColors := extract.NumColors(r)
-
-	colorMap := colors.MapOfColorThemes()
-
-	bg, fg := extract.ExtraColors(r)
-
-	var colors []color.RGBA
-	theme := extract.Theme(r)
-	if theme != "base" {
-		if _, ok := colorMap[theme]; ok {
-			colors = append(colors, colorMap[theme][0:numColors]...)
-		} else {
-			colors = append(colors, colorMap["base"]...)
-		}
-	} else {
-		colors = append(colors, bg, fg)
-	}
-
-	if newColors, err := extract.Colors(r); err == nil {
-		colors = newColors
-	}
-
+	colors := extract.Colors(r)
 	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	if f := extract.Format(r); f == format.JPEG {
@@ -59,28 +36,7 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)
 	height := extract.Height(r)
 	xsquares := extract.XSquares(r)
-
-	numColors := extract.NumColors(r)
-
-	colorMap := colors.MapOfColorThemes()
-
-	bg, fg := extract.ExtraColors(r)
-
-	var colors []color.RGBA
-	theme := extract.Theme(r)
-	if theme != "base" {
-		if _, ok := colorMap[theme]; ok {
-			colors = append(colors, colorMap[theme][0:numColors]...)
-		} else {
-			colors = append(colors, colorMap["base"]...)
-		}
-	} else {
-		colors = append(colors, bg, fg)
-	}
-
-	if newColors, err := extract.Colors(r); err == nil {
-		colors = newColors
-	}
+	colors := extract.Colors(r)
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, width, height))
