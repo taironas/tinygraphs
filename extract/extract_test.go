@@ -37,7 +37,7 @@ func TestColors(t *testing.T) {
 		t.Log(test.title)
 		r := &http.Request{Method: "GET"}
 		r.URL, _ = url.Parse(test.url)
-		colors, err := Colors(r)
+		colors, err := UserColors(r)
 		if err != nil {
 			t.Log(err)
 		}
