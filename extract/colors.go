@@ -105,6 +105,7 @@ func ExtraColors(req *http.Request) (color.RGBA, color.RGBA) {
 	if bg, err = Background(req); err != nil {
 		bg = tgColors.White()
 	}
+
 	if fg, err = Foreground(req); err != nil {
 		fg = tgColors.Black()
 	}
