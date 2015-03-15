@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"net/url"
 	"testing"
+
+	"github.com/taironas/tinygraphs/format"
 )
 
 func TestSize(t *testing.T) {
@@ -26,6 +28,29 @@ func TestSize(t *testing.T) {
 		s := Size(r)
 		if s != test.size {
 			t.Errorf("expected %d  got %d", test.size, s)
+		}
+	}
+}
+
+func TestFormat(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		fmt   format.Format
+	}{
+		{"test wrong input", "http://www.tg.c?fmt=foo", format.JPEG},
+		{"test no input", "http://www.tg.c", format.JPEG},
+		{"test good input jpeg", "http://www.tg.c?fmt=jpeg", format.JPEG},
+		{"test good input svg", "http://www.tg.c?fmt=svg", format.SVG},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		f := Format(r)
+		if f != test.fmt {
+			t.Errorf("expected %d got %d", test.fmt, f)
 		}
 	}
 }
