@@ -297,3 +297,47 @@ func TestGX2OrDefault(t *testing.T) {
 		}
 	}
 }
+
+func TestGY1OrDefault(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		gy1   uint8
+	}{
+		{"test wrong input", "http://www.tg.c?gy1=hello", 1},
+		{"test no input", "http://www.tg.c", 1},
+		{"test good input", "http://www.tg.c?gy1=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		gy1 := GY1OrDefault(r, uint8(1))
+		if gy1 != test.gy1 {
+			t.Errorf("expected %d got %d", test.gy1, gy1)
+		}
+	}
+}
+
+func TestGY2OrDefault(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		gy2   uint8
+	}{
+		{"test wrong input", "http://www.tg.c?gy2=hello", 1},
+		{"test no input", "http://www.tg.c", 1},
+		{"test good input", "http://www.tg.c?gy2=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		gy2 := GY2OrDefault(r, uint8(1))
+		if gy2 != test.gy2 {
+			t.Errorf("expected %d got %d", test.gy2, gy2)
+		}
+	}
+}
