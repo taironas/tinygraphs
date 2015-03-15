@@ -97,10 +97,10 @@ func ExtraColors(req *http.Request) (color.RGBA, color.RGBA) {
 	var err error
 	var bg, fg color.RGBA
 	if bg, err = Background(req); err != nil {
-		fg = tgColors.White()
+		bg = tgColors.White()
 	}
 	if fg, err = Foreground(req); err != nil {
-		bg = tgColors.Black()
+		fg = tgColors.Black()
 	}
 	return bg, fg
 }
@@ -119,7 +119,7 @@ func UserColors(req *http.Request) ([]color.RGBA, error) {
 
 	for _, c := range strColors {
 		if r, g, b, err := hexToRGB(c); err != nil {
-			return colors, fmt.Errorf("colors: wrong input")
+			return []color.RGBA{}, fmt.Errorf("colors: wrong input")
 		} else {
 			new := color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}
 			colors = append(colors, new)
