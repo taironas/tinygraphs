@@ -77,8 +77,11 @@ func Background(req *http.Request) (color.RGBA, error) {
 	if len(bg) == 0 {
 		return color.RGBA{}, fmt.Errorf("background: empty input")
 	}
-	r, g, b, err := hexToRGB(bg)
-	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
+	if r, g, b, err := hexToRGB(bg); err != nil {
+		return color.RGBA{}, fmt.Errorf("background: wrong input")
+	} else {
+		return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, nil
+	}
 }
 
 // Foreground extract hexadecimal code foreground from HTTP request and return color.RGBA
@@ -87,8 +90,11 @@ func Foreground(req *http.Request) (color.RGBA, error) {
 	if len(fg) == 0 {
 		return color.RGBA{}, fmt.Errorf("background: empty input")
 	}
-	r, g, b, err := hexToRGB(fg)
-	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, err
+	if r, g, b, err := hexToRGB(fg); err != nil {
+		return color.RGBA{}, fmt.Errorf("background: wrong input")
+	} else {
+		return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, nil
+	}
 }
 
 // ExtraColors returns a background and foreground color.RGBA is specified.
