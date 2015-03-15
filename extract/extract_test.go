@@ -54,3 +54,25 @@ func TestFormat(t *testing.T) {
 		}
 	}
 }
+
+func TestTheme(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		theme string
+	}{
+		{"test wrong input", "http://www.tg.c?fmt=", "base"},
+		{"test no input", "http://www.tg.c", "base"},
+		{"test good input jpeg", "http://www.tg.c?theme=hello", "hello"},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		th := Theme(r)
+		if th != test.theme {
+			t.Errorf("expected %d got %d", test.theme, th)
+		}
+	}
+}
