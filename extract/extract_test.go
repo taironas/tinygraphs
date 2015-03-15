@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/format"
 )
 
@@ -338,6 +339,43 @@ func TestGY2OrDefault(t *testing.T) {
 		gy2 := GY2OrDefault(r, uint8(1))
 		if gy2 != test.gy2 {
 			t.Errorf("expected %d got %d", test.gy2, gy2)
+		}
+	}
+}
+
+func TestGradientVector(t *testing.T) {
+	tests := []struct {
+		title          string
+		url            string
+		gradientVector colors.GradientVector
+	}{
+		{
+			"test wrong input",
+			"http://www.tg.c?gx1=h&gy1=h&gx2=h&gy2=h",
+			colors.GradientVector{uint8(1), uint8(1), uint8(1), uint8(1)},
+		},
+		{
+			"test no input",
+			"http://www.tg.c",
+			colors.GradientVector{uint8(1), uint8(1), uint8(1), uint8(1)},
+		},
+		{
+			"test good input",
+			"http://www.tg.c?gx1=1&gy1=2&gx2=3&gy2=4",
+			colors.GradientVector{uint8(1), uint8(2), uint8(3), uint8(4)},
+		},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		gv := GradientVector(r, uint8(1), uint8(1), uint8(1), uint8(1))
+		if gv.X1 != test.gradientVector.X1 ||
+			gv.X2 != test.gradientVector.X2 ||
+			gv.Y1 != test.gradientVector.Y1 ||
+			gv.Y2 != test.gradientVector.Y2 {
+			t.Errorf("expected %+v got %+v", test.gradientVector, gv)
 		}
 	}
 }
