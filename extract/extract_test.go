@@ -253,3 +253,47 @@ func TestXTriangles(t *testing.T) {
 		}
 	}
 }
+
+func TestGX1OrDefault(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		gx1   uint8
+	}{
+		{"test wrong input", "http://www.tg.c?gx1=hello", 1},
+		{"test no input", "http://www.tg.c", 1},
+		{"test good input", "http://www.tg.c?gx1=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		gx1 := GX1OrDefault(r, uint8(1))
+		if gx1 != test.gx1 {
+			t.Errorf("expected %d got %d", test.gx1, gx1)
+		}
+	}
+}
+
+func TestGX2OrDefault(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		gx2   uint8
+	}{
+		{"test wrong input", "http://www.tg.c?gx2=hello", 1},
+		{"test no input", "http://www.tg.c", 1},
+		{"test good input", "http://www.tg.c?gx2=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		gx2 := GX2OrDefault(r, uint8(1))
+		if gx2 != test.gx2 {
+			t.Errorf("expected %d got %d", test.gx2, gx2)
+		}
+	}
+}
