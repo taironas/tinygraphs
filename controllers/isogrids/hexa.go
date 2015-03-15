@@ -26,7 +26,7 @@ func Hexa(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(h, key)
 	key = fmt.Sprintf("%x", h.Sum(nil)[:])
 
-	lines := int(extract.Hexalines(r))
+	lines := extract.Hexalines(r)
 	colors := extract.Colors(r)
 
 	write.ImageSVG(w)

@@ -76,3 +76,25 @@ func TestTheme(t *testing.T) {
 		}
 	}
 }
+
+func TestHexalines(t *testing.T) {
+	tests := []struct {
+		title     string
+		url       string
+		hexalines int
+	}{
+		{"test wrong input", "http://www.tg.c?hexalines=h", 6},
+		{"test no input", "http://www.tg.c", 6},
+		{"test good input jpeg", "http://www.tg.c?hexalines=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		x := Hexalines(r)
+		if x != test.hexalines {
+			t.Errorf("expected %d got %d", test.hexalines, x)
+		}
+	}
+}
