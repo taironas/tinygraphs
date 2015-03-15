@@ -63,7 +63,7 @@ func TestTheme(t *testing.T) {
 	}{
 		{"test wrong input", "http://www.tg.c?fmt=", "base"},
 		{"test no input", "http://www.tg.c", "base"},
-		{"test good input jpeg", "http://www.tg.c?theme=hello", "hello"},
+		{"test good input", "http://www.tg.c?theme=hello", "hello"},
 	}
 
 	for _, test := range tests {
@@ -85,7 +85,7 @@ func TestHexalines(t *testing.T) {
 	}{
 		{"test wrong input", "http://www.tg.c?hexalines=h", 6},
 		{"test no input", "http://www.tg.c", 6},
-		{"test good input jpeg", "http://www.tg.c?hexalines=4", 4},
+		{"test good input", "http://www.tg.c?hexalines=4", 4},
 	}
 
 	for _, test := range tests {
@@ -95,6 +95,29 @@ func TestHexalines(t *testing.T) {
 		x := Hexalines(r)
 		if x != test.hexalines {
 			t.Errorf("expected %d got %d", test.hexalines, x)
+		}
+	}
+}
+
+func TestLines(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		lines int
+	}{
+		{"test wrong input", "http://www.tg.c?lines=h", 6},
+		{"test no input", "http://www.tg.c", 6},
+		{"test good input", "http://www.tg.c?lines=4", 4},
+		{"test input limit", "http://www.tg.c?lines=3", 6},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		l := Lines(r)
+		if l != test.lines {
+			t.Errorf("expected %d got %d", test.lines, l)
 		}
 	}
 }
