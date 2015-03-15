@@ -379,3 +379,27 @@ func TestGradientVector(t *testing.T) {
 		}
 	}
 }
+
+func TestProbability(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		p     float64
+	}{
+		{"test wrong input", "http://www.tg.c?p=hello", float64(1)},
+		{"test no input", "http://www.tg.c", float64(1)},
+		{"test good input", "http://www.tg.c?p=0.4", float64(0.4)},
+		{"test lower limit", "http://www.tg.c?p=-1", float64(1)},
+		{"test higher limit", "http://www.tg.c?p=2", float64(1)},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		p := Probability(r, float64(1))
+		if p != test.p {
+			t.Errorf("expected %d got %d", test.p, p)
+		}
+	}
+}
