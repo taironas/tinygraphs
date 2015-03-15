@@ -209,3 +209,25 @@ func TestHeightOrDefault(t *testing.T) {
 		}
 	}
 }
+
+func TestXSquares(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		xs    int
+	}{
+		{"test wrong input", "http://www.tg.c?xs=hello", 50},
+		{"test no input", "http://www.tg.c", 50},
+		{"test good input", "http://www.tg.c?xs=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		xs := XSquares(r)
+		if xs != test.xs {
+			t.Errorf("expected %d got %d", test.xs, xs)
+		}
+	}
+}
