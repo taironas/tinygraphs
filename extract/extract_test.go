@@ -143,3 +143,69 @@ func TestWidth(t *testing.T) {
 		}
 	}
 }
+
+func TestWidthOrDefault(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		width int
+	}{
+		{"test wrong input", "http://www.tg.c?w=", 1},
+		{"test no input", "http://www.tg.c", 1},
+		{"test good input", "http://www.tg.c?w=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		w := WidthOrDefault(r, 1)
+		if w != test.width {
+			t.Errorf("expected %d got %d", test.width, w)
+		}
+	}
+}
+
+func TestHeight(t *testing.T) {
+	tests := []struct {
+		title  string
+		url    string
+		height int
+	}{
+		{"test wrong input", "http://www.tg.c?h=", 300},
+		{"test no input", "http://www.tg.c", 300},
+		{"test good input", "http://www.tg.c?h=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		h := Height(r)
+		if h != test.height {
+			t.Errorf("expected %d got %d", test.height, h)
+		}
+	}
+}
+
+func TestHeightOrDefault(t *testing.T) {
+	tests := []struct {
+		title  string
+		url    string
+		height int
+	}{
+		{"test wrong input", "http://www.tg.c?h=", 1},
+		{"test no input", "http://www.tg.c", 1},
+		{"test good input", "http://www.tg.c?h=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		h := HeightOrDefault(r, 1)
+		if h != test.height {
+			t.Errorf("expected %d got %d", test.height, h)
+		}
+	}
+}
