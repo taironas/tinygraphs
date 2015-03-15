@@ -31,7 +31,6 @@ func Colors(r *http.Request) (colors []color.RGBA) {
 		return newColors
 	}
 
-	// var colors []color.RGBA
 	th := Theme(r)
 
 	if th == "base" {
