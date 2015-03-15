@@ -121,3 +121,25 @@ func TestLines(t *testing.T) {
 		}
 	}
 }
+
+func TestWidth(t *testing.T) {
+	tests := []struct {
+		title string
+		url   string
+		width int
+	}{
+		{"test wrong input", "http://www.tg.c?w=", 720},
+		{"test no input", "http://www.tg.c", 720},
+		{"test good input", "http://www.tg.c?w=4", 4},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		w := Width(r)
+		if w != test.width {
+			t.Errorf("expected %d got %d", test.width, w)
+		}
+	}
+}
