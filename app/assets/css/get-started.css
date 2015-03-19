@@ -1,0 +1,36 @@
+.getstarted--backgroundGrey{
+    background: #F4F4F4;
+}
+
+.getstarted--backgroundWhite{
+    background: #FFF;
+}
+
+.getstarted-square--noPadding{
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 400px;
+    border-bottom: solid 1px #CBCBCB;
+    border-left: solid 1px #CBCBCB;
+}
+
+.getstarted--square{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    height: 400px;
+    border-bottom: solid 1px #CBCBCB;
+    border-left: solid 1px #CBCBCB;
+}
+
+.getstarted-right--borderRigth{
+    border-right: solid 1px #CBCBCB;
+}
+
+/* @media (max-width: 950px){ */
+/*     .getstarted-square--noPadding{ */
+/* 	height: 175px; */
+/*     } */
+
+/* } */
