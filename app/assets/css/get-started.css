@@ -28,6 +28,12 @@
     border-right: solid 1px #CBCBCB;
 }
 
+.getstarted-img--center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}
+
 /* @media (max-width: 950px){ */
 /*     .getstarted-square--noPadding{ */
 /* 	height: 175px; */
