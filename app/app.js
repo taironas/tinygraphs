@@ -7,7 +7,8 @@ angular.module('tinygraphs', [
     'tinygraphs.view1',
     'tinygraphs.view2',
     'tinygraphs.version',
-    'tinygraphs.holder'
+    'tinygraphs.holder',
+    'tinygraphs.prettify'
 ]).
     config(['$routeProvider', function($routeProvider) {
 	$routeProvider.otherwise({redirectTo: '/'});
