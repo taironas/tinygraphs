@@ -23,9 +23,13 @@
     margin-right: auto 
 }
 
-/* @media (max-width: 950px){ */
-/*     .getstarted-square--noPadding{ */
-/* 	height: 175px; */
-/*     } */
-
-/* } */
+@media (max-width: 992px){
+    .getstarted--square{
+	padding-bottom: 0;
+	padding-top: 1px;
+	height: 315px;
+    }
+    .getstarted-title{
+	text-align: center;
+    }
+}
