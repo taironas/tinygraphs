@@ -8,5 +8,14 @@
   margin-bottom: 0px;
   border: 1px solid transparent;
   padding: 20px;
-color: #767676;
+  color: #767676;
+  background: #F4F4F4;
+}
+
+.footer-img--margin{
+    margin-top: 25px;
+}
+
+.footer-link{
+    display: block;
 }
