@@ -13,6 +13,7 @@
 .about--squareHeader,
 .about--square,
 .about--squareSection2{
+    height: 404px;
     padding-bottom: 50px;
     padding-top: 50px;
     border-top: solid 1px #CBCBCB;
