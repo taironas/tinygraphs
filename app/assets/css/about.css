@@ -15,7 +15,6 @@
 .about--squareSection2{
     padding-bottom: 50px;
     padding-top: 50px;
-    height: 404px;
     border-top: solid 1px #CBCBCB;
     border-bottom: solid 1px #CBCBCB;
     border-left: solid 1px #CBCBCB;
@@ -72,7 +71,6 @@
     }
 
     .about--squareSection2{
-	height: 150px;
 	padding-bottom: 0px;
 	padding-top: 15px;
 	border-top: 0;
