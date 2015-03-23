@@ -11,7 +11,8 @@
 }
 
 .about--squareHeader,
-.about--square{
+.about--square,
+.about--squareSection2{
     padding-bottom: 50px;
     padding-top: 50px;
     height: 404px;
@@ -66,6 +67,14 @@
     	height: 200px;
 	padding-bottom: 0px;
 	padding-top: 0px;
+	border-top: 0;
+	border-bottom: 0;
+    }
+
+    .about--squareSection2{
+	height: 150px;
+	padding-bottom: 0px;
+	padding-top: 15px;
 	border-top: 0;
 	border-bottom: 0;
     }
