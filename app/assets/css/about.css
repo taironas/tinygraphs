@@ -87,3 +87,18 @@
 	top: 0%;
     }
 }
+
+@media (max-width: 767px){
+    .about-img{
+	width: 150px;
+	height:150px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+    }
+    
+    .about--square{
+	height: 150px;
+    }
+
+}
