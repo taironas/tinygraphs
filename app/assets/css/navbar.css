@@ -33,7 +33,7 @@
     margin-top: 5%;
 }
 
-@media (max-width: 950px){
+@media (max-width: 992px){
     .nav-logo{
     margin-left: 5%;
     }
