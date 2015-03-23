@@ -1,7 +1,5 @@
 .about--backgroundGreen{
-    /* background: #43BF86; */
     background: url(/labs/isogrids/banner/gradient?theme=frogideas&p=0.2&xt=4&h=580&w=400&gx1=0&gy1=0&gy2=40&gx2=40);
-
 }
 
 .about--backgroundGrey{
@@ -10,17 +8,6 @@
 
 .about--backgroundWhite{
     background: #FFF;
-}
-
-.about-square--noPadding{
-    padding-bottom: 0px;
-    padding-top: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    height: 580px;
-    border-top: solid 1px #CBCBCB;
-    border-bottom: solid 1px #CBCBCB;
-    border-left: solid 1px #CBCBCB;
 }
 
 .about--squareHeader,
@@ -40,24 +27,8 @@
     border-right: 0;
 }
 
-.about-square--borderRight{
-    border-right: solid 1px #CBCBCB;
-}
-
-.about-innerSquare--borderBottom{
-    border-bottom: solid 1px #CBCBCB;
-}
-
-.about--square2{
-    height: 290px;
-}
-
-.about-content--position{
-    position: relative;
-    top: 55%;
-    text-align:center;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
+.about-content--margin{
+    margin-top: 50px;
 }
 
 .about-contentText--position{
@@ -75,14 +46,6 @@
     -webkit-transform: translateY(-50%);
 }
 
-.about-content--positionCenter{
-    position: relative;
-    top: 50%;
-    text-align:center;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-}
-
 .about-content--White{
     color: #FFF;
 }
@@ -93,22 +56,25 @@
 }
 
 @media (max-width: 950px){
-    .about-square--noPadding{
-	height: 175px;
-    }
-
     .about--squareHeader{
-	height: 50px;	
-	padding-top: 0px;
-	padding-bottom: 0px;
-    }
-    .about--square2{
-	height: 75px;
-	padding-top: 0px;
-	padding-bottom: 0px;
+    	height: 150px;
+    	padding-top: 0px;
+    	padding-bottom: 0px;
     }
 
     .about--square{
-    	height: 220px;
+    	height: 200px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	border-top: 0;
+	border-bottom: 0;
+    }
+
+    .about-content--margin{
+	margin-top: 20px;
+    }
+
+    .about-contentText--position{
+	top: 0%;
     }
 }
