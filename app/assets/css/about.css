@@ -55,6 +55,10 @@
     text-shadow: 0 1px 2px rgba(0,0,0,.6);
 }
 
+.about-section2{
+    padding-top: 25px;
+}
+
 @media (max-width: 992px){
     .about--squareHeader{
     	height: 150px;
