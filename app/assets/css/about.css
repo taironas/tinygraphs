@@ -11,8 +11,7 @@
 }
 
 .about--squareHeader,
-.about--square,
-.about--squareSection2{
+.about--square{
     height: 404px;
     padding-bottom: 50px;
     padding-top: 50px;
@@ -71,13 +70,6 @@
 	border-bottom: 0;
     }
 
-    .about--squareSection2{
-	padding-bottom: 0px;
-	padding-top: 15px;
-	border-top: 0;
-	border-bottom: 0;
-    }
-
     .about-content--margin{
 	margin-top: 20px;
     }
@@ -100,4 +92,11 @@
 	height: 150px;
     }
 
+}
+
+@media (max-width: 350px){
+
+    .about--squareHeader{
+    	height: 170px;
+    }
 }
