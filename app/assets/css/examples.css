@@ -118,14 +118,27 @@
     }
 }
 
+@media (max-width: 420px){
+    .carouselExamples-inner > .item > img {
+	margin-left: 30px;
+    }
+}
+
+@media (max-width: 384px){
+    .carouselExamples-inner > .item > img {
+	margin-left: 100px;
+    }
+}
+
+@media (max-width: 360px){
+    .carouselExamples-inner > .item > img {
+	margin-left: 88px;
+    }
+}
+
 @media (max-width: 350px){
     .carouselExamples-inner > .item > img {
 	margin-left: 70px;
     }
 }
 
-@media (max-width: 420px){
-    .carouselExamples-inner > .item > img {
-	margin-left: 30px;
-    }
-}
