@@ -118,3 +118,9 @@
     }
 }
 
+
+@media (max-width: 350px){
+    .carouselExamples-inner > .item > img {
+	margin-left: 70px;
+    }
+}
