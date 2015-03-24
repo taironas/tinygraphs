@@ -5,5 +5,15 @@
 }
 
 .tg-title-color{
-    color: #3dbbad;
+    color: #3DBBAD;
+}
+
+.tg-link{
+    color: #3DBBAD;    
+}
+
+.tg-link:focus,
+.tg-link:hover {
+    background: #F4F4F4;
+    color: #2E97A6;
 }
