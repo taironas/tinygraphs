@@ -23,3 +23,10 @@
 .footer-logo{
     width: 214px;
 }
+
+@media (max-width: 350px){
+
+    .tg-footer{
+    	height: 350px;
+    }
+}
