@@ -10,7 +10,8 @@
     height: 400px;
 }
 
-.getstarted--square{
+.getstarted--square,
+.getstarted--square2{
     padding-bottom: 50px;
     padding-top: 50px;
     height: 400px;
@@ -24,7 +25,8 @@
 }
 
 @media (max-width: 992px){
-    .getstarted--square{
+    .getstarted--square,
+    .getstarted--square2{
 	padding-bottom: 0;
 	padding-top: 1px;
 	height: 315px;
@@ -33,3 +35,15 @@
 	text-align: center;
     }
 }
+
+
+@media (max-width: 350px){
+    .getstarted--square{
+	height: 350px;
+    }
+    .getstarted--square2{
+	height: 260px;
+    }
+}
+
+
