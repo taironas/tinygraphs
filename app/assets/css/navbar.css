@@ -1,11 +1,13 @@
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
     background: #F4F4F4;
+    color: #2E97A6;
 }
 .navbar-default .navbar-nav > .active > a, 
 .navbar-default .navbar-nav > .active > a:hover, 
 .navbar-default .navbar-nav > .active > a:focus {
     background: #F4F4F4;
+    color: #2E97A6;
 }
 
 .navbar-brand,
@@ -31,6 +33,10 @@
 .nav-logo{
     margin-left: 33%;
     margin-top: 5%;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #3DBBAD;
 }
 
 @media (max-width: 992px){
