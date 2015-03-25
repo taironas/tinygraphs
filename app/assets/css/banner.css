@@ -27,17 +27,6 @@
     height: 302px;
 }
 
-.banner-btn{
-    border-radius: 0;
-    border:0;
-    color: #fff;
-    background-color: #2F9EA8;
-}
-
-.banner-btn:hover {
-  background-color: #44C083;
-}
-
 /* MARKETING CONTENT
 -------------------------------------------------- */
 

@@ -17,3 +17,14 @@
     background: #F4F4F4;
     color: #2E97A6;
 }
+
+.tg-btn{
+    border-radius: 0;
+    border:0;
+    color: #fff;
+    background-color: #2F9EA8;
+}
+
+.tg-btn:hover {
+  background-color: #44C083;
+}
