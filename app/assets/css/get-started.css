@@ -12,8 +12,8 @@
 
 .getstarted--square,
 .getstarted--square2{
-    padding-bottom: 50px;
-    padding-top: 50px;
+    padding-bottom: 0px;
+    padding-top: 20px;
     height: 400px;
 
 }
@@ -22,6 +22,19 @@
     display: block;
     margin-left: auto;
     margin-right: auto 
+}
+
+.getstarted-img--btn{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25%;
+    padding-top: 10px;
+}
+
+.getstarted-img--btnLink{
+    height: 100%;
+    padding-top: 8%;
 }
 
 @media (max-width: 992px){
