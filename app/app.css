@@ -1,5 +1,9 @@
 /* app css stylesheet */
 
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
 .app-push--height {
     height: 55px;
 }
