@@ -88,6 +88,10 @@
     height:30px;
 }
 
+.editor-image{
+    border: 0;
+}
+
 .editor-image--center{
     display: inline-block;
 }

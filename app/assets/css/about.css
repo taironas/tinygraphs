@@ -59,6 +59,10 @@
     padding-top: 25px;
 }
 
+.about-img{
+    border: 0;
+}
+
 @media (max-width: 992px){
     .about--squareHeader{
     	height: 150px;
