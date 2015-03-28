@@ -1,0 +1,20 @@
+/* author: https://gist.github.com/thebigreason */
+/* description: Align Facebook Like, Twitter Tweet and Google +1 buttons */
+/* https://gist.github.com/thebigreason/1296097 */
+/* remarks: I made some changes and remove unecessary classes. */
+
+/* This gets Google to fall into place */
+.social {
+	font-size: 1px;
+}
+ 
+/* Set an optional width for your button wrappers */
+.social span {
+	display: inline-block;
+	width: 60px;
+}
+ 
+/* Adjust the widths individually if you like */
+.social .google {
+	width: 75px;
+}
