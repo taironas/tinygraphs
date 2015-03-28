@@ -17,6 +17,7 @@ function EditorCtrl($scope, $location, $routeParams) {
 	    $scope.editorTheme = 'frogideas';
 	    $scope.editorColorNumber = '4';
 	}
+	$scope.absUrl = $location.absUrl();
     };
     init();
 
@@ -28,5 +29,6 @@ function EditorCtrl($scope, $location, $routeParams) {
 		theme: $scope.editorTheme, 
 		numcolors: $scope.editorColorNumber
 	    });
+	$scope.absUrl = $location.absUrl();
     };    
 }
