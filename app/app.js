@@ -11,6 +11,8 @@ angular.module('tinygraphs', [
     'tinygraphs.prettify',
     'tinygraphs.editor'
 ]).
-    config(['$routeProvider', function($routeProvider) {
-	$routeProvider.otherwise({redirectTo: '/'});
-    }]);
+    config(['$locationProvider', '$routeProvider', 
+	    function($locationProvider, $routeProvider) {
+		$routeProvider.otherwise({redirectTo: '/'});
+	    }
+	   ]);
