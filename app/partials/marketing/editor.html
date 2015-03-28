@@ -1,4 +1,4 @@
-<div id="tryitout" class="row features--background">
+<div id="tryitout" class="row features--background" ng-controller="EditorCtrl">
   <div class="col-md-3 editor--squareHeader editor--backgroundGreen">
     <div class="editor-content--positionTop editor-content--White editor-title">
       <h1>TRY IT OUT</h1>
@@ -10,7 +10,7 @@
         <h4>TYPE YOUR NAME</h4>
         <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
-            <input class="form-control" type="text" ng-init="editorName='tinygraphs'" ng-model="editorName">
+            <input class="form-control" type="text" ng-init="editorName='tinygraphs'" ng-model="editorName", ng-change="editorChanged()">
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
             <img class="editor-themePalette--height img-responsive" src="/themes/{{editorTheme}}">
           </div>
           <div class="col-xs-8">
-            <select class="form-control" ng-init="editorTheme='frogideas'" ng-model="editorTheme">
+            <select class="form-control" ng-init="editorTheme='frogideas'" ng-model="editorTheme" ng-change="editorChanged()">
               <option>frogideas</option>
               <option>sugarsweets</option>
               <option>heatwave</option>
@@ -46,7 +46,7 @@
         <h4>SELECT THE SHAPE</h4>
         <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
-            <select class="form-control" ng-init="editorShape='squares'" ng-model="editorShape">
+            <select class="form-control" ng-init="editorShape='squares'" ng-model="editorShape" ng-change="editorChanged()">
               <option>squares</option>
               <option>isogrids</option>
               <option value="spaceinvaders">space invaders</option>
@@ -61,7 +61,7 @@
       <h4>NUMBER OF COLORS</h4>
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
-          <select class="form-control" ng-init="editorColorNumber='4'" ng-model="editorColorNumber">
+          <select class="form-control" ng-init="editorColorNumber='4'" ng-model="editorColorNumber" ng-change="editorChanged()">
             <option>2</option>
             <option>3</option>
             <option>4</option>
