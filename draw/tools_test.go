@@ -82,6 +82,19 @@ func TestPickColor(t *testing.T) {
 		t.Errorf("expected %v and %v to be equal", color1, color2)
 	}
 }
+
+func TestPickIndex(t *testing.T) {
+	h := md5.New()
+	io.WriteString(h, "hello")
+	key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+	i1 := PickIndex(key, 10, 0)
+	i2 := PickIndex(key, 10, 0)
+	if i1 != i2 {
+		t.Errorf("expected %v and %v to be equal", i1, i2)
+	}
+}
+
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
 		if v == e {
