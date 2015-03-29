@@ -50,6 +50,16 @@ func TestRandomIndexFromArray(t *testing.T) {
 	}
 }
 
+func TestColorByPercentage(t *testing.T) {
+
+	if c := ColorByPercentage(colors, 100); !contains(colors, c) {
+		t.Errorf("expected color in array ", colors, "got", c)
+	}
+	if c := ColorByPercentage(colors, 0); c == c1 {
+		t.Errorf("expected color equal than ", c1, "got", c)
+	}
+}
+
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
 		if v == e {
