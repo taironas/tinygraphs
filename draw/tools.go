@@ -68,19 +68,16 @@ func FillFromRGBA(c color.RGBA) string {
 // We pick the ith colors that respects the equality value%numberOfColors == i.
 func PickColor(key string, colors []color.RGBA, index int) color.RGBA {
 	n := len(colors)
-	s := hex.EncodeToString([]byte{key[index]})
-	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
-		for i := 0; i < n; i++ {
-			if int(r)%n == i {
-				return colors[i]
-			}
-		}
-	} else {
-		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
-	}
-	return colors[0]
+	i := PickIndex(key, n, index)
+	return colors[i]
 }
 
+// PickIndex returns an index of given a key string, the size of an array of colors
+//  and an index.
+// key: should be a md5 hash string.
+// index: is an index from the key string. Should be in interval [0, 16]
+// Algorithm: PickIndex converts the key[index] value to a decimal value.
+// We pick the ith index that respects the equality value%sizeOfArray == i.
 func PickIndex(key string, n int, index int) int {
 	s := hex.EncodeToString([]byte{key[index]})
 	if r, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -89,6 +86,8 @@ func PickIndex(key string, n int, index int) int {
 				return i
 			}
 		}
+	} else {
+		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
 	}
 	return 0
 }
