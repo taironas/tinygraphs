@@ -1,7 +1,10 @@
 package draw
 
 import (
+	"crypto/md5"
+	"fmt"
 	"image/color"
+	"io"
 	"testing"
 )
 
@@ -18,18 +21,18 @@ var (
 func TestRandomColorFromArrayWithFreq(t *testing.T) {
 
 	if c := RandomColorFromArrayWithFreq(colors, 0); c == c1 {
-		t.Errorf("expected color different than", c1, "got", c)
+		t.Errorf("expected color different to %v got %v", c1, c)
 	}
 
 	if c := RandomColorFromArrayWithFreq(colors, 1); c != c1 {
-		t.Errorf("expected color", c1, "got", c)
+		t.Errorf("expected color %v got %v", c1, c)
 	}
 }
 
 func TestRandomColorArray(t *testing.T) {
 
 	if c := RandomColorFromArray(colors); !contains(colors, c) {
-		t.Errorf("expected color in array", colors, "got", c)
+		t.Errorf("expected color in array %v got %v", colors, c)
 	}
 }
 
@@ -39,24 +42,24 @@ func TestRandomIndexFromArrayWithFreq(t *testing.T) {
 		t.Errorf("expected index 0 got", i)
 	}
 	if i := RandomIndexFromArrayWithFreq(colors, 0); i < 0 && i >= len(colors) {
-		t.Errorf("expected index between 0 and", len(colors), "got", i)
+		t.Errorf("expected index between 0 and %v got %v", len(colors), i)
 	}
 }
 
 func TestRandomIndexFromArray(t *testing.T) {
 
 	if i := RandomIndexFromArray(colors); i < 0 && i >= len(colors) {
-		t.Errorf("expected index between 0 and", len(colors), "got", i)
+		t.Errorf("expected index between 0 and %v got %v", len(colors), i)
 	}
 }
 
 func TestColorByPercentage(t *testing.T) {
 
 	if c := ColorByPercentage(colors, 100); !contains(colors, c) {
-		t.Errorf("expected color in array ", colors, "got", c)
+		t.Errorf("expected color in array %v got %v ", colors, c)
 	}
 	if c := ColorByPercentage(colors, 0); c == c1 {
-		t.Errorf("expected color equal than ", c1, "got", c)
+		t.Errorf("expected color %v different to %v", c1, c)
 	}
 }
 
@@ -64,10 +67,21 @@ func TestFillFromRGBA(t *testing.T) {
 
 	expected := "fill:rgb(255,245,249)"
 	if s := FillFromRGBA(c1); s != expected {
-		t.Errorf("expected ", expected, "got", s)
+		t.Errorf("expected %v got %v ", expected, s)
 	}
 }
 
+func TestPickColor(t *testing.T) {
+	h := md5.New()
+	io.WriteString(h, "hello")
+	key := fmt.Sprintf("%x", h.Sum(nil)[:])
+
+	color1 := PickColor(key, colors, 0)
+	color2 := PickColor(key, colors, 0)
+	if color1 != color2 {
+		t.Errorf("expected %v and %v to be equal", color1, color2)
+	}
+}
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
 		if v == e {
