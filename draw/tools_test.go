@@ -60,6 +60,14 @@ func TestColorByPercentage(t *testing.T) {
 	}
 }
 
+func TestFillFromRGBA(t *testing.T) {
+
+	expected := "fill:rgb(255,245,249)"
+	if s := FillFromRGBA(c1); s != expected {
+		t.Errorf("expected ", expected, "got", s)
+	}
+}
+
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
 		if v == e {
