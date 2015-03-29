@@ -95,6 +95,13 @@ func TestPickIndex(t *testing.T) {
 	}
 }
 
+func TestRGBToHex(t *testing.T) {
+	expected := "#FFF5F9"
+	if hex := RGBToHex(c1.R, c1.G, c1.B); hex != expected {
+		t.Errorf("expected %v got %v", expected, hex)
+	}
+}
+
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
 		if v == e {
