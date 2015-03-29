@@ -19,8 +19,11 @@ func TestImageWithTemplate(t *testing.T) {
 }
 
 func TestImageJPEG(t *testing.T) {
-}
+	recorder := httptest.NewRecorder()
+	var img image.Image = image.NewRGBA(image.Rect(0, 0, 0, 0))
 
-func TestImageSVG(t *testing.T) {
-
+	ImageJPEG(recorder, &img)
+	if recorder.Code != http.StatusOK {
+		t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
+	}
 }
