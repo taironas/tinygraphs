@@ -41,13 +41,9 @@ func TestRandomColorArray(t *testing.T) {
 
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
-		if equal(v, e) {
+		if v == e {
 			return true
 		}
 	}
 	return false
-}
-
-func equal(a, b color.RGBA) bool {
-	return a.R == b.R && a.G == b.G && a.B == b.B && a.A == b.A
 }
