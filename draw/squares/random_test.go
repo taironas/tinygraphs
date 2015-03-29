@@ -1,10 +1,16 @@
 package squares
 
 import (
+	"image"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
+
+func TestRandomGrid(t *testing.T) {
+	img := image.NewRGBA(image.Rect(0, 0, 10, 10))
+	RandomGrid(img, colorTheme, 10, float64(0.33))
+}
 
 func TestRandomGridSVG(t *testing.T) {
 	rec := httptest.NewRecorder()
@@ -12,6 +18,12 @@ func TestRandomGridSVG(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Errorf("returned %v. Expected %v.", rec.Code, http.StatusOK)
 	}
+
+}
+
+func TestRandomGradientGrid(t *testing.T) {
+	img := image.NewRGBA(image.Rect(0, 0, 10, 10))
+	RandomGradientGrid(img, colorTheme, 10)
 
 }
 
