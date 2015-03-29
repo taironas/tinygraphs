@@ -60,7 +60,7 @@ func GColors(r *http.Request) (gColors []color.RGBA) {
 
 	if newColors, err := UserColors(r); err == nil {
 		if len(newColors) > 2 {
-			gColors = newColors[1:3]
+			gColors = newColors[1:]
 		} else {
 			gColors = newColors
 		}
