@@ -23,3 +23,31 @@ func TestRandomColorFromArrayWithFreq(t *testing.T) {
 		t.Errorf("expected color", c1, "got", c)
 	}
 }
+
+func TestRandomColorArray(t *testing.T) {
+
+	c1 := color.RGBA{255, 245, 249, 255}
+	colors := []color.RGBA{
+		c1,
+		color.RGBA{232, 70, 134, 255},
+		color.RGBA{232, 70, 186, 255},
+		color.RGBA{232, 70, 81, 255},
+	}
+
+	if c := RandomColorFromArray(colors); !contains(colors, c) {
+		t.Errorf("expected color in array", colors, "got", c)
+	}
+}
+
+func contains(a []color.RGBA, e color.RGBA) bool {
+	for _, v := range a {
+		if equal(v, e) {
+			return true
+		}
+	}
+	return false
+}
+
+func equal(a, b color.RGBA) bool {
+	return a.R == b.R && a.G == b.G && a.B == b.B && a.A == b.A
+}
