@@ -43,6 +43,13 @@ func TestRandomIndexFromArrayWithFreq(t *testing.T) {
 	}
 }
 
+func TestRandomIndexFromArray(t *testing.T) {
+
+	if i := RandomIndexFromArray(colors); i < 0 && i >= len(colors) {
+		t.Errorf("expected index between 0 and", len(colors), "got", i)
+	}
+}
+
 func contains(a []color.RGBA, e color.RGBA) bool {
 	for _, v := range a {
 		if v == e {
