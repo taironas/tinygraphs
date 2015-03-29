@@ -15,7 +15,7 @@
 }
 
 .banner-image{
-    background: url(/labs/isogrids/banner/gradient?theme=frogideas&p=0.33&xt=11&gx2=40&gy2=50);
+    background: url(/labs/isogrids/banner/gradient?p=0.2&xt=11&gx2=80&gy2=60&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
