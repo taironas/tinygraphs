@@ -75,5 +75,30 @@ func TestLegsFromKey(t *testing.T) {
 	if got != expected {
 		t.Errorf("expected %d got %d", expected, got)
 	}
+}
 
+func TestArmsFromKey(t *testing.T) {
+	got := ArmsFromKey('c')
+	expected := 2
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = ArmsFromKey('a')
+	expected = 2
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
+
+func TestAnthenasFromKey(t *testing.T) {
+	got := AnthenasFromKey('d')
+	expected := 0
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = AnthenasFromKey('a')
+	expected = 1
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
 }
