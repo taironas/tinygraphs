@@ -141,3 +141,55 @@ func TestEyesFromKey(t *testing.T) {
 		t.Errorf("expected %d got %d", expected, got)
 	}
 }
+
+func TestHasFootFromKey(t *testing.T) {
+	got := HasFootFromKey('a')
+	expected := false
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = HasFootFromKey('b')
+	expected = true
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
+
+func TestHasArmsUpFromKey(t *testing.T) {
+	got := HasArmsUpFromKey('a')
+	expected := false
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = HasArmsUpFromKey('b')
+	expected = true
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
+
+func TestArmSizeFromKey(t *testing.T) {
+	got := ArmSizeFromKey('a')
+	expected := 3
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = ArmSizeFromKey('b')
+	expected = 2
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
+
+func TestAnthenaSizeFromKey(t *testing.T) {
+	got := AnthenaSizeFromKey('a')
+	expected := 2
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = AnthenaSizeFromKey('b')
+	expected = 1
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
