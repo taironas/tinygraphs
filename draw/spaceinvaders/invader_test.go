@@ -128,3 +128,16 @@ func TestHeightFromKey(t *testing.T) {
 		t.Errorf("expected %d got %d", expected, got)
 	}
 }
+
+func TestEyesFromKey(t *testing.T) {
+	got := EyesFromKey('b')
+	expected := 3
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = EyesFromKey('a')
+	expected = 2
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
