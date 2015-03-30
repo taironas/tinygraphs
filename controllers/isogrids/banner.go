@@ -19,7 +19,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 
 	xt := extract.XTriangles(r)
 	write.ImageSVG(w)
-	isogrids.Random(w, "", colors, width, height, xt, prob)
+	isogrids.Random(w, colors, width, height, xt, prob)
 }
 
 // BannerRandomGradinet handler for /isogrids/banner/random/gradient.
@@ -32,5 +32,5 @@ func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 
 	xt := extract.XTriangles(r)
 	write.ImageSVG(w)
-	isogrids.RandomGradient(w, "", colors, width, height, xt)
+	isogrids.RandomGradient(w, colors, width, height, xt)
 }

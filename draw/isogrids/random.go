@@ -8,7 +8,7 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, height, lines int, prob float64) {
+func Random(w http.ResponseWriter, colors []color.RGBA, width, height, lines int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 
@@ -50,7 +50,7 @@ func Random(w http.ResponseWriter, key string, colors []color.RGBA, width, heigh
 }
 
 // Random creates an isogrids svg image with half diagonals.
-func RandomGradient(w http.ResponseWriter, key string, colors []color.RGBA, width, height, lines int) {
+func RandomGradient(w http.ResponseWriter, colors []color.RGBA, width, height, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 
@@ -94,7 +94,7 @@ func RandomGradient(w http.ResponseWriter, key string, colors []color.RGBA, widt
 }
 
 // RandomMirror builds an image with 10x10 grids of half diagonals
-func RandomMirror(w http.ResponseWriter, key string, colors []color.RGBA, size int, prob float64) {
+func RandomMirror(w http.ResponseWriter, colors []color.RGBA, size int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

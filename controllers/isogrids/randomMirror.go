@@ -14,5 +14,5 @@ func RandomMirror(w http.ResponseWriter, r *http.Request) {
 	prob := extract.Probability(r, 1/float64(len(colors)))
 
 	write.ImageSVG(w)
-	isogrids.RandomMirror(w, "", colors, size, prob)
+	isogrids.RandomMirror(w, colors, size, prob)
 }

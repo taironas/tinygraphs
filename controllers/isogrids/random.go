@@ -18,5 +18,5 @@ func Random(w http.ResponseWriter, r *http.Request) {
 	size := extract.Size(r)
 	lines := extract.Lines(r)
 	write.ImageSVG(w)
-	isogrids.Random(w, "", colors, size, size, lines, prob)
+	isogrids.Random(w, colors, size, size, lines, prob)
 }
