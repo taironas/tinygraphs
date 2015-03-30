@@ -63,3 +63,17 @@ func TestnewInvader(t *testing.T) {
 		}
 	}
 }
+
+func TestLegsFromKey(t *testing.T) {
+	got := LegsFromKey('c')
+	expected := 2
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = LegsFromKey('a')
+	expected = 3
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+
+}
