@@ -61,3 +61,20 @@ func Testleft2ndTriangle(t *testing.T) {
 		}
 	}
 }
+
+func TestRight2ndTriangle(t *testing.T) {
+
+	x1, y1, x2, y2, x3, y3 := right2ndTriangle(0, 0, 2, 4)
+	got := []int{x1, y1, x2, y2, x3, y3}
+	expected := []int{0, 1, 4, 2, 0, 3}
+
+	if len(got) != len(expected) {
+		t.Errorf("lengths of arrays should be equal")
+	}
+
+	for k, _ := range got {
+		if got[k] != expected[k] {
+			t.Errorf("expected %d got %d on element #%d", expected[k], got[k], k)
+		}
+	}
+}
