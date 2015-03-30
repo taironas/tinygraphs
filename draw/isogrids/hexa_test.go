@@ -27,4 +27,15 @@ func TestHexa(t *testing.T) {
 		t.Errorf("returned %v. Expected %v.", rec.Code, http.StatusOK)
 	}
 
+	rec = httptest.NewRecorder()
+	Hexa(rec, key, colorTheme, 600, 60)
+	if rec.Code != http.StatusOK {
+		t.Errorf("returned %v. Expected %v.", rec.Code, http.StatusOK)
+	}
+
+	rec = httptest.NewRecorder()
+	Hexa(rec, key, colorTheme, 400, 40)
+	if rec.Code != http.StatusOK {
+		t.Errorf("returned %v. Expected %v.", rec.Code, http.StatusOK)
+	}
 }
