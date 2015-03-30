@@ -102,3 +102,29 @@ func TestAnthenasFromKey(t *testing.T) {
 		t.Errorf("expected %d got %d", expected, got)
 	}
 }
+
+func TestLengthFromKey(t *testing.T) {
+	got := LengthFromKey('h')
+	expected := 5
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = LengthFromKey('a')
+	expected = 5
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
+
+func TestHeightFromKey(t *testing.T) {
+	got := HeightFromKey('j')
+	expected := 6
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+	got = HeightFromKey('a')
+	expected = 7
+	if got != expected {
+		t.Errorf("expected %d got %d", expected, got)
+	}
+}
