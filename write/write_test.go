@@ -8,7 +8,7 @@ import (
 )
 
 func TestImageWithTemplate(t *testing.T) {
-
+	t.Parallel()
 	recorder := httptest.NewRecorder()
 	var img image.Image = image.NewRGBA(image.Rect(0, 0, 0, 0))
 
@@ -19,6 +19,7 @@ func TestImageWithTemplate(t *testing.T) {
 }
 
 func TestImageJPEG(t *testing.T) {
+	t.Parallel()
 	recorder := httptest.NewRecorder()
 	var img image.Image = image.NewRGBA(image.Rect(0, 0, 0, 0))
 

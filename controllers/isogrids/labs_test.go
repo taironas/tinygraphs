@@ -9,7 +9,7 @@ import (
 )
 
 func TestLabs(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 
 	type Labs struct {

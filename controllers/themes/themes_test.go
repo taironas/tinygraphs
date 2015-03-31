@@ -9,7 +9,7 @@ import (
 )
 
 func TestTheme(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/themes", Theme)
 	r.HandleFunc("/themes/:key", Theme)

@@ -3,7 +3,7 @@ package spaceinvaders
 import "testing"
 
 func TestnewInvader(t *testing.T) {
-
+	t.Parallel()
 	invs := []invader{newInvader(key), newInvader(key)}
 
 	for _, inv := range invs {
@@ -50,6 +50,7 @@ func TestnewInvader(t *testing.T) {
 }
 
 func TestLegsFromKey(t *testing.T) {
+	t.Parallel()
 	got := LegsFromKey('c')
 	expected := 2
 	if got != expected {
@@ -63,6 +64,7 @@ func TestLegsFromKey(t *testing.T) {
 }
 
 func TestArmsFromKey(t *testing.T) {
+	t.Parallel()
 	got := ArmsFromKey('c')
 	expected := 2
 	if got != expected {
@@ -76,6 +78,7 @@ func TestArmsFromKey(t *testing.T) {
 }
 
 func TestAnthenasFromKey(t *testing.T) {
+	t.Parallel()
 	got := AnthenasFromKey('d')
 	expected := 0
 	if got != expected {
@@ -89,6 +92,7 @@ func TestAnthenasFromKey(t *testing.T) {
 }
 
 func TestLengthFromKey(t *testing.T) {
+	t.Parallel()
 	got := LengthFromKey('h')
 	expected := 5
 	if got != expected {
@@ -102,6 +106,7 @@ func TestLengthFromKey(t *testing.T) {
 }
 
 func TestHeightFromKey(t *testing.T) {
+	t.Parallel()
 	got := HeightFromKey('j')
 	expected := 6
 	if got != expected {
@@ -115,6 +120,7 @@ func TestHeightFromKey(t *testing.T) {
 }
 
 func TestEyesFromKey(t *testing.T) {
+	t.Parallel()
 	got := EyesFromKey('b')
 	expected := 3
 	if got != expected {
@@ -128,6 +134,7 @@ func TestEyesFromKey(t *testing.T) {
 }
 
 func TestHasFootFromKey(t *testing.T) {
+	t.Parallel()
 	got := HasFootFromKey('a')
 	expected := false
 	if got != expected {
@@ -141,6 +148,7 @@ func TestHasFootFromKey(t *testing.T) {
 }
 
 func TestHasArmsUpFromKey(t *testing.T) {
+	t.Parallel()
 	got := HasArmsUpFromKey('a')
 	expected := false
 	if got != expected {
@@ -154,6 +162,7 @@ func TestHasArmsUpFromKey(t *testing.T) {
 }
 
 func TestArmSizeFromKey(t *testing.T) {
+	t.Parallel()
 	got := ArmSizeFromKey('a')
 	expected := 3
 	if got != expected {
@@ -167,6 +176,7 @@ func TestArmSizeFromKey(t *testing.T) {
 }
 
 func TestAnthenaSizeFromKey(t *testing.T) {
+	t.Parallel()
 	got := AnthenaSizeFromKey('a')
 	expected := 2
 	if got != expected {

@@ -3,7 +3,7 @@ package isogrids
 import "testing"
 
 func TestDistanceTo3rdPoint(t *testing.T) {
-
+	t.Parallel()
 	got := distanceTo3rdPoint(4)
 	expected := 4
 	if got != expected {
@@ -12,7 +12,7 @@ func TestDistanceTo3rdPoint(t *testing.T) {
 }
 
 func TestRight1stTriangle(t *testing.T) {
-
+	t.Parallel()
 	x1, y1, x2, y2, x3, y3 := right1stTriangle(0, 0, 2, 4)
 	got := []int{x1, y1, x2, y2, x3, y3}
 	expected := []int{0, 0, 4, 1, 0, 2}
@@ -29,7 +29,7 @@ func TestRight1stTriangle(t *testing.T) {
 }
 
 func TestLeft1stTriangle(t *testing.T) {
-
+	t.Parallel()
 	x1, y1, x2, y2, x3, y3 := left1stTriangle(0, 0, 2, 4)
 	got := []int{x1, y1, x2, y2, x3, y3}
 	expected := []int{4, 0, 0, 1, 4, 2}
@@ -46,7 +46,7 @@ func TestLeft1stTriangle(t *testing.T) {
 }
 
 func Testleft2ndTriangle(t *testing.T) {
-
+	t.Parallel()
 	x1, y1, x2, y2, x3, y3 := left2ndTriangle(0, 0, 2, 4)
 	got := []int{x1, y1, x2, y2, x3, y3}
 	expected := []int{4, 1, 0, 2, 4, 3}
@@ -63,7 +63,7 @@ func Testleft2ndTriangle(t *testing.T) {
 }
 
 func TestRight2ndTriangle(t *testing.T) {
-
+	t.Parallel()
 	x1, y1, x2, y2, x3, y3 := right2ndTriangle(0, 0, 2, 4)
 	got := []int{x1, y1, x2, y2, x3, y3}
 	expected := []int{0, 1, 4, 2, 0, 3}

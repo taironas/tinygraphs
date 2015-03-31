@@ -7,7 +7,7 @@ import (
 )
 
 func TestRandom(t *testing.T) {
-
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	Random(rec, colorTheme, 10, 10, 10, float64(50))
 	if rec.Code != http.StatusOK {
@@ -16,7 +16,7 @@ func TestRandom(t *testing.T) {
 }
 
 func TestRandomGradient(t *testing.T) {
-
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	RandomGradient(rec, colorTheme, 10, 10, 10)
 	if rec.Code != http.StatusOK {
@@ -25,7 +25,7 @@ func TestRandomGradient(t *testing.T) {
 }
 
 func TestRandomMirror(t *testing.T) {
-
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	RandomMirror(rec, colorTheme, 10, float64(50))
 	if rec.Code != http.StatusOK {

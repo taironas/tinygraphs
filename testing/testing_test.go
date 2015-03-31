@@ -9,7 +9,7 @@ import (
 )
 
 func TestGenerateHandlerFunc(t *testing.T) {
-
+	t.Parallel()
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "hello, world")
 	}

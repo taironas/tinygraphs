@@ -9,7 +9,7 @@ import (
 )
 
 func TestSpaceInvaders(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/spaceinvaders/:key", SpaceInvaders)
 

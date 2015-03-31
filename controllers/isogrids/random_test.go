@@ -9,7 +9,7 @@ import (
 )
 
 func TestRandom(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/isogrids/random", Random)
 

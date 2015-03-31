@@ -10,6 +10,7 @@ import (
 )
 
 func TestSize(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -34,6 +35,7 @@ func TestSize(t *testing.T) {
 }
 
 func TestFormat(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -57,6 +59,7 @@ func TestFormat(t *testing.T) {
 }
 
 func TestTheme(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -79,6 +82,7 @@ func TestTheme(t *testing.T) {
 }
 
 func TestHexalines(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title     string
 		url       string
@@ -101,6 +105,7 @@ func TestHexalines(t *testing.T) {
 }
 
 func TestLines(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -124,6 +129,7 @@ func TestLines(t *testing.T) {
 }
 
 func TestWidth(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -146,6 +152,7 @@ func TestWidth(t *testing.T) {
 }
 
 func TestWidthOrDefault(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -168,6 +175,7 @@ func TestWidthOrDefault(t *testing.T) {
 }
 
 func TestHeight(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title  string
 		url    string
@@ -190,6 +198,7 @@ func TestHeight(t *testing.T) {
 }
 
 func TestHeightOrDefault(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title  string
 		url    string
@@ -212,6 +221,7 @@ func TestHeightOrDefault(t *testing.T) {
 }
 
 func TestXSquares(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -234,6 +244,7 @@ func TestXSquares(t *testing.T) {
 }
 
 func TestXTriangles(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -256,6 +267,7 @@ func TestXTriangles(t *testing.T) {
 }
 
 func TestGX1OrDefault(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -278,6 +290,7 @@ func TestGX1OrDefault(t *testing.T) {
 }
 
 func TestGX2OrDefault(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -300,6 +313,7 @@ func TestGX2OrDefault(t *testing.T) {
 }
 
 func TestGY1OrDefault(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -322,6 +336,7 @@ func TestGY1OrDefault(t *testing.T) {
 }
 
 func TestGY2OrDefault(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string
@@ -344,6 +359,7 @@ func TestGY2OrDefault(t *testing.T) {
 }
 
 func TestGradientVector(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title          string
 		url            string
@@ -381,6 +397,7 @@ func TestGradientVector(t *testing.T) {
 }
 
 func TestProbability(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title string
 		url   string

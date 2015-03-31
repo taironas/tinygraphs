@@ -11,7 +11,7 @@ import (
 )
 
 func TestSquares(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/squares/:key", Square)
 

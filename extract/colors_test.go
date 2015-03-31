@@ -10,6 +10,7 @@ import (
 )
 
 func TestColors(t *testing.T) {
+	t.Parallel()
 	colorMap := tgColors.MapOfColorThemes()
 
 	tests := []struct {
@@ -69,6 +70,7 @@ func TestColors(t *testing.T) {
 }
 
 func TestUserColors(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		title  string
 		url    string
@@ -114,6 +116,7 @@ func TestUserColors(t *testing.T) {
 }
 
 func TestGColors(t *testing.T) {
+	t.Parallel()
 	colorMap := tgColors.MapOfColorThemes()
 
 	tests := []struct {
@@ -172,6 +175,7 @@ func TestGColors(t *testing.T) {
 }
 
 func TestBackground(t *testing.T) {
+	t.Parallel()
 
 	tests := []struct {
 		title string
@@ -207,6 +211,7 @@ func TestBackground(t *testing.T) {
 }
 
 func TestForeground(t *testing.T) {
+	t.Parallel()
 
 	tests := []struct {
 		title string
@@ -242,6 +247,7 @@ func TestForeground(t *testing.T) {
 }
 
 func TestExtraColors(t *testing.T) {
+	t.Parallel()
 
 	tests := []struct {
 		title string

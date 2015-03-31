@@ -19,7 +19,7 @@ var (
 )
 
 func TestRandomColorFromArrayWithFreq(t *testing.T) {
-
+	t.Parallel()
 	if c := RandomColorFromArrayWithFreq(colors, 0); c == c1 {
 		t.Errorf("expected color different to %v got %v", c1, c)
 	}
@@ -30,14 +30,14 @@ func TestRandomColorFromArrayWithFreq(t *testing.T) {
 }
 
 func TestRandomColorArray(t *testing.T) {
-
+	t.Parallel()
 	if c := RandomColorFromArray(colors); !contains(colors, c) {
 		t.Errorf("expected color in array %v got %v", colors, c)
 	}
 }
 
 func TestRandomIndexFromArrayWithFreq(t *testing.T) {
-
+	t.Parallel()
 	if i := RandomIndexFromArrayWithFreq(colors, 1); i != 0 {
 		t.Errorf("expected index 0 got", i)
 	}
@@ -47,14 +47,14 @@ func TestRandomIndexFromArrayWithFreq(t *testing.T) {
 }
 
 func TestRandomIndexFromArray(t *testing.T) {
-
+	t.Parallel()
 	if i := RandomIndexFromArray(colors); i < 0 && i >= len(colors) {
 		t.Errorf("expected index between 0 and %v got %v", len(colors), i)
 	}
 }
 
 func TestColorByPercentage(t *testing.T) {
-
+	t.Parallel()
 	if c := ColorByPercentage(colors, 100); !contains(colors, c) {
 		t.Errorf("expected color in array %v got %v ", colors, c)
 	}
@@ -64,7 +64,7 @@ func TestColorByPercentage(t *testing.T) {
 }
 
 func TestFillFromRGBA(t *testing.T) {
-
+	t.Parallel()
 	expected := "fill:rgb(255,245,249)"
 	if s := FillFromRGBA(c1); s != expected {
 		t.Errorf("expected %v got %v ", expected, s)
@@ -72,6 +72,7 @@ func TestFillFromRGBA(t *testing.T) {
 }
 
 func TestPickColor(t *testing.T) {
+	t.Parallel()
 	h := md5.New()
 	io.WriteString(h, "hello")
 	key := fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -84,6 +85,7 @@ func TestPickColor(t *testing.T) {
 }
 
 func TestPickIndex(t *testing.T) {
+	t.Parallel()
 	h := md5.New()
 	io.WriteString(h, "hello")
 	key := fmt.Sprintf("%x", h.Sum(nil)[:])
@@ -96,6 +98,7 @@ func TestPickIndex(t *testing.T) {
 }
 
 func TestRGBToHex(t *testing.T) {
+	t.Parallel()
 	expected := "#FFF5F9"
 	if hex := RGBToHex(c1.R, c1.G, c1.B); hex != expected {
 		t.Errorf("expected %v got %v", expected, hex)

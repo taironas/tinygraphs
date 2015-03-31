@@ -3,6 +3,7 @@ package isogrids
 import "testing"
 
 func TestmirrorCoordinates(t *testing.T) {
+	t.Parallel()
 	xs := []int{1, 2, 3}
 	lines := 10
 	fringeSize := 2

@@ -7,7 +7,7 @@ import (
 )
 
 func TestIsogrids(t *testing.T) {
-
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	Isogrids(rec, key, colorTheme, 10, 10)
 	if rec.Code != http.StatusOK {

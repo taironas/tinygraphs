@@ -19,7 +19,7 @@ var (
 )
 
 func TestRandomGradientColorSVG(t *testing.T) {
-
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	gv := tgColors.GradientVector{0, 0, 1, 1}
 	RandomGradientColorSVG(rec, colorTheme, colorTheme[1:], gv, 10, 10, 10, float64(50))

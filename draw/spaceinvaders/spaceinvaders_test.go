@@ -47,7 +47,7 @@ func init() {
 }
 
 func TestSpaceInvaders(t *testing.T) {
-
+	t.Parallel()
 	for _, k := range keys {
 		rec := httptest.NewRecorder()
 		SpaceInvaders(rec, k, colorTheme, 100)

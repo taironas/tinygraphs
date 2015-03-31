@@ -9,7 +9,7 @@ import (
 )
 
 func TestHexa(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/isogrids/labs/hexa", Hexa)
 	r.HandleFunc("/isogrids/labs/hexa/:key", Hexa)

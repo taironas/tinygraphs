@@ -21,11 +21,13 @@ func init() {
 }
 
 func TestGrid(t *testing.T) {
+	t.Parallel()
 	img := image.NewRGBA(image.Rect(0, 0, 10, 10))
 	Grid(img, colorTheme[0], colorTheme[1])
 }
 
 func TestGridSVG(t *testing.T) {
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	GridSVG(rec, colorTheme[0], colorTheme[1], 10)
 	if rec.Code != http.StatusOK {
@@ -34,11 +36,13 @@ func TestGridSVG(t *testing.T) {
 }
 
 func TestSquares(t *testing.T) {
+	t.Parallel()
 	img := image.NewRGBA(image.Rect(0, 0, 10, 10))
 	Squares(img, key, colorTheme)
 }
 
 func TestSquaresSVG(t *testing.T) {
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	SquaresSVG(rec, key, colorTheme, 10)
 	if rec.Code != http.StatusOK {

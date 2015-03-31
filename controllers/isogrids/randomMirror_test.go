@@ -9,7 +9,7 @@ import (
 )
 
 func TestRandomMirror(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/isogrids/random-mirror", RandomMirror)
 

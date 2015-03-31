@@ -9,7 +9,7 @@ import (
 )
 
 func TestBannerRandom(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/isogrids/banner/random", BannerRandom)
 
@@ -30,7 +30,7 @@ func TestBannerRandom(t *testing.T) {
 }
 
 func TestBannerRandomGradient(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 	r.HandleFunc("/isogrids/banner/random/gradient", BannerRandomGradient)
 

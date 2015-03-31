@@ -20,7 +20,7 @@ func init() {
 }
 
 func TestHexa(t *testing.T) {
-
+	t.Parallel()
 	rec := httptest.NewRecorder()
 	Hexa(rec, key, colorTheme, 10, 10)
 	if rec.Code != http.StatusOK {

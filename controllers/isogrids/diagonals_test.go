@@ -9,7 +9,7 @@ import (
 )
 
 func TestDiagonals(t *testing.T) {
-
+	t.Parallel()
 	r := new(route.Router)
 
 	type Diagonal struct {
