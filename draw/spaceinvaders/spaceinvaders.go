@@ -404,27 +404,3 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 	}
 	canvas.End()
 }
-
-func fillWhite() string {
-	return "stroke:black;stroke-width:2;fill:rgb(255,255,255)"
-}
-
-func fillBlack() string {
-	return "stroke:black;stroke-width:2;fill:rgb(0,0,0)"
-}
-
-func fillGrey() string {
-	return "stroke:black;stroke-width:2;fill:rgb(160,160,160)"
-}
-
-func fillGreen() string {
-	return "stroke:black;stroke-width:2;fill:rgb(0,255,0)"
-}
-
-func fillRed() string {
-	return "stroke:black;stroke-width:2;fill:rgb(255,0,0)"
-}
-
-func fillBlue() string {
-	return "stroke:black;stroke-width:2;fill:rgb(0,0,255)"
-}

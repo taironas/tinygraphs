@@ -1,21 +1,6 @@
 package spaceinvaders
 
-import (
-	"crypto/md5"
-	"fmt"
-	"io"
-	"testing"
-)
-
-var (
-	key string
-)
-
-func init() {
-	h := md5.New()
-	io.WriteString(h, "hello")
-	key = fmt.Sprintf("%x", h.Sum(nil)[:])
-}
+import "testing"
 
 func TestnewInvader(t *testing.T) {
 
