@@ -125,6 +125,22 @@ func hasArm(invader invader, squares, xQ int) (arm bool) {
 	return
 }
 
+func hasArmExtension(invader invader, squares, xQ, yQ int) (armExtension bool) {
+	if invader.arms <= 0 {
+		return
+	}
+
+	leftOver := squares - invader.length
+	half := leftOver / 2
+
+	if yQ == 4 || yQ == 6 {
+		if xQ == half-1 || xQ == squares-half {
+			armExtension = true
+		}
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -188,18 +204,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == 4 || yQ == 6 { // arm extension
-				leftOver := squares - invader.length
-				if invader.arms > 0 {
-					if yQ == 4 && invader.armsUp && invader.armSize == 3 {
-						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					}
-					if yQ == 6 && !invader.armsUp && invader.armSize == 3 {
-						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					}
+				if hasArmExtension(invader, squares, xQ, yQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
