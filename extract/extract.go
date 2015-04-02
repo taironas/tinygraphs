@@ -229,7 +229,7 @@ func GradientVector(r *http.Request, gx1, gy1, gx2, gy2 uint8) colors.GradientVe
 	y1 := GY1OrDefault(r, gy1)
 	x2 := GX2OrDefault(r, gx2)
 	y2 := GY2OrDefault(r, gy2)
-	return colors.GradientVector{x1, y1, x2, y2}
+	return colors.GradientVector{X1: x1, Y1: y1, X2: x2, Y2: y2}
 }
 
 func Probability(r *http.Request, dp float64) float64 {

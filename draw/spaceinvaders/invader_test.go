@@ -138,12 +138,12 @@ func TestHasFootFromKey(t *testing.T) {
 	got := HasFootFromKey('a')
 	expected := false
 	if got != expected {
-		t.Errorf("expected %d got %d", expected, got)
+		t.Errorf("expected %v got %v", expected, got)
 	}
 	got = HasFootFromKey('b')
 	expected = true
 	if got != expected {
-		t.Errorf("expected %d got %d", expected, got)
+		t.Errorf("expected %v got %v", expected, got)
 	}
 }
 
@@ -152,12 +152,12 @@ func TestHasArmsUpFromKey(t *testing.T) {
 	got := HasArmsUpFromKey('a')
 	expected := false
 	if got != expected {
-		t.Errorf("expected %d got %d", expected, got)
+		t.Errorf("expected %v got %v", expected, got)
 	}
 	got = HasArmsUpFromKey('b')
 	expected = true
 	if got != expected {
-		t.Errorf("expected %d got %d", expected, got)
+		t.Errorf("expected %v got %v", expected, got)
 	}
 }
 

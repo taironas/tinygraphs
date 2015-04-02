@@ -4,7 +4,7 @@ import (
 	"image/color"
 	"net/http"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/colors"
 	"github.com/taironas/tinygraphs/draw"
 )
@@ -19,7 +19,11 @@ func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv
 
 	step := uint8(100 / len(gColors))
 	for i, c := range gColors {
-		gradientColors[i] = svg.Offcolor{percentage, draw.RGBToHex(c.R, c.G, c.B), 1}
+		gradientColors[i] = svg.Offcolor{
+			Offset:  percentage,
+			Color:   draw.RGBToHex(c.R, c.G, c.B),
+			Opacity: 1,
+		}
 		percentage += step
 	}
 

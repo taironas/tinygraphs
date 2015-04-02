@@ -21,7 +21,7 @@ var (
 func TestRandomGradientColor(t *testing.T) {
 	t.Parallel()
 	rec := httptest.NewRecorder()
-	gv := tgColors.GradientVector{0, 0, 1, 1}
+	gv := tgColors.GradientVector{X1: 0, Y1: 0, X2: 1, Y2: 1}
 	RandomGradientColor(rec, colorTheme, colorTheme[1:], gv, 10, 10, 10, float64(50))
 	if rec.Code != http.StatusOK {
 		t.Errorf("returned %v. Expected %v.", rec.Code, http.StatusOK)

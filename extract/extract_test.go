@@ -76,7 +76,7 @@ func TestTheme(t *testing.T) {
 		r.URL, _ = url.Parse(test.url)
 		th := Theme(r)
 		if th != test.theme {
-			t.Errorf("expected %d got %d", test.theme, th)
+			t.Errorf("expected %v got %v", test.theme, th)
 		}
 	}
 }
@@ -368,17 +368,32 @@ func TestGradientVector(t *testing.T) {
 		{
 			"test wrong input",
 			"http://www.tg.c?gx1=h&gy1=h&gx2=h&gy2=h",
-			colors.GradientVector{uint8(1), uint8(1), uint8(1), uint8(1)},
+			colors.GradientVector{
+				X1: uint8(1),
+				Y1: uint8(1),
+				X2: uint8(1),
+				Y2: uint8(1),
+			},
 		},
 		{
 			"test no input",
 			"http://www.tg.c",
-			colors.GradientVector{uint8(1), uint8(1), uint8(1), uint8(1)},
+			colors.GradientVector{
+				X1: uint8(1),
+				Y1: uint8(1),
+				X2: uint8(1),
+				Y2: uint8(1),
+			},
 		},
 		{
 			"test good input",
 			"http://www.tg.c?gx1=1&gy1=2&gx2=3&gy2=4",
-			colors.GradientVector{uint8(1), uint8(2), uint8(3), uint8(4)},
+			colors.GradientVector{
+				X1: uint8(1),
+				Y1: uint8(2),
+				X2: uint8(3),
+				Y2: uint8(4),
+			},
 		},
 	}
 
@@ -416,7 +431,7 @@ func TestProbability(t *testing.T) {
 		r.URL, _ = url.Parse(test.url)
 		p := Probability(r, float64(1))
 		if p != test.p {
-			t.Errorf("expected %d got %d", test.p, p)
+			t.Errorf("expected %f got %f", test.p, p)
 		}
 	}
 }

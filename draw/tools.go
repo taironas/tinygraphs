@@ -87,7 +87,7 @@ func PickIndex(key string, n int, index int) int {
 			}
 		}
 	} else {
-		log.Println("Error calling ParseInt(%v, 16, 0)", s, err)
+		log.Printf("Error calling ParseInt(%v, 16, 0): %v\n", s, err)
 	}
 	return 0
 }

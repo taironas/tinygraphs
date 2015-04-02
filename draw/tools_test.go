@@ -39,17 +39,17 @@ func TestRandomColorArray(t *testing.T) {
 func TestRandomIndexFromArrayWithFreq(t *testing.T) {
 	t.Parallel()
 	if i := RandomIndexFromArrayWithFreq(colors, 1); i != 0 {
-		t.Errorf("expected index 0 got", i)
+		t.Errorf("expected index %d got %d", 0, i)
 	}
 	if i := RandomIndexFromArrayWithFreq(colors, 0); i < 0 && i >= len(colors) {
-		t.Errorf("expected index between 0 and %v got %v", len(colors), i)
+		t.Errorf("expected index between %d and %d got %d", 0, len(colors), i)
 	}
 }
 
 func TestRandomIndexFromArray(t *testing.T) {
 	t.Parallel()
 	if i := RandomIndexFromArray(colors); i < 0 && i >= len(colors) {
-		t.Errorf("expected index between 0 and %v got %v", len(colors), i)
+		t.Errorf("expected index between %d and %d got %d", 0, len(colors), i)
 	}
 }
 

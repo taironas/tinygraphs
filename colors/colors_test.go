@@ -10,7 +10,7 @@ func TestMapOfColorsThemes(t *testing.T) {
 		t.Errorf("base color expected")
 	} else {
 		if len(base) != 2 {
-			t.Errorf("expects", 2, "got", len(base))
+			t.Errorf("expects %d, got %d", 2, len(base))
 		}
 	}
 
@@ -29,10 +29,10 @@ func TestMapOfColorsThemes(t *testing.T) {
 
 	for _, v := range themes {
 		if got, ok := m[v]; !ok {
-			t.Errorf("color", v, "expected")
+			t.Errorf("color %v expected", v)
 		} else {
 			if len(got) != 4 {
-				t.Errorf("expects", 4, "got", len(got))
+				t.Errorf("expects %d got %d", 4, len(got))
 			}
 		}
 	}
