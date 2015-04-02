@@ -20,6 +20,23 @@ func selectColor(colorMap map[int]color.RGBA, key string, colors []color.RGBA, m
 	return
 }
 
+func hasEye(invader invader, xQ int) (eye bool) {
+	if invader.eyes == 2 {
+		if xQ > 4 && xQ < 6 {
+			eye = true
+		}
+	} else if invader.eyes == 3 {
+		if xQ > 3 && xQ < 7 {
+			eye = true
+		}
+	} else if invader.eyes == 4 {
+		if xQ > 3 && xQ < 8 {
+			eye = true
+		}
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -43,18 +60,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			highBodyIndex := 2
 			if invader.height > 7 {
 				if yQ == highBodyIndex {
-					if invader.eyes == 2 {
-						if xQ > 4 && xQ < 6 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else if invader.eyes == 3 {
-						if xQ > 3 && xQ < 7 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else if invader.eyes == 4 {
-						if xQ > 3 && xQ < 8 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
+					if hasEye(invader, xQ) {
+						fill = draw.FillFromRGBA(colorMap[xQ])
 					}
 					if invader.eyes > 1 {
 						highBodyIndex--
