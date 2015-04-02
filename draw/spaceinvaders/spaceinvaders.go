@@ -79,6 +79,43 @@ func hasEye3(invader invader, xQ int) (eye bool) {
 	return
 }
 
+func hasEye4(invader invader, colorMap map[int]color.RGBA, colors []color.RGBA, xQ int) (eye bool, c color.RGBA) {
+	if invader.eyes == 1 {
+		if xQ == 5 {
+			eye = true
+			c = colors[0]
+		} else if xQ == 4 || xQ == 6 {
+			eye = true
+			c = colorMap[xQ]
+		}
+	} else if invader.eyes == 2 {
+		if xQ == 4 || xQ == 6 {
+			eye = true
+			c = colors[0]
+		} else if xQ == 3 || xQ == 5 || xQ == 7 {
+			eye = true
+			c = colorMap[xQ]
+		}
+	} else if invader.eyes == 3 {
+		if xQ == 5 || xQ == 3 || xQ == 7 {
+			eye = true
+			c = colors[0]
+		} else if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+			eye = true
+			c = colorMap[xQ]
+		}
+	} else if invader.eyes == 4 {
+		if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+			eye = true
+			c = colors[0]
+		} else if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
+			eye = true
+			c = colorMap[xQ]
+		}
+	}
+	return
+}
+
 func hasAnthenas1(invader invader, xQ int) (anthena bool) {
 	if invader.anthenas == 1 {
 		if xQ == 5 {
@@ -210,30 +247,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == 5 { // eyes
-				if invader.eyes == 1 {
-					if xQ == 5 {
-						fill = draw.FillFromRGBA(colors[0]) //...
-					} else if xQ == 4 || xQ == 6 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 2 {
-					if xQ == 4 || xQ == 6 {
-						fill = draw.FillFromRGBA(colors[0]) //...
-					} else if xQ == 3 || xQ == 5 || xQ == 7 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 3 {
-					if xQ == 5 || xQ == 3 || xQ == 7 {
-						fill = draw.FillFromRGBA(colors[0]) //...
-					} else if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 4 {
-					if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-						fill = draw.FillFromRGBA(colors[0]) //...
-					} else if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
+				if eye, c := hasEye4(invader, colorMap, colors, xQ); eye {
+					fill = draw.FillFromRGBA(c)
 				}
 			}
 
