@@ -9,6 +9,17 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
+func selectColor(colorMap map[int]color.RGBA, key string, colors []color.RGBA, middle float64, xQ, yQ, squares int) (c color.RGBA) {
+	if float64(xQ) < middle {
+		c = draw.PickColor(key, colors[1:], xQ+2*yQ)
+	} else if xQ < squares {
+		c = colorMap[squares-xQ-1]
+	} else {
+		c = colorMap[0]
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -26,13 +37,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			x := xQ * quadrantSize
 			fill := draw.FillFromRGBA(colors[0])
 			if _, ok := colorMap[xQ]; !ok {
-				if float64(xQ) < middle {
-					colorMap[xQ] = draw.PickColor(key, colors[1:], xQ+2*yQ)
-				} else if xQ < squares {
-					colorMap[xQ] = colorMap[squares-xQ-1]
-				} else {
-					colorMap[xQ] = colorMap[0]
-				}
+				colorMap[xQ] = selectColor(colorMap, key, colors, middle, xQ, yQ, squares)
 			}
 
 			highBodyIndex := 2
