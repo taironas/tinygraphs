@@ -58,6 +58,27 @@ func hasEye2(invader invader, xQ int) (eye bool) {
 	return
 }
 
+func hasEye3(invader invader, xQ int) (eye bool) {
+	if invader.eyes == 1 {
+		if xQ >= 4 && xQ <= 6 {
+			eye = true
+		}
+	} else if invader.eyes == 2 {
+		if xQ >= 3 && xQ <= 7 {
+			eye = true
+		}
+	} else if invader.eyes == 3 {
+		if xQ >= 2 && xQ <= 8 {
+			eye = true
+		}
+	} else if invader.eyes == 4 {
+		if xQ >= 2 && xQ <= 9 {
+			eye = true
+		}
+	}
+	return
+}
+
 func hasAnthenas1(invader invader, xQ int) (anthena bool) {
 	if invader.anthenas == 1 {
 		if xQ == 5 {
@@ -143,22 +164,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == 4 { // frontal lobe
-				if invader.eyes == 1 {
-					if xQ >= 4 && xQ <= 6 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 2 {
-					if xQ >= 3 && xQ <= 7 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 3 {
-					if xQ >= 2 && xQ <= 8 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 4 {
-					if xQ >= 2 && xQ <= 9 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
+				if hasEye3(invader, xQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
