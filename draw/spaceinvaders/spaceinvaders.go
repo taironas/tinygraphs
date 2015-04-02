@@ -20,7 +20,7 @@ func selectColor(colorMap map[int]color.RGBA, key string, colors []color.RGBA, m
 	return
 }
 
-func hasEye(invader invader, xQ int) (eye bool) {
+func hasEye1(invader invader, xQ int) (eye bool) {
 	if invader.eyes == 2 {
 		if xQ > 4 && xQ < 6 {
 			eye = true
@@ -37,7 +37,28 @@ func hasEye(invader invader, xQ int) (eye bool) {
 	return
 }
 
-func hasAnthenas(invader invader, xQ int) (anthena bool) {
+func hasEye2(invader invader, xQ int) (eye bool) {
+	if invader.eyes == 1 {
+		if xQ >= 5 && xQ <= 5 {
+			eye = true
+		}
+	} else if invader.eyes == 2 {
+		if xQ >= 4 && xQ <= 6 {
+			eye = true
+		}
+	} else if invader.eyes == 3 {
+		if xQ >= 3 && xQ <= 7 {
+			eye = true
+		}
+	} else if invader.eyes == 4 {
+		if xQ >= 3 && xQ <= 8 {
+			eye = true
+		}
+	}
+	return
+}
+
+func hasAnthenas1(invader invader, xQ int) (anthena bool) {
 	if invader.anthenas == 1 {
 		if xQ == 5 {
 			anthena = true
@@ -48,6 +69,23 @@ func hasAnthenas(invader invader, xQ int) (anthena bool) {
 		}
 	} else if invader.anthenas == 3 {
 		if xQ == 2 || xQ == 5 || xQ == 8 {
+			anthena = true
+		}
+	}
+	return
+}
+
+func hasAnthenas2(invader invader, xQ int) (anthena bool) {
+	if invader.anthenas == 1 {
+		if xQ == 5 {
+			anthena = true
+		}
+	} else if invader.anthenas == 2 {
+		if xQ == 4 || xQ == 6 {
+			anthena = true
+		}
+	} else if invader.anthenas == 3 {
+		if xQ == 3 || xQ == 5 || xQ == 7 {
 			anthena = true
 		}
 	}
@@ -77,7 +115,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			highBodyIndex := 2
 			if invader.height > 7 {
 				if yQ == highBodyIndex {
-					if hasEye(invader, xQ) {
+					if hasEye1(invader, xQ) {
 						fill = draw.FillFromRGBA(colorMap[xQ])
 					}
 					if invader.eyes > 1 {
@@ -85,46 +123,22 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
-
+			// anthenas
 			if yQ == highBodyIndex-1 && invader.anthenaSize == 2 {
-				if hasAnthenas(invader, xQ) {
+				if hasAnthenas1(invader, xQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
 			if yQ == highBodyIndex {
-				if invader.anthenas == 1 {
-					if xQ == 5 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.anthenas == 2 {
-					if xQ == 4 || xQ == 6 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.anthenas == 3 {
-					if xQ == 3 || xQ == 5 || xQ == 7 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
+				if hasAnthenas2(invader, xQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
 			if yQ == 3 { // pre frontal lobe :p
-				if invader.eyes == 1 {
-					if xQ >= 5 && xQ <= 5 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 2 {
-					if xQ >= 4 && xQ <= 6 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 3 {
-					if xQ >= 3 && xQ <= 7 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.eyes == 4 {
-					if xQ >= 3 && xQ <= 8 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
+				if hasEye2(invader, xQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
