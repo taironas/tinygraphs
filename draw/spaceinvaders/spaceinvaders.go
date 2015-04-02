@@ -113,6 +113,18 @@ func hasAnthenas2(invader invader, xQ int) (anthena bool) {
 	return
 }
 
+func hasArm(invader invader, squares, xQ int) (arm bool) {
+	if invader.arms <= 0 {
+		return
+	}
+	leftOver := squares - invader.length
+	half := leftOver / 2
+	if xQ == half || xQ == squares-1-half || xQ == half-1 || xQ == squares-half {
+		arm = true
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -170,13 +182,11 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == 5 {
-				leftOver := squares - invader.length
-				if invader.arms > 0 {
-					if xQ == (leftOver/2) || xQ == squares-1-leftOver/2 || xQ == (leftOver/2)-1 || xQ == (squares-leftOver/2) {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
+				if hasArm(invader, squares, xQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
+
 			if yQ == 4 || yQ == 6 { // arm extension
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
