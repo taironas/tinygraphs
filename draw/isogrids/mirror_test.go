@@ -13,7 +13,7 @@ func TestmirrorCoordinates(t *testing.T) {
 	if len(expected) != len(xsMirror) {
 		t.Errorf("lengths are different")
 	}
-	for k, _ := range expected {
+	for k := range expected {
 		if expected[k] != xsMirror[k] {
 			t.Errorf("expected %v got %v", expected[k], xsMirror[k])
 		}

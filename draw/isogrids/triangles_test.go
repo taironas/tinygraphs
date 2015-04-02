@@ -21,7 +21,7 @@ func TestRight1stTriangle(t *testing.T) {
 		t.Errorf("lengths of arrays should be equal")
 	}
 
-	for k, _ := range got {
+	for k := range got {
 		if got[k] != expected[k] {
 			t.Errorf("expected %d got %d", expected[k], got[k])
 		}
@@ -38,7 +38,7 @@ func TestLeft1stTriangle(t *testing.T) {
 		t.Errorf("lengths of arrays should be equal")
 	}
 
-	for k, _ := range got {
+	for k := range got {
 		if got[k] != expected[k] {
 			t.Errorf("expected %d got %d on element #%d", expected[k], got[k], k)
 		}
@@ -55,7 +55,7 @@ func Testleft2ndTriangle(t *testing.T) {
 		t.Errorf("lengths of arrays should be equal")
 	}
 
-	for k, _ := range got {
+	for k := range got {
 		if got[k] != expected[k] {
 			t.Errorf("expected %d got %d on element #%d", expected[k], got[k], k)
 		}
@@ -72,7 +72,7 @@ func TestRight2ndTriangle(t *testing.T) {
 		t.Errorf("lengths of arrays should be equal")
 	}
 
-	for k, _ := range got {
+	for k := range got {
 		if got[k] != expected[k] {
 			t.Errorf("expected %d got %d on element #%d", expected[k], got[k], k)
 		}

@@ -32,8 +32,8 @@ func TestColors(t *testing.T) {
 			"test good input",
 			"http://www.tg.c?colors=ffffff&colors=000000",
 			[]color.RGBA{
-				color.RGBA{255, 255, 255, 255},
-				color.RGBA{0, 0, 0, 255},
+				{255, 255, 255, 255},
+				{0, 0, 0, 255},
 			},
 		},
 		{
@@ -90,8 +90,8 @@ func TestUserColors(t *testing.T) {
 			"test good input",
 			"http://www.tg.c?colors=ffffff&colors=000000",
 			[]color.RGBA{
-				color.RGBA{255, 255, 255, 255},
-				color.RGBA{0, 0, 0, 255},
+				{255, 255, 255, 255},
+				{0, 0, 0, 255},
 			},
 		},
 	}
@@ -138,17 +138,17 @@ func TestGColors(t *testing.T) {
 			"test good input",
 			"http://www.tg.c?colors=aaaaaa&colors=bbbbbb",
 			[]color.RGBA{
-				color.RGBA{170, 170, 170, 255},
-				color.RGBA{187, 187, 187, 255},
+				{170, 170, 170, 255},
+				{187, 187, 187, 255},
 			},
 		},
 		{
 			"test good input",
 			"http://www.tg.c?colors=ffffff&colors=000000&colors=000000",
 			[]color.RGBA{
-				color.RGBA{255, 255, 255, 255},
-				color.RGBA{0, 0, 0, 255},
-				color.RGBA{0, 0, 0, 255},
+				{255, 255, 255, 255},
+				{0, 0, 0, 255},
+				{0, 0, 0, 255},
 			}[1:3],
 		},
 		{

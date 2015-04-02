@@ -13,26 +13,26 @@ var BadParams []map[string]string
 
 func init() {
 	GoodParams = []map[string]string{
-		map[string]string{},
-		map[string]string{"fmt": "jpeg"},
-		map[string]string{"fmt": "svg"},
-		map[string]string{"size": "200"},
-		map[string]string{"bg": "ff4008", "fg": "04d6f2"},
-		map[string]string{"theme": "frogideas"},
-		map[string]string{"w": "500", "h": "100"},
-		map[string]string{"xs": "500"},
-		map[string]string{"xt": "500"},
+		{},
+		{"fmt": "jpeg"},
+		{"fmt": "svg"},
+		{"size": "200"},
+		{"bg": "ff4008", "fg": "04d6f2"},
+		{"theme": "frogideas"},
+		{"w": "500", "h": "100"},
+		{"xs": "500"},
+		{"xt": "500"},
 	}
 
 	BadParams = []map[string]string{
-		map[string]string{"wrongfmt": "wrongParameter"},
-		map[string]string{"fmt": "wrongFormat"},
-		map[string]string{"size": "wrongType"},
-		map[string]string{"bg": "wrongType", "fg": "wrongType"},
-		map[string]string{"theme": "wrongTheme"},
-		map[string]string{"w": "wrongW", "h": "wrongH"},
-		map[string]string{"xs": "wrongXS"},
-		map[string]string{"xt": "wrongXT"},
+		{"wrongfmt": "wrongParameter"},
+		{"fmt": "wrongFormat"},
+		{"size": "wrongType"},
+		{"bg": "wrongType", "fg": "wrongType"},
+		{"theme": "wrongTheme"},
+		{"w": "wrongW", "h": "wrongH"},
+		{"xs": "wrongXS"},
+		{"xt": "wrongXT"},
 	}
 }
 
