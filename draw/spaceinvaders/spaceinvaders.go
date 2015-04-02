@@ -37,6 +37,23 @@ func hasEye(invader invader, xQ int) (eye bool) {
 	return
 }
 
+func hasAnthenas(invader invader, xQ int) (anthena bool) {
+	if invader.anthenas == 1 {
+		if xQ == 5 {
+			anthena = true
+		}
+	} else if invader.anthenas == 2 {
+		if xQ == 3 || xQ == 7 {
+			anthena = true
+		}
+	} else if invader.anthenas == 3 {
+		if xQ == 2 || xQ == 5 || xQ == 8 {
+			anthena = true
+		}
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -70,18 +87,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == highBodyIndex-1 && invader.anthenaSize == 2 {
-				if invader.anthenas == 1 {
-					if xQ == 5 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.anthenas == 2 {
-					if xQ == 3 || xQ == 7 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-				} else if invader.anthenas == 3 {
-					if xQ == 2 || xQ == 5 || xQ == 8 {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
+				if hasAnthenas(invader, xQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
