@@ -258,6 +258,15 @@ func hasLowBody2(invader invader, squares, lowBodyIndex, xQ, yQ int) (lowbody bo
 	return
 }
 
+func getArmIndex(invader invader, lowBodyIndex int) (armIndex int) {
+	if invader.height > 6 {
+		armIndex = lowBodyIndex - 3
+	} else {
+		armIndex = lowBodyIndex - 2
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -364,12 +373,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
-			armIndex := 0
-			if invader.height > 6 {
-				armIndex = lowBodyIndex - 3
-			} else {
-				armIndex = lowBodyIndex - 2
-			}
+			armIndex := getArmIndex(invader, lowBodyIndex)
+
 			if yQ == armIndex && !invader.armsUp && invader.armSize < 3 {
 				leftOver := squares - invader.length
 				if invader.arms > 0 {
