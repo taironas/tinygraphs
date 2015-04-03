@@ -269,6 +269,30 @@ func hasArmDownExtension(invader invader, armIndex, squares, xQ, yQ int) (armDow
 	return
 }
 
+func hasBigArmExtension(invader invader, armIndex, squares, xQ, yQ int) (bigArmExtension bool) {
+	if yQ != armIndex+1 || invader.armsUp || invader.armSize != 3 {
+		return
+	}
+
+	if invader.arms <= 0 {
+		return
+	}
+
+	leftOver := squares - invader.length
+	half := leftOver / 2
+
+	if (squares - half - half - 1) >= invader.length {
+		if xQ == half-2 || xQ == squares-half+1 {
+			bigArmExtension = true
+		}
+	} else {
+		if xQ == half-2 || xQ == squares+1-half {
+			bigArmExtension = true
+		}
+	}
+	return
+}
+
 func hasBody(invader invader, squares, xQ int) (body bool) {
 	leftOver := squares - invader.length
 	half := leftOver / 2
@@ -428,19 +452,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			// big arm extension
-			if yQ == armIndex+1 && !invader.armsUp && invader.armSize == 3 {
-				leftOver := squares - invader.length
-				if invader.arms > 0 {
-					if (squares - leftOver/2 - (leftOver / 2) - 1) >= invader.length {
-						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else {
-						if xQ == (leftOver/2)-2 || xQ == squares+1-leftOver/2 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					}
-				}
+			if hasBigArmExtension(invader, armIndex, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
 			if yQ == lowBodyIndex || yQ == lowBodyIndex+1 { // legs
