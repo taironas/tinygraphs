@@ -141,10 +141,10 @@ func hasEye3(invader invader, xQ int) (eye bool) {
 
 func hasEye4(invader invader, colorMap map[int]color.RGBA, colors []color.RGBA, xQ int) (eye bool, c color.RGBA) {
 	if invader.eyes == 1 {
-		if xQ == 5 {
+		if isEyeFillForOneEye(xQ) {
 			eye = true
 			c = colors[0]
-		} else if xQ == 4 || xQ == 6 {
+		} else if isEyeBorderForOneEye(xQ) {
 			eye = true
 			c = colorMap[xQ]
 		}
@@ -174,6 +174,14 @@ func hasEye4(invader invader, colorMap map[int]color.RGBA, colors []color.RGBA, 
 		}
 	}
 	return
+}
+
+func isEyeFillForOneEye(xQ int) bool {
+	return xQ == 5
+}
+
+func isEyeBorderForOneEye(xQ int) bool {
+	return xQ == 4 || xQ == 6
 }
 
 func isEyeFillForTwoEyes(xQ int) bool {
