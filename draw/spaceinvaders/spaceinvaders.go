@@ -443,7 +443,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 
 			armIndex := getArmIndex(invader, lowBodyIndex)
 
-			if hasArmDown(invader, armIndex, squares, yQ, xQ) {
+			if hasArmDown(invader, armIndex, squares, xQ, yQ) {
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
