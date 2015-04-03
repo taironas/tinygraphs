@@ -34,6 +34,9 @@ func newInvader(key string) invader {
 	return invader
 }
 
+// LegsFromKey returns the number of legs that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 3.
 func LegsFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -42,6 +45,9 @@ func LegsFromKey(c uint8) int {
 	return 3
 }
 
+// ArmsFromKey returns the number of arms that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 2.
 func ArmsFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -54,6 +60,9 @@ func ArmsFromKey(c uint8) int {
 	return 2
 }
 
+// AnthenasFromKey returns the number of anthenas that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 2.
 func AnthenasFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -62,6 +71,9 @@ func AnthenasFromKey(c uint8) int {
 	return 2
 }
 
+// LengthFromKey returns the number of anthenas that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 7.
 func LengthFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -74,6 +86,9 @@ func LengthFromKey(c uint8) int {
 	return 7
 }
 
+// HeightFromKey returns the height that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 6.
 func HeightFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -86,6 +101,9 @@ func HeightFromKey(c uint8) int {
 	return 6
 }
 
+// EyesFromKey returns the number of eyes that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 2.
 func EyesFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -100,6 +118,9 @@ func EyesFromKey(c uint8) int {
 	return 2
 }
 
+// HasFootFromKey tells you if the invader should have feets or not,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return true.
 func HasFootFromKey(c uint8) bool {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -108,6 +129,9 @@ func HasFootFromKey(c uint8) bool {
 	return true
 }
 
+// HasArmsUpFromKey tells you if the invader should it's arms up or not,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return true.
 func HasArmsUpFromKey(c uint8) bool {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -116,6 +140,9 @@ func HasArmsUpFromKey(c uint8) bool {
 	return true
 }
 
+// ArmSizeFromKey returns the size of the arms that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 2.
 func ArmSizeFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {
@@ -126,6 +153,9 @@ func ArmSizeFromKey(c uint8) int {
 	return 2
 }
 
+// AnthenaSizeFromKey returns the size of the anthenas that the invader should have,
+// with respect to the character passed as argument.
+// If it fails to parse the character it return the value of 2.
 func AnthenaSizeFromKey(c uint8) int {
 	s := hex.EncodeToString([]byte{c})
 	if val, err := strconv.ParseInt(s, 16, 0); err == nil {

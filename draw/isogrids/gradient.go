@@ -47,7 +47,7 @@ func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv
 		colorIndex = make(map[int]int)
 		for yL := -1; yL <= lines; yL++ {
 			var x1, x2, y1, y2, y3 int
-			var fill string = ""
+			var fill string
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
 			} else {

@@ -22,7 +22,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	isogrids.Random(w, colors, width, height, xt, prob)
 }
 
-// BannerRandomGradinet handler for /isogrids/banner/random/gradient.
+// BannerRandomGradient handler for /isogrids/banner/random/gradient.
 // Generates a random gradient banner isogrid image.
 func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)

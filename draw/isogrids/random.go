@@ -8,6 +8,8 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
+// Random builds an image with 10x10 grids of half diagonals with random background.
+// The image is symetric in the middle vertical axis.
 func Random(w http.ResponseWriter, colors []color.RGBA, width, height, lines int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
@@ -49,7 +51,9 @@ func Random(w http.ResponseWriter, colors []color.RGBA, width, height, lines int
 	canvas.End()
 }
 
-// Random creates an isogrids svg image with half diagonals.
+// RandomGradient creates an isogrids svg image with half diagonals.
+// colors are filled at random in the image with a frequency that decreases
+// from left to right.
 func RandomGradient(w http.ResponseWriter, colors []color.RGBA, width, height, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)

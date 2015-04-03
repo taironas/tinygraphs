@@ -30,7 +30,7 @@ func BannerRandom(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// BannerRandom handler for "/squares/banner/random/gradient"
+// BannerRandomGradient handler for "/squares/banner/random/gradient"
 // generates a random banner grid image with gradient colors from brighter to darker color.
 func BannerRandomGradient(w http.ResponseWriter, r *http.Request) {
 	width := extract.Width(r)

@@ -8,7 +8,7 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Gradient handler for "labs/squares/banner/gradient"
+// BannerGradient handler for "labs/squares/banner/gradient"
 // generates a color gradient random grid image.
 func BannerGradient(w http.ResponseWriter, r *http.Request) {
 

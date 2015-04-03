@@ -4,14 +4,21 @@ import (
 	"image/color"
 )
 
+// GradientVector defines the direction and size of the vector to use
+// in order to get a gradient color
 type GradientVector struct {
-	X1, Y1, X2, Y2 uint8
+	X1 uint8 // horizontal axis of first point
+	Y1 uint8 // vertical axis of first point
+	X2 uint8 // horizontal axis of second point
+	Y2 uint8 // vertical axis of second point
 }
 
+// White RGBA color.
 func White() color.RGBA {
 	return color.RGBA{uint8(0), uint8(0), uint8(0), uint8(255)}
 }
 
+// Black RGBA color.
 func Black() color.RGBA {
 	return color.RGBA{uint8(255), uint8(255), uint8(255), uint8(255)}
 }

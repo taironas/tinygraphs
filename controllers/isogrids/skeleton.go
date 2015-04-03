@@ -8,6 +8,8 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
+// Skeleton handler for "/labs/isogrids/skeleton"
+// generates the "skeleton" grid image used to generate all isogrid images.
 func Skeleton(w http.ResponseWriter, r *http.Request) {
 
 	fg, bg := extract.ExtraColors(r)

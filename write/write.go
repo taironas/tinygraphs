@@ -11,11 +11,13 @@ import (
 	"strconv"
 )
 
-var ImageTemplate string = `<!DOCTYPE html>
+// ImageTemplate defines a basic html template to insert an image
+// using data:image/jpeg;base64,mydatahere.
+var ImageTemplate = `<!DOCTYPE html>
 <html lang="en"><head><title>{{ .Title }}</title></head>
 <body><img src="data:image/jpg;base64,{{.Image}}"></body>`
 
-// writeImageWithTemplate encodes an image 'img' in jpeg format and writes it into ResponseWriter using a template.
+// ImageWithTemplate encodes an image 'img' in jpeg format and writes it into ResponseWriter using a template.
 func ImageWithTemplate(w http.ResponseWriter, img *image.Image) {
 
 	buffer := new(bytes.Buffer)
@@ -34,7 +36,7 @@ func ImageWithTemplate(w http.ResponseWriter, img *image.Image) {
 	}
 }
 
-// writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
+// ImageJPEG encodes an image 'img' in jpeg format and writes it into ResponseWriter.
 func ImageJPEG(w http.ResponseWriter, img *image.Image) {
 
 	buffer := new(bytes.Buffer)
@@ -49,7 +51,7 @@ func ImageJPEG(w http.ResponseWriter, img *image.Image) {
 	}
 }
 
-// writeImage encodes an image 'img' in jpeg format and writes it into ResponseWriter.
+// ImageSVG encodes an image 'img' in jpeg format and writes it into ResponseWriter.
 func ImageSVG(w http.ResponseWriter) {
 	// First set the content type in the http.ResponseWriter
 	// only then create and draw the svg object.

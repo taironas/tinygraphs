@@ -165,7 +165,7 @@ func XTriangles(r *http.Request) int {
 	return 50
 }
 
-// GX1 returns the value of the 'gx1' parameter in the http.Request.
+// GX1OrDefault returns the value of the 'gx1' parameter in the http.Request.
 // Used to defined the x coordinate of first point of the gradient vector.
 func GX1OrDefault(r *http.Request, d uint8) uint8 {
 	strX := r.FormValue("gx1")
@@ -180,7 +180,7 @@ func GX1OrDefault(r *http.Request, d uint8) uint8 {
 	return d
 }
 
-// GX2 returns the value of the 'gx2' parameter in the http.Request.
+// GX2OrDefault returns the value of the 'gx2' parameter in the http.Request.
 // Used to defined the x coordinate of second point of the gradient vector.
 func GX2OrDefault(r *http.Request, d uint8) uint8 {
 	strX := r.FormValue("gx2")
@@ -195,7 +195,7 @@ func GX2OrDefault(r *http.Request, d uint8) uint8 {
 	return d
 }
 
-// GY1 returns the value of the 'gy1' parameter in the http.Request.
+// GY1OrDefault returns the value of the 'gy1' parameter in the http.Request.
 // Used to defined the y coordinate of first point of the gradient vector.
 func GY1OrDefault(r *http.Request, d uint8) uint8 {
 	strY := r.FormValue("gy1")
@@ -210,7 +210,7 @@ func GY1OrDefault(r *http.Request, d uint8) uint8 {
 	return d
 }
 
-// GY2 returns the value of the 'gy2' parameter in the http.Request.
+// GY2OrDefault returns the value of the 'gy2' parameter in the http.Request.
 // Used to defined the y coordinate of the second point of the gradient vector.
 func GY2OrDefault(r *http.Request, d uint8) uint8 {
 	strY := r.FormValue("gy2")
@@ -225,6 +225,14 @@ func GY2OrDefault(r *http.Request, d uint8) uint8 {
 	return d
 }
 
+// GradientVector returns a colors.GradientVector by reading the http.Request
+// passed as argument. If something is missing it uses the default values passed
+// as arguments.
+// This function calls the following functions to create the vector:
+// * GX1OrDefault(r, gx1)
+// * GY1OrDefault(r, gy1)
+// * GX2OrDefault(r, gx2)
+// * GY2OrDefault(r, gy2)
 func GradientVector(r *http.Request, gx1, gy1, gx2, gy2 uint8) colors.GradientVector {
 	x1 := GX1OrDefault(r, gx1)
 	y1 := GY1OrDefault(r, gy1)
@@ -233,6 +241,8 @@ func GradientVector(r *http.Request, gx1, gy1, gx2, gy2 uint8) colors.GradientVe
 	return colors.GradientVector{X1: x1, Y1: y1, X2: x2, Y2: y2}
 }
 
+// Probability returns the value of p param from HTTP request.
+// Default value is passed as argument.
 func Probability(r *http.Request, dp float64) float64 {
 	strP := r.FormValue("p")
 	if len(strP) > 0 {

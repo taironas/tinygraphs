@@ -48,6 +48,16 @@ func Colors(r *http.Request) (colors []color.RGBA) {
 	return colors
 }
 
+// GColors returns an array of colors based on a HTTP request.
+// It follows some rules:
+// - if the URL has it's a theme defined by using the 'theme' parameter we return
+//   all the colors of that theme but the first one.
+// - if the URL has it's own colors using the 'colors' parameter we return all of
+//   those colors but the first one defined. If the array is less or equal to 2 we return the
+//   full array.
+//   e.g: some/url?colors=FFFFFF&colors=222222&colors=111111 gives you the
+//   following array [111111, 222222]
+// - otherwise we return Colors(r)
 func GColors(r *http.Request) (gColors []color.RGBA) {
 
 	theme := Theme(r)
@@ -77,11 +87,11 @@ func Background(req *http.Request) (color.RGBA, error) {
 	if len(bg) == 0 {
 		return color.RGBA{}, fmt.Errorf("background: empty input")
 	}
-	if r, g, b, err := hexToRGB(bg); err != nil {
+	r, g, b, err := hexToRGB(bg)
+	if err != nil {
 		return color.RGBA{}, fmt.Errorf("background: wrong input")
-	} else {
-		return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, nil
 	}
+	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, nil
 }
 
 // Foreground extract hexadecimal code foreground from HTTP request and return color.RGBA
@@ -90,11 +100,11 @@ func Foreground(req *http.Request) (color.RGBA, error) {
 	if len(fg) == 0 {
 		return color.RGBA{}, fmt.Errorf("background: empty input")
 	}
-	if r, g, b, err := hexToRGB(fg); err != nil {
+	r, g, b, err := hexToRGB(fg)
+	if err != nil {
 		return color.RGBA{}, fmt.Errorf("background: wrong input")
-	} else {
-		return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, nil
 	}
+	return color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}, nil
 }
 
 // ExtraColors returns a background and foreground color.RGBA is specified.
@@ -125,12 +135,12 @@ func UserColors(req *http.Request) ([]color.RGBA, error) {
 	}
 
 	for _, c := range strColors {
-		if r, g, b, err := hexToRGB(c); err != nil {
+		r, g, b, err := hexToRGB(c)
+		if err != nil {
 			return []color.RGBA{}, fmt.Errorf("colors: wrong input")
-		} else {
-			new := color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}
-			colors = append(colors, new)
 		}
+		new := color.RGBA{uint8(r), uint8(g), uint8(b), uint8(255)}
+		colors = append(colors, new)
 	}
 	return colors, nil
 }
@@ -159,11 +169,11 @@ func hexToRGB(h string) (uint8, uint8, uint8, error) {
 		h = h[:1] + h[:1] + h[1:2] + h[1:2] + h[2:] + h[2:]
 	}
 	if len(h) == 6 {
-		if rgb, err := strconv.ParseUint(string(h), 16, 32); err == nil {
-			return uint8(rgb >> 16), uint8((rgb >> 8) & 0xFF), uint8(rgb & 0xFF), nil
-		} else {
+		rgb, err := strconv.ParseUint(string(h), 16, 32)
+		if err != nil {
 			return 0, 0, 0, err
 		}
+		return uint8(rgb >> 16), uint8((rgb >> 8) & 0xFF), uint8(rgb & 0xFF), nil
 	}
 	return 0, 0, 0, nil
 }

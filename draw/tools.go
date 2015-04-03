@@ -10,6 +10,9 @@ import (
 	"strconv"
 )
 
+// RandomColorFromArrayWithFreq returns a random color from the given array.
+// It will return the first color with a specific frequency,
+// and all the other colors with the complementary frequency.
 func RandomColorFromArrayWithFreq(colors []color.RGBA, prob float64) color.RGBA {
 	if rf := rand.Float64(); rf < prob {
 		return colors[0]
@@ -23,6 +26,9 @@ func RandomColorFromArray(colors []color.RGBA) color.RGBA {
 	return colors[r]
 }
 
+// RandomIndexFromArrayWithFreq returns a random index from the given array.
+// It will return the first index with a specific frequency,
+// and all the other indexes with the complementary frequency.
 func RandomIndexFromArrayWithFreq(colors []color.RGBA, prob float64) int {
 	if rf := rand.Float64(); rf < prob {
 		return 0

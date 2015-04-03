@@ -8,8 +8,12 @@ import (
 	"github.com/taironas/route"
 )
 
-var GoodParams []map[string]string
-var BadParams []map[string]string
+var (
+	// GoodParams represent some good tinygraphs parameters to test.
+	GoodParams []map[string]string
+	// BadParams represent some bad, wrong parameters to test.
+	BadParams []map[string]string
+)
 
 func init() {
 	GoodParams = []map[string]string{
@@ -36,8 +40,13 @@ func init() {
 	}
 }
 
+// HandlerFunc type returns an httptest.ResponseRecorder when you pass the following params:
+// url: the url you want to query.
+// params: the parameters that the url should use.
+// r: the router to record the httptest.ResponseRecorder.
 type HandlerFunc func(url, method string, params map[string]string, r *route.Router) *httptest.ResponseRecorder
 
+// GenerateHandlerFunc returns a HandlerFunc type based on the handler passed as argument.
 func GenerateHandlerFunc(t *testing.T, handler func(http.ResponseWriter, *http.Request)) HandlerFunc {
 
 	return func(url, method string, params map[string]string, r *route.Router) *httptest.ResponseRecorder {

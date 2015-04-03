@@ -18,7 +18,7 @@ func Diagonals(w http.ResponseWriter, r *http.Request) {
 	isogrids.Diagonals(w, "", bg, fg, size)
 }
 
-// Diagonals is the handler for /isogrids/labs/diagonals
+// HalfDiagonals is the handler for /isogrids/labs/halfdiagonals
 // builds a half diagonal (each diagonal goes to the middle of the square) grid.
 func HalfDiagonals(w http.ResponseWriter, r *http.Request) {
 
