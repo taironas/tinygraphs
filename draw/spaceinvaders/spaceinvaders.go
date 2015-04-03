@@ -149,10 +149,10 @@ func hasEye4(invader invader, colorMap map[int]color.RGBA, colors []color.RGBA, 
 			c = colorMap[xQ]
 		}
 	} else if invader.eyes == 2 {
-		if xQ == 4 || xQ == 6 {
+		if isEyeFillForTwoEyes(xQ) {
 			eye = true
 			c = colors[0]
-		} else if xQ == 3 || xQ == 5 || xQ == 7 {
+		} else if isEyeBorderForTwoEyes(xQ) {
 			eye = true
 			c = colorMap[xQ]
 		}
@@ -174,6 +174,14 @@ func hasEye4(invader invader, colorMap map[int]color.RGBA, colors []color.RGBA, 
 		}
 	}
 	return
+}
+
+func isEyeFillForTwoEyes(xQ int) bool {
+	return xQ == 4 || xQ == 6
+}
+
+func isEyeBorderForTwoEyes(xQ int) bool {
+	return xQ == 3 || xQ == 5 || xQ == 7
 }
 
 func isEyeFillForThreeEyes(xQ int) bool {
