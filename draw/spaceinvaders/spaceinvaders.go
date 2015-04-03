@@ -556,39 +556,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			highBodyIndex := 2
-			if invader.height > 7 {
-				if yQ == highBodyIndex {
-					if hasEye1(invader, xQ) {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-					if invader.eyes > 1 {
-						highBodyIndex--
-					}
-				}
-			}
-
-			if yQ == highBodyIndex-1 && invader.anthenaSize == 2 {
-				if hasAnthenas1(invader, xQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-			}
-
-			if yQ == highBodyIndex {
-				if hasAnthenas2(invader, xQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-			}
-
-			if yQ == 3 {
-				if hasEye2(invader, xQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-			}
-
-			if yQ == 4 {
-				if hasEye3(invader, xQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
+			if hasEyeOrAnthena(invader, &highBodyIndex, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
 			if yQ == 5 {
@@ -676,4 +645,42 @@ func hasLegOrFoot(invader invader, lowBodyIndex, xQ, yQ int) bool {
 		return true
 	}
 	return false
+}
+
+func hasEyeOrAnthena(invader invader, highBodyIndex *int, squares, xQ, yQ int) (result bool) {
+	if invader.height > 7 {
+		if yQ == *highBodyIndex {
+			if hasEye1(invader, xQ) {
+				result = true
+			}
+			if invader.eyes > 1 {
+				*highBodyIndex--
+			}
+		}
+	}
+
+	if yQ == *highBodyIndex-1 && invader.anthenaSize == 2 {
+		if hasAnthenas1(invader, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == *highBodyIndex {
+		if hasAnthenas2(invader, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == 3 {
+		if hasEye2(invader, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == 4 {
+		if hasEye3(invader, xQ) {
+			result = true
+		}
+	}
+	return
 }
