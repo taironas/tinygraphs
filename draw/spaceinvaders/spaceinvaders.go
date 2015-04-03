@@ -566,7 +566,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 					}
 				}
 			}
-			// anthenas
+
 			if yQ == highBodyIndex-1 && invader.anthenaSize == 2 {
 				if hasAnthenas1(invader, xQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
@@ -579,13 +579,13 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 3 { // pre frontal lobe :p
+			if yQ == 3 {
 				if hasEye2(invader, xQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
-			if yQ == 4 { // frontal lobe
+			if yQ == 4 {
 				if hasEye3(invader, xQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
@@ -597,19 +597,19 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 4 || yQ == 6 { // arm extension
+			if yQ == 4 || yQ == 6 {
 				if hasArmExtension(invader, squares, xQ, yQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
-			if yQ == 5 { // eyes
+			if yQ == 5 {
 				if eye, c := hasEye4(invader, colorMap, colors, xQ); eye {
 					fill = draw.FillFromRGBA(c)
 				}
 			}
 
-			if yQ == 6 { // length of body
+			if yQ == 6 {
 				if hasBody(invader, squares, xQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
@@ -617,7 +617,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 
 			lowBodyIndex := 7
 			if invader.height > 5 {
-				// add more body if height > 6
+				// add more body if height > 5
 				if hasLowBody(invader, squares, lowBodyIndex, xQ, yQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
@@ -655,13 +655,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
-			if yQ == lowBodyIndex || yQ == lowBodyIndex+1 {
-				if hasLeg(invader, lowBodyIndex, xQ, yQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-			}
-
-			if hasFoot(invader, lowBodyIndex, xQ, yQ) {
+			if hasLegOrFoot(invader, lowBodyIndex, xQ, yQ) {
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
@@ -669,4 +663,17 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 		}
 	}
 	canvas.End()
+}
+
+func hasLegOrFoot(invader invader, lowBodyIndex, xQ, yQ int) bool {
+	if yQ == lowBodyIndex || yQ == lowBodyIndex+1 {
+		if hasLeg(invader, lowBodyIndex, xQ, yQ) {
+			return true
+		}
+	}
+
+	if hasFoot(invader, lowBodyIndex, xQ, yQ) {
+		return true
+	}
+	return false
 }
