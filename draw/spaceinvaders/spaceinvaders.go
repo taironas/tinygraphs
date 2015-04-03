@@ -561,16 +561,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
-			if yQ == 5 {
-				if hasArm(invader, squares, xQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-			}
-
-			if yQ == 4 || yQ == 6 {
-				if hasArmExtension(invader, squares, xQ, yQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
+			if hasArmOrExtension(invader, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
 			if yQ == 5 { // clean eye from arm extension
@@ -671,6 +663,21 @@ func hasEyeOrAnthena(invader invader, highBodyIndex *int, squares, xQ, yQ int) (
 		}
 	}
 
+	return
+}
+
+func hasArmOrExtension(invader invader, squares, xQ, yQ int) (result bool) {
+	if yQ == 5 {
+		if hasArm(invader, squares, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == 4 || yQ == 6 {
+		if hasArmExtension(invader, squares, xQ, yQ) {
+			result = true
+		}
+	}
 	return
 }
 
