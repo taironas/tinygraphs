@@ -532,6 +532,7 @@ func hasFoot(invader invader, lowBodyIndex, xQ, yQ int) (foot bool) {
 			}
 		}
 	}
+
 	return
 }
 
@@ -572,7 +573,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				}
 			}
 
-			if yQ == 5 {
+			if yQ == 5 { // clean eye from arm extension
 				if eye, c := hasEye4(invader, colorMap, colors, xQ); eye {
 					fill = draw.FillFromRGBA(c)
 				}
@@ -601,26 +602,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				lowBodyIndex++
 			}
 
-			if hasArm2(invader, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			// arm up extension.
-			if hasArmExtension2(invader, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			armIndex := getArmIndex(invader, lowBodyIndex)
-
-			if hasArmDown(invader, armIndex, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			if hasArmDownExtension(invader, armIndex, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			if hasBigArmExtension(invader, armIndex, squares, xQ, yQ) {
+			if hasArmOrExtension2(invader, lowBodyIndex, squares, xQ, yQ) {
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
@@ -681,6 +663,32 @@ func hasEyeOrAnthena(invader invader, highBodyIndex *int, squares, xQ, yQ int) (
 		if hasEye3(invader, xQ) {
 			result = true
 		}
+	}
+
+	return
+}
+
+func hasArmOrExtension2(invader invader, lowBodyIndex, squares, xQ, yQ int) (result bool) {
+	if hasArm2(invader, squares, xQ, yQ) {
+		result = true
+	}
+
+	if hasArmExtension2(invader, squares, xQ, yQ) {
+		result = true
+	}
+
+	armIndex := getArmIndex(invader, lowBodyIndex)
+
+	if hasArmDown(invader, armIndex, squares, xQ, yQ) {
+		result = true
+	}
+
+	if hasArmDownExtension(invader, armIndex, squares, xQ, yQ) {
+		result = true
+	}
+
+	if hasBigArmExtension(invader, armIndex, squares, xQ, yQ) {
+		result = true
 	}
 	return
 }
