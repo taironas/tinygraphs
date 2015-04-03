@@ -163,7 +163,7 @@ func hasArm(invader invader, squares, xQ int) (arm bool) {
 }
 
 func hasArm2(invader invader, squares, xQ, yQ int) (arm bool) {
-	if yQ != 4 || !invader.armsUp && invader.armSize != 3 {
+	if yQ != 4 || !invader.armsUp || invader.armSize != 3 {
 		return
 	}
 
