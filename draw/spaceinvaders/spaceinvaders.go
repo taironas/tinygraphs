@@ -194,7 +194,12 @@ func hasArmExtension(invader invader, squares, xQ, yQ int) (armExtension bool) {
 	leftOver := squares - invader.length
 	half := leftOver / 2
 
-	if yQ == 4 || yQ == 6 {
+	if yQ == 4 && invader.armsUp && invader.armSize == 3 {
+		if xQ == half-1 || xQ == squares-half {
+			armExtension = true
+		}
+	}
+	if yQ == 6 && !invader.armsUp && invader.armSize == 3 {
 		if xQ == half-1 || xQ == squares-half {
 			armExtension = true
 		}
