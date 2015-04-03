@@ -461,6 +461,80 @@ func hasLeg(invader invader, lowBodyIndex, xQ, yQ int) (leg bool) {
 	return
 }
 
+func isOneOfTheTwoFeet(xQ int) bool {
+	if xQ == 3 || xQ == 7 {
+		return true
+	}
+	return false
+}
+
+func isOneOfTheFourFeet(xQ int) bool {
+	if xQ == 1 || xQ == 9 {
+		return true
+	}
+	return false
+}
+
+func isOneFoot(xQ int) bool {
+	if xQ == 4 || xQ == 6 {
+		return true
+	}
+	return false
+}
+
+func isOneOfTheThreeFeet(invader invader, xQ int) bool {
+	if invader.length > 5 {
+		if xQ == 2 || xQ == 8 {
+			return true
+		}
+	} else {
+		if xQ == 3 || xQ == 7 {
+			return true
+		}
+	}
+	return false
+}
+
+func isOneOfTheFiveFeet(xQ int) bool {
+	if xQ == 0 || xQ == 10 {
+		return true
+	}
+	return false
+}
+
+func hasFoot(invader invader, lowBodyIndex, xQ, yQ int) (foot bool) {
+	if yQ != lowBodyIndex+1 || !invader.foot {
+		return
+	}
+
+	if invader.legs%2 == 0 {
+		if invader.legs == 2 {
+			if isOneOfTheTwoFeet(xQ) {
+				foot = true
+			}
+		} else if invader.legs == 4 {
+			if isOneOfTheFourFeet(xQ) {
+				foot = true
+			}
+		}
+	} else {
+		if invader.legs == 1 {
+			if isOneFoot(xQ) {
+				foot = true
+			}
+		} else if invader.legs == 3 {
+			if isOneOfTheThreeFeet(invader, xQ) {
+				foot = true
+			}
+		} else if invader.legs == 5 {
+			if isOneOfTheFiveFeet(xQ) {
+				foot = true
+			}
+		}
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -577,51 +651,18 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
-			// big arm extension
 			if hasBigArmExtension(invader, armIndex, squares, xQ, yQ) {
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
-			if yQ == lowBodyIndex || yQ == lowBodyIndex+1 { // legs
+			if yQ == lowBodyIndex || yQ == lowBodyIndex+1 {
 				if hasLeg(invader, lowBodyIndex, xQ, yQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
-			if yQ == lowBodyIndex+1 && invader.foot {
-				if invader.legs%2 == 0 {
-					if invader.legs == 2 {
-						if xQ == 3 || xQ == 7 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else if invader.legs == 4 {
-						if xQ == 1 || xQ == 9 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					}
-				} else {
-					if invader.legs == 1 {
-						if xQ == 4 || xQ == 6 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else if invader.legs == 3 {
-						if invader.length > 5 {
-							if xQ == 2 || xQ == 8 {
-								fill = draw.FillFromRGBA(colorMap[xQ])
-							}
-						} else {
-							if xQ == 3 || xQ == 7 {
-								fill = draw.FillFromRGBA(colorMap[xQ])
-							}
-						}
-
-					} else if invader.legs == 5 {
-						if xQ == 0 || xQ == 10 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					}
-				}
-
+			if hasFoot(invader, lowBodyIndex, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
 			canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
