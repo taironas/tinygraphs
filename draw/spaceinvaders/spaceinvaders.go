@@ -9,6 +9,66 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
+func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+	canvas := svg.New(w)
+	canvas.Start(size, size)
+	invader := newInvader(key)
+	// log.Println(fmt.Sprintf("%+v\n", invader)) // for debug
+	squares := 11
+	quadrantSize := size / squares
+	middle := math.Ceil(float64(squares) / float64(2))
+	colorMap := make(map[int]color.RGBA)
+	for yQ := 0; yQ < squares; yQ++ {
+		y := yQ * quadrantSize
+		colorMap = make(map[int]color.RGBA)
+
+		for xQ := 0; xQ < squares; xQ++ {
+			x := xQ * quadrantSize
+			fill := draw.FillFromRGBA(colors[0])
+			if _, ok := colorMap[xQ]; !ok {
+				colorMap[xQ] = selectColor(colorMap, key, colors, middle, xQ, yQ, squares)
+			}
+
+			highBodyIndex := 2
+			if hasEyeOrAnthena(invader, &highBodyIndex, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
+			}
+
+			if hasArmOrExtension(invader, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
+			}
+
+			if yQ == 5 { // clean eye from arm extension
+				if eye, c := hasEye4(invader, colorMap, colors, xQ); eye {
+					fill = draw.FillFromRGBA(c)
+				}
+			}
+
+			if yQ == 6 {
+				if hasBody(invader, squares, xQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
+				}
+			}
+
+			lowBodyIndex := 7
+			if hasBody2(invader, &lowBodyIndex, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
+			}
+
+			if hasArmOrExtension2(invader, lowBodyIndex, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
+			}
+
+			if hasLegOrFoot(invader, lowBodyIndex, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
+			}
+
+			canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
+		}
+	}
+	canvas.End()
+}
+
 func selectColor(colorMap map[int]color.RGBA, key string, colors []color.RGBA, middle float64, xQ, yQ, squares int) (c color.RGBA) {
 	if float64(xQ) < middle {
 		c = draw.PickColor(key, colors[1:], xQ+2*yQ)
@@ -147,6 +207,45 @@ func hasAnthenas2(invader invader, xQ int) (anthena bool) {
 			anthena = true
 		}
 	}
+	return
+}
+
+func hasEyeOrAnthena(invader invader, highBodyIndex *int, squares, xQ, yQ int) (result bool) {
+	if invader.height > 7 {
+		if yQ == *highBodyIndex {
+			if hasEye1(invader, xQ) {
+				result = true
+			}
+			if invader.eyes > 1 {
+				*highBodyIndex--
+			}
+		}
+	}
+
+	if yQ == *highBodyIndex-1 && invader.anthenaSize == 2 {
+		if hasAnthenas1(invader, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == *highBodyIndex {
+		if hasAnthenas2(invader, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == 3 {
+		if hasEye2(invader, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == 4 {
+		if hasEye3(invader, xQ) {
+			result = true
+		}
+	}
+
 	return
 }
 
@@ -298,6 +397,55 @@ func hasBigArmExtension(invader invader, armIndex, squares, xQ, yQ int) (bigArmE
 	return
 }
 
+func getArmIndex(invader invader, lowBodyIndex int) (armIndex int) {
+	if invader.height > 6 {
+		armIndex = lowBodyIndex - 3
+	} else {
+		armIndex = lowBodyIndex - 2
+	}
+	return
+}
+
+func hasArmOrExtension(invader invader, squares, xQ, yQ int) (result bool) {
+	if yQ == 5 {
+		if hasArm(invader, squares, xQ) {
+			result = true
+		}
+	}
+
+	if yQ == 4 || yQ == 6 {
+		if hasArmExtension(invader, squares, xQ, yQ) {
+			result = true
+		}
+	}
+	return
+}
+
+func hasArmOrExtension2(invader invader, lowBodyIndex, squares, xQ, yQ int) (result bool) {
+	if hasArm2(invader, squares, xQ, yQ) {
+		result = true
+	}
+
+	if hasArmExtension2(invader, squares, xQ, yQ) {
+		result = true
+	}
+
+	armIndex := getArmIndex(invader, lowBodyIndex)
+
+	if hasArmDown(invader, armIndex, squares, xQ, yQ) {
+		result = true
+	}
+
+	if hasArmDownExtension(invader, armIndex, squares, xQ, yQ) {
+		result = true
+	}
+
+	if hasBigArmExtension(invader, armIndex, squares, xQ, yQ) {
+		result = true
+	}
+	return
+}
+
 func hasBody(invader invader, squares, xQ int) (body bool) {
 	leftOver := squares - invader.length
 	half := leftOver / 2
@@ -305,6 +453,24 @@ func hasBody(invader invader, squares, xQ int) (body bool) {
 		body = true
 	}
 	return
+}
+
+func hasBody2(invader invader, lowBodyIndex *int, squares, xQ, yQ int) (result bool) {
+	if invader.height > 5 {
+		if hasLowBody(invader, squares, *lowBodyIndex, xQ, yQ) {
+			result = true
+		}
+		*lowBodyIndex++
+	}
+
+	if invader.height > 6 {
+		if hasLowBody2(invader, squares, *lowBodyIndex, xQ, yQ) {
+			result = true
+		}
+		*lowBodyIndex++
+	}
+	return result
+
 }
 
 func hasLowBody(invader invader, squares, lowBodyIndex, xQ, yQ int) (lowbody bool) {
@@ -327,15 +493,6 @@ func hasLowBody2(invader invader, squares, lowBodyIndex, xQ, yQ int) (lowbody bo
 	half := leftOver / 2
 	if xQ > half+1 && xQ < (squares-2-half) {
 		lowbody = true
-	}
-	return
-}
-
-func getArmIndex(invader invader, lowBodyIndex int) (armIndex int) {
-	if invader.height > 6 {
-		armIndex = lowBodyIndex - 3
-	} else {
-		armIndex = lowBodyIndex - 2
 	}
 	return
 }
@@ -536,84 +693,6 @@ func hasFoot(invader invader, lowBodyIndex, xQ, yQ int) (foot bool) {
 	return
 }
 
-func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
-	canvas := svg.New(w)
-	canvas.Start(size, size)
-	invader := newInvader(key)
-	// log.Println(fmt.Sprintf("%+v\n", invader)) // for debug
-	squares := 11
-	quadrantSize := size / squares
-	middle := math.Ceil(float64(squares) / float64(2))
-	colorMap := make(map[int]color.RGBA)
-	for yQ := 0; yQ < squares; yQ++ {
-		y := yQ * quadrantSize
-		colorMap = make(map[int]color.RGBA)
-
-		for xQ := 0; xQ < squares; xQ++ {
-			x := xQ * quadrantSize
-			fill := draw.FillFromRGBA(colors[0])
-			if _, ok := colorMap[xQ]; !ok {
-				colorMap[xQ] = selectColor(colorMap, key, colors, middle, xQ, yQ, squares)
-			}
-
-			highBodyIndex := 2
-			if hasEyeOrAnthena(invader, &highBodyIndex, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			if hasArmOrExtension(invader, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			if yQ == 5 { // clean eye from arm extension
-				if eye, c := hasEye4(invader, colorMap, colors, xQ); eye {
-					fill = draw.FillFromRGBA(c)
-				}
-			}
-
-			if yQ == 6 {
-				if hasBody(invader, squares, xQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-			}
-
-			lowBodyIndex := 7
-			if hasBody2(invader, &lowBodyIndex, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			if hasArmOrExtension2(invader, lowBodyIndex, squares, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			if hasLegOrFoot(invader, lowBodyIndex, xQ, yQ) {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-			}
-
-			canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
-		}
-	}
-	canvas.End()
-}
-
-func hasBody2(invader invader, lowBodyIndex *int, squares, xQ, yQ int) (result bool) {
-	if invader.height > 5 {
-		if hasLowBody(invader, squares, *lowBodyIndex, xQ, yQ) {
-			result = true
-		}
-		*lowBodyIndex++
-	}
-
-	if invader.height > 6 {
-		if hasLowBody2(invader, squares, *lowBodyIndex, xQ, yQ) {
-			result = true
-		}
-		*lowBodyIndex++
-	}
-	return result
-
-}
-
 func hasLegOrFoot(invader invader, lowBodyIndex, xQ, yQ int) bool {
 	if yQ == lowBodyIndex || yQ == lowBodyIndex+1 {
 		if hasLeg(invader, lowBodyIndex, xQ, yQ) {
@@ -625,83 +704,4 @@ func hasLegOrFoot(invader invader, lowBodyIndex, xQ, yQ int) bool {
 		return true
 	}
 	return false
-}
-
-func hasEyeOrAnthena(invader invader, highBodyIndex *int, squares, xQ, yQ int) (result bool) {
-	if invader.height > 7 {
-		if yQ == *highBodyIndex {
-			if hasEye1(invader, xQ) {
-				result = true
-			}
-			if invader.eyes > 1 {
-				*highBodyIndex--
-			}
-		}
-	}
-
-	if yQ == *highBodyIndex-1 && invader.anthenaSize == 2 {
-		if hasAnthenas1(invader, xQ) {
-			result = true
-		}
-	}
-
-	if yQ == *highBodyIndex {
-		if hasAnthenas2(invader, xQ) {
-			result = true
-		}
-	}
-
-	if yQ == 3 {
-		if hasEye2(invader, xQ) {
-			result = true
-		}
-	}
-
-	if yQ == 4 {
-		if hasEye3(invader, xQ) {
-			result = true
-		}
-	}
-
-	return
-}
-
-func hasArmOrExtension(invader invader, squares, xQ, yQ int) (result bool) {
-	if yQ == 5 {
-		if hasArm(invader, squares, xQ) {
-			result = true
-		}
-	}
-
-	if yQ == 4 || yQ == 6 {
-		if hasArmExtension(invader, squares, xQ, yQ) {
-			result = true
-		}
-	}
-	return
-}
-
-func hasArmOrExtension2(invader invader, lowBodyIndex, squares, xQ, yQ int) (result bool) {
-	if hasArm2(invader, squares, xQ, yQ) {
-		result = true
-	}
-
-	if hasArmExtension2(invader, squares, xQ, yQ) {
-		result = true
-	}
-
-	armIndex := getArmIndex(invader, lowBodyIndex)
-
-	if hasArmDown(invader, armIndex, squares, xQ, yQ) {
-		result = true
-	}
-
-	if hasArmDownExtension(invader, armIndex, squares, xQ, yQ) {
-		result = true
-	}
-
-	if hasBigArmExtension(invader, armIndex, squares, xQ, yQ) {
-		result = true
-	}
-	return
 }
