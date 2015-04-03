@@ -162,6 +162,31 @@ func hasArm(invader invader, squares, xQ int) (arm bool) {
 	return
 }
 
+func hasArm2(invader invader, squares, xQ, yQ int) (arm bool) {
+	if yQ != 4 || !invader.armsUp && invader.armSize != 3 {
+		return
+	}
+
+	if invader.arms <= 0 {
+		return
+	}
+
+	leftOver := squares - invader.length
+	half := leftOver / 2
+
+	if (squares - half - half - 1) >= invader.length {
+		if xQ == half-2 || xQ == squares-half+1 {
+			arm = true
+		}
+	} else {
+		if xQ == half-1 || xQ == squares-half {
+			arm = true
+		}
+
+	}
+	return
+}
+
 func hasArmExtension(invader invader, squares, xQ, yQ int) (armExtension bool) {
 	if invader.arms <= 0 {
 		return
@@ -174,6 +199,39 @@ func hasArmExtension(invader invader, squares, xQ, yQ int) (armExtension bool) {
 		if xQ == half-1 || xQ == squares-half {
 			armExtension = true
 		}
+	}
+	return
+}
+
+func hasBody(invader invader, squares, xQ int) (body bool) {
+	leftOver := squares - invader.length
+	half := leftOver / 2
+	if xQ > half-1 && xQ < squares-half {
+		body = true
+	}
+	return
+}
+
+func hasLowBody(invader invader, squares, lowBodyIndex, xQ, yQ int) (lowbody bool) {
+	if yQ != lowBodyIndex {
+		return
+	}
+	leftOver := squares - invader.length
+	half := leftOver / 2
+	if xQ > half && xQ < (squares-1-half) {
+		lowbody = true
+	}
+	return
+}
+
+func hasLowBody2(invader invader, squares, lowBodyIndex, xQ, yQ int) (lowbody bool) {
+	if yQ != lowBodyIndex {
+		return
+	}
+	leftOver := squares - invader.length
+	half := leftOver / 2
+	if xQ > half+1 && xQ < (squares-2-half) {
+		lowbody = true
 	}
 	return
 }
@@ -253,8 +311,7 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == 6 { // length of body
-				leftOver := squares - invader.length
-				if xQ > (leftOver/2)-1 && xQ < squares-leftOver/2 {
+				if hasBody(invader, squares, xQ) {
 					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
@@ -262,42 +319,22 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			lowBodyIndex := 7
 			if invader.height > 5 {
 				// add more body if height > 6
-				if yQ == lowBodyIndex {
-					leftOver := squares - invader.length
-					if xQ > (leftOver/2) && xQ < (squares-1-leftOver/2) {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-
+				if hasLowBody(invader, squares, lowBodyIndex, xQ, yQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 				lowBodyIndex++
 			}
 
 			if invader.height > 6 {
 				// add more body if height > 6
-				if yQ == lowBodyIndex {
-					leftOver := squares - invader.length
-					if xQ > (leftOver/2)+1 && xQ < (squares-2-leftOver/2) {
-						fill = draw.FillFromRGBA(colorMap[xQ])
-					}
-
+				if hasLowBody2(invader, squares, lowBodyIndex, xQ, yQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 				lowBodyIndex++
 			}
 
-			if yQ == 4 && invader.armsUp && invader.armSize == 3 {
-				leftOver := squares - invader.length
-				if invader.arms > 0 {
-					if (squares - (leftOver / 2) - (leftOver / 2) - 1) >= invader.length {
-						if xQ == (leftOver/2)-2 || xQ == squares-leftOver/2+1 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else {
-						if xQ == (leftOver/2)-1 || xQ == squares-leftOver/2 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-
-					}
-				}
+			if hasArm2(invader, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
 			// arm up extension.
