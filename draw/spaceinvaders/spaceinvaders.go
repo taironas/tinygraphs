@@ -586,20 +586,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			lowBodyIndex := 7
-			if invader.height > 5 {
-				// add more body if height > 5
-				if hasLowBody(invader, squares, lowBodyIndex, xQ, yQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-				lowBodyIndex++
-			}
-
-			if invader.height > 6 {
-				// add more body if height > 6
-				if hasLowBody2(invader, squares, lowBodyIndex, xQ, yQ) {
-					fill = draw.FillFromRGBA(colorMap[xQ])
-				}
-				lowBodyIndex++
+			if hasBody2(invader, &lowBodyIndex, squares, xQ, yQ) {
+				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
 
 			if hasArmOrExtension2(invader, lowBodyIndex, squares, xQ, yQ) {
@@ -614,6 +602,24 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 		}
 	}
 	canvas.End()
+}
+
+func hasBody2(invader invader, lowBodyIndex *int, squares, xQ, yQ int) (result bool) {
+	if invader.height > 5 {
+		if hasLowBody(invader, squares, *lowBodyIndex, xQ, yQ) {
+			result = true
+		}
+		*lowBodyIndex++
+	}
+
+	if invader.height > 6 {
+		if hasLowBody2(invader, squares, *lowBodyIndex, xQ, yQ) {
+			result = true
+		}
+		*lowBodyIndex++
+	}
+	return result
+
 }
 
 func hasLegOrFoot(invader invader, lowBodyIndex, xQ, yQ int) bool {
