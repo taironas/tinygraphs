@@ -340,6 +340,127 @@ func getArmIndex(invader invader, lowBodyIndex int) (armIndex int) {
 	return
 }
 
+func isOneOfTheTwoLegs(xQ int) bool {
+	if xQ == 4 || xQ == 6 {
+		return true
+	}
+	return false
+}
+
+func isOneOfTheFourLegsInner(xQ int) bool {
+	if xQ == 3 || xQ == 4 || xQ == 6 || xQ == 7 {
+		return true
+	}
+	return false
+}
+
+func isOneOfTheFourLegsInnerLow(xQ int) bool {
+	if xQ == 3 || xQ == 5 || xQ == 5 || xQ == 7 {
+		return true
+	}
+	return false
+}
+
+func isOneOfTheFourLegsOuter(xQ int) bool {
+	if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
+		return true
+	}
+	return false
+}
+
+func isOneLeg(xQ int) bool {
+	if xQ == 5 {
+		return true
+	}
+	return false
+}
+
+func isOneOfTheThreeLegs(invader invader, lowBodyIndex, xQ, yQ int) bool {
+	if invader.length > 5 {
+		if xQ == 3 || xQ == 5 || xQ == 7 {
+			return true
+		}
+	}
+
+	if yQ == lowBodyIndex {
+		if xQ == 4 || xQ == 5 || xQ == 6 {
+			return true
+		}
+	} else {
+		if xQ == 3 || xQ == 5 || xQ == 7 {
+			return true
+		}
+	}
+	return false
+}
+
+func isOneOfTheFourLegs(invader invader, lowBodyIndex, xQ, yQ int) (leg bool) {
+	if invader.length >= 6 {
+		if invader.height >= 7 {
+			if yQ == lowBodyIndex {
+				if isOneOfTheFourLegsInner(xQ) {
+					leg = true
+				}
+			} else {
+				if isOneOfTheFourLegsOuter(xQ) {
+					leg = true
+				}
+			}
+		} else {
+			if isOneOfTheFourLegsOuter(xQ) {
+				leg = true
+			}
+		}
+	} else {
+		if yQ == lowBodyIndex {
+			if isOneOfTheFourLegsInnerLow(xQ) {
+				leg = true
+			}
+		} else {
+			if isOneOfTheFourLegsOuter(xQ) {
+				leg = true
+			}
+		}
+	}
+	return
+}
+
+func isOneOfTheFiveLegs(xQ int) bool {
+	if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
+		return true
+	}
+	return false
+}
+
+func hasLeg(invader invader, lowBodyIndex, xQ, yQ int) (leg bool) {
+	if invader.legs%2 == 0 {
+		if invader.legs == 2 {
+			if isOneOfTheTwoLegs(xQ) {
+				leg = true
+			}
+		} else if invader.legs == 4 {
+			if isOneOfTheFourLegs(invader, lowBodyIndex, xQ, yQ) {
+				leg = true
+			}
+		}
+	} else {
+		if invader.legs == 1 {
+			if isOneLeg(xQ) {
+				leg = true
+			}
+		} else if invader.legs == 3 {
+			if isOneOfTheThreeLegs(invader, lowBodyIndex, xQ, yQ) {
+				leg = true
+			}
+		} else if invader.legs == 5 {
+			if isOneOfTheFiveLegs(xQ) {
+				leg = true
+			}
+		}
+	}
+	return
+}
+
 func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -462,67 +583,8 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			}
 
 			if yQ == lowBodyIndex || yQ == lowBodyIndex+1 { // legs
-				if invader.legs%2 == 0 {
-					if invader.legs == 2 {
-						if xQ == 4 || xQ == 6 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else if invader.legs == 4 {
-						if invader.length >= 6 {
-							if invader.height >= 7 {
-								if yQ == lowBodyIndex {
-									if xQ == 3 || xQ == 4 || xQ == 6 || xQ == 7 {
-										fill = draw.FillFromRGBA(colorMap[xQ])
-									}
-								} else {
-									if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-										fill = draw.FillFromRGBA(colorMap[xQ])
-									}
-								}
-							} else {
-								if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-									fill = draw.FillFromRGBA(colorMap[xQ])
-								}
-							}
-						} else {
-							if yQ == lowBodyIndex {
-								if xQ == 3 || xQ == 5 || xQ == 5 || xQ == 7 {
-									fill = draw.FillFromRGBA(colorMap[xQ])
-								}
-
-							} else {
-								if xQ == 2 || xQ == 4 || xQ == 6 || xQ == 8 {
-									fill = draw.FillFromRGBA(colorMap[xQ])
-								}
-							}
-						}
-					}
-				} else {
-					if invader.legs == 1 {
-						if xQ == 5 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					} else if invader.legs == 3 {
-						if invader.length > 5 {
-							if xQ == 3 || xQ == 5 || xQ == 7 {
-								fill = draw.FillFromRGBA(colorMap[xQ])
-							}
-						} else {
-							if yQ == lowBodyIndex {
-								if xQ == 4 || xQ == 5 || xQ == 6 {
-									fill = draw.FillFromRGBA(colorMap[xQ])
-								}
-							} else {
-								if xQ == 3 || xQ == 5 || xQ == 7 {
-									fill = draw.FillFromRGBA(colorMap[xQ])
-								}
-							}
-						}
-					} else if invader.legs == 5 {
-						if xQ == 1 || xQ == 3 || xQ == 5 || xQ == 7 || xQ == 9 {
-							fill = draw.FillFromRGBA(colorMap[xQ])
-						}
-					}
+				if hasLeg(invader, lowBodyIndex, xQ, yQ) {
+					fill = draw.FillFromRGBA(colorMap[xQ])
 				}
 			}
 
