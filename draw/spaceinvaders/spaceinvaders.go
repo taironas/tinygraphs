@@ -544,7 +544,7 @@ func isOneOfTheFourLegsInner(xQ int) bool {
 }
 
 func isOneOfTheFourLegsInnerLow(xQ int) bool {
-	if xQ == 3 || xQ == 5 || xQ == 5 || xQ == 7 {
+	if xQ == 3 || xQ == 5 || xQ == 7 {
 		return true
 	}
 	return false
