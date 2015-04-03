@@ -696,29 +696,25 @@ func hasFoot(invader invader, lowBodyIndex, xQ, yQ int) (foot bool) {
 		return
 	}
 
-	if invader.legs%2 == 0 {
-		if invader.legs == 2 {
-			if isOneOfTheTwoFeet(xQ) {
-				foot = true
-			}
-		} else if invader.legs == 4 {
-			if isOneOfTheFourFeet(xQ) {
-				foot = true
-			}
+	if invader.legs == 2 {
+		if isOneOfTheTwoFeet(xQ) {
+			foot = true
 		}
-	} else {
-		if invader.legs == 1 {
-			if isOneFoot(xQ) {
-				foot = true
-			}
-		} else if invader.legs == 3 {
-			if isOneOfTheThreeFeet(invader, xQ) {
-				foot = true
-			}
-		} else if invader.legs == 5 {
-			if isOneOfTheFiveFeet(xQ) {
-				foot = true
-			}
+	} else if invader.legs == 4 {
+		if isOneOfTheFourFeet(xQ) {
+			foot = true
+		}
+	} else if invader.legs == 1 {
+		if isOneFoot(xQ) {
+			foot = true
+		}
+	} else if invader.legs == 3 {
+		if isOneOfTheThreeFeet(invader, xQ) {
+			foot = true
+		}
+	} else if invader.legs == 5 {
+		if isOneOfTheFiveFeet(xQ) {
+			foot = true
 		}
 	}
 
