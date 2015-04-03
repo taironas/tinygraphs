@@ -47,11 +47,11 @@ func Square(w http.ResponseWriter, r *http.Request) {
 
 	if f := extract.Format(r); f == format.JPEG {
 		m := image.NewRGBA(image.Rect(0, 0, size, size))
-		squares.Squares(m, key, colors)
+		squares.Image(m, key, colors)
 		var img image.Image = m
 		write.ImageJPEG(w, &img)
 	} else if f == format.SVG {
 		write.ImageSVG(w)
-		squares.SquaresSVG(w, key, colors, size)
+		squares.SVG(w, key, colors, size)
 	}
 }

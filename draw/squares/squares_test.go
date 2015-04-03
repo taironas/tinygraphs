@@ -38,13 +38,13 @@ func TestGridSVG(t *testing.T) {
 func TestSquares(t *testing.T) {
 	t.Parallel()
 	img := image.NewRGBA(image.Rect(0, 0, 10, 10))
-	Squares(img, key, colorTheme)
+	Image(img, key, colorTheme)
 }
 
 func TestSquaresSVG(t *testing.T) {
 	t.Parallel()
 	rec := httptest.NewRecorder()
-	SquaresSVG(rec, key, colorTheme, 10)
+	SVG(rec, key, colorTheme, 10)
 	if rec.Code != http.StatusOK {
 		t.Errorf("returned %v. Expected %v.", rec.Code, http.StatusOK)
 	}

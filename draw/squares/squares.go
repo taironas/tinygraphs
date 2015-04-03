@@ -54,8 +54,8 @@ func GridSVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
 	canvas.End()
 }
 
-// Squares builds an image with 6 by 6 quadrants of alternate colors.
-func Squares(m *image.RGBA, key string, colors []color.RGBA) {
+// Image builds an image.RGBA type with 6 by 6 quadrants of alternate colors.
+func Image(m *image.RGBA, key string, colors []color.RGBA) {
 	size := m.Bounds().Size()
 	squares := 6
 	quad := size.X / squares
@@ -85,8 +85,8 @@ func Squares(m *image.RGBA, key string, colors []color.RGBA) {
 	}
 }
 
-// SquaresSVG builds an image with 6 by 6 quadrants of alternate colors.
-func SquaresSVG(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+// SVG builds an svg image with 6 by 6 quadrants of alternate colors.
+func SVG(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
