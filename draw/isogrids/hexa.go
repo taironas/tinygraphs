@@ -78,76 +78,40 @@ func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines in
 }
 
 func isFill1InHexagon(xL, yL, lines int) bool {
-	if lines%6 == 0 {
-		half := lines / 2
-		start := half / 2
-		if xL < start+1 {
-			if yL > start-1 && yL < start+half+1 {
-				return true
-			}
+
+	half := lines / 2
+	start := half / 2
+	if xL < start+1 {
+		if yL > start-1 && yL < start+half+1 {
+			return true
 		}
-		if xL == half-1 {
-			if yL > start-1-1 && yL < start+half+1+1 {
-				return true
-			}
+	}
+	if xL == half-1 {
+		if yL > start-1-1 && yL < start+half+1+1 {
+			return true
 		}
-		return false
-	} else if lines%4 == 0 {
-		if xL == 0 {
-			if yL > 1 && yL < 6 {
-				return true
-			}
-		}
-		if xL == 1 || xL == 2 {
-			if yL > 0 && yL < 7 {
-				return true
-			}
-		}
-		if xL == 3 {
-			if yL >= 0 && yL <= 7 {
-				return true
-			}
-		}
-		return false
 	}
 	return false
 }
 
 func isFill2InHexagon(xL, yL, lines int) bool {
-	if lines%6 == 0 {
-		half := lines / 2
-		start := half / 2
 
-		if xL < start {
-			if yL > start-1 && yL < start+half {
-				return true
-			}
+	half := lines / 2
+	start := half / 2
+
+	if xL < start {
+		if yL > start-1 && yL < start+half {
+			return true
 		}
-		if xL == 1 {
-			if yL > start-1-1 && yL < start+half+1 {
-				return true
-			}
+	}
+	if xL == 1 {
+		if yL > start-1-1 && yL < start+half+1 {
+			return true
 		}
-		if xL == half-1 {
-			if yL > start-1-1 && yL < start+half+1 {
-				return true
-			}
-		}
-	} else if lines%4 == 0 {
-		if xL == 0 || xL == 1 {
-			if yL > 0 && yL < 6 {
-				return true
-			}
-		}
-		if xL == 1 {
-			if yL > 0 && yL < 6 {
-				return true
-			}
-		}
-		if xL == 2 || xL == 3 {
-			if yL >= 0 && yL <= 6 {
-				return true
-			}
+	}
+	if xL == half-1 {
+		if yL > start-1-1 && yL < start+half+1 {
+			return true
 		}
 	}
 	return false

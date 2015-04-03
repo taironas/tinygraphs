@@ -51,12 +51,13 @@ func Theme(r *http.Request) string {
 }
 
 // Hexalines return the value of the hexalines parameter in the http.Request.
-// possible values: 6 or 8. Default value : 6
+// possible values: 6 or 4. Default value : 6
+// remark: we only support hexalines of 6 right now.
 func Hexalines(r *http.Request) int {
 	s := strings.ToLower(r.FormValue("hexalines"))
 	if len(s) > 0 {
 		if n, err := strconv.ParseInt(s, 0, 64); err == nil {
-			if n%6 == 0 || n%4 == 0 {
+			if n == 6 {
 				return int(n)
 			}
 		}

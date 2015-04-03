@@ -90,7 +90,8 @@ func TestHexalines(t *testing.T) {
 	}{
 		{"test wrong input", "http://www.tg.c?hexalines=h", 6},
 		{"test no input", "http://www.tg.c", 6},
-		{"test good input", "http://www.tg.c?hexalines=4", 4},
+		// we only support hexalines = 6 right now
+		{"test good input", "http://www.tg.c?hexalines=4", 6},
 	}
 
 	for _, test := range tests {
