@@ -50,14 +50,46 @@ func Colors(r *http.Request) (colors []color.RGBA) {
 		}
 	}
 
-	if len(colors) == 2 {
-		if Inverse(r) {
-			tmp := colors[0]
-			colors[0] = colors[1]
-			colors[1] = tmp
-		}
+	if len(colors) == 2 && Inverse(r) {
+		swap(&colors)
+	}
+
+	if order := Order(r); len(order) > 0 {
+		ReOrder(order, &colors)
 	}
 	return
+}
+
+// swap modifies the color array passed as para.
+// it will swap element 0 to 1 and 1 to 0
+func swap(pColors *[]color.RGBA) {
+	colors := *pColors
+	tmp := colors[0]
+	colors[0] = colors[1]
+	colors[1] = tmp
+}
+
+// reOrder will change the order of the color array passed as param
+// with respect to the 'order' array of integers.
+// both array have to have the same length.
+// will ignore any change if the indexes in the order array are out of range.
+func ReOrder(order []int, pColors *[]color.RGBA) {
+	colors := *pColors
+	if len(order) == len(colors) {
+		tmp := []color.RGBA{}
+		reOrder := true
+		for i, _ := range order {
+			if order[i] >= 0 && order[i] < len(colors) {
+				tmp = append(tmp, colors[order[i]])
+			} else {
+				reOrder = false
+				break
+			}
+		}
+		if reOrder {
+			colors = tmp
+		}
+	}
 }
 
 // GColors returns an array of colors based on a HTTP request.
