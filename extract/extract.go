@@ -255,7 +255,7 @@ func Probability(r *http.Request, dp float64) float64 {
 	return dp
 }
 
-// Inv returns the value of inv param from HTTP request.
+// Inv returns the value of inv param from an HTTP request.
 // Default value is false
 func Inverse(r *http.Request) (inverse bool) {
 	strInv := r.FormValue("inv")
@@ -264,6 +264,27 @@ func Inverse(r *http.Request) (inverse bool) {
 			inverse = false
 		} else {
 			inverse = inv
+		}
+	}
+	return
+}
+
+// Order returns an array of integers from an HTTP request.
+// url parameter is 'ord'. It is supose to contain integer numbers.
+// Default is an empty array
+func Order(r *http.Request) (order []int) {
+	if err := r.ParseForm(); err != nil {
+		return []int{}
+	}
+
+	strOrders := r.Form["order"]
+	if len(strOrders) == 0 {
+		return []int{}
+	}
+
+	for _, o := range strOrders {
+		if io, err := strconv.ParseInt(o, 0, 64); err == nil {
+			order = append(order, int(io))
 		}
 	}
 	return

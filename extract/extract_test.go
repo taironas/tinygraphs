@@ -460,3 +460,41 @@ func TestInverse(t *testing.T) {
 		}
 	}
 }
+
+func TestOrder(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		title string
+		url   string
+		order []int
+	}{
+		{"test wrong input", "http://www.tg.c?order=hello&order=e", []int{}},
+		{"test no input", "http://www.tg.c", []int{}},
+		{"test good input", "http://www.tg.c?order=0", []int{0}},
+		{"test good input", "http://www.tg.c?order=0&order=2&order=1", []int{0, 2, 1}},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		order := Order(r)
+		if !areEqual(order, test.order) {
+			t.Errorf("expected %v got %v", test.order, order)
+		}
+	}
+}
+
+func areEqual(a, b []int) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i, _ := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
+}
