@@ -130,12 +130,21 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     * ![theme](http://tinygraphs.com/themes/frogideas?fmt=svg&h=20) frogideas
     * ![theme](http://tinygraphs.com/themes/berrypie?fmt=svg&h=20) berrypie
 
+
 * **numcolors**: `tinygraphs.com/labs/squares/random?theme=summerwarmth&numcolors=4`
 
     You can specify the number of colors that you want to render the image.
     Default value is **2** and can be extended to **4**.
 
     ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=2) ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=3) ![theme](http://tinygraphs.com/labs/squares/random?theme=frogideas&size=120&fmt=svg&numcolors=4)
+
+* **inv**:
+`tinygraphs.com/squares/hello?theme=frogideas&numcolors=2&inv=1`
+
+    You can specify if you want to see the colors inverted.
+    Default value is **false**. `inv` parameter works with theme colors or default (black and white) colors. The number of colors has to be equal to **2**.
+
+    ![normal](http://tinygraphs.com/squares/hello?theme=frogideas&size=120&fmt=svg&numcolors=2&inv=0) ![inverse](http://tinygraphs.com/squares/hello?theme=frogideas&size=120&fmt=svg&numcolors=2&inv=1)
 
 * **lines**:
 `tinygraphs.com/isogrids/hello?lines=4`
@@ -158,14 +167,14 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     * `xs`: number of squares in `squares` banner in x axis.
     * `theme`: tinygraphs theme to use in banner.
     * `numcolors`: number of colors to take into account when rendering banner.
- 
+
    `tinygraphs.com/isogrids/banner/random/gradient?theme=bythepool&numcolors=4`
 
  ![isogrid gradient banner.](http://tinygraphs.com/isogrids/banner/random/gradient?h=75&xt=80&theme=bythepool&numcolors=4)
 
 * **random banner parameters:**
     * `p`: probability of the main color in the banner. Default value is `0.5`. Values should be between `0` and `1`
-    
+
     `tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&p=0.1`
 
     ![isogrid gradient banner.](http://tinygraphs.com/labs/isogrids/banner/gradient?h=75&xt=80&theme=bythepool&numcolors=2&p=0.1)
@@ -179,8 +188,9 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
     * `gy2`: second gradient coordinate along y axis.
 
     `tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60`
-    
+
     ![isogrid color gradient](http://www.tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60)
+
 Organization
 =====
 
