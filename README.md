@@ -149,7 +149,8 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 * **order**:
 `tinygraphs.com/squares/hello?theme=frogideas&numcolors=4&order=3&order=2&order=1&order=0`
 
-    You can specify the order in which you want to see the colors by using the `order` parameter. Just add the indexes in which you wish to see the colors to the order array. Like so: `order=4&order=3&order=2&order=1`
+    You can specify the order in which you want to see the colors by using the `order` parameter. Just add the indexes in which you wish to see the colors to the order array (indexes are zero based)
+    Like so: `order=3&order=2&order=1&order=0`
 
     ![normal](http://tinygraphs.com/squares/hello?theme=seascape&size=120&fmt=svg&numcolors=4)
     ![reorder](http://tinygraphs.com/squares/hello?theme=seascape&size=120&fmt=svg&numcolors=4&order=3&order=2&order=1&order=0)
