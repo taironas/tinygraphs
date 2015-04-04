@@ -52,6 +52,7 @@ func Colors(r *http.Request) (colors []color.RGBA) {
 
 	if len(colors) == 2 && Inverse(r) {
 		swap(&colors)
+
 	}
 
 	if order := Order(r); len(order) > 0 {
@@ -87,7 +88,7 @@ func ReOrder(order []int, pColors *[]color.RGBA) {
 			}
 		}
 		if reOrder {
-			colors = tmp
+			*pColors = tmp
 		}
 	}
 }

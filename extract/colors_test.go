@@ -47,6 +47,17 @@ func TestColors(t *testing.T) {
 			colorMap["frogideas"],
 		},
 		{
+			"test good input with theme and order array",
+			"http://www.tg.c?theme=frogideas&numcolors=4&order=3&order=2&order=1&order=0",
+			[]color.RGBA{
+				colorMap["frogideas"][3],
+				colorMap["frogideas"][2],
+				colorMap["frogideas"][1],
+				colorMap["frogideas"][0],
+			},
+		},
+
+		{
 			"test bad theme",
 			"http://www.tg.c?theme=bad",
 			colorMap["base"],
@@ -285,4 +296,68 @@ func TestExtraColors(t *testing.T) {
 			t.Errorf("expected %+v got %+v", test.bg, bg)
 		}
 	}
+}
+
+func TestReOrder(t *testing.T) {
+	t.Parallel()
+	colors := []color.RGBA{
+		{255, 255, 255, 255},
+		{0, 0, 0, 255},
+		{0, 0, 0, 255},
+		{255, 255, 255, 255},
+	}
+	expected := []color.RGBA{
+		{0, 0, 0, 255},
+		{0, 0, 0, 255},
+		{255, 255, 255, 255},
+		{255, 255, 255, 255},
+	}
+	ReOrder([]int{1, 2, 0, 3}, &colors)
+	if !areArrayOfColorsEqual(colors, expected) {
+		t.Errorf("expected %v got %v", expected, colors)
+	}
+
+	// test wrong order array does not change colors array
+	colors = []color.RGBA{
+		{255, 255, 255, 255},
+		{0, 0, 0, 255},
+		{0, 0, 0, 255},
+		{255, 255, 255, 255},
+	}
+	expected = colors
+	ReOrder([]int{1, 2, 0, 4}, &colors)
+	if !areArrayOfColorsEqual(colors, expected) {
+		t.Errorf("expected %v got %v", expected, colors)
+	}
+
+}
+
+func TestSwap(t *testing.T) {
+	t.Parallel()
+	colors := []color.RGBA{
+		{255, 255, 255, 255},
+		{0, 0, 0, 255},
+	}
+	expected := []color.RGBA{
+		{0, 0, 0, 255},
+		{255, 255, 255, 255},
+	}
+	swap(&colors)
+	if !areArrayOfColorsEqual(colors, expected) {
+		t.Errorf("expected %v got %v", expected, colors)
+	}
+}
+
+func areArrayOfColorsEqual(a, b []color.RGBA) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i, _ := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
 }
