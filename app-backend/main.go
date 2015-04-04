@@ -39,6 +39,7 @@ func main() {
 	r.HandleFunc("/labs/squares/random", squares.Random)
 	r.HandleFunc("/labs/isogrids/hexa", isogrids.Hexa)
 	r.HandleFunc("/labs/isogrids/hexa/:key", isogrids.Hexa)
+	r.HandleFunc("/labs/isogrids/hexa16/:key", isogrids.Hexa16)
 	r.HandleFunc("/labs/isogrids/skeleton", isogrids.Skeleton)
 	r.HandleFunc("/labs/isogrids/diagonals", isogrids.Diagonals)
 	r.HandleFunc("/labs/isogrids/halfdiagonals", isogrids.HalfDiagonals)
