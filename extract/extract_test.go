@@ -436,3 +436,27 @@ func TestProbability(t *testing.T) {
 		}
 	}
 }
+
+func TestInverse(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		title string
+		url   string
+		inv   bool
+	}{
+		{"test wrong input", "http://www.tg.c?inv=hello", false},
+		{"test no input", "http://www.tg.c", false},
+		{"test good input", "http://www.tg.c?inv=0", false},
+		{"test good input", "http://www.tg.c?inv=1", true},
+	}
+
+	for _, test := range tests {
+		t.Log(test.title)
+		r := &http.Request{Method: "GET"}
+		r.URL, _ = url.Parse(test.url)
+		inv := Inverse(r)
+		if inv != test.inv {
+			t.Errorf("expected %v got %v", test.inv, inv)
+		}
+	}
+}
