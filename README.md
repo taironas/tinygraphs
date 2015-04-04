@@ -23,7 +23,7 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 `http://tinygraphs.com/squares/anything`
 
-![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=2) ![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=3) ![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=4)
+![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=2&fmt=svg) ![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=3&fmt=svg) ![squares](http://tinygraphs.com/squares/anything?size=120&theme=frogideas&numcolors=4&fmt=svg)
 
 `http://tinygraphs.com/isogrids/helloworld`
 
@@ -200,7 +200,6 @@ Stack
 ======
 
 * Go
-* mongodb
 * heroku
 
 Installation
