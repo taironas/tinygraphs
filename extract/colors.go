@@ -25,6 +25,10 @@ import (
 // - if the URL has a background and/or a foreground defined by usign parameters 'bg' and 'fg'
 //     we return those.
 //   e.g: some/url?bg=FFFFFF&fg=222222
+// - if you use parameter 'inv' you can invert the colors.
+//   This is true only if the number of colors is equal to 2 and you use 'theme' colors or default ones.
+//   e.g: some/url?inv=1
+//        some/url?theme=frogideas&numcolors=2&inv=1
 func Colors(r *http.Request) (colors []color.RGBA) {
 
 	if newColors, err := UserColors(r); err == nil {
@@ -45,7 +49,15 @@ func Colors(r *http.Request) (colors []color.RGBA) {
 			colors = append(colors, m["base"]...)
 		}
 	}
-	return colors
+
+	if len(colors) == 2 {
+		if Inverse(r) {
+			tmp := colors[0]
+			colors[0] = colors[1]
+			colors[1] = tmp
+		}
+	}
+	return
 }
 
 // GColors returns an array of colors based on a HTTP request.
@@ -122,7 +134,8 @@ func ExtraColors(req *http.Request) (color.RGBA, color.RGBA) {
 	return bg, fg
 }
 
-// UserColors extract an array of hexadecimal colors and returns an array of color.RGBA
+// UserColors extract an array of hexadecimal colors from an HTTP request
+// and returns an array of color.RGBA
 func UserColors(req *http.Request) ([]color.RGBA, error) {
 	if err := req.ParseForm(); err != nil {
 		return []color.RGBA{}, fmt.Errorf("colors: unable to parse form")
