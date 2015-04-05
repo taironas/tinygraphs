@@ -1,9 +1,7 @@
 package isogrids
 
 import (
-	"fmt"
 	"image/color"
-	"log"
 	"net/http"
 
 	"github.com/ajstarks/svgo"
@@ -50,19 +48,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			fill1 := fillTransparent()
 			fill2 := fillTransparent()
 
-			if isFill1InHexagon(xL, yL, lines) {
-				fill1 = "fill:rgb(0,0,0)" // draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+lines)%15))
-			}
-			if isFill2InHexagon(xL, yL, lines) {
-				fill2 = "fill:rgb(0,0,0)" //draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+1+lines)%15))
-			}
-
 			if !isFill1InHexagon(xL, yL, lines) && !isFill2InHexagon(xL, yL, lines) {
 				continue
 			}
-			if false {
-				fmt.Printf(fill1, fill2)
-			}
+
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
@@ -76,7 +65,6 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xL%2) == 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
 				tid := triangleId(xL, yL, left)
 				stid := subTriangleId(xL, yL, left, tid)
-				// stids := SubTriangleIdsFromId(0)
 				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
@@ -225,7 +213,6 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
-				// canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 			} else if (xL%2) == 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
 				tid := triangleId(xL, yL, right)
 				stid := subTriangleId(xL, yL, right, tid)
@@ -250,8 +237,6 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
-
-				// canvas.Polygon(xs1, ys1, "fill:rgb(255,0,0)")
 			} else {
 				canvas.Polygon(xs1, ys1, fill2)
 			}
@@ -316,85 +301,67 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 }
 
 func isInTriangleL(id, xL, yL int) bool {
-	// id = 6
-	// return false
-	fmt.Printf("x: %d, y:%d, id:%d\n", xL, yL, id)
 	if id == 0 {
 		if (yL == 2 && xL == 0) ||
 			(yL == 3 && xL == 0) {
-			log.Println("yes")
 			return true
 		}
 		if xL == 1 && yL == 2 {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 1 {
 		if yL == 1 && xL == 0 {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 0 && xL == 1) ||
 			(yL == 1 && xL == 1) {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 0 && xL == 2) ||
 			(yL == 1 && xL == 2) ||
 			(yL == 2 && xL == 2) {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 2 {
 		if (xL == 3 && yL == 0) ||
 			(xL == 3 && yL == 1) {
-			log.Println("yes")
 			return true
 		}
 		if xL == 4 && yL == 1 {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 3 {
 		if yL == 2 && xL == 3 {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 2 && xL == 4) ||
 			(yL == 3 && xL == 4) {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 1 && xL == 5) ||
 			(yL == 2 && xL == 5) ||
 			(yL == 3 && xL == 5) {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 4 {
 		if (xL == 3 && yL == 3) ||
 			(xL == 3 && yL == 4) {
-			log.Println("yes")
 			return true
 		}
 		if xL == 4 && yL == 4 {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 5 {
 		if yL == 4 && xL == 0 {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 3 && xL == 1) ||
 			(yL == 4 && xL == 1) {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 3 && xL == 2) ||
 			(yL == 4 && xL == 2) ||
 			(yL == 5 && xL == 2) {
-			log.Println("yes")
 			return true
 		}
 	}
@@ -402,28 +369,21 @@ func isInTriangleL(id, xL, yL int) bool {
 }
 
 func isInTriangleR(id, xL, yL int) bool {
-	// return false
-	// id = 6
-	fmt.Printf("x: %d, y:%d, id:%d\n", xL, yL, id)
 	if id == 0 {
 		if (yL == 1 && xL == 0) ||
 			(yL == 2 && xL == 0) ||
 			(yL == 3 && xL == 0) {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 2 && xL == 1) ||
 			(yL == 3 && xL == 1) {
-			log.Println("yes")
 			return true
 		}
 		if yL == 2 && xL == 2 {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 1 {
 		if yL == 1 && xL == 1 {
-			log.Println("yes")
 			return true
 		} else if (yL == 0 && xL == 2) ||
 			(yL == 1 && xL == 2) {
@@ -433,21 +393,17 @@ func isInTriangleR(id, xL, yL int) bool {
 		if (yL == 0 && xL == 3) ||
 			(yL == 1 && xL == 3) ||
 			(yL == 2 && xL == 3) {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 0 && xL == 4) ||
 			(yL == 1 && xL == 4) {
-			log.Println("yes")
 			return true
 		}
 		if yL == 1 && xL == 5 {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 3 {
 		if yL == 2 && xL == 4 {
-			log.Println("yes")
 			return true
 		} else if (yL == 2 && xL == 5) ||
 			(yL == 3 && xL == 5) {
@@ -457,21 +413,17 @@ func isInTriangleR(id, xL, yL int) bool {
 		if (yL == 3 && xL == 3) ||
 			(yL == 4 && xL == 3) ||
 			(yL == 5 && xL == 3) {
-			log.Println("yes")
 			return true
 		}
 		if (yL == 3 && xL == 4) ||
 			(yL == 4 && xL == 4) {
-			log.Println("yes")
 			return true
 		}
 		if yL == 4 && xL == 5 {
-			log.Println("yes")
 			return true
 		}
 	} else if id == 5 {
 		if yL == 4 && xL == 1 {
-			log.Println("yes")
 			return true
 		} else if (yL == 3 && xL == 2) ||
 			(yL == 4 && xL == 2) {
