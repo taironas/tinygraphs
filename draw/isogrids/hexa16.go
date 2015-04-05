@@ -449,31 +449,31 @@ func subTriangleId(x, y, direction, id int) int {
 	t1 := [][]int{
 		{0, 1, right},
 		{0, 2, right},
-		{0, 2, left},
 		{0, 3, right},
+		{0, 2, left},
 		{0, 3, left},
 		{1, 2, right},
-		{1, 2, left},
 		{1, 3, right},
+		{1, 2, left},
 		{2, 2, right},
 	}
 	t2 := [][]int{
 		{0, 1, left},
-		{1, 0, left},
 		{1, 1, right},
+		{1, 0, left},
 		{1, 1, left},
 		{2, 0, right},
-		{2, 0, left},
 		{2, 1, right},
+		{2, 0, left},
 		{2, 1, left},
 		{2, 2, left},
 	}
 	t3 := [][]int{
 		{3, 0, right},
-		{3, 0, left},
 		{3, 1, right},
-		{3, 1, left},
 		{3, 2, right},
+		{3, 1, left},
+		{3, 0, left},
 		{4, 0, right},
 		{4, 1, right},
 		{4, 1, left},
@@ -484,18 +484,18 @@ func subTriangleId(x, y, direction, id int) int {
 		{4, 2, right},
 		{4, 2, left},
 		{4, 3, left},
-		{5, 1, left},
 		{5, 2, right},
-		{5, 2, left},
 		{5, 3, right},
+		{5, 1, left},
+		{5, 2, left},
 		{5, 3, left},
 	}
 	t5 := [][]int{
 		{3, 3, right},
-		{3, 3, left},
 		{3, 4, right},
-		{3, 4, left},
 		{3, 5, right},
+		{3, 3, left},
+		{3, 4, left},
 		{4, 3, right},
 		{4, 4, right},
 		{4, 4, left},
@@ -503,12 +503,12 @@ func subTriangleId(x, y, direction, id int) int {
 	}
 	t6 := [][]int{
 		{0, 4, left},
-		{1, 3, left},
 		{1, 4, right},
+		{1, 3, left},
 		{1, 4, left},
 		{2, 3, right},
-		{2, 3, left},
 		{2, 4, right},
+		{2, 3, left},
 		{2, 4, left},
 		{2, 5, left},
 	}
@@ -567,7 +567,7 @@ func subTriangleId(x, y, direction, id int) int {
 func SubTriangleIdsFromId(lookforSubTriangleId int) []int {
 
 	m := map[int][]int{
-		1: []int{1, 6, 9, 9, 5, 1},
+		1: []int{1, 7, 9, 9, 3, 1},
 		2: []int{},
 	}
 	if v, ok := m[lookforSubTriangleId]; ok {
