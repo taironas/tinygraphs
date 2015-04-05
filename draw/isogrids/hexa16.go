@@ -93,7 +93,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	lines = size / fringeSize
 	offset := ((fringeSize - distance) * lines) / 2
 
-	fillTriangle := createTriangleColors(0, key, colors, lines)
+	fillTriangle := triangleColors(0, key, colors, lines)
 
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
@@ -181,10 +181,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	canvas.End()
 }
 
-// createTriangleColors returns an array of strings, one for each sub triangle.
+// triangleColors returns an array of strings, one for each sub triangle.
 // Each string corresponds to an svg color.
 // Colors are selected from the array of colors passed as parameter and the key.
-func createTriangleColors(id int, key string, colors []color.RGBA, lines int) (tColors []string) {
+func triangleColors(id int, key string, colors []color.RGBA, lines int) (tColors []string) {
 
 	for _, t := range triangles[id] {
 		x := t.x
