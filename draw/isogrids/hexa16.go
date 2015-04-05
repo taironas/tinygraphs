@@ -81,20 +81,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xs, ys, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[1])
-					// } else if SubTriangleIdsFromId(2)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[2])
-					// } else if SubTriangleIdsFromId(3)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[3])
-					// } else if SubTriangleIdsFromId(4)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[4])
-					// } else if SubTriangleIdsFromId(5)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[5])
-					// } else if SubTriangleIdsFromId(6)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[6])
-					// } else if SubTriangleIdsFromId(7)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[7])
-					// } else if SubTriangleIdsFromId(8)[tid] == stid {
-					// 	canvas.Polygon(xs, ys, fillTriangle[8])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[8])
 				} else {
 					canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
 				}
@@ -106,6 +106,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xs, ys, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[8])
 				} else {
 					canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
 				}
@@ -123,6 +137,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xsMirror, ys, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xsMirror, ys, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[8])
 				} else {
 					canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
 				}
@@ -133,6 +161,21 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xsMirror, ys, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xsMirror, ys, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[8])
+
 				} else {
 					canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
 				}
@@ -165,6 +208,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[8])
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
@@ -176,6 +233,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[8])
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
@@ -193,6 +264,21 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[8])
+
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
@@ -203,6 +289,21 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else if SubTriangleIdsFromId(1)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[1])
+				} else if SubTriangleIdsFromId(2)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[2])
+				} else if SubTriangleIdsFromId(3)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[3])
+				} else if SubTriangleIdsFromId(4)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[4])
+				} else if SubTriangleIdsFromId(5)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[5])
+				} else if SubTriangleIdsFromId(6)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[6])
+				} else if SubTriangleIdsFromId(7)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[7])
+				} else if SubTriangleIdsFromId(8)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[8])
+
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
