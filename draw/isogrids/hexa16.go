@@ -1,11 +1,18 @@
 package isogrids
 
 import (
+	"fmt"
 	"image/color"
+	"log"
 	"net/http"
 
 	"github.com/ajstarks/svgo"
-	"github.com/taironas/tinygraphs/draw"
+)
+
+const (
+	both = iota
+	left
+	right
 )
 
 // Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
@@ -25,16 +32,18 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			fill2 := fillTransparent()
 
 			if isFill1InHexagon(xL, yL, lines) {
-				fill1 = draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+lines)%15))
+				fill1 = "fill:rgb(0,0,0)" // draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+lines)%15))
 			}
 			if isFill2InHexagon(xL, yL, lines) {
-				fill2 = draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+1+lines)%15))
+				fill2 = "fill:rgb(0,0,0)" //draw.FillFromRGBA(draw.PickColor(key, colors, (xL+3*yL+1+lines)%15))
 			}
 
 			if !isFill1InHexagon(xL, yL, lines) && !isFill2InHexagon(xL, yL, lines) {
 				continue
 			}
-
+			if false {
+				fmt.Printf(fill1, fill2)
+			}
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
 				x1, y1, x2, y2, _, y3 = right1stTriangle(xL, yL, fringeSize, distance)
@@ -45,10 +54,24 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 
-			canvas.Polygon(xs, ys, fill1)
+			if (xL%2) == 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
+				canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
+			} else if (xL%2) != 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
+				canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
+			} else {
+				canvas.Polygon(xs, ys, fill1)
+			}
 
 			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
-			canvas.Polygon(xsMirror, ys, fill1)
+			xLMirror := lines - xL - 1
+			yLMirror := yL
+			if (xLMirror%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
+				canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
+			} else if (xLMirror%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
+				canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
+			} else {
+				canvas.Polygon(xsMirror, ys, fill1)
+			}
 
 			var x11, x12, y11, y12, y13 int
 			if (xL % 2) == 0 {
@@ -67,12 +90,277 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 
 			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
 			ys1 := []int{y11, y12, y13}
-
-			canvas.Polygon(xs1, ys1, fill2)
+			// triangles that go to the right
+			if (xL%2) != 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
+				canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
+			} else if (xL%2) == 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
+				canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
+			} else {
+				canvas.Polygon(xs1, ys1, fill2)
+			}
 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
-			canvas.Polygon(xs1, ys1, fill2)
+			if (xL%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
+				canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
+			} else if (xL%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
+				canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
+			} else {
+				canvas.Polygon(xs1, ys1, fill2)
+			}
 		}
 	}
 	canvas.End()
+}
+
+func isInTriangleL(id, xL, yL int) bool {
+	// id = 6
+	// return false
+	fmt.Printf("x: %d, y:%d, id:%d\n", xL, yL, id)
+	if id == 1 {
+		if (yL == 2 && xL == 0) ||
+			(yL == 3 && xL == 0) {
+			log.Println("yes")
+			return true
+		}
+		if xL == 1 && yL == 2 {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 2 {
+		if yL == 1 && xL == 0 {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 0 && xL == 1) ||
+			(yL == 1 && xL == 1) {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 0 && xL == 2) ||
+			(yL == 1 && xL == 2) ||
+			(yL == 2 && xL == 2) {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 3 {
+		if (xL == 3 && yL == 0) ||
+			(xL == 3 && yL == 1) {
+			log.Println("yes")
+			return true
+		}
+		if xL == 4 && yL == 1 {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 4 {
+		if yL == 2 && xL == 3 {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 2 && xL == 4) ||
+			(yL == 3 && xL == 4) {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 1 && xL == 5) ||
+			(yL == 2 && xL == 5) ||
+			(yL == 3 && xL == 5) {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 5 {
+		if (xL == 3 && yL == 3) ||
+			(xL == 3 && yL == 4) {
+			log.Println("yes")
+			return true
+		}
+		if xL == 4 && yL == 4 {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 6 {
+		if yL == 4 && xL == 0 {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 3 && xL == 1) ||
+			(yL == 4 && xL == 1) {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 3 && xL == 2) ||
+			(yL == 4 && xL == 2) ||
+			(yL == 5 && xL == 2) {
+			log.Println("yes")
+			return true
+		}
+	}
+	return false
+}
+
+func isInTriangleR(id, xL, yL int) bool {
+	// return false
+	// id = 6
+	fmt.Printf("x: %d, y:%d, id:%d\n", xL, yL, id)
+	if id == 1 {
+		if (yL == 1 && xL == 0) ||
+			(yL == 2 && xL == 0) ||
+			(yL == 3 && xL == 0) {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 2 && xL == 1) ||
+			(yL == 3 && xL == 1) {
+			log.Println("yes")
+			return true
+		}
+		if yL == 2 && xL == 2 {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 2 {
+		if yL == 1 && xL == 1 {
+			log.Println("yes")
+			return true
+		} else if (yL == 0 && xL == 2) ||
+			(yL == 1 && xL == 2) {
+			return true
+		}
+	} else if id == 3 {
+		if (yL == 0 && xL == 3) ||
+			(yL == 1 && xL == 3) ||
+			(yL == 2 && xL == 3) {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 0 && xL == 4) ||
+			(yL == 1 && xL == 4) {
+			log.Println("yes")
+			return true
+		}
+		if yL == 1 && xL == 5 {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 4 {
+		if yL == 2 && xL == 4 {
+			log.Println("yes")
+			return true
+		} else if (yL == 2 && xL == 5) ||
+			(yL == 3 && xL == 5) {
+			return true
+		}
+	} else if id == 5 {
+		if (yL == 3 && xL == 3) ||
+			(yL == 4 && xL == 3) ||
+			(yL == 5 && xL == 3) {
+			log.Println("yes")
+			return true
+		}
+		if (yL == 3 && xL == 4) ||
+			(yL == 4 && xL == 4) {
+			log.Println("yes")
+			return true
+		}
+		if yL == 4 && xL == 5 {
+			log.Println("yes")
+			return true
+		}
+	} else if id == 6 {
+		if yL == 4 && xL == 1 {
+			log.Println("yes")
+			return true
+		} else if (yL == 3 && xL == 2) ||
+			(yL == 4 && xL == 2) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func triangleId(x, y, direction int) int {
+
+	t1 := [][]int{
+		{0, 1, right},
+		{0, 2, both},
+		{0, 3, both},
+		{1, 2, both},
+		{1, 3, right},
+		{2, 2, right},
+	}
+	t2 := [][]int{
+		{0, 1, left},
+		{1, 0, left},
+		{1, 1, both},
+		{2, 0, both},
+		{2, 1, both},
+		{2, 2, left},
+	}
+	t3 := [][]int{
+		{5, 1, right},
+		{4, 0, right},
+		{4, 1, both},
+		{3, 0, both},
+		{3, 1, both},
+		{3, 2, right},
+	}
+	t4 := [][]int{
+		{5, 1, left},
+		{5, 2, both},
+		{5, 3, both},
+		{4, 2, both},
+		{4, 3, left},
+		{3, 2, left},
+	}
+	t5 := [][]int{
+		{5, 4, right},
+		{4, 3, right},
+		{4, 4, both},
+		{3, 3, both},
+		{3, 4, both},
+		{3, 5, right},
+	}
+	t6 := [][]int{
+		{1, 4, both},
+		{2, 3, both},
+		{2, 4, both},
+		{0, 4, left},
+		{1, 3, left},
+		{2, 5, left},
+	}
+
+	for _, p := range t1 {
+		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			return 1
+		}
+	}
+	for _, p := range t2 {
+		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			return 2
+		}
+	}
+	for _, p := range t3 {
+		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			return 3
+		}
+	}
+	for _, p := range t4 {
+		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			return 4
+		}
+	}
+	for _, p := range t5 {
+		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			return 5
+		}
+	}
+
+	for _, p := range t6 {
+		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			return 6
+		}
+	}
+
+	return -1
 }
