@@ -77,7 +77,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xL%2) == 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
 				tid := triangleId(xL, yL, left)
 				stid := subTriangleId(xL, yL, left, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[0])
 				} else {
@@ -86,7 +86,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			} else if (xL%2) != 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
 				tid := triangleId(xL, yL, right)
 				stid := subTriangleId(xL, yL, right, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[0])
 				} else {
@@ -102,7 +102,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xLMirror%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, left)
 				stid := subTriangleId(xLMirror, yLMirror, left, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xsMirror, ys, fillTriangle[0])
 				} else {
@@ -111,7 +111,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			} else if (xLMirror%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, right)
 				stid := subTriangleId(xLMirror, yLMirror, right, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xsMirror, ys, fillTriangle[0])
 				} else {
@@ -142,7 +142,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xL%2) != 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
 				tid := triangleId(xL, yL, left)
 				stid := subTriangleId(xL, yL, left, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else {
@@ -152,7 +152,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			} else if (xL%2) == 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
 				tid := triangleId(xL, yL, right)
 				stid := subTriangleId(xL, yL, right, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else {
@@ -168,7 +168,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xL%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, left)
 				stid := subTriangleId(xLMirror, yLMirror, left, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else {
@@ -177,7 +177,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			} else if (xL%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, right)
 				stid := subTriangleId(xLMirror, yLMirror, right, tid)
-				stids := SubTriangleIdsFromId(2)
+				stids := SubTriangleIdsFromId(3)
 				if stids[tid-1] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
 				} else {
@@ -569,6 +569,7 @@ func SubTriangleIdsFromId(lookforSubTriangleId int) []int {
 	m := map[int][]int{
 		1: []int{1, 7, 9, 9, 3, 1},
 		2: []int{2, 3, 6, 8, 7, 4},
+		3: []int{3, 1, 1, 7, 9, 9},
 	}
 	if v, ok := m[lookforSubTriangleId]; ok {
 		return v
