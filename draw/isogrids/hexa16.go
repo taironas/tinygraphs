@@ -538,118 +538,83 @@ func triangleId(x, y, direction int) int {
 	return -1
 }
 
+type trianglePosition struct {
+	x, y, direction int
+}
+
 func subTriangleId(x, y, direction, id int) int {
 
-	t1 := [][]int{
-		{0, 1, right},
-		{0, 2, right},
-		{0, 3, right},
-		{0, 2, left},
-		{0, 3, left},
-		{1, 2, right},
-		{1, 3, right},
-		{1, 2, left},
-		{2, 2, right},
-	}
-	t2 := [][]int{
-		{0, 1, left},
-		{1, 1, right},
-		{1, 0, left},
-		{1, 1, left},
-		{2, 0, right},
-		{2, 1, right},
-		{2, 0, left},
-		{2, 1, left},
-		{2, 2, left},
-	}
-	t3 := [][]int{
-		{3, 0, right},
-		{3, 1, right},
-		{3, 2, right},
-		{3, 0, left},
-		{3, 1, left},
-		{4, 0, right},
-		{4, 1, right},
-		{4, 1, left},
-		{5, 1, right},
-	}
-	t4 := [][]int{
-		{3, 2, left},
-		{4, 2, right},
-		{4, 2, left},
-		{4, 3, left},
-		{5, 2, right},
-		{5, 3, right},
-		{5, 1, left},
-		{5, 2, left},
-		{5, 3, left},
-	}
-	t5 := [][]int{
-		{3, 3, right},
-		{3, 4, right},
-		{3, 5, right},
-		{3, 3, left},
-		{3, 4, left},
-		{4, 3, right},
-		{4, 4, right},
-		{4, 4, left},
-		{5, 4, right},
-	}
-	t6 := [][]int{
-		{0, 4, left},
-		{1, 4, right},
-		{1, 3, left},
-		{1, 4, left},
-		{2, 3, right},
-		{2, 4, right},
-		{2, 3, left},
-		{2, 4, left},
-		{2, 5, left},
-	}
-
-	if id == 0 {
-		for i, p := range t1 {
-			if p[0] == x && p[1] == y && (direction == p[2]) {
-				return i
-			}
-		}
+	triangles := [][]trianglePosition{
+		[]trianglePosition{
+			{0, 1, right},
+			{0, 2, right},
+			{0, 3, right},
+			{0, 2, left},
+			{0, 3, left},
+			{1, 2, right},
+			{1, 3, right},
+			{1, 2, left},
+			{2, 2, right},
+		},
+		[]trianglePosition{
+			{0, 1, left},
+			{1, 1, right},
+			{1, 0, left},
+			{1, 1, left},
+			{2, 0, right},
+			{2, 1, right},
+			{2, 0, left},
+			{2, 1, left},
+			{2, 2, left},
+		}, []trianglePosition{
+			{3, 0, right},
+			{3, 1, right},
+			{3, 2, right},
+			{3, 0, left},
+			{3, 1, left},
+			{4, 0, right},
+			{4, 1, right},
+			{4, 1, left},
+			{5, 1, right},
+		},
+		[]trianglePosition{
+			{3, 2, left},
+			{4, 2, right},
+			{4, 2, left},
+			{4, 3, left},
+			{5, 2, right},
+			{5, 3, right},
+			{5, 1, left},
+			{5, 2, left},
+			{5, 3, left},
+		},
+		[]trianglePosition{
+			{3, 3, right},
+			{3, 4, right},
+			{3, 5, right},
+			{3, 3, left},
+			{3, 4, left},
+			{4, 3, right},
+			{4, 4, right},
+			{4, 4, left},
+			{5, 4, right},
+		},
+		[]trianglePosition{
+			{0, 4, left},
+			{1, 4, right},
+			{1, 3, left},
+			{1, 4, left},
+			{2, 3, right},
+			{2, 4, right},
+			{2, 3, left},
+			{2, 4, left},
+			{2, 5, left},
+		},
 	}
 
-	if id == 1 {
-		for i, p := range t2 {
-			if p[0] == x && p[1] == y && (direction == p[2]) {
-				return i
-			}
-		}
-	}
-
-	if id == 2 {
-		for i, p := range t3 {
-			if p[0] == x && p[1] == y && (direction == p[2]) {
-				return i
-			}
-		}
-	}
-
-	if id == 3 {
-		for i, p := range t4 {
-			if p[0] == x && p[1] == y && (direction == p[2]) {
-				return i
-			}
-		}
-	}
-
-	if id == 4 {
-		for i, p := range t5 {
-			if p[0] == x && p[1] == y && (direction == p[2]) {
-				return i
-			}
-		}
-	}
-
-	if id == 5 {
-		for i, p := range t6 {
-			if p[0] == x && p[1] == y && (direction == p[2]) {
+	for _, t := range triangles {
+		for i, ti := range t {
+			if ti.x == x && ti.y == y && (direction == ti.direction) {
 				return i
 			}
 		}
