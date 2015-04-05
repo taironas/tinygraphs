@@ -85,6 +85,10 @@ You can set the HTML source of the image to point directly to **tinygraphs.com**
 
 ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=frogideas&numcolors=4) ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=bythepool&numcolors=4) ![hexa](http://tinygraphs.com/labs/isogrids/hexa/hello?size=120&theme=berrypie&numcolors=4)
 
+`http://tinygraphs.com/labs/isogrids/hexa16`
+
+![hexa16](http://tinygraphs.com/labs/isogrids/hexa16/hello?size=120&theme=frogideas&numcolors=2) ![hexa16](http://tinygraphs.com/labs/isogrids/hexa16/hello?size=120&theme=bythepool&numcolors=3) ![hexa16](http://tinygraphs.com/labs/isogrids/hexa16/hello?size=120&theme=berrypie&numcolors=4)
+
 `http://tinygraphs.com/labs/squares/banner/gradient`
 
 ![gradient colors squares](http://www.tinygraphs.com/labs/squares/banner/gradient?h=100&xs=50&theme=frogideas&xs=25)
