@@ -13,6 +13,76 @@ const (
 	right
 )
 
+var (
+	triangles = [][]trianglePosition{
+		[]trianglePosition{
+			{0, 1, right},
+			{0, 2, right},
+			{0, 3, right},
+			{0, 2, left},
+			{0, 3, left},
+			{1, 2, right},
+			{1, 3, right},
+			{1, 2, left},
+			{2, 2, right},
+		},
+		[]trianglePosition{
+			{0, 1, left},
+			{1, 1, right},
+			{1, 0, left},
+			{1, 1, left},
+			{2, 0, right},
+			{2, 1, right},
+			{2, 0, left},
+			{2, 1, left},
+			{2, 2, left},
+		}, []trianglePosition{
+			{3, 0, right},
+			{3, 1, right},
+			{3, 2, right},
+			{3, 0, left},
+			{3, 1, left},
+			{4, 0, right},
+			{4, 1, right},
+			{4, 1, left},
+			{5, 1, right},
+		},
+		[]trianglePosition{
+			{3, 2, left},
+			{4, 2, right},
+			{4, 2, left},
+			{4, 3, left},
+			{5, 2, right},
+			{5, 3, right},
+			{5, 1, left},
+			{5, 2, left},
+			{5, 3, left},
+		},
+		[]trianglePosition{
+			{3, 3, right},
+			{3, 4, right},
+			{3, 5, right},
+			{3, 3, left},
+			{3, 4, left},
+			{4, 3, right},
+			{4, 4, right},
+			{4, 4, left},
+			{5, 4, right},
+		},
+		[]trianglePosition{
+			{0, 4, left},
+			{1, 4, right},
+			{1, 3, left},
+			{1, 4, left},
+			{2, 3, right},
+			{2, 4, right},
+			{2, 3, left},
+			{2, 4, left},
+			{2, 5, left},
+		},
+	}
+)
+
 // Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
 func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
@@ -23,24 +93,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	lines = size / fringeSize
 	offset := ((fringeSize - distance) * lines) / 2
 
-	t1 := [][]int{
-		{0, 1, right},
-		{0, 2, right},
-		{0, 3, right},
-		{0, 2, left},
-		{0, 3, left},
-		{1, 2, right},
-		{1, 3, right},
-		{1, 2, left},
-		{2, 2, right},
-	}
-
-	fillTriangle := []string{}
-	for _, t := range t1 {
-		x := t[0]
-		y := t[1]
-		fillTriangle = append(fillTriangle, draw.FillFromRGBA(draw.PickColor(key, colors, (x+3*y+lines)%15)))
-	}
+	fillTriangle := createTriangleColors(0, key, colors, lines)
 
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
@@ -126,6 +179,19 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 		}
 	}
 	canvas.End()
+}
+
+// createTriangleColors returns an array of strings, one for each sub triangle.
+// Each string corresponds to an svg color.
+// Colors are selected from the array of colors passed as parameter and the key.
+func createTriangleColors(id int, key string, colors []color.RGBA, lines int) (tColors []string) {
+
+	for _, t := range triangles[id] {
+		x := t.x
+		y := t.y
+		tColors = append(tColors, draw.FillFromRGBA(draw.PickColor(key, colors, (x+3*y+lines)%15)))
+	}
+	return
 }
 
 func isInTriangleL(id, xL, yL int) bool {
@@ -264,74 +330,6 @@ func isInTriangleR(id, xL, yL int) bool {
 
 func triangleId(x, y, direction int) int {
 
-	triangles := [][]trianglePosition{
-		[]trianglePosition{
-			{0, 1, right},
-			{0, 2, right},
-			{0, 3, right},
-			{0, 2, left},
-			{0, 3, left},
-			{1, 2, right},
-			{1, 3, right},
-			{1, 2, left},
-			{2, 2, right},
-		},
-		[]trianglePosition{
-			{0, 1, left},
-			{1, 1, right},
-			{1, 0, left},
-			{1, 1, left},
-			{2, 0, right},
-			{2, 1, right},
-			{2, 0, left},
-			{2, 1, left},
-			{2, 2, left},
-		}, []trianglePosition{
-			{3, 0, right},
-			{3, 1, right},
-			{3, 2, right},
-			{3, 0, left},
-			{3, 1, left},
-			{4, 0, right},
-			{4, 1, right},
-			{4, 1, left},
-			{5, 1, right},
-		},
-		[]trianglePosition{
-			{3, 2, left},
-			{4, 2, right},
-			{4, 2, left},
-			{4, 3, left},
-			{5, 2, right},
-			{5, 3, right},
-			{5, 1, left},
-			{5, 2, left},
-			{5, 3, left},
-		},
-		[]trianglePosition{
-			{3, 3, right},
-			{3, 4, right},
-			{3, 5, right},
-			{3, 3, left},
-			{3, 4, left},
-			{4, 3, right},
-			{4, 4, right},
-			{4, 4, left},
-			{5, 4, right},
-		},
-		[]trianglePosition{
-			{0, 4, left},
-			{1, 4, right},
-			{1, 3, left},
-			{1, 4, left},
-			{2, 3, right},
-			{2, 4, right},
-			{2, 3, left},
-			{2, 4, left},
-			{2, 5, left},
-		},
-	}
-
 	for i, t := range triangles {
 		for _, ti := range t {
 			if ti.x == x && ti.y == y && (direction == ti.direction) {
@@ -348,74 +346,6 @@ type trianglePosition struct {
 }
 
 func subTriangleId(x, y, direction, id int) int {
-
-	triangles := [][]trianglePosition{
-		[]trianglePosition{
-			{0, 1, right},
-			{0, 2, right},
-			{0, 3, right},
-			{0, 2, left},
-			{0, 3, left},
-			{1, 2, right},
-			{1, 3, right},
-			{1, 2, left},
-			{2, 2, right},
-		},
-		[]trianglePosition{
-			{0, 1, left},
-			{1, 1, right},
-			{1, 0, left},
-			{1, 1, left},
-			{2, 0, right},
-			{2, 1, right},
-			{2, 0, left},
-			{2, 1, left},
-			{2, 2, left},
-		}, []trianglePosition{
-			{3, 0, right},
-			{3, 1, right},
-			{3, 2, right},
-			{3, 0, left},
-			{3, 1, left},
-			{4, 0, right},
-			{4, 1, right},
-			{4, 1, left},
-			{5, 1, right},
-		},
-		[]trianglePosition{
-			{3, 2, left},
-			{4, 2, right},
-			{4, 2, left},
-			{4, 3, left},
-			{5, 2, right},
-			{5, 3, right},
-			{5, 1, left},
-			{5, 2, left},
-			{5, 3, left},
-		},
-		[]trianglePosition{
-			{3, 3, right},
-			{3, 4, right},
-			{3, 5, right},
-			{3, 3, left},
-			{3, 4, left},
-			{4, 3, right},
-			{4, 4, right},
-			{4, 4, left},
-			{5, 4, right},
-		},
-		[]trianglePosition{
-			{0, 4, left},
-			{1, 4, right},
-			{1, 3, left},
-			{1, 4, left},
-			{2, 3, right},
-			{2, 4, right},
-			{2, 3, left},
-			{2, 4, left},
-			{2, 5, left},
-		},
-	}
 
 	for _, t := range triangles {
 		for i, ti := range t {
