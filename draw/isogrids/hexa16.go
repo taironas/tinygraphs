@@ -11,8 +11,7 @@ import (
 )
 
 const (
-	both = iota
-	left
+	left = iota
 	right
 )
 
@@ -29,12 +28,12 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	t1 := [][]int{
 		{0, 1, right},
 		{0, 2, right},
-		{0, 2, left},
 		{0, 3, right},
+		{0, 2, left},
 		{0, 3, left},
 		{1, 2, right},
-		{1, 2, left},
 		{1, 3, right},
+		{1, 2, left},
 		{2, 2, right},
 	}
 
@@ -80,16 +79,33 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 				// stids := SubTriangleIdsFromId(0)
 				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[1])
+					// } else if SubTriangleIdsFromId(2)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[2])
+					// } else if SubTriangleIdsFromId(3)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[3])
+					// } else if SubTriangleIdsFromId(4)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[4])
+					// } else if SubTriangleIdsFromId(5)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[5])
+					// } else if SubTriangleIdsFromId(6)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[6])
+					// } else if SubTriangleIdsFromId(7)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[7])
+					// } else if SubTriangleIdsFromId(8)[tid] == stid {
+					// 	canvas.Polygon(xs, ys, fillTriangle[8])
 				} else {
 					canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
 				}
 			} else if (xL%2) != 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
 				tid := triangleId(xL, yL, right)
 				stid := subTriangleId(xL, yL, right, tid)
-				stids := SubTriangleIdsFromId(0)
 
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs, ys, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xs, ys, fillTriangle[1])
 				} else {
 					canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
 				}
@@ -103,18 +119,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xLMirror%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, left)
 				stid := subTriangleId(xLMirror, yLMirror, left, tid)
-				stids := SubTriangleIdsFromId(0)
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xsMirror, ys, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[1])
 				} else {
 					canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
 				}
 			} else if (xLMirror%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, right)
 				stid := subTriangleId(xLMirror, yLMirror, right, tid)
-				stids := SubTriangleIdsFromId(0)
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xsMirror, ys, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xsMirror, ys, fillTriangle[1])
 				} else {
 					canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
 				}
@@ -143,9 +161,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xL%2) != 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
 				tid := triangleId(xL, yL, left)
 				stid := subTriangleId(xL, yL, left, tid)
-				stids := SubTriangleIdsFromId(0)
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[1])
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
@@ -153,9 +172,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			} else if (xL%2) == 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
 				tid := triangleId(xL, yL, right)
 				stid := subTriangleId(xL, yL, right, tid)
-				stids := SubTriangleIdsFromId(0)
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[1])
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
@@ -169,18 +189,20 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if (xL%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, left)
 				stid := subTriangleId(xLMirror, yLMirror, left, tid)
-				stids := SubTriangleIdsFromId(0)
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[1])
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
 			} else if (xL%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
 				tid := triangleId(xLMirror, yLMirror, right)
 				stid := subTriangleId(xLMirror, yLMirror, right, tid)
-				stids := SubTriangleIdsFromId(0)
-				if stids[tid] == stid {
+				if SubTriangleIdsFromId(0)[tid] == stid {
 					canvas.Polygon(xs1, ys1, fillTriangle[0])
+				} else if SubTriangleIdsFromId(1)[tid] == stid {
+					canvas.Polygon(xs1, ys1, fillTriangle[1])
 				} else {
 					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
 				}
@@ -363,81 +385,99 @@ func triangleId(x, y, direction int) int {
 
 	t1 := [][]int{
 		{0, 1, right},
-		{0, 2, both},
-		{0, 3, both},
-		{1, 2, both},
+		{0, 2, right},
+		{0, 3, right},
+		{0, 2, left},
+		{0, 3, left},
+		{1, 2, right},
 		{1, 3, right},
+		{1, 2, left},
 		{2, 2, right},
 	}
 	t2 := [][]int{
 		{0, 1, left},
+		{1, 1, right},
 		{1, 0, left},
-		{1, 1, both},
-		{2, 0, both},
-		{2, 1, both},
+		{1, 1, left},
+		{2, 0, right},
+		{2, 1, right},
+		{2, 0, left},
+		{2, 1, left},
 		{2, 2, left},
 	}
 	t3 := [][]int{
-		{5, 1, right},
-		{4, 0, right},
-		{4, 1, both},
-		{3, 0, both},
-		{3, 1, both},
+		{3, 0, right},
+		{3, 1, right},
 		{3, 2, right},
+		{3, 0, left},
+		{3, 1, left},
+		{4, 0, right},
+		{4, 1, right},
+		{4, 1, left},
+		{5, 1, right},
 	}
 	t4 := [][]int{
-		{5, 1, left},
-		{5, 2, both},
-		{5, 3, both},
-		{4, 2, both},
-		{4, 3, left},
 		{3, 2, left},
+		{4, 2, right},
+		{4, 2, left},
+		{4, 3, left},
+		{5, 2, right},
+		{5, 3, right},
+		{5, 1, left},
+		{5, 2, left},
+		{5, 3, left},
 	}
 	t5 := [][]int{
-		{5, 4, right},
-		{4, 3, right},
-		{4, 4, both},
-		{3, 3, both},
-		{3, 4, both},
+		{3, 3, right},
+		{3, 4, right},
 		{3, 5, right},
+		{3, 3, left},
+		{3, 4, left},
+		{4, 3, right},
+		{4, 4, right},
+		{4, 4, left},
+		{5, 4, right},
 	}
 	t6 := [][]int{
-		{1, 4, both},
-		{2, 3, both},
-		{2, 4, both},
 		{0, 4, left},
+		{1, 4, right},
 		{1, 3, left},
+		{1, 4, left},
+		{2, 3, right},
+		{2, 4, right},
+		{2, 3, left},
+		{2, 4, left},
 		{2, 5, left},
 	}
 
 	for _, p := range t1 {
-		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+		if p[0] == x && p[1] == y && (direction == p[2]) {
 			return 0
 		}
 	}
 	for _, p := range t2 {
-		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+		if p[0] == x && p[1] == y && (direction == p[2]) {
 			return 1
 		}
 	}
 	for _, p := range t3 {
-		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+		if p[0] == x && p[1] == y && (direction == p[2]) {
 			return 2
 		}
 	}
 	for _, p := range t4 {
-		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+		if p[0] == x && p[1] == y && (direction == p[2]) {
 			return 3
 		}
 	}
 	for _, p := range t5 {
-		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+		if p[0] == x && p[1] == y && (direction == p[2]) {
 			return 4
 		}
 	}
 
 	for _, p := range t6 {
-		if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+		if p[0] == x && p[1] == y && (direction == p[2]) {
 			return 5
 		}
 	}
@@ -516,7 +556,7 @@ func subTriangleId(x, y, direction, id int) int {
 
 	if id == 0 {
 		for i, p := range t1 {
-			if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			if p[0] == x && p[1] == y && (direction == p[2]) {
 				return i
 			}
 		}
@@ -524,7 +564,7 @@ func subTriangleId(x, y, direction, id int) int {
 
 	if id == 1 {
 		for i, p := range t2 {
-			if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			if p[0] == x && p[1] == y && (direction == p[2]) {
 				return i
 			}
 		}
@@ -532,7 +572,7 @@ func subTriangleId(x, y, direction, id int) int {
 
 	if id == 2 {
 		for i, p := range t3 {
-			if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			if p[0] == x && p[1] == y && (direction == p[2]) {
 				return i
 			}
 		}
@@ -540,7 +580,7 @@ func subTriangleId(x, y, direction, id int) int {
 
 	if id == 3 {
 		for i, p := range t4 {
-			if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			if p[0] == x && p[1] == y && (direction == p[2]) {
 				return i
 			}
 		}
@@ -548,7 +588,7 @@ func subTriangleId(x, y, direction, id int) int {
 
 	if id == 4 {
 		for i, p := range t5 {
-			if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			if p[0] == x && p[1] == y && (direction == p[2]) {
 				return i
 			}
 		}
@@ -556,7 +596,7 @@ func subTriangleId(x, y, direction, id int) int {
 
 	if id == 5 {
 		for i, p := range t6 {
-			if p[0] == x && p[1] == y && (direction == p[2] || p[2] == both) {
+			if p[0] == x && p[1] == y && (direction == p[2]) {
 				return i
 			}
 		}
