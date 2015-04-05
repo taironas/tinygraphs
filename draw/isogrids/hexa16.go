@@ -63,54 +63,11 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			ys := []int{y1, y2, y3}
 
 			if (xL%2) == 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
-				tid := triangleId(xL, yL, left)
-				stid := subTriangleId(xL, yL, left, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[8])
-				} else {
-					canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xL, yL, left)
+				canvas.Polygon(xs, ys, fillTriangle[rid])
 			} else if (xL%2) != 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
-				tid := triangleId(xL, yL, right)
-				stid := subTriangleId(xL, yL, right, tid)
-
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xs, ys, fillTriangle[8])
-				} else {
-					canvas.Polygon(xs, ys, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xL, yL, right)
+				canvas.Polygon(xs, ys, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xs, ys, fill1)
 			}
@@ -119,54 +76,11 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xLMirror := lines - xL - 1
 			yLMirror := yL
 			if (xLMirror%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
-				tid := triangleId(xLMirror, yLMirror, left)
-				stid := subTriangleId(xLMirror, yLMirror, left, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[8])
-				} else {
-					canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xLMirror, yLMirror, left)
+				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
 			} else if (xLMirror%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
-				tid := triangleId(xLMirror, yLMirror, right)
-				stid := subTriangleId(xLMirror, yLMirror, right, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xsMirror, ys, fillTriangle[8])
-
-				} else {
-					canvas.Polygon(xsMirror, ys, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xLMirror, yLMirror, right)
+				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xsMirror, ys, fill1)
 			}
@@ -190,108 +104,22 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			ys1 := []int{y11, y12, y13}
 			// triangles that go to the right
 			if (xL%2) != 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
-				tid := triangleId(xL, yL, left)
-				stid := subTriangleId(xL, yL, left, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[8])
-				} else {
-					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xL, yL, left)
+				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else if (xL%2) == 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
-				tid := triangleId(xL, yL, right)
-				stid := subTriangleId(xL, yL, right, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[8])
-				} else {
-					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xL, yL, right)
+				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xs1, ys1, fill2)
 			}
 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
 			if (xL%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
-				tid := triangleId(xLMirror, yLMirror, left)
-				stid := subTriangleId(xLMirror, yLMirror, left, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[8])
-
-				} else {
-					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xLMirror, yLMirror, left)
+				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else if (xL%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
-				tid := triangleId(xLMirror, yLMirror, right)
-				stid := subTriangleId(xLMirror, yLMirror, right, tid)
-				if SubTriangleIdsFromId(0)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[0])
-				} else if SubTriangleIdsFromId(1)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[1])
-				} else if SubTriangleIdsFromId(2)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[2])
-				} else if SubTriangleIdsFromId(3)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[3])
-				} else if SubTriangleIdsFromId(4)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[4])
-				} else if SubTriangleIdsFromId(5)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[5])
-				} else if SubTriangleIdsFromId(6)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[6])
-				} else if SubTriangleIdsFromId(7)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[7])
-				} else if SubTriangleIdsFromId(8)[tid] == stid {
-					canvas.Polygon(xs1, ys1, fillTriangle[8])
-
-				} else {
-					canvas.Polygon(xs1, ys1, "fill:rgb(255,255,0)")
-				}
+				rid := rotationId(xLMirror, yLMirror, right)
+				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xs1, ys1, fill2)
 			}
@@ -600,7 +428,7 @@ func subTriangleId(x, y, direction, id int) int {
 	return -1
 }
 
-func SubTriangleIdsFromId(lookforSubTriangleId int) []int {
+func subTriangleRotations(lookforSubTriangleId int) []int {
 
 	m := map[int][]int{
 		0: []int{0, 6, 8, 8, 2, 0},
@@ -617,4 +445,19 @@ func SubTriangleIdsFromId(lookforSubTriangleId int) []int {
 		return v
 	}
 	return nil
+}
+
+// rotationId returns the original sub triangle id
+// if the current triangle was rotated to position 0.
+func rotationId(xL, yL, direction int) int {
+	current_tid := triangleId(xL, yL, direction)
+	current_stid := subTriangleId(xL, yL, direction, current_tid)
+	numberOfSubTriangles := 9
+	for i := 0; i < numberOfSubTriangles; i++ {
+		rotations := subTriangleRotations(i)
+		if rotations[current_tid] == current_stid {
+			return i
+		}
+	}
+	return -1
 }
