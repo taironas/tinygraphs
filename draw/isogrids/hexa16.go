@@ -98,12 +98,12 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
 
-			fill1 := fillTransparent()
-			fill2 := fillTransparent()
-
 			if !isFill1InHexagon(xL, yL, lines) && !isFill2InHexagon(xL, yL, lines) {
 				continue
 			}
+
+			fill1 := fillTransparent()
+			fill2 := fillTransparent()
 
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
@@ -115,10 +115,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 
-			if (xL%2) == 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
+			if (xL%2) == 0 && isInTriangle(triangleId(xL, yL, left), xL, yL, left) {
 				rid := rotationId(xL, yL, left)
 				canvas.Polygon(xs, ys, fillTriangle[rid])
-			} else if (xL%2) != 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
+			} else if (xL%2) != 0 && isInTriangle(triangleId(xL, yL, right), xL, yL, right) {
 				rid := rotationId(xL, yL, right)
 				canvas.Polygon(xs, ys, fillTriangle[rid])
 			} else {
@@ -128,10 +128,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
 			xLMirror := lines - xL - 1
 			yLMirror := yL
-			if (xLMirror%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
+			if (xLMirror%2) == 0 && isInTriangle(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror, left) {
 				rid := rotationId(xLMirror, yLMirror, left)
 				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
-			} else if (xLMirror%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
+			} else if (xLMirror%2) != 0 && isInTriangle(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror, right) {
 				rid := rotationId(xLMirror, yLMirror, right)
 				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
 			} else {
@@ -156,10 +156,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
 			ys1 := []int{y11, y12, y13}
 			// triangles that go to the right
-			if (xL%2) != 0 && isInTriangleL(triangleId(xL, yL, left), xL, yL) {
+			if (xL%2) != 0 && isInTriangle(triangleId(xL, yL, left), xL, yL, left) {
 				rid := rotationId(xL, yL, left)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) == 0 && isInTriangleR(triangleId(xL, yL, right), xL, yL) {
+			} else if (xL%2) == 0 && isInTriangle(triangleId(xL, yL, right), xL, yL, right) {
 				rid := rotationId(xL, yL, right)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
@@ -167,10 +167,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			}
 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
-			if (xL%2) == 0 && isInTriangleL(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror) {
+			if (xL%2) == 0 && isInTriangle(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror, left) {
 				rid := rotationId(xLMirror, yLMirror, left)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) != 0 && isInTriangleR(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror) {
+			} else if (xL%2) != 0 && isInTriangle(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror, right) {
 				rid := rotationId(xLMirror, yLMirror, right)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
@@ -194,137 +194,21 @@ func triangleColors(id int, key string, colors []color.RGBA, lines int) (tColors
 	return
 }
 
-func isInTriangleL(id, xL, yL int) bool {
-	if id == 0 {
-		if (yL == 2 && xL == 0) ||
-			(yL == 3 && xL == 0) {
-			return true
+// isInTriangle tells you whether the position x, y
+// is in the triangle with id: 'id' if the sub triangle is a left or right one
+// depending on the direction passed as param.
+func isInTriangle(id, xL, yL, direction int) bool {
+	if id == -1 {
+		return false
+	}
+	for _, t := range triangles[id] {
+		if t.direction != direction {
+			continue
 		}
-		if xL == 1 && yL == 2 {
-			return true
-		}
-	} else if id == 1 {
-		if yL == 1 && xL == 0 {
-			return true
-		}
-		if (yL == 0 && xL == 1) ||
-			(yL == 1 && xL == 1) {
-			return true
-		}
-		if (yL == 0 && xL == 2) ||
-			(yL == 1 && xL == 2) ||
-			(yL == 2 && xL == 2) {
-			return true
-		}
-	} else if id == 2 {
-		if (xL == 3 && yL == 0) ||
-			(xL == 3 && yL == 1) {
-			return true
-		}
-		if xL == 4 && yL == 1 {
-			return true
-		}
-	} else if id == 3 {
-		if yL == 2 && xL == 3 {
-			return true
-		}
-		if (yL == 2 && xL == 4) ||
-			(yL == 3 && xL == 4) {
-			return true
-		}
-		if (yL == 1 && xL == 5) ||
-			(yL == 2 && xL == 5) ||
-			(yL == 3 && xL == 5) {
-			return true
-		}
-	} else if id == 4 {
-		if (xL == 3 && yL == 3) ||
-			(xL == 3 && yL == 4) {
-			return true
-		}
-		if xL == 4 && yL == 4 {
-			return true
-		}
-	} else if id == 5 {
-		if yL == 4 && xL == 0 {
-			return true
-		}
-		if (yL == 3 && xL == 1) ||
-			(yL == 4 && xL == 1) {
-			return true
-		}
-		if (yL == 3 && xL == 2) ||
-			(yL == 4 && xL == 2) ||
-			(yL == 5 && xL == 2) {
+		if t.x == xL && t.y == yL {
 			return true
 		}
 	}
-	return false
-}
-
-func isInTriangleR(id, xL, yL int) bool {
-	if id == 0 {
-		if (yL == 1 && xL == 0) ||
-			(yL == 2 && xL == 0) ||
-			(yL == 3 && xL == 0) {
-			return true
-		}
-		if (yL == 2 && xL == 1) ||
-			(yL == 3 && xL == 1) {
-			return true
-		}
-		if yL == 2 && xL == 2 {
-			return true
-		}
-	} else if id == 1 {
-		if yL == 1 && xL == 1 {
-			return true
-		} else if (yL == 0 && xL == 2) ||
-			(yL == 1 && xL == 2) {
-			return true
-		}
-	} else if id == 2 {
-		if (yL == 0 && xL == 3) ||
-			(yL == 1 && xL == 3) ||
-			(yL == 2 && xL == 3) {
-			return true
-		}
-		if (yL == 0 && xL == 4) ||
-			(yL == 1 && xL == 4) {
-			return true
-		}
-		if yL == 1 && xL == 5 {
-			return true
-		}
-	} else if id == 3 {
-		if yL == 2 && xL == 4 {
-			return true
-		} else if (yL == 2 && xL == 5) ||
-			(yL == 3 && xL == 5) {
-			return true
-		}
-	} else if id == 4 {
-		if (yL == 3 && xL == 3) ||
-			(yL == 4 && xL == 3) ||
-			(yL == 5 && xL == 3) {
-			return true
-		}
-		if (yL == 3 && xL == 4) ||
-			(yL == 4 && xL == 4) {
-			return true
-		}
-		if yL == 4 && xL == 5 {
-			return true
-		}
-	} else if id == 5 {
-		if yL == 4 && xL == 1 {
-			return true
-		} else if (yL == 3 && xL == 2) ||
-			(yL == 4 && xL == 2) {
-			return true
-		}
-	}
-
 	return false
 }
 
@@ -337,7 +221,6 @@ func triangleId(x, y, direction int) int {
 			}
 		}
 	}
-
 	return -1
 }
 
