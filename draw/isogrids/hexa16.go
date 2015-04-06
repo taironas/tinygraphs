@@ -8,81 +8,6 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-const (
-	left = iota
-	right
-)
-
-var (
-	triangles = [][]trianglePosition{
-		[]trianglePosition{
-			{0, 1, right},
-			{0, 2, right},
-			{0, 3, right},
-			{0, 2, left},
-			{0, 3, left},
-			{1, 2, right},
-			{1, 3, right},
-			{1, 2, left},
-			{2, 2, right},
-		},
-		[]trianglePosition{
-			{0, 1, left},
-			{1, 1, right},
-			{1, 0, left},
-			{1, 1, left},
-			{2, 0, right},
-			{2, 1, right},
-			{2, 0, left},
-			{2, 1, left},
-			{2, 2, left},
-		}, []trianglePosition{
-			{3, 0, right},
-			{3, 1, right},
-			{3, 2, right},
-			{3, 0, left},
-			{3, 1, left},
-			{4, 0, right},
-			{4, 1, right},
-			{4, 1, left},
-			{5, 1, right},
-		},
-		[]trianglePosition{
-			{3, 2, left},
-			{4, 2, right},
-			{4, 2, left},
-			{4, 3, left},
-			{5, 2, right},
-			{5, 3, right},
-			{5, 1, left},
-			{5, 2, left},
-			{5, 3, left},
-		},
-		[]trianglePosition{
-			{3, 3, right},
-			{3, 4, right},
-			{3, 5, right},
-			{3, 3, left},
-			{3, 4, left},
-			{4, 3, right},
-			{4, 4, right},
-			{4, 4, left},
-			{5, 4, right},
-		},
-		[]trianglePosition{
-			{0, 4, left},
-			{1, 4, right},
-			{1, 3, left},
-			{1, 4, left},
-			{2, 3, right},
-			{2, 4, right},
-			{2, 3, left},
-			{2, 4, left},
-			{2, 5, left},
-		},
-	}
-)
-
 // Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
 func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
@@ -115,11 +40,14 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 
-			if (xL%2) == 0 && isInTriangle(xL, yL, left) {
-				rid := rotationId(xL, yL, left)
+			tpL := newTrianglePosition(xL, yL, left)
+			tpR := newTrianglePosition(xL, yL, right)
+
+			if (xL%2) == 0 && tpL.isInTriangle() {
+				rid := tpL.rotationId()
 				canvas.Polygon(xs, ys, fillTriangle[rid])
-			} else if (xL%2) != 0 && isInTriangle(xL, yL, right) {
-				rid := rotationId(xL, yL, right)
+			} else if (xL%2) != 0 && tpR.isInTriangle() {
+				rid := tpR.rotationId()
 				canvas.Polygon(xs, ys, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xs, ys, fill1)
@@ -128,11 +56,15 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
 			xLMirror := lines - xL - 1
 			yLMirror := yL
-			if (xLMirror%2) == 0 && isInTriangle(xLMirror, yLMirror, left) {
-				rid := rotationId(xLMirror, yLMirror, left)
+
+			tpLMirror := newTrianglePosition(xLMirror, yLMirror, left)
+			tpRMirror := newTrianglePosition(xLMirror, yLMirror, right)
+
+			if (xLMirror%2) == 0 && tpLMirror.isInTriangle() {
+				rid := tpLMirror.rotationId()
 				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
-			} else if (xLMirror%2) != 0 && isInTriangle(xLMirror, yLMirror, right) {
-				rid := rotationId(xLMirror, yLMirror, right)
+			} else if (xLMirror%2) != 0 && tpRMirror.isInTriangle() {
+				rid := tpRMirror.rotationId()
 				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xsMirror, ys, fill1)
@@ -156,22 +88,28 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
 			ys1 := []int{y11, y12, y13}
 			// triangles that go to the right
-			if (xL%2) != 0 && isInTriangle(xL, yL, left) {
-				rid := rotationId(xL, yL, left)
+			tpL = newTrianglePosition(xL, yL, left)
+			tpR = newTrianglePosition(xL, yL, right)
+
+			if (xL%2) != 0 && tpL.isInTriangle() {
+				rid := tpL.rotationId()
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) == 0 && isInTriangle(xL, yL, right) {
-				rid := rotationId(xL, yL, right)
+			} else if (xL%2) == 0 && tpR.isInTriangle() {
+				rid := tpR.rotationId()
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xs1, ys1, fill2)
 			}
 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
-			if (xL%2) == 0 && isInTriangle(xLMirror, yLMirror, left) {
-				rid := rotationId(xLMirror, yLMirror, left)
+			tpLMirror = newTrianglePosition(xLMirror, yLMirror, left)
+			tpRMirror = newTrianglePosition(xLMirror, yLMirror, right)
+
+			if (xL%2) == 0 && tpLMirror.isInTriangle() {
+				rid := tpLMirror.rotationId()
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) != 0 && isInTriangle(xLMirror, yLMirror, right) {
-				rid := rotationId(xLMirror, yLMirror, right)
+			} else if (xL%2) != 0 && tpRMirror.isInTriangle() {
+				rid := tpRMirror.rotationId()
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
 				canvas.Polygon(xs1, ys1, fill2)
@@ -192,80 +130,4 @@ func triangleColors(id int, key string, colors []color.RGBA, lines int) (tColors
 		tColors = append(tColors, draw.FillFromRGBA(draw.PickColor(key, colors, (x+3*y+lines)%15)))
 	}
 	return
-}
-
-type trianglePosition struct {
-	x, y, direction int
-}
-
-// isInTriangle tells you whether the triples (x, y,direction)
-// is a position inside one of the triangles.
-func isInTriangle(xL, yL, direction int) bool {
-
-	id := triangleId(xL, yL, direction)
-	return id != -1
-}
-
-// triangleId returns the triangle id (from 0 to 5)
-// that has a match with the position given as param.
-// returns -1 if a match is not found.
-func triangleId(x, y, direction int) int {
-
-	for i, t := range triangles {
-		for _, ti := range t {
-			if ti.x == x && ti.y == y && (direction == ti.direction) {
-				return i
-			}
-		}
-	}
-	return -1
-}
-
-// subTriangleId returns the sub triangle id (from 0 to 8)
-// that has a match with the position given as param.
-// returns -1 if a match is not found.
-func subTriangleId(x, y, direction, id int) int {
-
-	for _, t := range triangles {
-		for i, ti := range t {
-			if ti.x == x && ti.y == y && (direction == ti.direction) {
-				return i
-			}
-		}
-	}
-	return -1
-}
-
-func subTriangleRotations(lookforSubTriangleId int) []int {
-
-	m := map[int][]int{
-		0: []int{0, 6, 8, 8, 2, 0},
-		1: []int{1, 2, 5, 7, 6, 3},
-		2: []int{2, 0, 0, 6, 8, 8},
-		3: []int{3, 4, 7, 5, 4, 1},
-		4: []int{4, 1, 3, 4, 7, 5},
-		5: []int{5, 7, 6, 3, 1, 2},
-		6: []int{6, 3, 1, 2, 5, 7},
-		7: []int{7, 5, 4, 1, 3, 4},
-		8: []int{8, 8, 2, 0, 0, 6},
-	}
-	if v, ok := m[lookforSubTriangleId]; ok {
-		return v
-	}
-	return nil
-}
-
-// rotationId returns the original sub triangle id
-// if the current triangle was rotated to position 0.
-func rotationId(xL, yL, direction int) int {
-	current_tid := triangleId(xL, yL, direction)
-	current_stid := subTriangleId(xL, yL, direction, current_tid)
-	numberOfSubTriangles := 9
-	for i := 0; i < numberOfSubTriangles; i++ {
-		rotations := subTriangleRotations(i)
-		if rotations[current_tid] == current_stid {
-			return i
-		}
-	}
-	return -1
 }
