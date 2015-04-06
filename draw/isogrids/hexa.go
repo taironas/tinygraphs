@@ -117,6 +117,11 @@ func isFill2InHexagon(xL, yL, lines int) bool {
 	return false
 }
 
+// isOutsideHexagon returns true if the current position is outside the hexagon.
+func isOutsideHexagon(xL, yL, lines int) bool {
+	return !isFill1InHexagon(xL, yL, lines) && !isFill2InHexagon(xL, yL, lines)
+}
+
 // fillWhite returns the svg style to paint an object white.
 func fillWhite() string {
 	return "fill:rgb(255,255,255)"

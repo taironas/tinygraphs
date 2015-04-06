@@ -98,7 +98,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
 
-			if !isFill1InHexagon(xL, yL, lines) && !isFill2InHexagon(xL, yL, lines) {
+			if isOutsideHexagon(xL, yL, lines) {
 				continue
 			}
 
@@ -115,10 +115,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 
-			if (xL%2) == 0 && isInTriangle(triangleId(xL, yL, left), xL, yL, left) {
+			if (xL%2) == 0 && isInTriangle(xL, yL, left) {
 				rid := rotationId(xL, yL, left)
 				canvas.Polygon(xs, ys, fillTriangle[rid])
-			} else if (xL%2) != 0 && isInTriangle(triangleId(xL, yL, right), xL, yL, right) {
+			} else if (xL%2) != 0 && isInTriangle(xL, yL, right) {
 				rid := rotationId(xL, yL, right)
 				canvas.Polygon(xs, ys, fillTriangle[rid])
 			} else {
@@ -128,10 +128,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
 			xLMirror := lines - xL - 1
 			yLMirror := yL
-			if (xLMirror%2) == 0 && isInTriangle(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror, left) {
+			if (xLMirror%2) == 0 && isInTriangle(xLMirror, yLMirror, left) {
 				rid := rotationId(xLMirror, yLMirror, left)
 				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
-			} else if (xLMirror%2) != 0 && isInTriangle(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror, right) {
+			} else if (xLMirror%2) != 0 && isInTriangle(xLMirror, yLMirror, right) {
 				rid := rotationId(xLMirror, yLMirror, right)
 				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
 			} else {
@@ -156,10 +156,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
 			ys1 := []int{y11, y12, y13}
 			// triangles that go to the right
-			if (xL%2) != 0 && isInTriangle(triangleId(xL, yL, left), xL, yL, left) {
+			if (xL%2) != 0 && isInTriangle(xL, yL, left) {
 				rid := rotationId(xL, yL, left)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) == 0 && isInTriangle(triangleId(xL, yL, right), xL, yL, right) {
+			} else if (xL%2) == 0 && isInTriangle(xL, yL, right) {
 				rid := rotationId(xL, yL, right)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
@@ -167,10 +167,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			}
 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
-			if (xL%2) == 0 && isInTriangle(triangleId(xLMirror, yLMirror, left), xLMirror, yLMirror, left) {
+			if (xL%2) == 0 && isInTriangle(xLMirror, yLMirror, left) {
 				rid := rotationId(xLMirror, yLMirror, left)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) != 0 && isInTriangle(triangleId(xLMirror, yLMirror, right), xLMirror, yLMirror, right) {
+			} else if (xL%2) != 0 && isInTriangle(xLMirror, yLMirror, right) {
 				rid := rotationId(xLMirror, yLMirror, right)
 				canvas.Polygon(xs1, ys1, fillTriangle[rid])
 			} else {
@@ -194,24 +194,21 @@ func triangleColors(id int, key string, colors []color.RGBA, lines int) (tColors
 	return
 }
 
-// isInTriangle tells you whether the position x, y
-// is in the triangle with id: 'id' if the sub triangle is a left or right one
-// depending on the direction passed as param.
-func isInTriangle(id, xL, yL, direction int) bool {
-	if id == -1 {
-		return false
-	}
-	for _, t := range triangles[id] {
-		if t.direction != direction {
-			continue
-		}
-		if t.x == xL && t.y == yL {
-			return true
-		}
-	}
-	return false
+type trianglePosition struct {
+	x, y, direction int
 }
 
+// isInTriangle tells you whether the triples (x, y,direction)
+// is a position inside one of the triangles.
+func isInTriangle(xL, yL, direction int) bool {
+
+	id := triangleId(xL, yL, direction)
+	return id != -1
+}
+
+// triangleId returns the triangle id (from 0 to 5)
+// that has a match with the position given as param.
+// returns -1 if a match is not found.
 func triangleId(x, y, direction int) int {
 
 	for i, t := range triangles {
@@ -224,10 +221,9 @@ func triangleId(x, y, direction int) int {
 	return -1
 }
 
-type trianglePosition struct {
-	x, y, direction int
-}
-
+// subTriangleId returns the sub triangle id (from 0 to 8)
+// that has a match with the position given as param.
+// returns -1 if a match is not found.
 func subTriangleId(x, y, direction, id int) int {
 
 	for _, t := range triangles {
@@ -237,7 +233,6 @@ func subTriangleId(x, y, direction, id int) int {
 			}
 		}
 	}
-
 	return -1
 }
 
