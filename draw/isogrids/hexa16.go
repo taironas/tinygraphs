@@ -1,6 +1,7 @@
 package isogrids
 
 import (
+	"errors"
 	"image/color"
 	"net/http"
 
@@ -40,34 +41,23 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 
-			tpL := newTrianglePosition(xL, yL, left)
-			tpR := newTrianglePosition(xL, yL, right)
+			isLeft := func(v int) bool { return (v % 2) == 0 }
+			isRight := func(v int) bool { return (v % 2) != 0 }
 
-			if (xL%2) == 0 && tpL.isInTriangle() {
-				rid := tpL.rotationId()
-				canvas.Polygon(xs, ys, fillTriangle[rid])
-			} else if (xL%2) != 0 && tpR.isInTriangle() {
-				rid := tpR.rotationId()
-				canvas.Polygon(xs, ys, fillTriangle[rid])
-			} else {
+			if fill, err := canFill(xL, yL, fillTriangle, isLeft, isRight); err != nil {
 				canvas.Polygon(xs, ys, fill1)
+			} else {
+				canvas.Polygon(xs, ys, fill)
 			}
 
 			xsMirror := mirrorCoordinates(xs, lines, distance, offset*2)
 			xLMirror := lines - xL - 1
 			yLMirror := yL
 
-			tpLMirror := newTrianglePosition(xLMirror, yLMirror, left)
-			tpRMirror := newTrianglePosition(xLMirror, yLMirror, right)
-
-			if (xLMirror%2) == 0 && tpLMirror.isInTriangle() {
-				rid := tpLMirror.rotationId()
-				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
-			} else if (xLMirror%2) != 0 && tpRMirror.isInTriangle() {
-				rid := tpRMirror.rotationId()
-				canvas.Polygon(xsMirror, ys, fillTriangle[rid])
-			} else {
+			if fill, err := canFill(xLMirror, yLMirror, fillTriangle, isLeft, isRight); err != nil {
 				canvas.Polygon(xsMirror, ys, fill1)
+			} else {
+				canvas.Polygon(xsMirror, ys, fill)
 			}
 
 			var x11, x12, y11, y12, y13 int
@@ -87,32 +77,21 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 
 			xs1 := []int{x12 + offset, x11 + offset, x12 + offset}
 			ys1 := []int{y11, y12, y13}
-			// triangles that go to the right
-			tpL = newTrianglePosition(xL, yL, left)
-			tpR = newTrianglePosition(xL, yL, right)
 
-			if (xL%2) != 0 && tpL.isInTriangle() {
-				rid := tpL.rotationId()
-				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) == 0 && tpR.isInTriangle() {
-				rid := tpR.rotationId()
-				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else {
+			// triangles that go to the right
+
+			if fill, err := canFill(xL, yL, fillTriangle, isRight, isLeft); err != nil {
 				canvas.Polygon(xs1, ys1, fill2)
+			} else {
+				canvas.Polygon(xs1, ys1, fill)
 			}
 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
-			tpLMirror = newTrianglePosition(xLMirror, yLMirror, left)
-			tpRMirror = newTrianglePosition(xLMirror, yLMirror, right)
 
-			if (xL%2) == 0 && tpLMirror.isInTriangle() {
-				rid := tpLMirror.rotationId()
-				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else if (xL%2) != 0 && tpRMirror.isInTriangle() {
-				rid := tpRMirror.rotationId()
-				canvas.Polygon(xs1, ys1, fillTriangle[rid])
-			} else {
+			if fill, err := canFill(xLMirror, yLMirror, fillTriangle, isRight, isLeft); err != nil {
 				canvas.Polygon(xs1, ys1, fill2)
+			} else {
+				canvas.Polygon(xs1, ys1, fill)
 			}
 		}
 	}
@@ -130,4 +109,18 @@ func triangleColors(id int, key string, colors []color.RGBA, lines int) (tColors
 		tColors = append(tColors, draw.FillFromRGBA(draw.PickColor(key, colors, (x+3*y+lines)%15)))
 	}
 	return
+}
+
+func canFill(x, y int, fills []string, isLeft func(x int) bool, isRight func(x int) bool) (string, error) {
+	l := newTrianglePosition(x, y, left)
+	r := newTrianglePosition(x, y, right)
+
+	if isLeft(x) && l.isInTriangle() {
+		rid := l.rotationId()
+		return fills[rid], nil
+	} else if isRight(x) && r.isInTriangle() {
+		rid := r.rotationId()
+		return fills[rid], nil
+	}
+	return "", errors.New("cannot find svg fill for given position.")
 }
