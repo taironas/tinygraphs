@@ -20,6 +20,10 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 	offset := ((fringeSize - distance) * lines) / 2
 
 	fillTriangle := triangleColors(0, key, colors, lines)
+	transparent := fillTransparent()
+
+	isLeft := func(v int) bool { return (v % 2) == 0 }
+	isRight := func(v int) bool { return (v % 2) != 0 }
 
 	for xL := 0; xL < lines/2; xL++ {
 		for yL := 0; yL < lines; yL++ {
@@ -27,9 +31,6 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			if isOutsideHexagon(xL, yL, lines) {
 				continue
 			}
-
-			fill1 := fillTransparent()
-			fill2 := fillTransparent()
 
 			var x1, x2, y1, y2, y3 int
 			if (xL % 2) == 0 {
@@ -41,11 +42,8 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs := []int{x2 + offset, x1 + offset, x2 + offset}
 			ys := []int{y1, y2, y3}
 
-			isLeft := func(v int) bool { return (v % 2) == 0 }
-			isRight := func(v int) bool { return (v % 2) != 0 }
-
 			if fill, err := canFill(xL, yL, fillTriangle, isLeft, isRight); err != nil {
-				canvas.Polygon(xs, ys, fill1)
+				canvas.Polygon(xs, ys, transparent)
 			} else {
 				canvas.Polygon(xs, ys, fill)
 			}
@@ -55,7 +53,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			yLMirror := yL
 
 			if fill, err := canFill(xLMirror, yLMirror, fillTriangle, isLeft, isRight); err != nil {
-				canvas.Polygon(xsMirror, ys, fill1)
+				canvas.Polygon(xsMirror, ys, transparent)
 			} else {
 				canvas.Polygon(xsMirror, ys, fill)
 			}
@@ -81,7 +79,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			// triangles that go to the right
 
 			if fill, err := canFill(xL, yL, fillTriangle, isRight, isLeft); err != nil {
-				canvas.Polygon(xs1, ys1, fill2)
+				canvas.Polygon(xs1, ys1, transparent)
 			} else {
 				canvas.Polygon(xs1, ys1, fill)
 			}
@@ -89,7 +87,7 @@ func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines 
 			xs1 = mirrorCoordinates(xs1, lines, distance, offset*2)
 
 			if fill, err := canFill(xLMirror, yLMirror, fillTriangle, isRight, isLeft); err != nil {
-				canvas.Polygon(xs1, ys1, fill2)
+				canvas.Polygon(xs1, ys1, transparent)
 			} else {
 				canvas.Polygon(xs1, ys1, fill)
 			}
@@ -111,6 +109,8 @@ func triangleColors(id int, key string, colors []color.RGBA, lines int) (tColors
 	return
 }
 
+// canFill returns a fill svg string given position. the fill is computed to be a rotation of the
+// triangle 0 with the 'fills' array given as param.
 func canFill(x, y int, fills []string, isLeft func(x int) bool, isRight func(x int) bool) (string, error) {
 	l := newTrianglePosition(x, y, left)
 	r := newTrianglePosition(x, y, right)
