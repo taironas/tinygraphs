@@ -255,7 +255,7 @@ func Probability(r *http.Request, dp float64) float64 {
 	return dp
 }
 
-// Inv returns the value of inv param from an HTTP request.
+// Inverse returns the value of inv param from an HTTP request.
 // Default value is false
 func Inverse(r *http.Request) (inverse bool) {
 	strInv := r.FormValue("inv")

@@ -9,7 +9,9 @@ import (
 	"github.com/taironas/tinygraphs/draw"
 )
 
-// Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
+// Hexa16 builds an image with lines x lines grids of half diagonals in the form of an hexagon
+// it draws 6 triangles, triangle 1 to 5 are all rotations of triangle 0.
+// triangle zero triangle on the center left.
 func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
@@ -116,11 +118,11 @@ func canFill(x, y int, fills []string, isLeft func(x int) bool, isRight func(x i
 	r := newTrianglePosition(x, y, right)
 
 	if isLeft(x) && l.isInTriangle() {
-		rid := l.rotationId()
+		rid := l.rotationID()
 		return fills[rid], nil
 	} else if isRight(x) && r.isInTriangle() {
-		rid := r.rotationId()
+		rid := r.rotationID()
 		return fills[rid], nil
 	}
-	return "", errors.New("cannot find svg fill for given position.")
+	return "", errors.New("cannot find svg fill for given position")
 }

@@ -70,7 +70,7 @@ func swap(pColors *[]color.RGBA) {
 	colors[1] = tmp
 }
 
-// reOrder will change the order of the color array passed as param
+// ReOrder will change the order of the color array passed as param
 // with respect to the 'order' array of integers.
 // both array have to have the same length.
 // will ignore any change if the indexes in the order array are out of range.
@@ -79,7 +79,7 @@ func ReOrder(order []int, pColors *[]color.RGBA) {
 	if len(order) == len(colors) {
 		tmp := []color.RGBA{}
 		reOrder := true
-		for i, _ := range order {
+		for i := range order {
 			if order[i] >= 0 && order[i] < len(colors) {
 				tmp = append(tmp, colors[order[i]])
 			} else {

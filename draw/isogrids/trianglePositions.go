@@ -96,10 +96,10 @@ func (tp *trianglePosition) isInTriangle() bool {
 	return tp.triangleId() != -1
 }
 
-// triangleId returns the triangle id (from 0 to 5)
+// triangleID returns the triangle id (from 0 to 5)
 // that has a match with the position given as param.
 // returns -1 if a match is not found.
-func (tp *trianglePosition) triangleId() int {
+func (tp *trianglePosition) triangleID() int {
 
 	for i, t := range triangles {
 		for _, ti := range t {
@@ -111,10 +111,10 @@ func (tp *trianglePosition) triangleId() int {
 	return -1
 }
 
-// subTriangleId returns the sub triangle id (from 0 to 8)
+// subTriangleID returns the sub triangle id (from 0 to 8)
 // that has a match with the position given as param.
 // returns -1 if a match is not found.
-func (tp *trianglePosition) subTriangleId() int {
+func (tp *trianglePosition) subTriangleID() int {
 
 	for _, t := range triangles {
 		for i, ti := range t {
@@ -126,7 +126,7 @@ func (tp *trianglePosition) subTriangleId() int {
 	return -1
 }
 
-func subTriangleRotations(lookforSubTriangleId int) []int {
+func subTriangleRotations(lookforSubTriangleID int) []int {
 
 	m := map[int][]int{
 		0: []int{0, 6, 8, 8, 2, 0},
@@ -139,7 +139,7 @@ func subTriangleRotations(lookforSubTriangleId int) []int {
 		7: []int{7, 5, 4, 1, 3, 4},
 		8: []int{8, 8, 2, 0, 0, 6},
 	}
-	if v, ok := m[lookforSubTriangleId]; ok {
+	if v, ok := m[lookforSubTriangleID]; ok {
 		return v
 	}
 	return nil
@@ -147,13 +147,13 @@ func subTriangleRotations(lookforSubTriangleId int) []int {
 
 // rotationId returns the original sub triangle id
 // if the current triangle was rotated to position 0.
-func (tp *trianglePosition) rotationId() int {
-	current_tid := tp.triangleId()
-	current_stid := tp.subTriangleId()
+func (tp *trianglePosition) rotationID() int {
+	currentTID := tp.triangleID()
+	currentSTID := tp.subTriangleID()
 	numberOfSubTriangles := 9
 	for i := 0; i < numberOfSubTriangles; i++ {
 		rotations := subTriangleRotations(i)
-		if rotations[current_tid] == current_stid {
+		if rotations[currentTID] == currentSTID {
 			return i
 		}
 	}

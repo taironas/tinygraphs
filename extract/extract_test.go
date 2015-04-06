@@ -490,7 +490,7 @@ func areEqual(a, b []int) bool {
 		return false
 	}
 
-	for i, _ := range a {
+	for i := range a {
 		if a[i] != b[i] {
 			return false
 		}

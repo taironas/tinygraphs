@@ -12,7 +12,7 @@ import (
 	"github.com/taironas/tinygraphs/write"
 )
 
-// Hexa is the handler for /isogrids/hexa16/:key
+// Hexa16 is the handler for /isogrids/hexa16/:key
 // builds an hexagon with alternate colors.
 func Hexa16(w http.ResponseWriter, r *http.Request) {
 	var err error
