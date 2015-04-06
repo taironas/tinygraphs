@@ -93,7 +93,7 @@ func newTrianglePosition(x, y, d int) trianglePosition {
 // isInTriangle tells you whether the triples (x, y,direction)
 // is a position inside one of the triangles.
 func (tp *trianglePosition) isInTriangle() bool {
-	return tp.triangleId() != -1
+	return tp.triangleID() != -1
 }
 
 // triangleID returns the triangle id (from 0 to 5)
