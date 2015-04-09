@@ -1,6 +1,7 @@
 package colors
 
 import (
+	"fmt"
 	"image/color"
 )
 
@@ -85,4 +86,14 @@ func MapOfColorThemes() map[string][]color.RGBA {
 			{255, 79, 0, 255},    // 2dary
 		},
 	}
+}
+
+func ArrayToHexString(colors []color.RGBA) (s string) {
+	for _, c := range colors {
+		s = s + ToHexString(c)
+	}
+	return
+}
+func ToHexString(c color.RGBA) string {
+	return fmt.Sprintf("#%02X%02X%02X", c.R, c.G, c.B)
 }
