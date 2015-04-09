@@ -2,6 +2,7 @@ package isogrids
 
 import (
 	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/taironas/route"
@@ -37,5 +38,34 @@ func TestHexa(t *testing.T) {
 			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
 		}
 
+	}
+}
+
+func TestHexaCache(t *testing.T) {
+	t.Parallel()
+	r := new(route.Router)
+	r.HandleFunc("/isogrids/labs/hexa/:key", Hexa)
+
+	var etag string
+
+	test := tgTesting.GenerateHandlerFunc(t, Hexa)
+
+	if recorder := test("/isogrids/labs/hexa/somekey", "GET", nil, r); recorder != nil {
+		if recorder.Code != http.StatusOK {
+			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusOK)
+		}
+		etag = recorder.Header().Get("Etag")
+	}
+
+	// test caching
+	if req, err := http.NewRequest("GET", "/isogrids/labs/hexa/somekey", nil); err != nil {
+		t.Errorf("%v", err)
+	} else {
+		req.Header.Set("If-None-Match", etag)
+		recorder := httptest.NewRecorder()
+		r.ServeHTTP(recorder, req)
+		if recorder.Code != http.StatusNotModified {
+			t.Errorf("returned %v. Expected %v.", recorder.Code, http.StatusNotModified)
+		}
 	}
 }
