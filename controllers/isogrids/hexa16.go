@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/taironas/route"
+	"github.com/taironas/tinygraphs/cache"
 	"github.com/taironas/tinygraphs/draw/isogrids"
 	"github.com/taironas/tinygraphs/extract"
 	"github.com/taironas/tinygraphs/write"
@@ -28,6 +29,11 @@ func Hexa16(w http.ResponseWriter, r *http.Request) {
 
 	lines := extract.Hexalines(r)
 	colors := extract.Colors(r)
+
+	if Cache.IsCached(&w, r, key, colors, size) {
+		w.WriteHeader(http.StatusNotModified)
+		return
+	}
 
 	write.ImageSVG(w)
 	isogrids.Hexa16(w, key, colors, size, lines)
