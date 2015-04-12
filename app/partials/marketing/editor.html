@@ -1,13 +1,13 @@
 <div id="tryitout" class="row features--background" ng-controller="EditorCtrl">
   <div class="col-md-3 editor--squareHeader editor--backgroundGreen">
     <div class="editor-content--positionTop editor-content--White editor-title">
-      <h1>TRY IT OUT</h1>
+      <h1 class="tg-title-font"><b>TRY IT OUT</b></h1>
     </div>
   </div>
   <div class="col-md-3 editor-square--noPadding">
     <div class="editor--square2 editor-innerSquare--borderBottom">
       <div class="editor-content--positionCenter container-fluid tg-title-color">
-        <h4>TYPE YOUR NAME</h4>
+        <h4 class="tg-title-font"><b>TYPE YOUR NAME</b></h4>
         <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
             <input class="form-control" type="text" ng-model="editorName", ng-change="editorChanged()">
@@ -17,7 +17,7 @@
     </div>
     <div class="editor--square2">
       <div class="editor-content--positionCenter container-fluid tg-title-color">
-        <h4>COLOR THEME</h4>
+        <h4 class="tg-title-font"><b>COLOR THEME</b></h4>
         <div class="row">
           <div class="col-xs-2 col-xs-offset-1 editor-themePalette--noPadding">
             <img class="editor-themePalette--height img-responsive" src="/themes/{{editorTheme}}">
@@ -43,7 +43,7 @@
   <div class="col-md-3 editor-square--noPadding">
     <div class="editor--square2 editor-innerSquare--borderBottom">
       <div class="editor-content--positionCenter container-fluid tg-title-color">
-        <h4>SELECT THE SHAPE</h4>
+        <h4 class="tg-title-font"><b>SELECT THE SHAPE</b></h4>
         <div class="row">
           <div class="col-xs-8 col-xs-offset-2">
             <select class="form-control" ng-model="editorShape" ng-change="editorChanged()">
@@ -59,7 +59,7 @@
     </div>
     <div class="editor--square2">
       <div class="editor-content--positionCenter container-fluid tg-title-color">
-      <h4>NUMBER OF COLORS</h4>
+      <h4 class="tg-title-font"><b>NUMBER OF COLORS</b></h4>
       <div class="row">
         <div class="col-xs-8 col-xs-offset-2">
           <select class="form-control" ng-model="editorColorNumber" ng-change="editorChanged()">
