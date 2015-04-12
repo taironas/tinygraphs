@@ -2,19 +2,26 @@
     background: #F4F4F4;
 }
 
-.features--squareHeader,
-.features--square{
+.features--square, .features--squareHeader{
     padding-bottom: 50px;
     padding-top: 50px;
     height: 404px;
-    border-top: solid 1px #CBCBCB;
     border-bottom: solid 1px #CBCBCB;
-    border-left: solid 1px #CBCBCB;
+}
 
+.features--square{
+    border-top: solid 1px #CBCBCB;
+    border-left: solid 1px #CBCBCB;
 }
 
 .features--backgroundGreen{
-    background: url(/labs/isogrids/banner/gradient?p=0.2&xt=4&h=500&w=400&gx1=0&gy1=0&gy2=40&gx2=40&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
+    background: url(/assets/img/features2.svg), url(/labs/isogrids/banner/gradient?p=0&xt=4&h=500&w=400&gx1=0&gy1=0&gy2=40&gx2=40&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
+    background-repeat: no-repeat, no-repeat;
+    background-position: -1px -1px , 0px 0px;
+	
+    -webkit-background-size: inherit;
+    -moz-background-size: inherit;
+    -o-background-size: inherit;
 }
 
 .features-content--position{
@@ -42,9 +49,19 @@
 }
 
 @media (max-width: 992px){
+    
+    .features--backgroundGreen{
+	background: url(/labs/isogrids/banner/gradient?p=0&xt=4&h=500&w=400&gx1=0&gy1=0&gy2=40&gx2=40&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
+	background-repeat: no-repeat;
+
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+    }
 
     .features--squareHeader{
 	height: 50px;
+	border-top: solid 1px #CBCBCB;
 	padding-bottom: 0px;
 	padding-top: 0px;
     }
