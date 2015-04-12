@@ -104,6 +104,10 @@
     padding-top: 10px;
 }
 
+.editor-input{
+    cursor: pointer !important;
+    font-size: 10px;
+}
 @media (max-width: 992px){
     .editor-square--noPadding{
 	height: 175px;
