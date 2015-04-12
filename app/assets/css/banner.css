@@ -13,16 +13,16 @@
 }
 
 .banner-image{
-    background: url(/labs/isogrids/banner/gradient?p=0.2&xt=11&gx2=80&gy2=60&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    background: url(/assets/img/banner2.svg), url(/assets/img/banner.svg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: -1px 101% , 0px 0px;
+
+    -webkit-background-size: inherit;
+    -moz-background-size: inherit;
+    -o-background-size: inherit;
+
     margin-left: 0px;
-    height: 302px;
+    height: 350px;
 }
 
 .banner-shadow{
