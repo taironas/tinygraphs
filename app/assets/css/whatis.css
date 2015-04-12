@@ -28,3 +28,13 @@
     padding-bottom: 50px;
     padding-top: 50px;
 }
+
+.whatis-left{
+    padding-top: 96px;
+}
+
+@media (max-width: 992px){
+    .whatis-left {
+	padding-top:0;
+    }
+}
