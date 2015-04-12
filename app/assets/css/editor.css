@@ -1,6 +1,11 @@
 .editor--backgroundGreen{
-    background: url(/labs/isogrids/banner/gradient?p=0.2&xt=4&h=580&w=400&gx1=0&gy1=0&gy2=40&gx2=40&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
-
+    background: url(/assets/img/half4.svg), url(/labs/isogrids/banner/gradient?p=0&xt=4&h=580&w=400&gx1=0&gy1=0&gy2=40&gx2=40&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
+    background-repeat: no-repeat, no-repeat;
+    background-position: -1px 100% , 0px 0px;
+	
+    -webkit-background-size: inherit;
+    -moz-background-size: inherit;
+    -o-background-size: inherit;
 }
 
 .editor--backgroundGrey{
@@ -32,6 +37,12 @@
     border-left: solid 1px #CBCBCB;
 }
 
+.editor--squareHeader{
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+}
+
 .editor-square--borderRight{
     border-right: solid 1px #CBCBCB;
 }
@@ -41,8 +52,6 @@
 }
 
 .editor--square2{
-    /* padding-bottom: 50px; */
-    /* padding-top: 50px; */
     height: 290px;
 }
 
@@ -109,6 +118,14 @@
     font-size: 10px;
 }
 @media (max-width: 992px){
+    .editor--backgroundGreen{
+	background: url(/labs/isogrids/banner/gradient?p=0&xt=4&h=580&w=400&gx1=0&gy1=0&gy2=40&gx2=40&colors=e2ffde&colors=70d8a4&colors=3dbbad&colors=3dbbad);
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+    }
+    
     .editor-square--noPadding{
 	height: 175px;
     }
@@ -117,6 +134,7 @@
 	height: 50px;	
 	padding-top: 0px;
 	padding-bottom: 0px;
+	border-top: solid 1px #CBCBCB;
     }
     .editor--square2{
 	height: 85px;
