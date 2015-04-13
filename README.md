@@ -1,10 +1,11 @@
-tinygraphs
+[tinygraphs](http://tinygraphs.com)
 ==============
 
-**tinygraphs** is an avatar generator web service.
+**tinygraphs** is an avatar generator web service. Checkout [tinygraphs.com](http://www.tinygraphs.com/) to try it out.
 
-Contributors
-=============
+[![baby-gopher](https://raw.githubusercontent.com/drnic/babygopher-site/gh-pages/images/babygopher-logo-small.png)](http://www.babygopher.org)
+
+### Contributors
 
 * [Santiago](https://github.com/santiaago)
 * [Remy](https://github.com/rjourde)
@@ -13,11 +14,14 @@ Contributors
 How to use:
 ======
 
-You can set the HTML source of the image to point directly to [tinygraphs.com](http://tinygraphs.com) or you can save the image and use it directly on your site (*just remember to give us credit with a link to tinygraphs.com ;)* ).
-
+* You can set the HTML source of the image to point directly to [tinygraphs.com](http://tinygraphs.com)
 ~~~html
-<img src="http://tinygraphs.com/labs/checkerboard">
+<img src="http://tinygraphs.com/squares/helloworld">
 ~~~
+* You can save the image and use it directly on your site
+* You can `go get` this repo and use it.
+
+*just remember to give us credit with a link to tinygraphs.com ;)*
 
 ## Supported routes:
 
@@ -106,11 +110,9 @@ You can set the HTML source of the image to point directly to [tinygraphs.com](h
 * **size**: `tinygraphs.com/squares/hello?size=60`
 * **formats**: `tinygraphs.com/squares/hello?fmt=svg`
 
-    The default format is `JPEG`.
+    The default format is `SVG`.
 
-    Supported formats are:
-    * JPEG
-    * SVG
+    All routes support SVG format, except `Square` routes who also support JPEG.
 
 * **background and foreground**: `tinygraphs.com/squares/hello?bg=ff4008&fg=04d6f2`
 
@@ -204,25 +206,30 @@ You can set the HTML source of the image to point directly to [tinygraphs.com](h
 
     ![isogrid color gradient](http://www.tinygraphs.com/labs/isogrids/banner/gradient?theme=bythepool&xt=4&h=120&w=120&gx1=0&gy1=0&gy2=60&gx2=60)
 
-Organization
-=====
-
-Lets start with a milestone each 2 weeks for now.
-
 Stack
 ======
 
 * Go
-* heroku
+* Heroku
+
+Third partier
+=====
+
+* [boostrap v3](http://getbootstrap.com/)
+* [angularjs](http://angularjs.org/)
+* [route](http://github.com/taironas/route/)
+* [svgo](https://github.com/ajstarks/svgo)
 
 Installation
 ======
 
-*   `cd $GOPATH/src`
-*   `go get github.com/taironas/tinygraphs`
-*   `cd $GOPATH/src/github.com/tinygraphs`
-*   `go get ./app-backend`
-*   `export PORT=8080`
+    cd $GOPATH/src
+    go get github.com/ajstarks/svgo
+    go get github.com/taironas/route
+    go get github.com/taironas/tinygraphs
+    cd $GOPATH/src/github.com/tinygraphs
+    go get ./app-backend
+    export PORT=8080
 
 Run App
 =======
