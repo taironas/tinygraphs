@@ -3,7 +3,7 @@
 
 **tinygraphs** is an avatar generator web service. Checkout [tinygraphs.com](http://www.tinygraphs.com/) to try it out.
 
-[![baby-gopher](https://raw.githubusercontent.com/drnic/babygopher-site/gh-pages/images/babygopher-logo-small.png)](http://www.babygopher.org)
+[![baby-gopher](https://raw.githubusercontent.com/drnic/babygopher-site/gh-pages/images/babygopher-badge.png)](http://www.babygopher.org)
 
 ### Contributors
 
@@ -70,7 +70,7 @@ How to use:
 
 ![square random banner](http://tinygraphs.com/isogrids/banner/random/gradient?theme=heatwave&h=50&xt=100)
 
-##lab routes:
+##Lab routes:
 
 `http://tinygraphs.com/labs/checkerboard`
 
@@ -212,11 +212,11 @@ Stack
 * Go
 * Heroku
 
-Third partier
+Third parties
 =====
 
-* [boostrap v3](http://getbootstrap.com/)
-* [angularjs](http://angularjs.org/)
+* [Boostrap](http://getbootstrap.com/)
+* [AngularJS](http://angularjs.org/)
 * [route](http://github.com/taironas/route/)
 * [svgo](https://github.com/ajstarks/svgo)
 
