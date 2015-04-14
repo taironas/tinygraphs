@@ -13,7 +13,7 @@
 
 #### Blog post:
 
-[Building tinygraphs an avatar web service in Go](http://www.sanarias.com/blog/415BuildingtinygraphsanavatarwebserviceinGo)
+<a href="http://www.sanarias.com/blog/415BuildingtinygraphsanavatarwebserviceinGo" target="_blank">Building tinygraphs an avatar web service in Go</a>
 
 How to use:
 ======
