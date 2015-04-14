@@ -1,15 +1,19 @@
 [tinygraphs](http://tinygraphs.com)
 ==============
 
-**tinygraphs** is an avatar generator web service. Checkout [tinygraphs.com](http://www.tinygraphs.com/) to try it out.
+**tinygraphs** is an avatar generator web service. Checkout [tinygraphs.com](http://www.tinygraphs.com/) to try it.
 
 [![baby-gopher](https://raw.githubusercontent.com/drnic/babygopher-site/gh-pages/images/babygopher-badge.png)](http://www.babygopher.org)
 
-### Contributors
+#### Contributors
 
 * [Santiago](https://github.com/santiaago)
 * [Remy](https://github.com/rjourde)
 * [Carmen](https://plus.google.com/+CarmenRebolledo)
+
+#### Blog post:
+
+[Building tinygraphs an avatar web service in Go](http://www.sanarias.com/blog/415BuildingtinygraphsanavatarwebserviceinGo)
 
 How to use:
 ======
