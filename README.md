@@ -215,7 +215,7 @@ Stack
 Third parties
 =====
 
-* [Boostrap](http://getbootstrap.com/)
+* [Bootstrap](http://getbootstrap.com/)
 * [AngularJS](http://angularjs.org/)
 * [route](http://github.com/taironas/route/)
 * [svgo](https://github.com/ajstarks/svgo)
