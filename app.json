@@ -5,6 +5,6 @@
   "logo": "http://tinygraphs.com/labs/isogrids/hexa/tinygraphs?theme=frogideas&numcolors=4&size=220&fmt=svg",
   "keywords": ["go", "avatar", "service"],
   "env" : {
-    "BUILDPACK_URL": "https://github.com/kr/heroku-buildpack-go.git"
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-go.git"
   }
 }
