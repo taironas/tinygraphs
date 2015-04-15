@@ -231,7 +231,7 @@ Installation
     go get github.com/ajstarks/svgo
     go get github.com/taironas/route
     go get github.com/taironas/tinygraphs
-    cd $GOPATH/src/github.com/tinygraphs
+    cd $GOPATH/src/github.com/taironas/tinygraphs
     go get ./app-backend
     export PORT=8080
 
