@@ -1,0 +1,10 @@
+{
+  "name": "tinygraphs",
+  "description": "Tinygraphs is an avatar generator web service. Use it to generate avatars for your web app.",
+  "repository": "https://github.com/taironas/tinygraphs",
+  "logo": "http://tinygraphs.com/labs/isogrids/hexa/tinygraphs?theme=frogideas&numcolors=4&size=220&fmt=svg",
+  "keywords": ["go", "avatar", "service"],
+  "env" : {
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-go.git"
+  }
+}
