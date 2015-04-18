@@ -15,8 +15,7 @@ func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA,
 
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
-	percentage := uint8(100 / len(gColors))
-
+	percentage := uint8(0)
 	step := uint8(100 / len(gColors))
 	for i, c := range gColors {
 		gradientColors[i] = svg.Offcolor{
@@ -44,18 +43,15 @@ func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA,
 		colorIndex = make(map[int]int)
 		for xQ := 0; xQ <= squares+1; xQ++ {
 			x := xQ * quadrantSize
-			fill := ""
 			if _, ok := colorMap[xQ]; !ok {
 				colorIndex[xQ] = draw.RandomIndexFromArrayWithFreq(colors, prob)
 				colorMap[xQ] = colors[colorIndex[xQ]]
 			}
-			if colorIndex[xQ] != 0 {
-				fill = "fill:none"
-			} else {
-				fill = draw.FillFromRGBA(colorMap[xQ])
-
+			if colorIndex[xQ] == 0 {
+				fill := draw.FillFromRGBA(colorMap[xQ])
+				canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
 			}
-			canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
+
 		}
 	}
 	canvas.End()
