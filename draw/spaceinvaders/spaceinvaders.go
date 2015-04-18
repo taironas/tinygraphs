@@ -2,7 +2,6 @@ package spaceinvaders
 
 import (
 	"image/color"
-	"log"
 	"math"
 	"net/http"
 
@@ -70,7 +69,6 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			if hasLegOrFoot(invader, lowBodyIndex, xQ, yQ) {
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
-			log.Println(fill)
 			if len(fill) > 0 {
 				canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
 			} else {
