@@ -21,13 +21,17 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 	quadrantSize := size / squares
 	middle := math.Ceil(float64(squares) / float64(2))
 	colorMap := make(map[int]color.RGBA)
+
+	// style of space invader background
+	canvas.Gstyle(draw.FillFromRGBA(colors[0]))
+
 	for yQ := 0; yQ < squares; yQ++ {
 		y := yQ * quadrantSize
 		colorMap = make(map[int]color.RGBA)
 
 		for xQ := 0; xQ < squares; xQ++ {
 			x := xQ * quadrantSize
-			fill := draw.FillFromRGBA(colors[0])
+			fill := ""
 			if _, ok := colorMap[xQ]; !ok {
 				colorMap[xQ] = selectColor(colorMap, key, colors, middle, xQ, yQ, squares)
 			}
@@ -65,10 +69,14 @@ func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size 
 			if hasLegOrFoot(invader, lowBodyIndex, xQ, yQ) {
 				fill = draw.FillFromRGBA(colorMap[xQ])
 			}
-
-			canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
+			if len(fill) > 0 {
+				canvas.Rect(x, y, quadrantSize, quadrantSize, fill)
+			} else {
+				canvas.Rect(x, y, quadrantSize, quadrantSize)
+			}
 		}
 	}
+	canvas.Gend()
 	canvas.End()
 }
 
