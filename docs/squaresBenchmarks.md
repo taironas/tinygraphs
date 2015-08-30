@@ -3,7 +3,7 @@ Squares Benchmark
 
 ~~~
 > pwd
-➜ ~/Developer/go/src/github.com/taironas/tinygraphs/controllers/squares
+➜ ~go/src/github.com/taironas/tinygraphs/controllers/squares
 > go test -v -run=^$ -bench=.
 PASS
 BenchmarkSquares-8	     200	   6899024 ns/op
