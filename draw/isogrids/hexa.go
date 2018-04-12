@@ -2,14 +2,14 @@ package isogrids
 
 import (
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
 // Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
-func Hexa(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
+func Hexa(w io.Writer, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

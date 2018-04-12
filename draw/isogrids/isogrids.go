@@ -2,14 +2,14 @@ package isogrids
 
 import (
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
 // Isogrids builds an image with 10x10 grids of half diagonals
-func Isogrids(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
+func Isogrids(w io.Writer, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

@@ -3,9 +3,9 @@ package squares
 import (
 	"image"
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
@@ -32,7 +32,7 @@ func RandomGrid(m *image.RGBA, colors []color.RGBA, xSquares int, prob float64) 
 }
 
 // RandomGridSVG builds a grid image with with x colors selected at random for each quadrant.
-func RandomGridSVG(w http.ResponseWriter, colors []color.RGBA, width, height, xSquares int, prob float64) {
+func RandomGridSVG(w io.Writer, colors []color.RGBA, width, height, xSquares int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 	squares := xSquares
@@ -77,7 +77,7 @@ func RandomGradientGrid(m *image.RGBA, colors []color.RGBA, xSquares int) {
 }
 
 // RandomGradientGridSVG builds a grid image with with x colors selected at random for each quadrant.
-func RandomGradientGridSVG(w http.ResponseWriter, colors []color.RGBA, width, height, xSquares int) {
+func RandomGradientGridSVG(w io.Writer, colors []color.RGBA, width, height, xSquares int) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 	squares := xSquares

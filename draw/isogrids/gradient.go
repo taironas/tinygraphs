@@ -2,7 +2,7 @@ package isogrids
 
 import (
 	"image/color"
-	"net/http"
+	"io"
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/colors"
@@ -11,8 +11,7 @@ import (
 
 // RandomGradientColor builds a isogrid image with with x colors selected at random for each quadrant.
 // the background color stays the same the other colors get mixed in a gradient color from the first one to the last one.
-func RandomGradientColor(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, lines int, prob float64) {
-
+func RandomGradientColor(w io.Writer, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, lines int, prob float64) {
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
 	percentage := uint8(0)

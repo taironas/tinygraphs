@@ -2,17 +2,17 @@ package spaceinvaders
 
 import (
 	"image/color"
+	"io"
 	"math"
-	"net/http"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
 // SpaceInvaders builds a space invader svg image based on the 'key' and
-// 'colors' passed as arguments. The svg image is written to the http.ResponseWriter passed as
+// 'colors' passed as arguments. The svg image is written to the io.Writer passed as
 // argument.
-func SpaceInvaders(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+func SpaceInvaders(w io.Writer, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	invader := newInvader(key)

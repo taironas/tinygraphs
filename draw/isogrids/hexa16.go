@@ -3,16 +3,16 @@ package isogrids
 import (
 	"errors"
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
 // Hexa16 builds an image with lines x lines grids of half diagonals in the form of an hexagon
 // it draws 6 triangles, triangle 1 to 5 are all rotations of triangle 0.
 // triangle zero triangle on the center left.
-func Hexa16(w http.ResponseWriter, key string, colors []color.RGBA, size, lines int) {
+func Hexa16(w io.Writer, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
