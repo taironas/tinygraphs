@@ -3,14 +3,14 @@ package isogrids
 import (
 	"fmt"
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
 // Diagonals builds an image with 10x10 grids of diagonals.
-func Diagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func Diagonals(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -48,7 +48,7 @@ func Diagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, siz
 }
 
 // HalfDiagonals builds an image with 10x10 grids of half diagonals
-func HalfDiagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func HalfDiagonals(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 
@@ -86,7 +86,7 @@ func HalfDiagonals(w http.ResponseWriter, key string, color1, color2 color.RGBA,
 }
 
 // Skeleton builds an image with 10x10 grids of half diagonals
-func Skeleton(w http.ResponseWriter, key string, color1, color2 color.RGBA, size int) {
+func Skeleton(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

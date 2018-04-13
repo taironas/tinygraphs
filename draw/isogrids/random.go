@@ -2,15 +2,15 @@ package isogrids
 
 import (
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
 // Random builds an image with 10x10 grids of half diagonals with random background.
 // The image is symetric in the middle vertical axis.
-func Random(w http.ResponseWriter, colors []color.RGBA, width, height, lines int, prob float64) {
+func Random(w io.Writer, colors []color.RGBA, width, height, lines int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 
@@ -54,7 +54,7 @@ func Random(w http.ResponseWriter, colors []color.RGBA, width, height, lines int
 // RandomGradient creates an isogrids svg image with half diagonals.
 // colors are filled at random in the image with a frequency that decreases
 // from left to right.
-func RandomGradient(w http.ResponseWriter, colors []color.RGBA, width, height, lines int) {
+func RandomGradient(w io.Writer, colors []color.RGBA, width, height, lines int) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 
@@ -98,7 +98,7 @@ func RandomGradient(w http.ResponseWriter, colors []color.RGBA, width, height, l
 }
 
 // RandomMirror builds an image with 10x10 grids of half diagonals
-func RandomMirror(w http.ResponseWriter, colors []color.RGBA, size int, prob float64) {
+func RandomMirror(w io.Writer, colors []color.RGBA, size int, prob float64) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

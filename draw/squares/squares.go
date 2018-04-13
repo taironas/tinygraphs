@@ -3,10 +3,10 @@ package squares
 import (
 	"image"
 	"image/color"
+	"io"
 	"math"
-	"net/http"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
@@ -29,7 +29,7 @@ func Grid(m *image.RGBA, color1, color2 color.RGBA) {
 }
 
 // GridSVG builds an image with 6 by 6 quadrants of alternate colors.
-func GridSVG(w http.ResponseWriter, color1, color2 color.RGBA, size int) {
+func GridSVG(w io.Writer, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 	squares := 6
@@ -86,7 +86,7 @@ func Image(m *image.RGBA, key string, colors []color.RGBA) {
 }
 
 // SVG builds an svg image with 6 by 6 quadrants of alternate colors.
-func SVG(w http.ResponseWriter, key string, colors []color.RGBA, size int) {
+func SVG(w io.Writer, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
 	canvas.Start(size, size)
 

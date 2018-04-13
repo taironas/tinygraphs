@@ -3,9 +3,9 @@ package squares
 import (
 	"image"
 	"image/color"
-	"net/http"
+	"io"
 
-	"github.com/ajstarks/svgo"
+	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/draw"
 )
 
@@ -23,7 +23,7 @@ func Palette(m *image.RGBA, theme []color.RGBA) {
 }
 
 // PaletteSVG builds an SVG image with all the colors present in the theme color array.
-func PaletteSVG(w http.ResponseWriter, theme []color.RGBA, width, height int) {
+func PaletteSVG(w io.Writer, theme []color.RGBA, width, height int) {
 	canvas := svg.New(w)
 	canvas.Start(width, height)
 

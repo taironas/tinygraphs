@@ -2,7 +2,7 @@ package squares
 
 import (
 	"image/color"
-	"net/http"
+	"io"
 
 	svg "github.com/ajstarks/svgo"
 	"github.com/taironas/tinygraphs/colors"
@@ -11,7 +11,7 @@ import (
 
 // RandomGradientColorSVG builds a square image with with x colors selected at random for each quadrant.
 // the background color stays the same the other colors get mixed in a gradient color from the first one to the last one.
-func RandomGradientColorSVG(w http.ResponseWriter, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int, prob float64) {
+func RandomGradientColorSVG(w io.Writer, colors, gColors []color.RGBA, gv colors.GradientVector, width, height, xsquares int, prob float64) {
 
 	var gradientColors []svg.Offcolor
 	gradientColors = make([]svg.Offcolor, len(gColors))
