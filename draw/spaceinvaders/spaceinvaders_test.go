@@ -2436,9 +2436,6 @@ func TestSVGGeneratedBySpaceInvaders(t *testing.T) {
 
 		SpaceInvaders(w, md5Key, mapOfColors["frogideas"][:2], 220)
 
-		// t.Log(w.String())
-		// t.Log(expected)
-
 		if w.String() != expected {
 			fExpected := k + "_expected"
 			fGot := k + "_got"
