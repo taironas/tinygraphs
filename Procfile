@@ -1,1 +1,1 @@
-web: app-backend
+web: tinygraphs
