@@ -1,0 +1,8 @@
+hash: 47a9afac39dd2f2983971ef4487f5e11e0a9067a87bcbb305f20ddcab13e84c7
+updated: 2018-04-13T22:53:12.703089809+01:00
+imports:
+- name: github.com/ajstarks/svgo
+  version: 644b8db467afccf19a0692a3e31a1868e4287ab8
+- name: github.com/taironas/route
+  version: b919c49c73f1f4f14f178921d1101ca942628122
+testImports: []

@@ -1,0 +1,4 @@
+package: github.com/taironas/tinygraphs
+import:
+- package: github.com/ajstarks/svgo
+- package: github.com/taironas/route
