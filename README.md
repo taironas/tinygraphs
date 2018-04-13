@@ -227,12 +227,10 @@ Third parties
 Installation
 ======
 
-    cd $GOPATH/src
-    go get github.com/ajstarks/svgo
-    go get github.com/taironas/route
     go get github.com/taironas/tinygraphs
     cd $GOPATH/src/github.com/taironas/tinygraphs
-    go get ./app-backend
+    glide install
+    go build
     export PORT=8080
 
 Run App
@@ -240,28 +238,33 @@ Run App
 
     > pwd
     $GOPATH/src/github.com/taironas/tinygraphs
-    > app-backend
+    > tinygraphs
     2014/11/19 22:23:57 Listening on 8080
 
 Build
 ======
     >cd $GOPATH/src/github.com/tinygraphs
-    >go get ./app-backend
+    >go build
 
 Test locally
 =============
+
 **option 1:**
 
-    > app-backend
+    > tinygraphs
     2014/12/07 00:35:02 Listening on 8080
 
 **option 2:**
 
 If you have heroku install you should be able to run
 
-    > foreman start
+    > heroku local
     00:37:38 web.1  | started with pid 5762
     00:37:38 web.1  | 2014/12/07 00:37:38 Listening on 8080
+
+**option 3:**
+
+    > go test ./...
 
 Deploy
 =======
