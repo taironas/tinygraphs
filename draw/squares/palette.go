@@ -25,7 +25,7 @@ func Palette(m *image.RGBA, theme []color.RGBA) {
 // PaletteSVG builds an SVG image with all the colors present in the theme color array.
 func PaletteSVG(w io.Writer, theme []color.RGBA, width, height int) {
 	canvas := svg.New(w)
-	canvas.Start(width, height)
+	canvas.Start(width, height, draw.DefaultSvgAttributes()...)
 
 	numColors := len(theme)
 	quadrant := width / numColors

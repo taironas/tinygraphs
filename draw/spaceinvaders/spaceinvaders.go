@@ -14,7 +14,7 @@ import (
 // argument.
 func SpaceInvaders(w io.Writer, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 	invader := newInvader(key)
 	// log.Println(fmt.Sprintf("%+v\n", invader)) // for debug
 	squares := 11

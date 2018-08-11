@@ -34,7 +34,7 @@ func RandomGrid(m *image.RGBA, colors []color.RGBA, xSquares int, prob float64) 
 // RandomGridSVG builds a grid image with with x colors selected at random for each quadrant.
 func RandomGridSVG(w io.Writer, colors []color.RGBA, width, height, xSquares int, prob float64) {
 	canvas := svg.New(w)
-	canvas.Start(width, height)
+	canvas.Start(width, height, draw.DefaultSvgAttributes()...)
 	squares := xSquares
 	quadrantSize := width / squares
 	colorMap := make(map[int]color.RGBA)
@@ -79,7 +79,7 @@ func RandomGradientGrid(m *image.RGBA, colors []color.RGBA, xSquares int) {
 // RandomGradientGridSVG builds a grid image with with x colors selected at random for each quadrant.
 func RandomGradientGridSVG(w io.Writer, colors []color.RGBA, width, height, xSquares int) {
 	canvas := svg.New(w)
-	canvas.Start(width, height)
+	canvas.Start(width, height, draw.DefaultSvgAttributes()...)
 	squares := xSquares
 	quadrantSize := width / squares
 	colorMap := make(map[int]color.RGBA)
