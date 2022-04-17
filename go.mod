@@ -1,7 +1,6 @@
 module github.com/taironas/tinygraphs
 
-// +heroku goVersion go1.17
-go 1.17
+go 1.18
 
 require (
 	github.com/ajstarks/svgo v0.0.0-20210927141636-6d70534b1098
