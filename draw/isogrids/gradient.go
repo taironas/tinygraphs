@@ -27,7 +27,7 @@ func RandomGradientColor(w io.Writer, colors, gColors []color.RGBA, gv colors.Gr
 	}
 
 	canvas := svg.New(w)
-	canvas.Start(width, height)
+	canvas.Start(width, height, draw.DefaultSvgAttributes()...)
 	canvas.Def()
 	canvas.LinearGradient("gradientColors", gv.X1, gv.Y1, gv.X2, gv.Y2, gradientColors)
 	canvas.DefEnd()

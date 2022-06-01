@@ -27,3 +27,7 @@ _testmain.go
 
 *_got
 *_expected
+
+**/.vscode/
+debug
+tinygraphs

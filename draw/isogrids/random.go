@@ -12,7 +12,7 @@ import (
 // The image is symetric in the middle vertical axis.
 func Random(w io.Writer, colors []color.RGBA, width, height, lines int, prob float64) {
 	canvas := svg.New(w)
-	canvas.Start(width, height)
+	canvas.Start(width, height, draw.DefaultSvgAttributes()...)
 
 	fringeSize := width / lines
 	distance := distanceTo3rdPoint(fringeSize)
@@ -56,7 +56,7 @@ func Random(w io.Writer, colors []color.RGBA, width, height, lines int, prob flo
 // from left to right.
 func RandomGradient(w io.Writer, colors []color.RGBA, width, height, lines int) {
 	canvas := svg.New(w)
-	canvas.Start(width, height)
+	canvas.Start(width, height, draw.DefaultSvgAttributes()...)
 
 	fringeSize := width / lines
 	distance := distanceTo3rdPoint(fringeSize)
@@ -100,7 +100,7 @@ func RandomGradient(w io.Writer, colors []color.RGBA, width, height, lines int) 
 // RandomMirror builds an image with 10x10 grids of half diagonals
 func RandomMirror(w io.Writer, colors []color.RGBA, size int, prob float64) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	lines := 10
 	fringeSize := size / lines

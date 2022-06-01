@@ -11,7 +11,7 @@ import (
 // Hexa builds an image with lines x lines grids of half diagonals in the form of an hexagon
 func Hexa(w io.Writer, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	fringeSize := size / lines
 	distance := distanceTo3rdPoint(fringeSize)

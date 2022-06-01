@@ -12,7 +12,7 @@ import (
 // Diagonals builds an image with 10x10 grids of diagonals.
 func Diagonals(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	lines := 10
 	fringeSize := size / lines
@@ -50,7 +50,7 @@ func Diagonals(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 // HalfDiagonals builds an image with 10x10 grids of half diagonals
 func HalfDiagonals(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	lines := 10
 	fringeSize := size / lines
@@ -88,7 +88,7 @@ func HalfDiagonals(w io.Writer, key string, color1, color2 color.RGBA, size int)
 // Skeleton builds an image with 10x10 grids of half diagonals
 func Skeleton(w io.Writer, key string, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	lines := 10
 	fringeSize := size / lines

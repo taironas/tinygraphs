@@ -11,7 +11,7 @@ import (
 // Isogrids builds an image with 10x10 grids of half diagonals
 func Isogrids(w io.Writer, key string, colors []color.RGBA, size, lines int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	fringeSize := size / lines
 	distance := distanceTo3rdPoint(fringeSize)

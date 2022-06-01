@@ -31,7 +31,7 @@ func Grid(m *image.RGBA, color1, color2 color.RGBA) {
 // GridSVG builds an image with 6 by 6 quadrants of alternate colors.
 func GridSVG(w io.Writer, color1, color2 color.RGBA, size int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 	squares := 6
 	quadrantSize := size / squares
 	colorMap := make(map[int]color.RGBA)
@@ -88,7 +88,7 @@ func Image(m *image.RGBA, key string, colors []color.RGBA) {
 // SVG builds an svg image with 6 by 6 quadrants of alternate colors.
 func SVG(w io.Writer, key string, colors []color.RGBA, size int) {
 	canvas := svg.New(w)
-	canvas.Start(size, size)
+	canvas.Start(size, size, draw.DefaultSvgAttributes()...)
 
 	squares := 6
 	quadrantSize := size / squares

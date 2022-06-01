@@ -102,3 +102,11 @@ func PickIndex(key string, n int, index int) int {
 func RGBToHex(r, g, b uint8) string {
 	return fmt.Sprintf("#%02X%02X%02X", r, g, b)
 }
+
+// DefaultSvgAttributes returns the default attributes to apply to SVG canvases
+func DefaultSvgAttributes() []string {
+	// shape-rendering provides hints to the renderer about how to render the image
+	// crispedges and optimizeSpeed prevent the edges of generated blocks from being
+	// antialiased causing a tiled effect (visible lines between each block)
+	return []string{"shape-rendering = \"optimizeSpeed\""}
+}
